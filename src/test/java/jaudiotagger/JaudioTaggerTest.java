@@ -12,10 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class JaudiotaggerTest {
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class JaudioTaggerTest {
+    String filePath = "src/main/java/mediaplayer/orpheus/media/Summer - Bensound Royalty Free Music - No Copyright Music.mp3";
     @Test
-    void testMetaData() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        String filePath = "src/main/java/mediaplayer/orpheus/res/Summer - Bensound Royalty Free Music - No Copyright Music.mp3";
+    void testGetMetaData() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         MP3File f = (MP3File) AudioFileIO.read(new File(filePath));
         MP3AudioHeader audioHeader = (MP3AudioHeader) f.getAudioHeader();
 
@@ -28,5 +30,11 @@ public class JaudiotaggerTest {
         System.out.println("Sample Rate: " + sampleRate + " Hz");
         System.out.println("Channels: " + channels);
         System.out.println("Variable Bit Rate: " + isVBR);
+    }
+    @Test
+    void notNullTrackLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+            MP3File mp3File = (MP3File) AudioFileIO.read(new File(filePath));
+            MP3AudioHeader audioHeader = (MP3AudioHeader) mp3File.getAudioHeader();
+            assertTrue(audioHeader.getTrackLength() > 0);
     }
 }
