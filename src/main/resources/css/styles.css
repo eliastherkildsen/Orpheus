@@ -8,13 +8,16 @@ White   #F7FFF7
 .main {
     -fx-background-color: #343434; /* Set the background color */
 }
+.secondary{
+    -fx-background-color: #969A96;
+}
 
 .button{
     -fx-background-color: #6CA6C1; /* Set the background color */
 }
 
 .slider {
-    -fx-background-color: #343434; /* Set the background color */
+
 }
 
 .slider .track {
