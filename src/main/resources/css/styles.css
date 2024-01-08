@@ -16,7 +16,7 @@ White   #F7FFF7
     -fx-background-color: #6CA6C1; /* Set the background color */
 }
 .button:hover {
-    -fx-background-color: #969A96;
+    -fx-background-color: #ff5733;
 }
 
 .slider {
@@ -33,5 +33,11 @@ White   #F7FFF7
 
 .label {
     -fx-text-fill: #F7FFF7; /* Set the label color */
+}
+
+.text-field {
+    -fx-background-radius: 10; /* Set the text-field background-radius */
+    -fx-background-color: #6CA6C1 ;
+    -fx-text-fill: #F7FFF7;
 }
 
