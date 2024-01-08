@@ -35,3 +35,9 @@ White   #F7FFF7
     -fx-text-fill: #F7FFF7; /* Set the label color */
 }
 
+.text-field {
+    -fx-background-radius: 10; /* Set the text-field background-radius */
+    -fx-background-color: #6CA6C1 ;
+    -fx-text-fill: #F7FFF7;
+}
+

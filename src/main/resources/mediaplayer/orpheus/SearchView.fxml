@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Label fx:id="labSearch" alignment="CENTER" contentDisplay="CENTER" text="Search" textFill="WHITE" />
+            <Button fx:id="btnPlaylist" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Label fx:id="labPlaylist" text="Playlist" textFill="WHITE" />
+             <Button fx:id="btnImport" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Label fx:id="labImport" text="Import" textFill="WHITE" />
+             <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
+            <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
+         </children></VBox>
+   </left>
+   <bottom>
+      <HBox prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0">
+               <children>
+                  <ImageView fx:id="imgThumbnail" fitHeight="92.0" fitWidth="100.0" pickOnBounds="true" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0">
+                     <children>
+                        <Label fx:id="labMediaName" text="Media name" />
+                        <Label fx:id="labArtistName" text="Artist name" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox prefHeight="92.0" prefWidth="567.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Shuffle" />
+                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Back" />
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Previous" />
+                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Play" />
+                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Next" />
+                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Forward" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labCurrentTime" text="Label" />
+                        <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Label fx:id="labMediaLength" text="Label" />
+                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
+                        <Slider fx:id="sliderVolume" styleClass="slider" stylesheets="@../../css/styles.css" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></HBox>
+   </bottom>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Search">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </Label>
+            <TextField style="-fx-background-radius: 10;">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Times New Roman" size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
