@@ -1,0 +1,26 @@
+/**
+Our Colours:
+Black   #343434
+Blueish #6CA6C1
+Grey    #969A96
+White   #F7FFF7
+ */
+.main {
+    -fx-background-color: #343434; /* Set the background color */
+}
+
+.button{
+    -fx-background-color: #6CA6C1; /* Set the background color */
+}
+
+.slider {
+    -fx-background-color: #343434; /* Set the background color */
+}
+
+.slider .track {
+    -fx-background-color: #6CA6C1; /* Set the track color */
+}
+
+.slider .thumb {
+    -fx-background-color: #F7FFF7; /* Set the thumb color */
+}
