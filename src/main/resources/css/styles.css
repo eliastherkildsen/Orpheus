@@ -15,6 +15,9 @@ White   #F7FFF7
 .button{
     -fx-background-color: #6CA6C1; /* Set the background color */
 }
+.button:hover {
+    -fx-background-color: #969A96;
+}
 
 .slider {
 
