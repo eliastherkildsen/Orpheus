@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class OrpheusApp extends Application {
 
-    private final int SCREEN_WITH = 400;
-    private final int SCREEN_HIGHT = 400;
+    private final int SCREEN_WITH = 800;
+    private final int SCREEN_HIGHT = 800;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(OrpheusApp.class.getResource("view.fxml"));
