@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.PlaylistViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -61,9 +61,34 @@
          </children></HBox>
    </bottom>
    <center>
-      <MediaView fx:id="mediaViewDisplay" fitHeight="400.0" fitWidth="600.0" BorderPane.alignment="CENTER">
-         <viewport>
-            <Rectangle2D />
-         </viewport></MediaView>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="label" stylesheets="@../../css/styles.css" text="New Playlist">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding></Label>
+            <TextField prefHeight="26.0" prefWidth="645.0">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Create">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Cancel" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </center>
 </BorderPane>

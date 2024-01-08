@@ -27,3 +27,8 @@ White   #F7FFF7
 .slider .thumb {
     -fx-background-color: #F7FFF7; /* Set the thumb color */
 }
+
+.label {
+    -fx-text-fill: #F7FFF7; /* Set the label color */
+}
+
