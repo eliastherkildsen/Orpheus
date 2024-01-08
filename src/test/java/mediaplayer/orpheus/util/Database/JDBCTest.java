@@ -1,5 +1,6 @@
 package mediaplayer.orpheus.util.Database;
 
+import mediaplayer.orpheus.model.Database.JDBC;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

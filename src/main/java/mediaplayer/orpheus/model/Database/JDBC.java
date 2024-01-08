@@ -7,7 +7,7 @@
  * @since 22.12.2023
  */
 
-package mediaplayer.orpheus.util.Database;
+package mediaplayer.orpheus.model.Database;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.*;
@@ -19,7 +19,7 @@ import java.util.Properties;
 public class JDBC {
 
     // Path to the database properties file
-    private final String DATBASE_PROPS_PATH = "src/main/java/mediaplayer/orpheus/util/Database/db.properties";
+    private final String DATBASE_PROPS_PATH = "src/main/java/mediaplayer/orpheus/model/Database/db.properties";
 
     // Database connection URL
     private String URL;

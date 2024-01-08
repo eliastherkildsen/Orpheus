@@ -1,9 +1,9 @@
-package mediaplayer.orpheus;
+package mediaplayer.orpheus.Controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class Controller {
+public class HomeViewController {
     @FXML
     private Label welcomeText;
 

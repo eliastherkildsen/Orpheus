@@ -10,4 +10,6 @@ module mediaplayer.orpheus {
 
     opens mediaplayer.orpheus to javafx.fxml;
     exports mediaplayer.orpheus;
+    exports mediaplayer.orpheus.Controler;
+    opens mediaplayer.orpheus.Controler to javafx.fxml;
 }
