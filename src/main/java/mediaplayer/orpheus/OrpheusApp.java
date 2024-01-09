@@ -12,9 +12,6 @@ import java.util.Objects;
 
 public class OrpheusApp extends Application {
 
-    private final int SCREEN_WITH = 800;
-    private final int SCREEN_HIGHT = 800;
-
     @Override
     public void start(Stage stage) throws IOException {
         try {
@@ -29,7 +26,6 @@ public class OrpheusApp extends Application {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch();
