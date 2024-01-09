@@ -28,7 +28,13 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0">
                <children>
-                  <ImageView fx:id="imgThumbnail" fitHeight="92.0" fitWidth="100.0" pickOnBounds="true" />
+                  <ImageView fx:id="imgThumbnail" fitHeight="92.0" fitWidth="92.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../css/images/download.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin></ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0">
                      <children>
                         <Label fx:id="labMediaName" text="Media name" />
@@ -41,12 +47,65 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Shuffle" />
-                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Back" />
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Previous" />
-                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Play" />
-                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Next" />
-                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Forward" />
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/shuffle.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/skip-back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" >
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/step-back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/play-circle.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/step-forward.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/skip-forward.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
