@@ -54,7 +54,8 @@
                </graphic>
             </Button>
             <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
-
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" text="Button" />
+            <Label text="Home" />
             <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
@@ -82,65 +83,12 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/shuffle.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/skip-back.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" >
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/step-back.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/play-circle.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/step-forward.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/skip-forward.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Shuffle" />
+                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Back" />
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Previous" />
+                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Play" />
+                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Next" />
+                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Skip Forward" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
