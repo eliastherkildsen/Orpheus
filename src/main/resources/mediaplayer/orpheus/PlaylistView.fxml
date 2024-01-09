@@ -10,14 +10,16 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
             <Label fx:id="labSearch" alignment="CENTER" contentDisplay="CENTER" text="Search" textFill="WHITE" />
-            <Button fx:id="btnPlaylist" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
+            <Button fx:id="btnPlaylist" mnemonicParsing="false" onAction="#switchToPlaylistView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
             <Label fx:id="labPlaylist" text="Playlist" textFill="WHITE" />
              <Button fx:id="btnImport" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
             <Label fx:id="labImport" text="Import" textFill="WHITE" />
              <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" text="Button" />
             <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" text="Button" />
+            <Label text="Home" />
             <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
