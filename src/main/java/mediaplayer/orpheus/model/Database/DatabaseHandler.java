@@ -1,12 +1,5 @@
 package mediaplayer.orpheus.model.Database;
 
-import mediaplayer.orpheus.model.metadata.MetaExtractor;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
-
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -29,29 +22,41 @@ import java.sql.SQLException;
  */
 
 public class DatabaseHandler {
-    private String column;
-    private String conditionString;
-    private int conditionInt;
-    private String valueString;
-    private int valueInt;
     private String filePath;
+    private String mediaTitle;
+    private String fileType;
+    private String album;
+    int mediaYear;
+    int mediaTrack;
+    int trackLength;
 
-    public DatabaseHandler(String filePath) {
+    public DatabaseHandler(String mediaTitle, String fileType, String album, int mediaYear, int mediaTrack, int trackLength, String filePath) {
+        setMediaTitle(mediaTitle);
+        setFileType(fileType);
+        setAlbum(album);
+        setMediaYear(mediaYear);
+        setMediaTrack(mediaTrack);
+        setTrackLength(trackLength);
         setFilePath(filePath);
     }
-
-    private String returnNameOfSong;
-
-    public void updateMp3() throws SQLException, CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public void insertNewMp3() throws SQLException {
         JDBC db = new JDBC();
-        MetaExtractor jtagger = new MetaExtractor(filePath);
-        jtagger.getMetaDataArtist();
-
         String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatment = db.getConnection().prepareStatement(sql)){
-            preparedStatment.setString(1, filePath);
-        };
+            preparedStatment.setString(1, getMediaTitle());
+            preparedStatment.setString(2, getFileType());
+            preparedStatment.setString(3, getAlbum());
+            preparedStatment.setInt(4, getMediaYear());
+            preparedStatment.setInt(5, getMediaTrack());
+            preparedStatment.setInt(6, getTrackLength());
+            preparedStatment.setString(7,getFilePath());
 
+            preparedStatment.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            throw e;
+        }
     }
 
 //region Getter and setter
@@ -61,43 +66,53 @@ public class DatabaseHandler {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-    public int getConditionInt() {
-        return conditionInt;
+
+    public String getMediaTitle() {
+        return mediaTitle;
     }
 
-    public void setConditionInt(int conditionInt) {
-        this.conditionInt = conditionInt;
-    }
-    public String getColumn() {
-        return column;
+    public void setMediaTitle(String mediaTitle) {
+        this.mediaTitle = mediaTitle;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public String getFileType() {
+        return fileType;
     }
 
-    public String getConditionString() {
-        return conditionString;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
-    public void setConditionString(String conditionString) {
-        this.conditionString = conditionString;
+    public String getAlbum() {
+        return album;
     }
 
-    public String getValueString() {
-        return valueString;
+    public void setAlbum(String album) {
+        this.album = album;
     }
 
-    public void setValueString(String valueString) {
-        this.valueString = valueString;
+    public int getMediaYear() {
+        return mediaYear;
     }
 
-    public int getValueInt() {
-        return valueInt;
+    public void setMediaYear(int mediaYear) {
+        this.mediaYear = mediaYear;
     }
 
-    public void setValueInt(int valueInt) {
-        this.valueInt = valueInt;
+    public int getMediaTrack() {
+        return mediaTrack;
     }
-//endregion
+
+    public void setMediaTrack(int mediaTrack) {
+        this.mediaTrack = mediaTrack;
+    }
+
+    public int getTrackLength() {
+        return trackLength;
+    }
+
+    public void setTrackLength(int trackLength) {
+        this.trackLength = trackLength;
+    }
+    //endregion
 }

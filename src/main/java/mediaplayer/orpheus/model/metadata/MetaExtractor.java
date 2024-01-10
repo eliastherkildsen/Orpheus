@@ -16,29 +16,107 @@ public class MetaExtractor {
     private String filePath;
     private int mediaLength;
     private String title;
-    private String Artist;
+    private String artist;
+    private String album;
+    private int year;
+    private int track;
     public MetaExtractor(String filePath) {
         setFilePath(filePath);
     }
-    public void getMetaDataTitle() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
-        Tag tag = audioFile.getTag();
+    public void gatherMetaDataTitle() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            Tag tag = audioFile.getTag();
 
-        setTitle(tag.getFirst(FieldKey.TITLE));
+            setTitle(tag.getFirst(FieldKey.TITLE));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
-    public void getMetaDataArtist() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
-        Tag tag = audioFile.getTag();
+    public void gatherMetaDataArtist() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            Tag tag = audioFile.getTag();
 
-        setArtist(tag.getFirst(FieldKey.ARTIST));
+            setArtist(tag.getFirst(FieldKey.COMPOSER));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
-    public void getMetaDataLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+    public void gatherMetaDataLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
 
-        setMediaLength(audioFile.getAudioHeader().getTrackLength());
+            setMediaLength(audioFile.getAudioHeader().getTrackLength());
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
+    public void gatherAlbumName() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            Tag tag = audioFile.getTag();
+
+            setAlbum(tag.getFirst(FieldKey.ALBUM));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public void gatherYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            Tag tag = audioFile.getTag();
+
+            setYear(Integer.parseInt(tag.getFirst(FieldKey.YEAR)));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public void gatherTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        try {
+            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            Tag tag = audioFile.getTag();
+
+            setYear(Integer.parseInt(tag.getFirst(FieldKey.TRACK)));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 
     //region getter and setter
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getTrack() {
+        return track;
+    }
+
+    public void setTrack(int track) {
+        this.track = track;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -63,11 +141,11 @@ public class MetaExtractor {
     }
 
     public String getArtist() {
-        return Artist;
+        return artist;
     }
 
     public void setArtist(String artist) {
-        Artist = artist;
+        this.artist = artist;
     }
     //endregion
 }
