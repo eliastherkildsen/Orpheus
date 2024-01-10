@@ -55,7 +55,7 @@ public class MetaExtractor {
             throw e;
         }
     }
-    public void gatherAlbumName() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public void gatherMetaDataAlbumName() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
@@ -67,7 +67,7 @@ public class MetaExtractor {
         }
     }
 
-    public void gatherYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public void gatherMetaDataYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
@@ -78,7 +78,7 @@ public class MetaExtractor {
             throw e;
         }
     }
-    public void gatherTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public void gatherMetaDataTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
