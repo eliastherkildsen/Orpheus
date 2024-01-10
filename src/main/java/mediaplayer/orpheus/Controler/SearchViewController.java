@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class SearchViewController {
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
+    private Button btnSearch, btnPlaylist, btnEdit, btnListen, btnAddToPlaylist, btnDelete;
 
     private ViewControler viewControler = new ViewControler();
 
@@ -34,6 +34,22 @@ public class SearchViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void onActionbtnEditClick(){
+
+    }
+
+    public void onActionbtnListenClick(){
+
+    }
+
+    public void onActionbtnAddToPlaylistClick(){
+
+    }
+
+    public void onActionbtnDeleteMediaClick(){
+
     }
 
 }

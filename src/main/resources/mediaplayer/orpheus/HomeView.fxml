@@ -11,7 +11,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
 
-            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" onAction="#switchToSearchView">
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -22,7 +22,7 @@
             </Button>
             <Label fx:id="labSearch" alignment="CENTER" contentDisplay="CENTER" text="Search" textFill="WHITE" />
 
-            <Button fx:id="btnPlaylist" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css" onAction="#switchToPlaylistView">
+            <Button fx:id="btnPlaylist" mnemonicParsing="false" onAction="#switchToPlaylistView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,7 +54,7 @@
                </graphic>
             </Button>
             <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" >
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
             <graphic>
                <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -64,7 +64,6 @@
             </graphic>
             </Button>
             <Label text="Home" />
-            <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
    <bottom>
@@ -111,7 +110,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" >
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -151,6 +150,9 @@
                            </graphic>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets right="140.0" />
+                     </padding>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
