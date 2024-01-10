@@ -1,6 +1,12 @@
 package mediaplayer.orpheus.Controler;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import mediaplayer.orpheus.Controler.ViewControler;
+
+import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -49,61 +55,33 @@ import java.util.ResourceBundle;
         public void onBtnPlayClick(){
             mediaPlayer.play();
         }
-    }
-
-
-
-
-
-
-
-
-    /*
-    private Media me;
-    private MediaPlayer mp;
 
     @FXML
-    private MediaView mediaViewDisplay;
+    private Button btnSearch, btnPlaylist, btnDelete;
 
-    @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-// Build the path to the location of the media file
-        String path = new File("src/sample/media/file_example_MP4_640_3MG.mp4").getAbsolutePath();
-        // Create new Media object (the actual media content)
-        me = new Media(new File(path).toURI().toString());
-        // Create new MediaPlayer and attach the media to be played
-        mp = new MediaPlayer(me);
-        //
-        mediaViewDisplay.setMediaPlayer(mp);
-        // mp.setAutoPlay(true);
-        // If autoplay is turned of the method play(), stop(), pause() etc controls how/when medias are played
-        mp.setAutoPlay(false);
-    }
+    private ViewControler viewControler = new ViewControler();
 
-    @FXML
-    protected void onBtnPlayClick() {
-        if (mp != null) {
-            mp.play();
-        } else {
-            System.out.println("MediaPlayer is null. Check initialization.");
+    public void switchToPlaylistView(ActionEvent event) {
+        try {
+            viewControler.switchToPlaylistScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    protected void onBtnPauseClick() {
-        if (mp != null) {
-            mp.pause();
-        } else {
-            System.out.println("MediaPlayer is null. Check initialization.");
+    public void switchToSearchView(ActionEvent event) {
+        try {
+            viewControler.switchToSearchScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    protected void onBtnStopClick() {
-        if (mp != null) {
-            mp.stop();
-        } else {
-            System.out.println("MediaPlayer is null. Check initialization.");
+    public void switchToHomeView(ActionEvent event) {
+        try {
+            viewControler.switchToHomeScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }*/
-
+    }
+}
