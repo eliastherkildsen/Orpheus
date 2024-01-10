@@ -65,7 +65,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" >
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -75,7 +75,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onBtnPlayClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
