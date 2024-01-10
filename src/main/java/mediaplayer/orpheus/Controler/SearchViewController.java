@@ -54,14 +54,12 @@ public class SearchViewController implements Initializable {
     private void onActionbtnSearchBarClick(){
 
         ArrayList<String[]> dataSet = new ArrayList<>();
-        ResultSet res = databaseSearch.searchMedia("");
+        ResultSet res = databaseSearch.searchMedia(FldSearch.getText());
         dataSet = databaseSearch.processResultSet(res);
-
         LWSearchResult.getItems().clear();
 
         for (String[] strings : dataSet) {
-            System.out.println(strings[0]);
-            LWSearchResult.getItems().add(strings[3] + " " + strings[0] + " " + strings[1] + " " + strings[2]);
+            LWSearchResult.getItems().add(strings[3] + " " + strings[0] + " " + strings[1] + " " + strings[2] + " " + strings[6]);
         }
 
 
