@@ -255,7 +255,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onActionbtnSearchClick" styleClass="button" stylesheets="@../../css/styles.css">
+                              <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" styleClass="button" stylesheets="@../../css/styles.css">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

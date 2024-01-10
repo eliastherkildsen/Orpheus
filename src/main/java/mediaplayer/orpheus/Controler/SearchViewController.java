@@ -50,7 +50,7 @@ public class SearchViewController implements Initializable {
 
     }
     @FXML
-    private void onActionbtnSearchClick(){
+    private void onActionbtnSearchBarClick(){
 
     }
 
