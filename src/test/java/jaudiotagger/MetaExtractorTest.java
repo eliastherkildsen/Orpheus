@@ -22,17 +22,17 @@ public class MetaExtractorTest {
         MetaExtractor song = new MetaExtractor(filePath);
         song.gatherMetaDataLength();
 
-        assertTrue(song.getMediaLength() > 0);
+        assertTrue(song.gatherMetaDataLength() > 0);
     }
     @Test
-    void getArtist(){
+    void getArtist() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         MetaExtractor song = new MetaExtractor(filePath);
-        System.out.println(song.getArtist());
+        System.out.println(song.gatherMetaDataArtist());
     }
     @Test
     void getTitle() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         MetaExtractor song = new MetaExtractor(filePath);
         song.gatherMetaDataTitle();
-        System.out.println(song.getTitle());
+        System.out.println(song.gatherMetaDataTitle());
     }
 }

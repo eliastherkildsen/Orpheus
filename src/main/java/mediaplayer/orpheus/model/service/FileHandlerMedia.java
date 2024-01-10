@@ -6,14 +6,14 @@ import java.util.Objects;
 /**
  * TODO: ERROR HANDLING
  */
-public class FileHandler {
+public class FileHandlerMedia {
     private String filePath;
 
     /**
      * FileHandler currently only deals with .mp3 and .mp4
      * @param filePath as String, the path for the file you want the extension for.
      */
-    public FileHandler(String filePath) {
+    public FileHandlerMedia(String filePath) {
         setFilePath(filePath);
     }
 

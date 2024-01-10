@@ -29,7 +29,6 @@ public class DatabaseHandler {
     int mediaYear;
     int mediaTrack;
     int trackLength;
-
     public DatabaseHandler(String mediaTitle, String fileType, String album, int mediaYear, int mediaTrack, int trackLength, String filePath) {
         setMediaTitle(mediaTitle);
         setFileType(fileType);
@@ -39,7 +38,8 @@ public class DatabaseHandler {
         setTrackLength(trackLength);
         setFilePath(filePath);
     }
-    public void insertNewMp3() throws SQLException {
+
+    public void insertIntoDBNewMp3() throws SQLException {
         JDBC db = new JDBC();
         String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatment = db.getConnection().prepareStatement(sql)){
@@ -57,6 +57,9 @@ public class DatabaseHandler {
 
             throw e;
         }
+    }
+    public void updateDBArtist(){
+
     }
 
 //region Getter and setter
