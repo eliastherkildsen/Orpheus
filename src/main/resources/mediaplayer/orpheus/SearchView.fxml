@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -90,7 +90,7 @@
             </HBox>
             <VBox prefHeight="92.0" prefWidth="567.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="506.0">
                      <children>
                         <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
@@ -177,7 +177,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </Label>
-            <TextField style="-fx-background-radius: 10;">
+            <TextField fx:id="FldSearch" onKeyTyped="#OnFldSearchKeyTyped" style="-fx-background-radius: 10;">
                <VBox.margin>
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
@@ -185,6 +185,7 @@
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </TextField>
+            <ListView fx:id="LWSearchResult" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
    </center>
