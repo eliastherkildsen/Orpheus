@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SearchViewController implements Initializable {
+
     @FXML
     private Button btnSearch, btnPlaylist, btnDelete;
     @FXML
@@ -27,8 +28,26 @@ public class SearchViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         databaseSearch = new DatabaseSearch();
-        LWSearchResult.getItems().add("item1");
-        databaseSearch.searchMedia("USSEL");
+        databaseSearch.processResultSet(databaseSearch.searchMedia("USSEL"));
+    }
+    @FXML
+    private void onActionbtnEditClick(){
+
+    }
+
+    @FXML
+    private void onActionbtnListenClick(){
+
+    }
+
+    @FXML
+    private void onActionbtnAddToPlaylistClick(){
+
+    }
+
+    @FXML
+    private void onActionbtnDeleteMediaClick(){
+
     }
 
 

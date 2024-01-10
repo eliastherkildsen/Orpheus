@@ -1,10 +1,7 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
-
 import mediaplayer.orpheus.model.Database.JDBC;
 import java.sql.*;
-import static mediaplayer.orpheus.util.AnsiColorCode.ANSI_GREEN;
-import static mediaplayer.orpheus.util.AnsiColorCode.ANSI_RESET;
 
 public class DatabaseSearch {
 
@@ -12,9 +9,11 @@ public class DatabaseSearch {
     private static JDBC jdbc = new JDBC();
     private static Connection connection = jdbc.getConnection();
 
-    public void searchMedia(String searchCriteria) {
+    public ResultSet searchMedia(String searchCriteria) {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
+
+        // Generic quarry for shearching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         String query = "SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, tblMedia.fldTrackLength, tblMedia.fldFilePath " +
                 "FROM tblMedia " +
                 "LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID " +
@@ -33,58 +32,57 @@ public class DatabaseSearch {
             throw new RuntimeException(e);
         }
 
+        // executes quarry
         try {
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        String artistName, firstName, lastName, MediaTitle, fileType;
+        return resultSet;
+    }
 
-        while (true){
+    public String[] processResultSet(ResultSet resultSet) {
+        String artistName, firstName, lastName, MediaTitle, fileType;
+        String[] data = new String[5];
+
+        // loops through the result set.
+        while (true) {
             try {
+                // breaks out of the loop when end is reached.
                 if (!resultSet.next()) break;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            try {
-                artistName = resultSet.getString("fldArtistName");
 
-                try {
-                    firstName = resultSet.getString("fldFirstName");
-                } catch (SQLException e){
-                    firstName = "NULL";
-                }
+            // storing values in the result set.
 
-                try {
-                    lastName = resultSet.getString("fldLastName");
-                } catch (SQLException e) {
-                    lastName = "NULL";
-                }
-                try{
-                MediaTitle = resultSet.getString("fldMediaTitle");
-                } catch (SQLException e) {
-                    MediaTitle = "NULL";
-                }
+            data[0] = validataResultNotNull("fldArtistName", resultSet);
+            data[1] = validataResultNotNull("fldFirstName", resultSet);
+            data[2] = validataResultNotNull("fldLastName", resultSet);
+            data[3] = validataResultNotNull("fldMediaTitle", resultSet);
+            data[4] = validataResultNotNull("fldFileType", resultSet);
 
-                try{
-                fileType = resultSet.getString("fldFileType");
-                } catch (SQLException e) {
-                    fileType = "NULL";
-                }
-
-                System.out.printf("%s%s%n",ANSI_GREEN,"ArtistName: " + artistName);
-                System.out.printf("%s%n","FirstNAme: " + firstName);
-                System.out.printf("%s%n","LastName: " + lastName);
-                System.out.printf("%s%n","fileType: " + fileType);
-                System.out.printf("%s%s%n","MediaTitle: " + MediaTitle,ANSI_RESET);
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println(data[0]);
+            System.out.println(data[1]);
+            System.out.println(data[2]);
+            System.out.println(data[3]);
+            System.out.println(data[4]);
 
         }
 
+        return data;
     }
 
+    public String validataResultNotNull(String fieldName, ResultSet resultSet){
+        try {
+            return resultSet.getString(fieldName).toString();
+        } catch (SQLException e) {
+            return fieldName = "NULL";
+        }
+
+    }
 }
+
+
+
