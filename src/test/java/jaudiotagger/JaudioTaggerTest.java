@@ -1,5 +1,6 @@
 package jaudiotagger;
 
+import mediaplayer.orpheus.model.metadata.jaudiotagger;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -7,13 +8,12 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.ID3v1Tag;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JaudioTaggerTest {
@@ -35,8 +35,16 @@ public class JaudioTaggerTest {
     }
     @Test
     void notNullTrackLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-            MP3File mp3File = (MP3File) AudioFileIO.read(new File(filePath));
-            MP3AudioHeader audioHeader = (MP3AudioHeader) mp3File.getAudioHeader();
-            assertTrue(audioHeader.getTrackLength() > 0);
+        MP3File mp3File = (MP3File) AudioFileIO.read(new File(filePath));
+        MP3AudioHeader audioHeader = (MP3AudioHeader) mp3File.getAudioHeader();
+        assertTrue(audioHeader.getTrackLength() > 0);
+    }
+
+    @Test
+    void checkJagTag() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        jaudiotagger test = new jaudiotagger("src/main/java/mediaplayer/orpheus/mediafiles/BIMINI - No Way (with Avi Snow)  Latin Dance  NCS - Copyright Free Music.mp3");
+        test.getMetaDataLength();
+
+        assertTrue(test.getMediaLength() > 0);
     }
 }

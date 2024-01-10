@@ -6,6 +6,7 @@ module mediaplayer.orpheus {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires jaudiotagger;
 
 
     opens mediaplayer.orpheus to javafx.fxml;
