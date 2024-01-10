@@ -72,12 +72,13 @@ public class DatabaseSearch {
 
     public String validataResultNotNull(String fieldName, ResultSet resultSet){
         try {
-            return resultSet.getString(fieldName).toString();
+            return resultSet.getString(fieldName);
         } catch (SQLException e) {
-            return fieldName = "NULL";
+            return "NULL";
         }
 
     }
+
 }
 
 
