@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
+    private Button btnSearch, btnPlaylist, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
@@ -47,6 +47,10 @@ public class SearchViewController implements Initializable {
 
     @FXML
     private void onActionbtnDeleteMediaClick(){
+
+    }
+    @FXML
+    private void onActionbtnSearchClick(){
 
     }
 
@@ -86,5 +90,4 @@ public class SearchViewController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }
