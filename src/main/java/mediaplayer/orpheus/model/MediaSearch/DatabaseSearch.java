@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.MediaSearch;
 
 import mediaplayer.orpheus.model.Database.JDBC;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseSearch {
 
@@ -42,8 +43,9 @@ public class DatabaseSearch {
         return resultSet;
     }
 
-    public String[] processResultSet(ResultSet resultSet) {
+    public ArrayList<String[]> processResultSet(ResultSet resultSet) {
         String artistName, firstName, lastName, MediaTitle, fileType;
+        ArrayList<String[]> dataSet = new ArrayList<>();
         String[] data = new String[5];
 
         // loops through the result set.
@@ -55,24 +57,18 @@ public class DatabaseSearch {
                 throw new RuntimeException(e);
             }
 
-            // storing values in the result set.
-
+            // storing values of the result set.
             data[0] = validataResultNotNull("fldArtistName", resultSet);
             data[1] = validataResultNotNull("fldFirstName", resultSet);
             data[2] = validataResultNotNull("fldLastName", resultSet);
             data[3] = validataResultNotNull("fldMediaTitle", resultSet);
             data[4] = validataResultNotNull("fldFileType", resultSet);
-
-            System.out.println(data[0]);
-            System.out.println(data[1]);
-            System.out.println(data[2]);
-            System.out.println(data[3]);
-            System.out.println(data[4]);
-
+            dataSet.add(data);
         }
 
-        return data;
+        return dataSet;
     }
+
 
     public String validataResultNotNull(String fieldName, ResultSet resultSet){
         try {

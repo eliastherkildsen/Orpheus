@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            file = new File("src/main/java/mediaplayer/orpheus/mediaFiles/Bryan Adams - Summer Of  69 (Official Music Video).mp4");
+            file = new File("src/main/java/mediaplayer/orpheus/mediaFiles/Summer Of  69");
 
             System.out.println("før if ");
 

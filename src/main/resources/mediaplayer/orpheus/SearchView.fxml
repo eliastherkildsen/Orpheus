@@ -192,7 +192,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0">
                      <children>
-                        <ListView fx:id="vlSearchResult" prefHeight="212.0" prefWidth="462.0" style="-fx-background-radius: 10;" />
+                        <ListView fx:id="LWSearchResult" prefHeight="212.0" prefWidth="462.0" style="-fx-background-radius: 10;" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="101.0" prefWidth="667.0">

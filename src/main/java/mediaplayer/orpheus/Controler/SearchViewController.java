@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchViewController implements Initializable {
@@ -21,14 +22,14 @@ public class SearchViewController implements Initializable {
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
-    private DatabaseSearch databaseSearch;
     private ResultSet resultSet;
-    private DatabaseSearch dbs = new DatabaseSearch();
+    private DatabaseSearch databaseSearch = new DatabaseSearch();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        databaseSearch = new DatabaseSearch();
-        databaseSearch.processResultSet(databaseSearch.searchMedia("USSEL"));
+
+        LWSearchResult.getItems().add("Item 1");
+
     }
     @FXML
     private void onActionbtnEditClick(){
@@ -52,8 +53,17 @@ public class SearchViewController implements Initializable {
     @FXML
     private void onActionbtnSearchBarClick(){
 
-    }
+        ArrayList<String[]> dataSet = new ArrayList<>();
+        databaseSearch.processResultSet(databaseSearch.searchMedia("a"));
 
+        LWSearchResult.getItems().clear();
+
+        for (String[] strings : dataSet) {
+            LWSearchResult.getItems().add(strings[3] + " " + strings[0] + " " + strings[1] + " " + strings[2]);
+        }
+
+
+    }
 
 
     public void OnFldSearchKeyTyped() {
