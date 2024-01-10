@@ -12,12 +12,12 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
-public class jaudiotagger {
+public class MetaExtractor {
     private String filePath;
     private int mediaLength;
     private String title;
     private String Artist;
-    public jaudiotagger(String filePath) {
+    public MetaExtractor(String filePath) {
         setFilePath(filePath);
     }
     public void getMetaDataTitle() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {

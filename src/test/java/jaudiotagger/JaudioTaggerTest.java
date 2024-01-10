@@ -1,6 +1,6 @@
 package jaudiotagger;
 
-import mediaplayer.orpheus.model.metadata.jaudiotagger;
+import mediaplayer.orpheus.model.metadata.MetaExtractor;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JaudioTaggerTest {
@@ -42,7 +41,7 @@ public class JaudioTaggerTest {
 
     @Test
     void checkJagTag() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        jaudiotagger test = new jaudiotagger("src/main/java/mediaplayer/orpheus/mediafiles/BIMINI - No Way (with Avi Snow)  Latin Dance  NCS - Copyright Free Music.mp3");
+        MetaExtractor test = new MetaExtractor("src/main/java/mediaplayer/orpheus/mediafiles/BIMINI - No Way (with Avi Snow)  Latin Dance  NCS - Copyright Free Music.mp3");
         test.getMetaDataLength();
 
         assertTrue(test.getMediaLength() > 0);
