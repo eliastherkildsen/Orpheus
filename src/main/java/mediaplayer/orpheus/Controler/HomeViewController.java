@@ -40,6 +40,7 @@ public class HomeViewController implements Initializable {
         private Label labMediaLength;
 
 
+        private String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
@@ -57,7 +58,7 @@ public class HomeViewController implements Initializable {
             labCurrentTime.setText("");
             labMediaLength.setText("");
 
-            file = new File("src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4");
+            file = new File(mediaPath);
 
             if (file.exists()) {
                 media = new Media(file.toURI().toString());
