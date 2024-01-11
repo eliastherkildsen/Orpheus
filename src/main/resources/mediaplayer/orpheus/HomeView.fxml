@@ -124,7 +124,7 @@
                            <graphic>
                               <ImageView fx:id="btnPlayIcon" fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/play-circle.png" />
+                                    <Image url= "@../../css/images/play-circle.png" />
                                  </image>
                               </ImageView>
                            </graphic>

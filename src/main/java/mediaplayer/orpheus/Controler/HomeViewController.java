@@ -57,7 +57,7 @@ public class HomeViewController implements Initializable {
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            updatePlayButtonImage("src/main/resources/css/images/play-circle.png");
+            updatePlayButtonImage("file:src/main/resources/css/images/play-circle.png");
 
             labCurrentTime.setText("");
             labMediaLength.setText("");
@@ -92,19 +92,19 @@ public class HomeViewController implements Initializable {
 
             beginTimer();
 
-            String playImagePath = "src/main/resources/css/images/play-circle.png";
-            String pauseImagePath = "src/main/resources/css/images/pause-circle.png";
+            String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+            String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
 
             if (playSwitchStage == 0) {
 
                 mediaPlayer.play();
-                updatePlayButtonImage(pauseImagePath);
+                updatePlayButtonImage(pauseImageURL);
 
                 playSwitchStage = 1;
             }
             else {
                 mediaPlayer.pause();
-                updatePlayButtonImage(playImagePath);
+                updatePlayButtonImage(playImageURL);
 
                 playSwitchStage = 0;
             }
@@ -116,9 +116,9 @@ public class HomeViewController implements Initializable {
 
 
 
-        public void updatePlayButtonImage(String imagePath){
+        public void updatePlayButtonImage(String imageURL){
 
-            Image image = new Image("file:" + imagePath);
+            Image image = new Image(imageURL);
             btnPlayIcon.setImage(image);
 
         }
