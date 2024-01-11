@@ -48,6 +48,8 @@ public class HomeViewController implements Initializable {
         private Timer timer;
         private TimerTask task;
         private double current;
+        private double currentSliderVol;
+        private int mute = 0;
         private boolean running;
 
 
@@ -191,6 +193,24 @@ public class HomeViewController implements Initializable {
 
             labCurrentTime.setText(secondsFormattedToTime(time));
         }
+
+
+        @FXML
+        private void onBtnVolumeMuteClick(){
+
+            if (mute == 0) {
+                currentSliderVol = sliderVolume.getValue();
+
+                sliderVolume.setValue(0);
+                mute = 1;
+            }
+            else {
+                sliderVolume.setValue(currentSliderVol);
+                mute = 0;
+            }
+        }
+
+
 
 
 
