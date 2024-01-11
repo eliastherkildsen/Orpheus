@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class SearchViewController {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
@@ -21,7 +23,6 @@ public class SearchViewController {
     private ResultSet resultSet;
     private final DatabaseSearch databaseSearch = new DatabaseSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
-
 
     @FXML
     private void onActionbtnEditClick(){
@@ -78,7 +79,6 @@ public class SearchViewController {
         return temp[5];
     }
 
-
     @FXML
     private void onActionbtnAddToPlaylistClick(){
 
@@ -133,6 +133,11 @@ public class SearchViewController {
 
     }
 
+    public void onActionbtnImportClick(){
+
+        FileHandlerMedia.fileChooser();
+
+    }
 
     private ViewControler viewControler = new ViewControler();
 

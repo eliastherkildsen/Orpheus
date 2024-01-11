@@ -4,13 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import java.io.IOException;
 
 public class PlaylistViewController {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete;
 
     private ViewControler viewControler = new ViewControler();
 
@@ -36,5 +37,10 @@ public class PlaylistViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void onActionbtnImportClick(){
+
+        FileHandlerMedia.fileChooser();
     }
 }

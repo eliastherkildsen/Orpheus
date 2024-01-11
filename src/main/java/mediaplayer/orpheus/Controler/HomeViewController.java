@@ -7,15 +7,29 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
+import mediaplayer.orpheus.Controler.ViewControler;
+
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.MetadataService;
+import mediaplayer.orpheus.util.AnsiColorCode;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
+
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,6 +91,12 @@ import java.util.TimerTask;
                     mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
                 }
             });
+        }
+
+        public void onActionbtnImportClick(){
+
+            FileHandlerMedia.fileChooser();
+
         }
 
         public void onBtnPlayClick(){

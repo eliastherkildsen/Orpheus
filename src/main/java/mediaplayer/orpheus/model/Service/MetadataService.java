@@ -1,12 +1,9 @@
 package mediaplayer.orpheus.model.Service;
 
 import mediaplayer.orpheus.model.Database.DatabaseHandler;
-import mediaplayer.orpheus.model.Metadata.MetaExtractor;
+import mediaplayer.orpheus.model.Metadata.MetaExtractorMp3;
 import mediaplayer.orpheus.model.Metadata.Metadata;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
+import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,11 +15,11 @@ public class MetadataService {
         this.filepath = filepath;
     }
 
-    public void insertAndGatherMedia() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException, SQLException {
+    public void insertAndGatherMedia() throws IOException, SQLException {
         //Debugging filepath, obviously don't want this hardcoded.
 
         Metadata media = new Metadata();
-        MetaExtractor song = new MetaExtractor(filepath);
+        MetaExtractorMp3 song = new MetaExtractorMp3(filepath);
         FileHandlerMedia medialength = new FileHandlerMedia(filepath);
 
         String filetype = medialength.mp3OrMp4();
@@ -34,9 +31,9 @@ public class MetadataService {
         media.setMediaTitle(song.gatherMetaDataTitle());
         media.setArtist(song.gatherMetaDataArtist());
 
-        song.gatherMetaDataArtist();
-
         DatabaseHandler newsong = new DatabaseHandler(media.getMediaTitle(),filetype, media.getAlbum(),media.getMediaYear(),media.getMediaTrack(),media.getTrackLength(),filepath);
         newsong.insertIntoDBNewMp3();
+        //DEBUG LOGGING
+        System.out.printf("%s[META SERVICE] Inserting into DB complete.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
     }
 }
