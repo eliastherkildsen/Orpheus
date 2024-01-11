@@ -57,6 +57,8 @@ public class HomeViewController implements Initializable {
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
+            updatePlayButtonImage("src/main/resources/css/images/play-circle.png");
+
             labCurrentTime.setText("");
             labMediaLength.setText("");
 
@@ -90,17 +92,36 @@ public class HomeViewController implements Initializable {
 
             beginTimer();
 
+            String playImagePath = "src/main/resources/css/images/play-circle.png";
+            String pauseImagePath = "src/main/resources/css/images/pause-circle.png";
+
             if (playSwitchStage == 0) {
+
                 mediaPlayer.play();
+                updatePlayButtonImage(pauseImagePath);
 
                 playSwitchStage = 1;
             }
             else {
                 mediaPlayer.pause();
+                updatePlayButtonImage(playImagePath);
+
                 playSwitchStage = 0;
             }
         }
 
+
+        @FXML
+        private ImageView btnPlayIcon;
+
+
+
+        public void updatePlayButtonImage(String imagePath){
+
+            Image image = new Image("file:" + imagePath);
+            btnPlayIcon.setImage(image);
+
+        }
 
 
         public void beginTimer(){
@@ -139,7 +160,7 @@ public class HomeViewController implements Initializable {
 
 
 
-        public static String secondsFormattedToTime(double durationTime) {
+        public String secondsFormattedToTime(double durationTime) {
             //test: durationTime = 5420;
             int hours = (int) durationTime / 3600;
             int secondsLeft = (int) durationTime % 3600;
@@ -209,6 +230,13 @@ public class HomeViewController implements Initializable {
                 mute = 0;
             }
         }
+
+
+
+
+       // "@../../css/images/play-circle.png" (play knap)
+
+
 
 
 
