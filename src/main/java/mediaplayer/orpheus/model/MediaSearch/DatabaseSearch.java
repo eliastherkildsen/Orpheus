@@ -9,6 +9,7 @@ public class DatabaseSearch {
     // creating a JDBC connection
     private static final JDBC jdbc = new JDBC();
     private static final Connection connection = jdbc.getConnection();
+
     /**
      * Method executing a search in the database fields [tblMedia] & [tblPerson]
      * @param searchCriteria String to search for in the database.
@@ -31,6 +32,8 @@ public class DatabaseSearch {
 
         return resultSet;
     }
+
+
     /**
      * Method for parsing resultSet to String array
      * @param resultSet s
@@ -50,7 +53,7 @@ public class DatabaseSearch {
                 throw new RuntimeException(e);
             }
 
-            String[] data = new String[7];
+            String[] data = new String[8];
 
             // storing values of the result set in a String array, for insuring a fixed index of fields,
             // to make it easy to make a formatted print.
@@ -62,6 +65,7 @@ public class DatabaseSearch {
             data[4] = validateResultNotNull("fldFileType",    resultSet);
             data[5] = validateResultNotNull("fldFilePath",    resultSet);
             data[6] = validateResultNotNull("fldTrackLength", resultSet);
+            data[7] = validateResultNotNull("fldGenre",       resultSet);
 
             // adds the string array to an arraylist.
             dataSet.add(data);
@@ -71,6 +75,8 @@ public class DatabaseSearch {
         return dataSet;
 
     }
+
+
     /**
      * Method for checking if a field is empty, if not it returns the String value of the field data.
      * @param fieldName reference to the field in the result to search for.
@@ -96,26 +102,40 @@ public class DatabaseSearch {
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
         return new StringBuilder().append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, " +
-                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName ")
+                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName, tblMediaGenre.fldGenre ")
                 .append("FROM tblMedia ")
+
                 .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
                 .append("LEFT JOIN tblPerson ON tblMediaPerson.fldPersonID = tblPerson.fldPersonID ")
+                .append("LEFT JOIN tblMediaGenre ON tblMedia.fldMediaID = tblMediaGenre.fldMediaID ")
+
                 .append("WHERE ")
+
                 .append("tblPerson.fldFirstName LIKE '%")
                 .append(searchCriteria)
-                .append("%' or ")
+                .append("%' OR ")
+
                 .append("tblPerson.fldArtistName LIKE '%")
                 .append(searchCriteria)
-                .append("%' or ")
+                .append("%' OR ")
+
                 .append("tblPerson.fldLastName LIKE '%")
                 .append(searchCriteria)
-                .append("' or ")
+                .append("' OR ")
+
                 .append("tblMedia.fldMediaTitle LIKE '%")
                 .append(searchCriteria)
-                .append("%' or ")
+                .append("%' OR ")
+
                 .append("tblMedia.fldFileType LIKE '%")
                 .append(searchCriteria)
-                .append("%'").toString();
+                .append("%' OR ")
+
+                .append("tblMediaGenre.fldGenre LIKE '%")
+                .append(searchCriteria)
+                .append("%'")
+
+                .toString();
 
     }
 }

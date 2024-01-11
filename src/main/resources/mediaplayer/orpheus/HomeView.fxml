@@ -122,7 +122,7 @@
 
                         <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onBtnPlayClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" fx:id="btnPlayIcon">
                                  <image>
                                     <Image url="@../../css/images/play-circle.png" />
                                  </image>

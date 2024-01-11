@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import mediaplayer.orpheus.Controler.ViewControler;
 
 import java.io.IOException;
@@ -21,9 +23,11 @@ import java.util.ResourceBundle;
         @FXML
         private MediaView mediaViewDisplay;
 
+
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
+
 
 
         @Override
