@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class OrpheusApp extends Application {
-    private final int SCREEN_WITH = 800;
-    private final int SCREEN_HIGHT = 800;
     @Override
     public void start(Stage stage) throws IOException {
         try {
