@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -65,7 +65,6 @@
             </Button>
 
             <Label text="Home" />
-            <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
    <bottom>
@@ -152,6 +151,9 @@
                            </graphic>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets right="160.0" />
+                     </padding>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -177,14 +179,92 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </Label>
-            <TextField style="-fx-background-radius: 10;">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Times New Roman" size="14.0" />
-               </font>
-            </TextField>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="FldSearch" prefHeight="26.0" prefWidth="421.0" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="40.0">
+                     <children>
+                        <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" style="-fx-background-radius: 50;" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children></HBox>
+            <VBox prefHeight="303.0" prefWidth="667.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0">
+                     <children>
+                        <ListView fx:id="LWSearchResult" prefHeight="212.0" prefWidth="462.0" style="-fx-background-radius: 10;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="101.0" prefWidth="667.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onActionbtnEditClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../css/images/pencil-edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label text="Edit" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="btnListen" mnemonicParsing="false" onAction="#onActionbtnListenClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../css/images/play-circle.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label text="Listen" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../css/images/list-plus.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label text="Add to Playlist" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="btnDeleteMedia" mnemonicParsing="false" onAction="#onActionbtnDeleteMediaClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../css/images/trash-2.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label text="Delete" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </VBox>
    </center>
