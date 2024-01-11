@@ -3,6 +3,8 @@ package mediaplayer.orpheus.model.Metadata;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import org.jaudiotagger.audio.AudioFile;
@@ -20,94 +22,90 @@ public class MetaExtractor {
         setFilePath(filePath);
     }
 
-    public String gatherMetaDataTitle() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    private AudioFile readAudioFile() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            return AudioFileIO.read(new File(getFilePath()));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
+            Logger.getLogger(MetaExtractor.class.getName()).log(Level.SEVERE, "Error reading audio file", e);
+            throw new IOException("Error reading audio file", e);
+        }
+    }
+
+    public String gatherMetaDataTitle() throws IOException {
+        try {
+            AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.TITLE), "")){
                 FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
                 return newTitle.getFileNameWithoutExtension();
             }
             return tag.getFirst(FieldKey.TITLE);
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             throw e;
         }
     }
-
-    public String gatherMetaDataArtist() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public String gatherMetaDataArtist() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
                 return null;
             }
             return tag.getFirst(FieldKey.COMPOSER);
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             throw e;
         }
     }
 
-    public Integer gatherMetaDataLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataLength() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            AudioFile audioFile = readAudioFile();
 
             return audioFile.getAudioHeader().getTrackLength();
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             throw e;
         }
     }
 
-    public String gatherMetaDataAlbumName() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public String gatherMetaDataAlbumName() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
                 return null;
             } else {
                 return tag.getFirst(FieldKey.ALBUM);
             }
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             throw e;
         }
     }
 
-    public Integer gatherMetaDataYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataYear() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
                 return null;
             } else {
                 return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
             }
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
-            throw e;
+        } catch (IOException e) {
+            throw new IOException("Error: parsing year from meta data.", e);
         }
     }
 
-    public Integer gatherMetaDataTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataTrack() throws IOException {
         try {
-            AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
+            AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.TRACK), "")){
                 return null;
             } else {
                 return Integer.parseInt(tag.getFirst(FieldKey.TRACK));
             }
-        } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
-                 IOException e) {
-            e.printStackTrace();
-            throw e;
+        } catch (IOException e) {
+            throw new IOException("Error: parsing track from meta data.", e);
         }
     }
 
