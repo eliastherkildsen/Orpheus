@@ -1,4 +1,4 @@
-package mediaplayer.orpheus.model.service;
+package mediaplayer.orpheus.model.Service;
 
 import java.io.File;
 import java.nio.file.Path;

@@ -1,10 +1,10 @@
-package mediaplayer.orpheus.model.metadata;
+package mediaplayer.orpheus.model.Metadata;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import mediaplayer.orpheus.model.service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;

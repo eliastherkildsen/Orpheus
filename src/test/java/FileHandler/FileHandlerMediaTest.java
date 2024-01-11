@@ -1,6 +1,6 @@
 package FileHandler;
 
-import mediaplayer.orpheus.model.service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

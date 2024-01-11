@@ -1,7 +1,7 @@
 package jaudiotagger;
 
-import mediaplayer.orpheus.model.metadata.MetaExtractor;
-import mediaplayer.orpheus.model.service.MetadataService;
+import mediaplayer.orpheus.model.Metadata.MetaExtractor;
+import mediaplayer.orpheus.model.Service.MetadataService;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;

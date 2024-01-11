@@ -1,8 +1,8 @@
-package mediaplayer.orpheus.model.service;
+package mediaplayer.orpheus.model.Service;
 
 import mediaplayer.orpheus.model.Database.DatabaseHandler;
-import mediaplayer.orpheus.model.metadata.MetaExtractor;
-import mediaplayer.orpheus.model.metadata.Metadata;
+import mediaplayer.orpheus.model.Metadata.MetaExtractor;
+import mediaplayer.orpheus.model.Metadata.Metadata;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;

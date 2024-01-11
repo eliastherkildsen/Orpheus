@@ -1,4 +1,4 @@
-package mediaplayer.orpheus.model.metadata;
+package mediaplayer.orpheus.model.Metadata;
 
 public class Metadata {
     private String filePath;
