@@ -64,7 +64,6 @@
             </graphic>
             </Button>
             <Label text="Home" />
-            <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
    <bottom>
@@ -123,7 +122,7 @@
 
                         <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onBtnPlayClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" fx:id="btnPlayIcon">
                                  <image>
                                     <Image url="@../../css/images/play-circle.png" />
                                  </image>
@@ -151,6 +150,9 @@
                            </graphic>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets right="140.0" />
+                     </padding>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
