@@ -20,38 +20,10 @@ public class DatabaseSearch {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
-        // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
-        // with use of string builder to avoid String concatenation.
-        String query = new StringBuilder().append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, " +
-                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName ")
-                .append("FROM tblMedia ")
-                .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
-                .append("LEFT JOIN tblPerson ON tblMediaPerson.fldPersonID = tblPerson.fldPersonID ")
-                .append("WHERE ")
-                .append("tblPerson.fldFirstName LIKE '%")
-                .append(searchCriteria)
-                .append("%' or ")
-                .append("tblPerson.fldArtistName LIKE '%")
-                .append(searchCriteria)
-                .append("%' or ")
-                .append("tblPerson.fldLastName LIKE '%")
-                .append(searchCriteria)
-                .append("' or ")
-                .append("tblMedia.fldMediaTitle LIKE '%")
-                .append(searchCriteria)
-                .append("%' or ")
-                .append("tblMedia.fldFileType LIKE '%")
-                .append(searchCriteria)
-                .append("%'").toString();
+        String query = appendQuery(searchCriteria);
 
         try {
             preparedStatement = connection.prepareCall(query);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        // executes quarry
-        try {
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -111,6 +83,39 @@ public class DatabaseSearch {
         } catch (SQLException e) {
             return "NULL";
         }
+
+    }
+
+    /**
+     * Method for appending the sql query needed to search in the database.
+     * @param searchCriteria What is being searched for
+     * @return SQL query as string
+     */
+    public String appendQuery(String searchCriteria){
+
+        // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
+        // with use of string builder to avoid String concatenation.
+        return new StringBuilder().append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, " +
+                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName ")
+                .append("FROM tblMedia ")
+                .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
+                .append("LEFT JOIN tblPerson ON tblMediaPerson.fldPersonID = tblPerson.fldPersonID ")
+                .append("WHERE ")
+                .append("tblPerson.fldFirstName LIKE '%")
+                .append(searchCriteria)
+                .append("%' or ")
+                .append("tblPerson.fldArtistName LIKE '%")
+                .append(searchCriteria)
+                .append("%' or ")
+                .append("tblPerson.fldLastName LIKE '%")
+                .append(searchCriteria)
+                .append("' or ")
+                .append("tblMedia.fldMediaTitle LIKE '%")
+                .append(searchCriteria)
+                .append("%' or ")
+                .append("tblMedia.fldFileType LIKE '%")
+                .append(searchCriteria)
+                .append("%'").toString();
 
     }
 }

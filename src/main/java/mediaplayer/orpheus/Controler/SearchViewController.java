@@ -69,9 +69,6 @@ public class SearchViewController implements Initializable {
     public void OnFldSearchKeyTyped() {
 
 
-
-
-
     }
 
 

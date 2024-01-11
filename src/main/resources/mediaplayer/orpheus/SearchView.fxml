@@ -65,7 +65,6 @@
             </Button>
 
             <Label text="Home" />
-            <ListView fx:id="viewListMedia" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #969A96;" />
          </children></VBox>
    </left>
    <bottom>
@@ -180,14 +179,23 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </Label>
-            <TextField fx:id="FldSearch" onKeyTyped="#OnFldSearchKeyTyped" style="-fx-background-radius: 10;">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Times New Roman" size="14.0" />
-               </font>
-            </TextField>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="FldSearch" prefHeight="26.0" prefWidth="421.0" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="40.0">
+                     <children>
+                        <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" style="-fx-background-radius: 50;" styleClass="button" stylesheets="@../../css/styles.css">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../css/images/search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children></HBox>
             <VBox prefHeight="303.0" prefWidth="667.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0">
@@ -251,20 +259,6 @@
                                  </graphic>
                               </Button>
                               <Label text="Delete" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" styleClass="button" stylesheets="@../../css/styles.css">
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../css/images/search.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Label text="Search" />
                            </children>
                         </VBox>
                      </children>
