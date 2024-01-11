@@ -2,7 +2,9 @@ package mediaplayer.orpheus.model.metadata;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
+import mediaplayer.orpheus.model.service.FileHandlerMedia;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -22,7 +24,10 @@ public class MetaExtractor {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
-
+            if (Objects.equals(tag.getFirst(FieldKey.TITLE), "")){
+                FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
+                return newTitle.getFileNameWithoutExtension();
+            }
             return tag.getFirst(FieldKey.TITLE);
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
                  IOException e) {
@@ -35,7 +40,9 @@ public class MetaExtractor {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
-
+            if (Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
+                return null;
+            }
             return tag.getFirst(FieldKey.COMPOSER);
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
                  IOException e) {
@@ -44,7 +51,7 @@ public class MetaExtractor {
         }
     }
 
-    public int gatherMetaDataLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
 
@@ -60,8 +67,11 @@ public class MetaExtractor {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
-
-            return tag.getFirst(FieldKey.ALBUM);
+            if (Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
+                return null;
+            } else {
+                return tag.getFirst(FieldKey.ALBUM);
+            }
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
                  IOException e) {
             e.printStackTrace();
@@ -69,12 +79,15 @@ public class MetaExtractor {
         }
     }
 
-    public int gatherMetaDataYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataYear() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
-
-            return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
+            if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
+                return null;
+            } else {
+                return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
+            }
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
                  IOException e) {
             e.printStackTrace();
@@ -82,12 +95,15 @@ public class MetaExtractor {
         }
     }
 
-    public int gatherMetaDataTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+    public Integer gatherMetaDataTrack() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         try {
             AudioFile audioFile = AudioFileIO.read(new File(getFilePath()));
             Tag tag = audioFile.getTag();
-
-            return Integer.parseInt(tag.getFirst(FieldKey.TRACK));
+            if (Objects.equals(tag.getFirst(FieldKey.TRACK), "")){
+                return null;
+            } else {
+                return Integer.parseInt(tag.getFirst(FieldKey.TRACK));
+            }
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException |
                  IOException e) {
             e.printStackTrace();

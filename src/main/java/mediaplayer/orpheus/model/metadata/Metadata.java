@@ -6,9 +6,9 @@ public class Metadata {
     private String fileType;
     private String album;
     private String artist;
-    int mediaYear;
-    int mediaTrack;
-    int trackLength;
+    private Integer mediaYear;
+    private Integer mediaTrack;
+    private Integer trackLength;
 
 
     public String getFilePath() {
@@ -43,27 +43,27 @@ public class Metadata {
         this.album = album;
     }
 
-    public int getMediaYear() {
+    public Integer getMediaYear() {
         return mediaYear;
     }
 
-    public void setMediaYear(int mediaYear) {
+    public void setMediaYear(Integer mediaYear) {
         this.mediaYear = mediaYear;
     }
 
-    public int getMediaTrack() {
+    public Integer getMediaTrack() {
         return mediaTrack;
     }
 
-    public void setMediaTrack(int mediaTrack) {
+    public void setMediaTrack(Integer mediaTrack) {
         this.mediaTrack = mediaTrack;
     }
 
-    public int getTrackLength() {
+    public Integer getTrackLength() {
         return trackLength;
     }
 
-    public void setTrackLength(int trackLength) {
+    public void setTrackLength(Integer trackLength) {
         this.trackLength = trackLength;
     }
 

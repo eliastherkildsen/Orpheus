@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 
 /**
  *
@@ -26,10 +27,10 @@ public class DatabaseHandler {
     private String mediaTitle;
     private String fileType;
     private String album;
-    int mediaYear;
-    int mediaTrack;
-    int trackLength;
-    public DatabaseHandler(String mediaTitle, String fileType, String album, int mediaYear, int mediaTrack, int trackLength, String filePath) {
+    Integer mediaYear;
+    Integer mediaTrack;
+    Integer trackLength;
+    public DatabaseHandler(String mediaTitle, String fileType, String album, Integer mediaYear, Integer mediaTrack, Integer trackLength, String filePath) {
         setMediaTitle(mediaTitle);
         setFileType(fileType);
         setAlbum(album);
@@ -39,6 +40,10 @@ public class DatabaseHandler {
         setFilePath(filePath);
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     public void insertIntoDBNewMp3() throws SQLException {
         JDBC db = new JDBC();
         String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath) VALUES (?,?,?,?,?,?,?)";
@@ -46,9 +51,21 @@ public class DatabaseHandler {
             preparedStatment.setString(1, getMediaTitle());
             preparedStatment.setString(2, getFileType());
             preparedStatment.setString(3, getAlbum());
-            preparedStatment.setInt(4, getMediaYear());
-            preparedStatment.setInt(5, getMediaTrack());
-            preparedStatment.setInt(6, getTrackLength());
+            if (getMediaYear() != null) {
+                preparedStatment.setInt(4, getMediaYear());
+            } else {
+                preparedStatment.setNull(4, Types.INTEGER);
+            }
+            if (getMediaTrack() != null) {
+                preparedStatment.setInt(5, getMediaTrack());
+            } else {
+                preparedStatment.setNull(5, Types.INTEGER);
+            }
+            if (getTrackLength() != null) {
+                preparedStatment.setInt(6, getTrackLength());
+            } else {
+                preparedStatment.setNull(6, Types.INTEGER);
+            }
             preparedStatment.setString(7,getFilePath());
 
             preparedStatment.executeUpdate();
@@ -94,27 +111,27 @@ public class DatabaseHandler {
         this.album = album;
     }
 
-    public int getMediaYear() {
+    public Integer getMediaYear() {
         return mediaYear;
     }
 
-    public void setMediaYear(int mediaYear) {
+    public void setMediaYear(Integer mediaYear) {
         this.mediaYear = mediaYear;
     }
 
-    public int getMediaTrack() {
+    public Integer getMediaTrack() {
         return mediaTrack;
     }
 
-    public void setMediaTrack(int mediaTrack) {
+    public void setMediaTrack(Integer mediaTrack) {
         this.mediaTrack = mediaTrack;
     }
 
-    public int getTrackLength() {
+    public Integer getTrackLength() {
         return trackLength;
     }
 
-    public void setTrackLength(int trackLength) {
+    public void setTrackLength(Integer trackLength) {
         this.trackLength = trackLength;
     }
     //endregion

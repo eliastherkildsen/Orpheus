@@ -1,6 +1,8 @@
 package mediaplayer.orpheus.model.service;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
@@ -39,6 +41,22 @@ public class FileHandlerMedia {
             return "mp4";
         } else {
             return "ERROR"; //SKIFT MIG TIL ERROR HANDLING
+        }
+    }
+    public String getFileNameWithoutExtension() {
+        Path path = Paths.get(getFilePath());
+        // Get the filename from the path
+        String fileName = path.getFileName().toString();
+
+        // Find the last occurrence of '.' to separate the extension
+        int dotIndex = fileName.lastIndexOf('.');
+
+        // If there's a dot in the filename, extract the substring without extension
+        if (dotIndex != -1) {
+            return fileName.substring(0, dotIndex);
+        } else {
+            // If there's no dot, the entire filename is the result
+            return fileName;
         }
     }
 //region Getter and Setter

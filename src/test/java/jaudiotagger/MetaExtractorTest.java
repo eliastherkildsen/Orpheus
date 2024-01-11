@@ -1,6 +1,7 @@
 package jaudiotagger;
 
 import mediaplayer.orpheus.model.metadata.MetaExtractor;
+import mediaplayer.orpheus.model.service.MetadataService;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -8,6 +9,7 @@ import org.jaudiotagger.tag.TagException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class MetaExtractorTest {
     //File to test up against.
-    String filePath = "C:\\Users\\Mads\\IdeaProjects\\Orpheus\\src\\main\\java\\mediaplayer\\orpheus\\mediafiles\\Summer - Bensound Royalty Free Music - No Copyright Music.mp3";
+    String filePath = "src/main/java/mediaplayer/orpheus/mediafiles/BIMINI - No Way (with Avi Snow)  Latin Dance  NCS - Copyright Free Music.mp3";
     @Test
     void notNullTrackLength() throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
         MetaExtractor song = new MetaExtractor(filePath);
@@ -34,5 +36,10 @@ public class MetaExtractorTest {
         MetaExtractor song = new MetaExtractor(filePath);
         song.gatherMetaDataTitle();
         System.out.println(song.gatherMetaDataTitle());
+    }
+    @Test
+    void canInssertIntoMedia() throws CannotReadException, TagException, SQLException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        MetadataService thing = new MetadataService(filePath);
+        thing.insertAndGatherMedia();
     }
 }
