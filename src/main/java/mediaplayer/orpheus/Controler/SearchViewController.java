@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -17,7 +19,7 @@ import java.util.ResourceBundle;
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
@@ -95,6 +97,11 @@ public class SearchViewController implements Initializable {
 
     }
 
+    public void onActionbtnImportClick(){
+
+        FileHandlerMedia.fileChooser();
+
+    }
 
     public void OnFldSearchKeyTyped() {
 

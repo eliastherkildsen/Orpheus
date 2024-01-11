@@ -18,9 +18,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.MetadataService;
+import mediaplayer.orpheus.util.AnsiColorCode;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,8 +66,7 @@ public class HomeViewController implements Initializable {
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            labCurrentTime.setText("");
-            labMediaLength.setText("");
+            file = new File("src/main/java/mediaplayer/orpheus/mediaFiles/Summer Of  69.mp4");
 
             file = new File(mediaPath);
 
@@ -84,6 +92,12 @@ public class HomeViewController implements Initializable {
                     mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
                 }
             });
+        }
+
+        public void onActionbtnImportClick(){
+
+            FileHandlerMedia.fileChooser();
+
         }
 
         public void onBtnPlayClick(){
