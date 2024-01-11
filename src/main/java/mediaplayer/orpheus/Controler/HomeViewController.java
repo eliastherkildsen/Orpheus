@@ -1,10 +1,13 @@
 package mediaplayer.orpheus.Controler;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.util.Duration;
 import mediaplayer.orpheus.Controler.ViewControler;
 
@@ -26,6 +29,9 @@ public class HomeViewController implements Initializable {
         private MediaView mediaViewDisplay;
 
         @FXML
+        private Slider sliderVolume;
+
+        @FXML
         private Label labCurrentTime;
 
         @FXML
@@ -39,11 +45,15 @@ public class HomeViewController implements Initializable {
         private Timer timer;
         private TimerTask task;
         private double current;
+        private boolean running;
 
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+
+            labCurrentTime.setText("");
+            labMediaLength.setText("");
 
             file = new File("src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4");
 
@@ -58,10 +68,17 @@ public class HomeViewController implements Initializable {
             mediaPlayer.setOnReady(() -> {
                 double trackLength = media.getDuration().toSeconds();
                 String formattedTime = secondsFormattedToTime(trackLength);
-                labCurrentTime.setText(formattedTime);
             });
 
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+            sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+
+                    mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
+                }
+            });
         }
 
         public void onBtnPlayClick(){
@@ -85,6 +102,7 @@ public class HomeViewController implements Initializable {
 
             timer = new Timer();
             task = new TimerTask() {
+
                 @Override
                 public void run() {
 
@@ -94,6 +112,10 @@ public class HomeViewController implements Initializable {
                             double trackLength = media.getDuration().toSeconds();
                             String formattedTime = secondsFormattedToTime(current);
                             labCurrentTime.setText(formattedTime);
+
+                            if (current == trackLength){
+                                cancelTimer();
+                            }
 
                             labMediaLength.setText(secondsFormattedToTime(trackLength));
                         }
@@ -107,6 +129,7 @@ public class HomeViewController implements Initializable {
 
         public void cancelTimer(){
 
+            timer.cancel();
         }
 
 
@@ -124,10 +147,16 @@ public class HomeViewController implements Initializable {
 
 
         public void onBtnSkipForwardsClick(){
+            int forwardTime;
 
-            System.out.println("current time: "+current);
-            current = mediaPlayer.getCurrentTime().toSeconds();
-            int forwardTime = (int) current + 15;
+            if (current < media.getDuration().toSeconds() - 15) {
+                System.out.println("current time: " + current);
+                current = mediaPlayer.getCurrentTime().toSeconds();
+                forwardTime = (int) current + 15;
+            }
+            else {
+                forwardTime = (int) media.getDuration().toSeconds();
+            }
 
             updateCurrentTimeLabel(forwardTime);
 
@@ -137,13 +166,21 @@ public class HomeViewController implements Initializable {
 
 
         public void onBtnSkipBackwardsClick(){
-            current = mediaPlayer.getCurrentTime().toSeconds();
-            current = mediaPlayer.getCurrentTime().toSeconds();
-            int forwardTime = (int) current - 15;
 
-            updateCurrentTimeLabel(forwardTime);
+            int backwardTime;
 
-            mediaPlayer.seek(Duration.seconds(forwardTime));
+            if (current < media.getDuration().toSeconds() - 15) {
+                current = mediaPlayer.getCurrentTime().toSeconds();
+                current = mediaPlayer.getCurrentTime().toSeconds();
+                backwardTime = (int) current - 15;
+            }
+            else {
+                backwardTime = (int) Duration.ZERO.toSeconds();
+            }
+
+            updateCurrentTimeLabel(backwardTime);
+
+            mediaPlayer.seek(Duration.seconds(backwardTime));
             mediaPlayer.play();
         }
 
@@ -161,6 +198,9 @@ public class HomeViewController implements Initializable {
         private ViewControler viewControler = new ViewControler();
 
         public void switchToPlaylistView(ActionEvent event) {
+
+            mediaPlayer.pause();
+
             try {
                 viewControler.switchToPlaylistScene(event);
             } catch (IOException e) {
@@ -169,6 +209,9 @@ public class HomeViewController implements Initializable {
         }
 
         public void switchToSearchView(ActionEvent event) {
+
+            mediaPlayer.pause();
+
             try {
                 viewControler.switchToSearchScene(event);
             } catch (IOException e) {
@@ -177,6 +220,9 @@ public class HomeViewController implements Initializable {
         }
 
         public void switchToHomeView(ActionEvent event) {
+
+            mediaPlayer.pause();
+
             try {
                 viewControler.switchToHomeScene(event);
             } catch (IOException e) {

@@ -158,7 +158,7 @@
                         <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
                         <Label fx:id="labMediaLength" text="Label" />
                         <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
-                        <Slider fx:id="sliderVolume" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Slider fx:id="sliderVolume" blockIncrement="5.0" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
                      </children>
                   </HBox>
                </children>
