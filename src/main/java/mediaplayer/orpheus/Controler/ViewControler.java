@@ -37,6 +37,12 @@ public class ViewControler {
         stage.setScene(HomeView);
         stage.show();
     }
+    public void switchToHomeScene() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/HomeView.fxml"));
+        Scene HomeView = new Scene(root);
+        stage.setScene(HomeView);
+        stage.show();
+    }
 
     // Other methods...
 }

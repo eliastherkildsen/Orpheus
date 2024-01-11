@@ -7,25 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
-import mediaplayer.orpheus.Controler.ViewControler;
-
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeViewController implements Initializable {
+    public class HomeViewController implements Initializable {
 
         @FXML
         private MediaView mediaViewDisplay;
@@ -38,9 +33,7 @@ public class HomeViewController implements Initializable {
 
         @FXML
         private Label labMediaLength;
-
-
-        private String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+        public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
