@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -100,7 +100,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" onAction="#onBtnSkipBackwardsClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -122,7 +122,7 @@
 
                         <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onBtnPlayClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btnPlayIcon" fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../css/images/play-circle.png" />
                                  </image>
@@ -140,7 +140,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" onAction="#onBtnSkipForwardsClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -159,8 +159,8 @@
                         <Label fx:id="labCurrentTime" text="Label" />
                         <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
                         <Label fx:id="labMediaLength" text="Label" />
-                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
-                        <Slider fx:id="sliderVolume" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Button fx:id="btnVolumeMute" mnemonicParsing="false" onAction="#onBtnVolumeMuteClick" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
+                        <Slider fx:id="sliderVolume" blockIncrement="5.0" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
                      </children>
                   </HBox>
                </children>

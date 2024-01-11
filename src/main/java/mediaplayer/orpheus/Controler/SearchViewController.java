@@ -58,8 +58,38 @@ public class SearchViewController implements Initializable {
         dataSet = databaseSearch.processResultSet(res);
         LWSearchResult.getItems().clear();
 
+
+
         for (String[] strings : dataSet) {
-            LWSearchResult.getItems().add(strings[3] + " " + strings[0] + " " + strings[1] + " " + strings[2] + " " + strings[6]);
+
+            StringBuilder sb = new StringBuilder();
+
+            if(strings[3] != "NULL" || strings[3] != "null"){
+                sb.append(strings[3]);
+                sb.append(" ");
+            }
+            if(strings[0] != "NULL" || strings[0] != "null"){
+                sb.append(strings[0]);
+                sb.append(" ");
+            }
+            if(strings[1] != "NULL" || strings[1] != "null"){
+                sb.append(strings[1]);
+                sb.append(" ");
+            }
+            if(strings[2] != "NULL" || strings[2] != "null"){
+                sb.append(strings[2]);
+                sb.append(" ");
+            }
+            if(strings[6] != "NULL" || strings[6] != "null"){
+                sb.append(strings[6]);
+                sb.append(" ");
+            }
+            if(strings[7] != "NULL" || strings[7] != "null"){
+                sb.append(strings[7]);
+                sb.append(" ");
+            }
+
+            LWSearchResult.getItems().add(sb.toString());
         }
 
 
