@@ -33,7 +33,7 @@
          </Button>
             <Label fx:id="labPlaylist" text="Playlist" textFill="WHITE" />
 
-             <Button fx:id="btnImport" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+             <Button fx:id="btnImport" mnemonicParsing="false" onAction="#onActionbtnImportClick" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
             <graphic>
                <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                   <image>

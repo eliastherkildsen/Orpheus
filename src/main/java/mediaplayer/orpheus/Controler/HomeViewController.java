@@ -18,14 +18,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.MetadataService;
+import mediaplayer.orpheus.util.AnsiColorCode;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeViewController implements Initializable {
+    public class HomeViewController implements Initializable {
 
         @FXML
         private MediaView mediaViewDisplay;
@@ -38,9 +47,7 @@ public class HomeViewController implements Initializable {
 
         @FXML
         private Label labMediaLength;
-
-
-        private String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+        public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
@@ -83,6 +90,12 @@ public class HomeViewController implements Initializable {
                     mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
                 }
             });
+        }
+
+        public void onActionbtnImportClick(){
+
+            FileHandlerMedia.fileChooser();
+
         }
 
         public void onBtnPlayClick(){
