@@ -47,24 +47,25 @@ import java.util.TimerTask;
 
         @FXML
         private Label labMediaLength;
+
+        @FXML
+        private ImageView btnPlayIcon;
+
         public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
-        private boolean playSwitchStage;
+        private boolean playSwitchStage = true;
         private Timer timer;
         private TimerTask task;
         private double current;
         private double currentSliderVol;
-        private boolean mute;
+        private boolean mute = true;
 
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-
-            labCurrentTime.setText("");
-            labMediaLength.setText("");
 
             file = new File(mediaPath);
 
@@ -75,13 +76,8 @@ import java.util.TimerTask;
                 System.out.println("The file was not found at the specified path");
             }
 
-            // when the MediaPlayer is ready to play the media
-            mediaPlayer.setOnReady(() -> {
-                //double trackLength = media.getDuration().toSeconds();
-                //String formattedTime = secondsFormattedToTime(trackLength);
-            });
-
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
 
             sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
@@ -92,12 +88,13 @@ import java.util.TimerTask;
             });
         }
 
+        @FXML
         public void onActionbtnImportClick(){
 
             FileHandlerMedia.fileChooser();
-
         }
 
+        @FXML
         public void onBtnPlayClick(){
 
             beginTimer();
@@ -120,28 +117,21 @@ import java.util.TimerTask;
             }
         }
 
-
-        @FXML
-        private ImageView btnPlayIcon;
-
-
-
         public void updatePlayButtonImage(String imageURL){
 
             Image image = new Image(imageURL);
             btnPlayIcon.setImage(image);
-
         }
 
 
-        public void beginTimer(){
-
+        public void beginTimer() {
             timer = new Timer();
             task = new TimerTask() {
-
                 @Override
                 public void run() {
 
+                    // The provided code (Platform.runLater(() -> {) ensures that the update of JavaFX components occurs on
+                    // the JavaFX Application Thread, and this should prevent the "Not on FX application thread" error
                     Platform.runLater(() -> {
                         if (mediaPlayer != null) {
                             current = mediaPlayer.getCurrentTime().toSeconds();
@@ -149,7 +139,7 @@ import java.util.TimerTask;
                             String formattedTime = secondsFormattedToTime(current);
                             labCurrentTime.setText(formattedTime);
 
-                            if (current == trackLength){
+                            if (current == trackLength) {
                                 cancelTimer();
                             }
 
@@ -159,19 +149,17 @@ import java.util.TimerTask;
                 }
             };
 
-            timer.scheduleAtFixedRate(task,1000,1000);
+            timer.scheduleAtFixedRate(task, 1000, 1000);
         }
 
-
         public void cancelTimer(){
-
             timer.cancel();
         }
 
 
 
         public String secondsFormattedToTime(double durationTime) {
-            //test: durationTime = 5420;
+            //
             int hours = (int) durationTime / 3600;
             int secondsLeft = (int) durationTime % 3600;
             int minutes = secondsLeft / 60;
@@ -181,12 +169,11 @@ import java.util.TimerTask;
         }
 
 
-
+        @FXML
         public void onBtnSkipForwardsClick(){
             int forwardTime;
 
             if (current < media.getDuration().toSeconds() - 15) {
-                System.out.println("current time: " + current);
                 current = mediaPlayer.getCurrentTime().toSeconds();
                 forwardTime = (int) current + 15;
             }
@@ -201,11 +188,12 @@ import java.util.TimerTask;
         }
 
 
+        @FXML
         public void onBtnSkipBackwardsClick(){
 
             int backwardTime;
 
-            if (current < media.getDuration().toSeconds() - 15) {
+            if (current > 14) {
                 current = mediaPlayer.getCurrentTime().toSeconds();
                 current = mediaPlayer.getCurrentTime().toSeconds();
                 backwardTime = (int) current - 15;
@@ -240,14 +228,6 @@ import java.util.TimerTask;
                 mute = !mute;
             }
         }
-
-
-
-
-       // "@../../css/images/play-circle.png" (play knap)
-
-
-
 
 
 
