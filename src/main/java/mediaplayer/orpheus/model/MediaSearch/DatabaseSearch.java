@@ -76,7 +76,6 @@ public class DatabaseSearch {
 
     }
 
-
     /**
      * Method for checking if a field is empty, if not it returns the String value of the field data.
      * @param fieldName reference to the field in the result to search for.
@@ -101,8 +100,9 @@ public class DatabaseSearch {
 
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
-        return new StringBuilder().append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, " +
-                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName, tblMediaGenre.fldGenre ")
+        return new StringBuilder()
+                .append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, ")
+                .append("tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName, tblMediaGenre.fldGenre ")
                 .append("FROM tblMedia ")
 
                 .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
