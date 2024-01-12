@@ -54,7 +54,7 @@ public class SearchViewController {
 
         // switing sceens.
         try {
-            viewControler.switchToHomeScene();
+            sceneController.switchToHomeScene();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,27 +139,27 @@ public class SearchViewController {
 
     }
 
-    private ViewControler viewControler = new ViewControler();
+    private SceneController sceneController = new SceneController();
 
-    public void switchToPlaylistView(ActionEvent event) {
+    public void switchToPlaylistView() {
         try {
-            viewControler.switchToPlaylistScene(event);
+            sceneController.switchToPlaylistScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToSearchView(ActionEvent event) {
+    public void switchToSearchView() {
         try {
-            viewControler.switchToSearchScene(event);
+            sceneController.switchToSearchScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToHomeView(ActionEvent event) {
+    public void switchToHomeView() {
         try {
-            viewControler.switchToHomeScene(event);
+            sceneController.switchToHomeScene();
         } catch (IOException e) {
             e.printStackTrace();
         }

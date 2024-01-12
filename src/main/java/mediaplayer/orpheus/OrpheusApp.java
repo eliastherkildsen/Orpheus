@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mediaplayer.orpheus.Controler.ViewControler;
+import mediaplayer.orpheus.Controler.SceneController;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ public class OrpheusApp extends Application {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
             Scene scene = new Scene(root);
-            ViewControler.setStage(stage);
+            SceneController.setStage(stage);
             stage.setScene(scene);
             stage.show();
 
