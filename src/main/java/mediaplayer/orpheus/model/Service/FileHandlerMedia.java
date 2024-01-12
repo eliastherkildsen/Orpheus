@@ -3,17 +3,12 @@ package mediaplayer.orpheus.model.Service;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import mediaplayer.orpheus.util.AnsiColorCode;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class FileHandlerMedia {
     private String filePath;
@@ -56,12 +51,15 @@ public class FileHandlerMedia {
             default -> "error";
         };
     }
+
+    /**
+     * Takes a path and only returns the filename.
+     * @return String filename.
+     */
     public String getFileNameWithoutExtension() {
         Path path = Paths.get(getFilePath());
-        // Get the filename from the path
         String fileName = path.getFileName().toString();
 
-        // Find the last occurrence of '.' to separate the extension
         int dotIndex = fileName.lastIndexOf('.');
 
         // If there's a dot in the filename, extract the substring without extension
