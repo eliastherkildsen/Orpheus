@@ -80,27 +80,35 @@ public class FileHandlerMedia {
         FileChooser fileChooser = new FileChooser();
         //Makes a filter for the FileChooser, so when using FileChooser file explore only shows mp3 and mp4 files
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("mp4 files", "*.mp4", "*.mp3");
-
         fileChooser.getExtensionFilters().add(extensionFilter);
 
         File file = fileChooser.showOpenDialog(fileStage);
 
         //Checks if a valid file has been chosen
         if (file != null){
-            String mediaPath = file.getAbsolutePath();
-            //Debug line
-            System.out.printf("%s[File Chooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
-            MetadataService metadataHandler = new MetadataService(mediaPath);
-
-            try {
-                metadataHandler.insertAndGatherMedia();
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
-            }
+            processSelectedFile(file);
         }else {
             //Debug line
             System.out.printf("%s[File Chooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+    /**
+     * Method for processing the selected file
+     * @param file This is the file selected from the FileChooser
+     */
+    private static void processSelectedFile(File file){
+        String mediaPath = file.getAbsolutePath();
+        //Debug line
+        System.out.printf("%s[File Chooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
+        MetadataService metadataHandler = new MetadataService(mediaPath);
+
+        //Trys to extract all the metadata from the file as it can
+        try {
+            metadataHandler.insertAndGatherMedia();
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
