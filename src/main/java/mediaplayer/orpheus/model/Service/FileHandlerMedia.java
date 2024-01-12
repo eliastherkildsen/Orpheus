@@ -69,7 +69,7 @@ public class FileHandlerMedia {
     /**
      * Method for choosing a file from file explore
      */
-    private static void fileChooser(){
+    public static void fileChooser(){
         Stage fileStage = new Stage();
 
         // Creates a FileChooser object

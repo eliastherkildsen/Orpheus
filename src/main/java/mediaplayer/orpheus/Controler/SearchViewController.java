@@ -121,7 +121,7 @@ public class SearchViewController {
 
         // switching screens.
         try {
-            viewControler.switchToHomeScene();
+            sceneController.switchToHomeScene();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
