@@ -9,14 +9,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Objects;
 
-/**
- * TODO: ERROR HANDLING
- */
 public class FileHandlerMedia {
     private String filePath;
-
     /**
      * FileHandler currently only deals with .mp3 and .mp4
      * @param filePath as String, the path for the file you want the extension for.
@@ -31,30 +26,39 @@ public class FileHandlerMedia {
      */
     private String returnFileExtension() {
         File file = new File(filePath);
-        String fileName = file.getName();
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
+
+        String absolutePath = file.getAbsolutePath();
+        String fileName = new File(absolutePath).getName();
+
+        if (fileName.contains(".") && !fileName.endsWith(".")) {
+            return fileName.substring(fileName.lastIndexOf('.') + 1);
+        }
+        return "";
     };
 
     /**
-     *
+     * A method to determine what extension the class has, then returns that in a desired format.
+     * Includes the ability to call a error when the extension isnt supported.
+     * TODO: Correct error Handling
      * @return String mp3 or mp4
      */
     public String mp3OrMp4(){
         String extension = this.returnFileExtension();
-        if (Objects.equals(extension, "mp3")){
-            return "mp3";
-        } else if (Objects.equals(extension, "mp4")){
-            return "mp4";
-        } else {
-            return "ERROR"; //SKIFT MIG TIL ERROR HANDLING
-        }
+        return switch (extension) {
+            case "mp3" -> "mp3";
+            case "mp4" -> "mp4";
+            default -> "error";
+        };
     }
+
+    /**
+     * Takes a path and only returns the filename.
+     * @return String filename.
+     */
     public String getFileNameWithoutExtension() {
         Path path = Paths.get(getFilePath());
-        // Get the filename from the path
         String fileName = path.getFileName().toString();
 
-        // Find the last occurrence of '.' to separate the extension
         int dotIndex = fileName.lastIndexOf('.');
 
         // If there's a dot in the filename, extract the substring without extension
