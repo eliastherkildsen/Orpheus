@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class FileHandlerMedia {
     private String filePath;
-
     /**
      * FileHandler currently only deals with .mp3 and .mp4
      * @param filePath as String, the path for the file you want the extension for.
