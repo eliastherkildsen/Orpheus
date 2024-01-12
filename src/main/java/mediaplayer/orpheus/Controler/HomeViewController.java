@@ -11,29 +11,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
-import mediaplayer.orpheus.Controler.ViewControler;
 
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
-import mediaplayer.orpheus.model.Service.MetadataService;
 import mediaplayer.orpheus.util.AnsiColorCode;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+    // implementing the initializable interface in the HomeViewController class
     public class HomeViewController implements Initializable {
 
         @FXML
@@ -58,28 +51,42 @@ import java.util.TimerTask;
         private boolean playSwitchStage = true;
         private Timer timer;
         private TimerTask task;
-        private double current;
+        //laves om til int
+        private double currentTrackTime;
         private double currentSliderVol;
         private boolean mute = true;
 
 
-
+        /**
+         * Initialization method that loads and initializes data.
+         * This method is called on startup to prepare and load necessary data.
+         * @param url
+         * @param resourceBundle
+         */
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-
+            // Creates a File object based on the media path
             file = new File(mediaPath);
 
+            // Checks if the file exists
             if (file.exists()) {
                 media = new Media(file.toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
+                System.out.printf("path fundet");
             } else {
-                System.out.println("The file was not found at the specified path");
+                System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             }
 
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
 
             sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
+                /**
+                 *
+                 * @param observableValue
+                 * @param number
+                 * @param t1
+                 */
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
@@ -88,17 +95,25 @@ import java.util.TimerTask;
             });
         }
 
+
+        /**
+         *
+         */
         @FXML
         public void onActionbtnImportClick(){
 
             FileHandlerMedia.fileChooser();
         }
 
+        /**
+         *
+         */
         @FXML
         public void onBtnPlayClick(){
 
             beginTimer();
 
+            //global variabel
             String playImageURL = "file:src/main/resources/css/images/play-circle.png";
             String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
 
@@ -117,6 +132,10 @@ import java.util.TimerTask;
             }
         }
 
+        /**
+         *
+         * @param imageURL
+         */
         public void updatePlayButtonImage(String imageURL){
 
             Image image = new Image(imageURL);
@@ -124,9 +143,16 @@ import java.util.TimerTask;
         }
 
 
+        /**
+         *
+         */
         public void beginTimer() {
             timer = new Timer();
             task = new TimerTask() {
+
+                /**
+                 *
+                 */
                 @Override
                 public void run() {
 
@@ -134,12 +160,12 @@ import java.util.TimerTask;
                     // the JavaFX Application Thread, and this should prevent the "Not on FX application thread" error
                     Platform.runLater(() -> {
                         if (mediaPlayer != null) {
-                            current = mediaPlayer.getCurrentTime().toSeconds();
+                            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
                             double trackLength = media.getDuration().toSeconds();
-                            String formattedTime = secondsFormattedToTime(current);
+                            String formattedTime = secondsFormattedToTime(currentTrackTime);
                             labCurrentTime.setText(formattedTime);
 
-                            if (current == trackLength) {
+                            if (currentTrackTime == trackLength) {
                                 cancelTimer();
                             }
 
@@ -152,12 +178,21 @@ import java.util.TimerTask;
             timer.scheduleAtFixedRate(task, 1000, 1000);
         }
 
+        /**
+         *
+         */
         public void cancelTimer(){
             timer.cancel();
+            //TODO - when making skipMedia
         }
 
 
-
+        /**
+         *
+         * @param durationTime
+         * @return
+         */
+        //anden classe
         public String secondsFormattedToTime(double durationTime) {
             //
             int hours = (int) durationTime / 3600;
@@ -168,14 +203,17 @@ import java.util.TimerTask;
             return String.format("%02d:%02d:%02d", hours, minutes, seconds);
         }
 
-
+        /**
+         *
+         */
         @FXML
         public void onBtnSkipForwardsClick(){
             int forwardTime;
 
-            if (current < media.getDuration().toSeconds() - 15) {
-                current = mediaPlayer.getCurrentTime().toSeconds();
-                forwardTime = (int) current + 15;
+            //egen metode (ren btnskipmetode)
+            if (currentTrackTime < media.getDuration().toSeconds() - 15) {
+                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+                forwardTime = (int) currentTrackTime + 15;
             }
             else {
                 forwardTime = (int) media.getDuration().toSeconds();
@@ -188,15 +226,18 @@ import java.util.TimerTask;
         }
 
 
+        /**
+         *
+         */
         @FXML
         public void onBtnSkipBackwardsClick(){
 
             int backwardTime;
 
-            if (current > 14) {
-                current = mediaPlayer.getCurrentTime().toSeconds();
-                current = mediaPlayer.getCurrentTime().toSeconds();
-                backwardTime = (int) current - 15;
+            if (currentTrackTime > 14) {
+                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+                backwardTime = (int) currentTrackTime - 15;
             }
             else {
                 backwardTime = (int) Duration.ZERO.toSeconds();
@@ -208,12 +249,19 @@ import java.util.TimerTask;
             mediaPlayer.play();
         }
 
+        /**
+         *
+         * @param time
+         */
         private void updateCurrentTimeLabel(int time) {
 
             labCurrentTime.setText(secondsFormattedToTime(time));
         }
 
 
+        /**
+         *
+         */
         @FXML
         private void onBtnVolumeMuteClick(){
 
