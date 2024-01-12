@@ -146,8 +146,10 @@ import java.util.TimerTask;
                         if (mediaPlayer != null) {
                             current = mediaPlayer.getCurrentTime().toSeconds();
                             double trackLength = media.getDuration().toSeconds();
-                            String formattedTime = secondsFormattedToTime(current);
-                            labCurrentTime.setText(formattedTime);
+                            //String formattedTime = secondsFormattedToTime(current);
+                            //labCurrentTime.setText(formattedTime);
+
+                            updateCurrentTimeLabel((int) current);
 
                             if (current == trackLength){
                                 cancelTimer();
