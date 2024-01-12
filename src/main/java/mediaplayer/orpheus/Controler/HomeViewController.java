@@ -44,20 +44,17 @@ public class HomeViewController implements Initializable {
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
-        private int playSwitchStage = 0;
+        private boolean playSwitchStage;
         private Timer timer;
         private TimerTask task;
         private double current;
         private double currentSliderVol;
-        private int mute = 0;
-        private boolean running;
+        private boolean mute;
 
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-
-            updatePlayButtonImage("file:src/main/resources/css/images/play-circle.png");
 
             labCurrentTime.setText("");
             labMediaLength.setText("");
@@ -73,8 +70,8 @@ public class HomeViewController implements Initializable {
 
             // when the MediaPlayer is ready to play the media
             mediaPlayer.setOnReady(() -> {
-                double trackLength = media.getDuration().toSeconds();
-                String formattedTime = secondsFormattedToTime(trackLength);
+                //double trackLength = media.getDuration().toSeconds();
+                //String formattedTime = secondsFormattedToTime(trackLength);
             });
 
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
@@ -95,18 +92,18 @@ public class HomeViewController implements Initializable {
             String playImageURL = "file:src/main/resources/css/images/play-circle.png";
             String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
 
-            if (playSwitchStage == 0) {
+            if (playSwitchStage) {
 
                 mediaPlayer.play();
                 updatePlayButtonImage(pauseImageURL);
 
-                playSwitchStage = 1;
+                playSwitchStage = !playSwitchStage;
             }
             else {
                 mediaPlayer.pause();
                 updatePlayButtonImage(playImageURL);
 
-                playSwitchStage = 0;
+                playSwitchStage = !playSwitchStage;
             }
         }
 
@@ -219,15 +216,15 @@ public class HomeViewController implements Initializable {
         @FXML
         private void onBtnVolumeMuteClick(){
 
-            if (mute == 0) {
+            if (mute) {
                 currentSliderVol = sliderVolume.getValue();
 
                 sliderVolume.setValue(0);
-                mute = 1;
+                mute = !mute;
             }
             else {
                 sliderVolume.setValue(currentSliderVol);
-                mute = 0;
+                mute = !mute;
             }
         }
 
