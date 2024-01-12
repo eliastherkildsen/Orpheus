@@ -31,6 +31,7 @@ public class MediaSearchUtil {
      * @return String.
      */
     public static String formatedQuarryResultString(String[] dataset){
+        // initializing StringBuilder
         StringBuilder sb = new StringBuilder();
 
         /*
@@ -42,36 +43,11 @@ public class MediaSearchUtil {
         dataset[7] = fldGenre
          */
 
-        if (checkNull(dataset[3])){
-            sb.append("[");
-            sb.append(dataset[3]);
-            sb.append("] ");
-        }
-
-        if (checkNull(dataset[0])){
-            sb.append(" - ");
-            sb.append(dataset[0]);
-        }
-
-        if (checkNull(dataset[1])){
-            sb.append(" - ");
-            sb.append(dataset[1]);
-        }
-
-        if (checkNull(dataset[2])){
-            sb.append(" - ");
-            sb.append(dataset[2]);
-        }
-
-        if (checkNull(dataset[6])){
-            sb.append(" - ");
-            sb.append(dataset[6]);
-        }
-
-        if (checkNull(dataset[7])){
-            sb.append(" - ");
-            sb.append(dataset[7]);
-        }
+        sb.append(formatString(dataset[3], true));
+        sb.append(formatString(dataset[1]));
+        sb.append(formatString(dataset[2]));
+        sb.append(formatString(dataset[6]));
+        sb.append(formatString(dataset[7]));
 
         return sb.toString();
     }
@@ -86,4 +62,36 @@ public class MediaSearchUtil {
             return false;
         } else return !string.toUpperCase().equals("NULL");
     }
+
+    /**
+     * method for returning a formated string, with null check.
+     * @param data field contents
+     * @return String formatted string of field contents
+     */
+    private static String formatString(String data) {
+        String returnString = "";
+        if (checkNull(data)) {
+            returnString = String.format(" - %s", data);
+
+        }
+
+        return returnString;
+    }
+
+    /**
+     * method for returning a formated string, with null check. overloaded from
+     * formatString(String data), to make able to remove prefix " - "
+     * @param data String field contents
+     * @param prefix boolean, boolean value ignored.
+     * @return String formatted string of field contents
+     */
+    private static String formatString(String data, boolean prefix) {
+        String returnString = "";
+        if (checkNull(data)) {
+            return data;
+        }
+
+        return returnString;
+    }
+
 }
