@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class MediaHandler implements Initializable {
 
-    private String path = new File("src/main/java/mediaplayer/orpheus/mediaFiles/Sleeping My Day Away").getAbsolutePath();
+    private String path = new File("src/main/java/mediaplayer/orpheus/mediaFiles/Sleeping My Day Away.mp3").getAbsolutePath();
     private Media media = new Media(new File(path).toURI().toString());
     private MediaPlayer mediaPlayer = new MediaPlayer(media);
 

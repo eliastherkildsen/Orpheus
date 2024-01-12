@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class MetaExtractorMp3Test {
     //File to test up against.
-    String filePath = "src/main/java/mediaplayer/orpheus/mediafiles/Fallout - Teaser Trailer Prime Video.mp4";
+    String filePath = "src/main/java/mediaplayer/orpheus/mediafiles/Sleeping My Day Away.mp3";
     @Test
     void notNullTrackLength() throws IOException {
         MetaExtractorMp3 song = new MetaExtractorMp3(filePath);

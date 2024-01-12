@@ -24,6 +24,7 @@ public class MetadataService {
 
         String filetype = medialength.mp3OrMp4();
 
+
         media.setMediaTitle(song.gatherMetaDataTitle());
         media.setArtist(song.gatherMetaDataArtist());
         media.setMediaYear(song.gatherMetaDataYear());
