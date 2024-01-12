@@ -34,20 +34,11 @@ public class MediaSearchUtil {
         // initializing StringBuilder
         StringBuilder sb = new StringBuilder();
 
-        /*
-        dataset[0] = fldArtistName
-        dataset[1] = fldFirstName
-        dataset[2] = fldLastName
-        dataset[3] = fldMediaTitle
-        dataset[6] = fldTrackLength
-        dataset[7] = fldGenre
-         */
-
-        sb.append(formatString(dataset[3], true));
-        sb.append(formatString(dataset[1]));
-        sb.append(formatString(dataset[2]));
-        sb.append(formatString(dataset[6]));
-        sb.append(formatString(dataset[7]));
+        sb.append(formatString(dataset[3], false));
+        sb.append(formatString(dataset[1], true ));
+        sb.append(formatString(dataset[2], true ));
+        sb.append(formatString(dataset[6], true ));
+        sb.append(formatString(dataset[7], true ));
 
         return sb.toString();
     }
@@ -64,31 +55,16 @@ public class MediaSearchUtil {
     }
 
     /**
-     * method for returning a formated string, with null check.
-     * @param data field contents
-     * @return String formatted string of field contents
-     */
-    private static String formatString(String data) {
-        String returnString = "";
-        if (checkNull(data)) {
-            returnString = String.format(" - %s", data);
-
-        }
-
-        return returnString;
-    }
-
-    /**
-     * method for returning a formated string, with null check. overloaded from
-     * formatString(String data), to make able to remove prefix " - "
+     * method for returning a formatted string, with null check.
      * @param data String field contents
-     * @param prefix boolean, boolean value ignored.
+     * @param prefix boolean, boolean value for
+     *               specifying if a prefix needs to be used
      * @return String formatted string of field contents
      */
     private static String formatString(String data, boolean prefix) {
         String returnString = "";
         if (checkNull(data)) {
-            return data;
+            returnString = prefix ? String.format(" - %s", data) : data;
         }
 
         return returnString;
