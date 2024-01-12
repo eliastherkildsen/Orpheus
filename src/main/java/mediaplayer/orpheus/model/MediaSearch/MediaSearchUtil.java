@@ -34,6 +34,7 @@ public class MediaSearchUtil {
         // initializing StringBuilder
         StringBuilder sb = new StringBuilder();
 
+        // appending to the presented String.
         sb.append(formatString(dataset[3], false));
         sb.append(formatString(dataset[1], true ));
         sb.append(formatString(dataset[2], true ));
@@ -51,7 +52,7 @@ public class MediaSearchUtil {
     private static boolean checkNull(String string){
         if (string == null){
             return false;
-        } else return !string.toUpperCase().equals("NULL");
+        } else return !string.equalsIgnoreCase("NULL");
     }
 
     /**
@@ -66,8 +67,6 @@ public class MediaSearchUtil {
         if (checkNull(data)) {
             returnString = prefix ? String.format(" - %s", data) : data;
         }
-
         return returnString;
     }
-
 }
