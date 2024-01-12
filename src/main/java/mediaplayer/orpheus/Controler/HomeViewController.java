@@ -11,25 +11,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
-import mediaplayer.orpheus.Controler.ViewControler;
 
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
-import mediaplayer.orpheus.model.Service.MetadataService;
-import mediaplayer.orpheus.util.AnsiColorCode;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -256,36 +247,36 @@ import java.util.TimerTask;
         @FXML
         private Button btnSearch, btnPlaylist, btnDelete;
 
-        private ViewControler viewControler = new ViewControler();
+        private SceneController sceneController = new SceneController();
 
-        public void switchToPlaylistView(ActionEvent event) {
+        public void switchToPlaylistView() {
 
             mediaPlayer.pause();
 
             try {
-                viewControler.switchToPlaylistScene(event);
+                sceneController.switchToPlaylistScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public void switchToSearchView(ActionEvent event) {
+        public void switchToSearchView() {
 
             mediaPlayer.pause();
 
             try {
-                viewControler.switchToSearchScene(event);
+                sceneController.switchToSearchScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public void switchToHomeView(ActionEvent event) {
+        public void switchToHomeView() {
 
             mediaPlayer.pause();
 
             try {
-                viewControler.switchToHomeScene(event);
+                sceneController.switchToHomeScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
