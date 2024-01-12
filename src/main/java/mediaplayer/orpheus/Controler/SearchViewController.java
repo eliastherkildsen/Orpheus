@@ -118,7 +118,7 @@ public class SearchViewController {
         // switches the filepath for the media view to the user selected filepath
         HomeViewController.mediaPath = filePath;
 
-        // switing sceens.
+        // switching screens.
         try {
             viewControler.switchToHomeScene();
         } catch (IOException e) {

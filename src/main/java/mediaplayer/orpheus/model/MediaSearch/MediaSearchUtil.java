@@ -6,12 +6,12 @@ public class MediaSearchUtil {
 
     /**
      * Method for parsing the position of the selected item from a string to an integer.
-     * and the retrieving the path for the String at the index og the integer retrived.
+     * and the retrieving the path for the String at the index og the integer retrieved.
      * @return String filepath to selected media.
      */
     public static String parseLWSearchResult(String mediaPicked, ArrayList<String[]> dataSet) {
 
-        // the returend value from getSelectedIndices() is a text, therefor we need to parse it to an int, and exclude
+        // the returned value from getSelectedIndices() is a text, therefor we need to parse it to an int, and exclude
         // the start char '[' and the last char ']'
         String mediaIndex = mediaPicked;
         mediaIndex = mediaIndex.substring(1,mediaIndex.length()-1);
@@ -26,7 +26,7 @@ public class MediaSearchUtil {
     }
 
     /**
-     * Method for creating a formated string output for a quarry result.
+     * Method for creating a formatted string output for a quarry result.
      * @param dataset String array.
      * @return String.
      */
@@ -78,15 +78,12 @@ public class MediaSearchUtil {
 
     /**
      * method for checking if a string contains "NULL" or is null
-     * @param string
+     * @param string string to format.
      * @return boolean
      */
     private static boolean checkNull(String string){
         if (string == null){
             return false;
-        } else if (string.toUpperCase() == "NULL") {
-            return false;
-        }
-        return true;
+        } else return !string.toUpperCase().equals("NULL");
     }
 }
