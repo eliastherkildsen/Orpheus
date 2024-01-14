@@ -214,7 +214,7 @@ public class HomeViewController implements Initializable {
     /**
      * Method that handles the button click event for the skip backward button.
      *
-     * The method calls a utility method to skip det media backward by 15 seconds and update the UI components.
+     * The method calls a utility method to skip the media backward by 15 seconds and update the UI components.
      */
     @FXML
     public void onBtnSkipBackwardsClick(){
@@ -227,6 +227,8 @@ public class HomeViewController implements Initializable {
 
     /**
      * Method that handles the button click event for toggling volume mute
+     *
+     * The method calls a utility method to mute/unmute the volume
      */
     @FXML
     private void onBtnVolumeMuteClick(){
