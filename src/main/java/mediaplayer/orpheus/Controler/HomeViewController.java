@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
@@ -26,296 +27,302 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-    // implementing the initializable interface in the HomeViewController class
-    public class HomeViewController implements Initializable {
+// implementing the initializable interface in the HomeViewController class
+public class HomeViewController implements Initializable {
 
-        @FXML
-        private MediaView mediaViewDisplay;
+    @FXML
+    private MediaView mediaViewDisplay;
 
-        @FXML
-        private Slider sliderVolume;
+    @FXML
+    private Slider sliderVolume;
 
-        @FXML
-        private Label labCurrentTime;
+    @FXML
+    private Label labCurrentTime;
 
-        @FXML
-        private Label labMediaLength;
+    @FXML
+    private Label labMediaLength;
 
-        @FXML
-        private ImageView btnPlayIcon;
+    @FXML
+    private ImageView btnPlayIcon;
 
-        public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-        private File file;
-        private Media media;
-        private MediaPlayer mediaPlayer;
-        private boolean playSwitchStage = true;
-        private Timer timer;
-        private TimerTask task;
-        //laves om til int
-        private double currentTrackTime;
-        private double currentSliderVol;
-        private boolean mute = true;
+    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+    private File file;
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private boolean playSwitchStage = true;
+    private Timer timer;
+    private TimerTask task;
+    //laves om til int
+    private double currentTrackTime;
+    private double currentSliderVol;
+    private boolean mute = true;
 
 
-        /**
-         * Initialization method that loads and initializes data.
-         * This method is called on startup to prepare and load necessary data.
-         * @param url
-         * @param resourceBundle
-         */
-        @Override
-        public void initialize(URL url, ResourceBundle resourceBundle) {
-            // Creates a File object based on the media path
-            file = new File(mediaPath);
+    /**
+     * Initialization method that loads and initializes data.
+     * This method is called on startup to prepare and load necessary data.
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // creates a file object based on the media path
+        file = new File(mediaPath);
 
-            // Checks if the file exists
-            if (file.exists()) {
-                media = new Media(file.toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-                System.out.printf("path fundet");
-            } else {
-                System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        // checks if the file exists
+        if (file.exists()) {
+            // creates a media object based on the file's URI
+            media = new Media(file.toURI().toString());
+            // creates a media player based on the media object
+            mediaPlayer = new MediaPlayer(media);
+            // prints a message if the file is found
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\\n\",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET");
+        } else {
+            // prints an error message if the file wasn't found
+            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        }
+
+        // associates the mediaPlayer with the mediaViewDisplay for content playback
+        mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+
+
+        // listens for changes in the value of the volume slider
+        sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
+
+            /**
+             * Method that responds on changes in the volume slider's value
+             *
+             * @param observableValue
+             * @param number
+             * @param t1
+             */
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                // sets the volume on mediaPlayer based on the volume slider's value
+                // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
+                // volume (0.0 to 1.0)
+                mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
             }
-
-            mediaViewDisplay.setMediaPlayer(mediaPlayer);
-
-
-            sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
-                /**
-                 *
-                 * @param observableValue
-                 * @param number
-                 * @param t1
-                 */
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-
-                    mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
-                }
-            });
-        }
+        });
+    }
 
 
-        /**
-         *
-         */
-        @FXML
-        public void onActionbtnImportClick(){
 
-            FileHandlerMedia.fileChooser();
-        }
+    @FXML
+    public void onActionbtnImportClick(){
 
-        /**
-         *
-         */
-        @FXML
-        public void onBtnPlayClick(){
-
-            beginTimer();
-
-            //global variabel
-            String playImageURL = "file:src/main/resources/css/images/play-circle.png";
-            String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
-
-            if (playSwitchStage) {
-
-                mediaPlayer.play();
-                updatePlayButtonImage(pauseImageURL);
-
-                playSwitchStage = !playSwitchStage;
-            }
-            else {
-                mediaPlayer.pause();
-                updatePlayButtonImage(playImageURL);
-
-                playSwitchStage = !playSwitchStage;
-            }
-        }
-
-        /**
-         *
-         * @param imageURL
-         */
-        public void updatePlayButtonImage(String imageURL){
-
-            Image image = new Image(imageURL);
-            btnPlayIcon.setImage(image);
-        }
+        FileHandlerMedia.fileChooser();
+    }
 
 
-        /**
-         *
-         */
-        public void beginTimer() {
-            timer = new Timer();
-            task = new TimerTask() {
 
-                /**
-                 *
-                 */
-                @Override
-                public void run() {
 
-                    // The provided code (Platform.runLater(() -> {) ensures that the update of JavaFX components occurs on
-                    // the JavaFX Application Thread, and this should prevent the "Not on FX application thread" error
-                    Platform.runLater(() -> {
-                        if (mediaPlayer != null) {
-                            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-                            double trackLength = media.getDuration().toSeconds();
-                            String formattedTime = secondsFormattedToTime(currentTrackTime);
-                            labCurrentTime.setText(formattedTime);
+    /**
+     * Method that handles the button click event for the play button.
+     *
+     * Initiates a timer, plays or pauses the media based on the current state,
+     * and updates the play button icon accordingly.
+     */
+    @FXML
+    public void onBtnPlayClick(){
 
-                            if (currentTrackTime == trackLength) {
-                                cancelTimer();
-                            }
+        // starts a timer
+        beginTimer();
+        // play or pause the media and update the play button icon
+        MediaUtil.playMedia(mediaPlayer,playSwitchStage,btnPlayIcon);
+        // toggle the playSwitchStage for the next button click
+        playSwitchStage = !playSwitchStage;
 
-                            labMediaLength.setText(secondsFormattedToTime(trackLength));
+    }
+
+
+
+
+    /**
+     * Method that initializes and starts a timer to update the current time display of the media player.
+     *
+     * The timer updates UI components on the JavaFX Application Thread at fixed intervals,
+     * starting with a 1000 milliseconds (1-second) delay and repeating every 1000 milliseconds (1 second).
+     * The timer continues until the end of the media track, at which point it is automatically canceled.
+     */
+    public void beginTimer() {
+        // initializes a timer and timer task
+        timer = new Timer();
+        task = new TimerTask() {
+
+            /**
+             * Method that runs the timer task and updates the UI components with the current time of the media player
+             */
+            @Override
+            public void run() {
+
+                // The code within Platform.runLater() ensures that UI updates occur on the JavaFX Application Thread,
+                // preventing the "Not on FX application thread" error.
+                Platform.runLater(() -> {
+                    if (mediaPlayer != null) {
+                        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+                        double trackLength = media.getDuration().toSeconds();
+                        String formattedTime = secondsFormattedToTime(currentTrackTime);
+                        // updates the current time display
+                        labCurrentTime.setText(formattedTime);
+
+                        // checks if the end of the media track is reached and cancel the timer if so
+                        if (currentTrackTime == trackLength) {
+                            cancelTimer();
                         }
-                    });
-                }
-            };
+                        // updates the media length display
+                        labMediaLength.setText(secondsFormattedToTime(trackLength));
+                    }
+                });
+            }
+        };
 
-            timer.scheduleAtFixedRate(task, 1000, 1000);
+        // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
+
+
+
+    /**
+     *
+     */
+    public void cancelTimer(){
+        timer.cancel();
+        //TODO - when making skipMedia
+    }
+
+
+    /**
+     *
+     * @param durationTime
+     * @return
+     */
+    //anden classe
+    public String secondsFormattedToTime(double durationTime) {
+        //
+        int hours = (int) durationTime / 3600;
+        int secondsLeft = (int) durationTime % 3600;
+        int minutes = secondsLeft / 60;
+        int seconds = secondsLeft % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    /**
+     *
+     */
+    @FXML
+    public void onBtnSkipForwardsClick(){
+        int forwardTime;
+
+        //egen metode (ren btnskipmetode)
+        if (currentTrackTime < media.getDuration().toSeconds() - 15) {
+            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+            forwardTime = (int) currentTrackTime + 15;
+        }
+        else {
+            forwardTime = (int) media.getDuration().toSeconds();
         }
 
-        /**
-         *
-         */
-        public void cancelTimer(){
-            timer.cancel();
-            //TODO - when making skipMedia
+        updateCurrentTimeLabel(forwardTime);
+
+        mediaPlayer.seek(Duration.seconds(forwardTime));
+        mediaPlayer.play();
+    }
+
+
+    /**
+     *
+     */
+    @FXML
+    public void onBtnSkipBackwardsClick(){
+
+        int backwardTime;
+
+        if (currentTrackTime > 14) {
+            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+            backwardTime = (int) currentTrackTime - 15;
+        }
+        else {
+            backwardTime = (int) Duration.ZERO.toSeconds();
         }
 
+        updateCurrentTimeLabel(backwardTime);
 
-        /**
-         *
-         * @param durationTime
-         * @return
-         */
-        //anden classe
-        public String secondsFormattedToTime(double durationTime) {
-            //
-            int hours = (int) durationTime / 3600;
-            int secondsLeft = (int) durationTime % 3600;
-            int minutes = secondsLeft / 60;
-            int seconds = secondsLeft % 60;
+        mediaPlayer.seek(Duration.seconds(backwardTime));
+        mediaPlayer.play();
+    }
 
-            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    /**
+     *
+     * @param time
+     */
+    private void updateCurrentTimeLabel(int time) {
+
+        labCurrentTime.setText(secondsFormattedToTime(time));
+    }
+
+
+    /**
+     *
+     */
+    @FXML
+    private void onBtnVolumeMuteClick(){
+
+        if (mute) {
+            currentSliderVol = sliderVolume.getValue();
+
+            sliderVolume.setValue(0);
+            mute = !mute;
         }
-
-        /**
-         *
-         */
-        @FXML
-        public void onBtnSkipForwardsClick(){
-            int forwardTime;
-
-            //egen metode (ren btnskipmetode)
-            if (currentTrackTime < media.getDuration().toSeconds() - 15) {
-                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-                forwardTime = (int) currentTrackTime + 15;
-            }
-            else {
-                forwardTime = (int) media.getDuration().toSeconds();
-            }
-
-            updateCurrentTimeLabel(forwardTime);
-
-            mediaPlayer.seek(Duration.seconds(forwardTime));
-            mediaPlayer.play();
-        }
-
-
-        /**
-         *
-         */
-        @FXML
-        public void onBtnSkipBackwardsClick(){
-
-            int backwardTime;
-
-            if (currentTrackTime > 14) {
-                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-                currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-                backwardTime = (int) currentTrackTime - 15;
-            }
-            else {
-                backwardTime = (int) Duration.ZERO.toSeconds();
-            }
-
-            updateCurrentTimeLabel(backwardTime);
-
-            mediaPlayer.seek(Duration.seconds(backwardTime));
-            mediaPlayer.play();
-        }
-
-        /**
-         *
-         * @param time
-         */
-        private void updateCurrentTimeLabel(int time) {
-
-            labCurrentTime.setText(secondsFormattedToTime(time));
-        }
-
-
-        /**
-         *
-         */
-        @FXML
-        private void onBtnVolumeMuteClick(){
-
-            if (mute) {
-                currentSliderVol = sliderVolume.getValue();
-
-                sliderVolume.setValue(0);
-                mute = !mute;
-            }
-            else {
-                sliderVolume.setValue(currentSliderVol);
-                mute = !mute;
-            }
-        }
-
-
-
-
-        //to handle stage-switch
-        @FXML
-        private Button btnSearch, btnPlaylist, btnDelete;
-
-        private ViewControler viewControler = new ViewControler();
-
-        public void switchToPlaylistView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
-            try {
-                viewControler.switchToPlaylistScene(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void switchToSearchView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
-            try {
-                viewControler.switchToSearchScene(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void switchToHomeView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
-            try {
-                viewControler.switchToHomeScene(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        else {
+            sliderVolume.setValue(currentSliderVol);
+            mute = !mute;
         }
     }
+
+
+
+
+    //to handle stage-switch
+    @FXML
+    private Button btnSearch, btnPlaylist, btnDelete;
+
+    private ViewControler viewControler = new ViewControler();
+
+    public void switchToPlaylistView(ActionEvent event) {
+
+        mediaPlayer.pause();
+
+        try {
+            viewControler.switchToPlaylistScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void switchToSearchView(ActionEvent event) {
+
+        mediaPlayer.pause();
+
+        try {
+            viewControler.switchToSearchScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void switchToHomeView(ActionEvent event) {
+
+        mediaPlayer.pause();
+
+        try {
+            viewControler.switchToHomeScene(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
