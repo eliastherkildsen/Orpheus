@@ -41,21 +41,17 @@ public class SearchViewController implements Initializable {
     @FXML
     private void onActionbtnListenClick(){
 
-        // gets the selected items index.
-        int mediaPickedIndex = getSelectedItemIndex();
-
         // retrieves the path for the selected media.
-        String filePath = MediaSearchUtil.getMediaPathFromDataset(mediaPickedIndex, dataSet);
-        System.out.println(filePath);
-
-        // debug logging.
-        System.out.printf("%s[MEDIA-SEARCH] Media picked: %s %s%n", AnsiColorCode.ANSI_YELLOW, mediaPickedIndex, AnsiColorCode.ANSI_RESET);
-        System.out.println(filePath);
+        String filePath = MediaSearchUtil.getMediaPathFromDataset(getSelectedItemIndex(), dataSet);
 
         // switches to home view, and sets the media at home view to the selected media.
         if (!filePath.equals("")){
             switchMedia(filePath);
         }
+
+        // debug logging.
+        System.out.printf("%s[MEDIA-SEARCH] Media picked: %s %s%n", AnsiColorCode.ANSI_YELLOW, getSelectedItemIndex(), AnsiColorCode.ANSI_RESET);
+        System.out.println(filePath);
 
     }
 
@@ -66,10 +62,7 @@ public class SearchViewController implements Initializable {
 
     @FXML
     private void onActionbtnDeleteMediaClick(){
-
-        // TODO : check if any items has been selected.
         deleteMedia(getSelectedItemIndex());
-
     }
 
     /**
@@ -108,9 +101,7 @@ public class SearchViewController implements Initializable {
     }
 
     public void onActionbtnImportClick(){
-
         FileHandlerMedia.fileChooser();
-
     }
 
     public void switchToPlaylistView() {
@@ -143,7 +134,6 @@ public class SearchViewController implements Initializable {
     private void switchMedia(String filePath) {
         // switches the filepath for the media view to the user selected filepath
         HomeViewController.mediaPath = filePath;
-        // switching screens.
         switchToHomeView();
     }
 
@@ -164,6 +154,8 @@ public class SearchViewController implements Initializable {
         if (getSelectedItemIndex() != -1){
             databaseSearch.deleteMediaFromDatabase(mediaID);
             refreshSearchResults();
+            System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
         }
         else {
             System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
