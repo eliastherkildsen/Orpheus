@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -79,7 +79,7 @@
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin></ImageView>
-                  <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="labMediaName" text="Media name" />
                         <Label fx:id="labArtistName" text="Artist name" />
@@ -89,7 +89,7 @@
             </HBox>
             <VBox prefHeight="92.0" prefWidth="567.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
@@ -160,8 +160,11 @@
                         <Label fx:id="labCurrentTime" text="Label" />
                         <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
                         <Label fx:id="labMediaLength" text="Label" />
-                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
-                        <Slider fx:id="sliderVolume" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" HBox.hgrow="ALWAYS" />
+                        <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="145.0" styleClass="slider" stylesheets="@../../css/styles.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin></Slider>
                      </children>
                   </HBox>
                </children>
@@ -196,14 +199,17 @@
                      </children>
                   </VBox>
                </children></HBox>
-            <VBox prefHeight="303.0" prefWidth="667.0">
+            <VBox prefHeight="303.0" prefWidth="667.0" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0">
                      <children>
-                        <ListView fx:id="LWSearchResult" prefHeight="212.0" prefWidth="462.0" stylesheets="@../../css/styles.css" styleClass="list-view" />
+                        <ListView fx:id="LWSearchResult" prefHeight="166.0" prefWidth="580.0" styleClass="list-view" stylesheets="@../../css/styles.css">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></ListView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="101.0" prefWidth="667.0">
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="683.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
@@ -219,7 +225,7 @@
                               <Label text="Edit" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="CENTER" prefHeight="62.0" prefWidth="100.0">
                            <children>
                               <Button fx:id="btnListen" mnemonicParsing="false" onAction="#onActionbtnListenClick" styleClass="button" stylesheets="@../../css/styles.css">
                                  <graphic>
