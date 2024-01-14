@@ -45,6 +45,7 @@ public class HomeViewController implements Initializable {
     @FXML
     private ImageView btnPlayIcon;
 
+
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     private File file;
     private Media media;
@@ -60,7 +61,8 @@ public class HomeViewController implements Initializable {
 
     /**
      * Initialization method that loads and initializes data.
-     * This method is called on startup to prepare and load necessary data.
+     *
+     * The method is called on startup to prepare and load necessary data.
      * @param url
      * @param resourceBundle
      */
@@ -100,9 +102,9 @@ public class HomeViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 // sets the volume on mediaPlayer based on the volume slider's value
+                mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
                 // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
                 // volume (0.0 to 1.0)
-                mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
             }
         });
     }
@@ -121,8 +123,10 @@ public class HomeViewController implements Initializable {
     /**
      * Method that handles the button click event for the play button.
      *
-     * Initiates a timer, plays or pauses the media based on the current state,
+     * The method starts a timer, calls a utility method that plays or pauses the media based on the current state,
      * and updates the play button icon accordingly.
+     * Finally, toggles the playSwitchStage for the next button click.
+     *
      */
     @FXML
     public void onBtnPlayClick(){
@@ -131,9 +135,8 @@ public class HomeViewController implements Initializable {
         beginTimer();
         // play or pause the media and update the play button icon
         MediaUtil.playMedia(mediaPlayer,playSwitchStage,btnPlayIcon);
-        // toggle the playSwitchStage for the next button click
+        // toggles the playSwitchStage for the next button click
         playSwitchStage = !playSwitchStage;
-
     }
 
 
@@ -163,7 +166,7 @@ public class HomeViewController implements Initializable {
                     if (mediaPlayer != null) {
                         currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
                         double trackLength = media.getDuration().toSeconds();
-                        String formattedTime = secondsFormattedToTime(currentTrackTime);
+                        String formattedTime = MediaUtil.secondsFormattedToTime(currentTrackTime);
                         // updates the current time display
                         labCurrentTime.setText(formattedTime);
 
@@ -172,7 +175,7 @@ public class HomeViewController implements Initializable {
                             cancelTimer();
                         }
                         // updates the media length display
-                        labMediaLength.setText(secondsFormattedToTime(trackLength));
+                        labMediaLength.setText(MediaUtil.secondsFormattedToTime(trackLength));
                     }
                 });
             }
@@ -193,95 +196,48 @@ public class HomeViewController implements Initializable {
     }
 
 
-    /**
-     *
-     * @param durationTime
-     * @return
-     */
-    //anden classe
-    public String secondsFormattedToTime(double durationTime) {
-        //
-        int hours = (int) durationTime / 3600;
-        int secondsLeft = (int) durationTime % 3600;
-        int minutes = secondsLeft / 60;
-        int seconds = secondsLeft % 60;
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
 
     /**
+     * Method that handles the button click event for the skip forward button.
      *
+     * The method calls a utility method to skip the media forward by 15 seconds and update the UI components.
      */
     @FXML
     public void onBtnSkipForwardsClick(){
-        int forwardTime;
 
-        //egen metode (ren btnskipmetode)
-        if (currentTrackTime < media.getDuration().toSeconds() - 15) {
-            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-            forwardTime = (int) currentTrackTime + 15;
-        }
-        else {
-            forwardTime = (int) media.getDuration().toSeconds();
-        }
-
-        updateCurrentTimeLabel(forwardTime);
-
-        mediaPlayer.seek(Duration.seconds(forwardTime));
-        mediaPlayer.play();
+        MediaUtil.skipMediaForward(currentTrackTime, media, mediaPlayer, labCurrentTime);
     }
 
 
+
     /**
+     * Method that handles the button click event for the skip backward button.
      *
+     * The method calls a utility method to skip det media backward by 15 seconds and update the UI components.
      */
     @FXML
     public void onBtnSkipBackwardsClick(){
 
-        int backwardTime;
-
-        if (currentTrackTime > 14) {
-            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-            backwardTime = (int) currentTrackTime - 15;
-        }
-        else {
-            backwardTime = (int) Duration.ZERO.toSeconds();
-        }
-
-        updateCurrentTimeLabel(backwardTime);
-
-        mediaPlayer.seek(Duration.seconds(backwardTime));
-        mediaPlayer.play();
-    }
-
-    /**
-     *
-     * @param time
-     */
-    private void updateCurrentTimeLabel(int time) {
-
-        labCurrentTime.setText(secondsFormattedToTime(time));
+        MediaUtil.skipMediaBackward(currentTrackTime, media, mediaPlayer, labCurrentTime);
     }
 
 
+
+
     /**
-     *
+     * Method that handles the button click event for toggling volume mute
      */
     @FXML
     private void onBtnVolumeMuteClick(){
+        // gets the current slider volume
+        currentSliderVol = sliderVolume.getValue();
 
-        if (mute) {
-            currentSliderVol = sliderVolume.getValue();
-
-            sliderVolume.setValue(0);
-            mute = !mute;
-        }
-        else {
-            sliderVolume.setValue(currentSliderVol);
-            mute = !mute;
-        }
+        MediaUtil.muteMedia(sliderVolume, currentSliderVol, mute);
+        // toggles the mute switch for the next button click
+        mute = !mute;
     }
+
 
 
 
