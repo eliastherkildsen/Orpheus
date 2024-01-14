@@ -25,7 +25,7 @@ public class SearchViewController implements Initializable {
     private ListView<String> LWSearchResult;
     private final DatabaseSearch databaseSearch = new DatabaseSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
-    private SceneController sceneController = new SceneController();
+    private final SceneController sceneController = new SceneController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,17 +77,7 @@ public class SearchViewController implements Initializable {
      * @return the index of the selected item. return -1 if no item is selected.
      */
     private int getSelectedItemIndex() {
-
-        int selectedIndex = LWSearchResult.getSelectionModel().getSelectedIndex();
-
-        // checks if a item has been selected.
-        if (selectedIndex != -1){
-            return selectedIndex;
-        }
-
-        // default return value.
-        return -1;
-
+        return LWSearchResult.getSelectionModel().getSelectedIndex();
     }
 
 
@@ -153,9 +143,8 @@ public class SearchViewController implements Initializable {
     private void switchMedia(String filePath) {
         // switches the filepath for the media view to the user selected filepath
         HomeViewController.mediaPath = filePath;
-
         // switching screens.
-       switchToHomeView();
+        switchToHomeView();
     }
 
     /**
