@@ -33,6 +33,8 @@ public class SearchViewController {
     @FXML
     private void onActionbtnListenClick(){
 
+
+
         // gets the selected media.
         String mediaPickedIndex = LWSearchResult.getSelectionModel().getSelectedIndices().toString();
         String mediaPicked = LWSearchResult.getSelectionModel().toString();
@@ -60,6 +62,10 @@ public class SearchViewController {
     }
     @FXML
     private void onActionbtnSearchBarClick(){
+
+        /**
+         * TODO: move into seperet method.
+         */
 
         // initializes a new arraylist for storing the quarry result.
         dataSet = new ArrayList<>();
@@ -112,7 +118,7 @@ public class SearchViewController {
         }
     }
     /**
-     * Method for updating the mediaPath in Homeview, and switching scene view.
+     * Method for updating the mediaPath in Homebrew, and switching scene view.
      * @param filePath
      */
     private void switchMedia(String filePath) {

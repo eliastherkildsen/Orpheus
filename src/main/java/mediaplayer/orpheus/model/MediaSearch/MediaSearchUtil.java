@@ -31,47 +31,15 @@ public class MediaSearchUtil {
      * @return String.
      */
     public static String formatedQuarryResultString(String[] dataset){
+        // initializing StringBuilder
         StringBuilder sb = new StringBuilder();
 
-        /*
-        dataset[0] = fldArtistName
-        dataset[1] = fldFirstName
-        dataset[2] = fldLastName
-        dataset[3] = fldMediaTitle
-        dataset[6] = fldTrackLength
-        dataset[7] = fldGenre
-         */
-
-        if (checkNull(dataset[3])){
-            sb.append("[");
-            sb.append(dataset[3]);
-            sb.append("] ");
-        }
-
-        if (checkNull(dataset[0])){
-            sb.append(" - ");
-            sb.append(dataset[0]);
-        }
-
-        if (checkNull(dataset[1])){
-            sb.append(" - ");
-            sb.append(dataset[1]);
-        }
-
-        if (checkNull(dataset[2])){
-            sb.append(" - ");
-            sb.append(dataset[2]);
-        }
-
-        if (checkNull(dataset[6])){
-            sb.append(" - ");
-            sb.append(dataset[6]);
-        }
-
-        if (checkNull(dataset[7])){
-            sb.append(" - ");
-            sb.append(dataset[7]);
-        }
+        // appending to the presented String.
+        sb.append(formatString(dataset[3], false));
+        sb.append(formatString(dataset[1], true ));
+        sb.append(formatString(dataset[2], true ));
+        sb.append(formatString(dataset[6], true ));
+        sb.append(formatString(dataset[7], true ));
 
         return sb.toString();
     }
@@ -84,6 +52,21 @@ public class MediaSearchUtil {
     private static boolean checkNull(String string){
         if (string == null){
             return false;
-        } else return !string.toUpperCase().equals("NULL");
+        } else return !string.equalsIgnoreCase("NULL");
+    }
+
+    /**
+     * method for returning a formatted string, with null check.
+     * @param data String field contents
+     * @param prefix boolean, boolean value for
+     *               specifying if a prefix needs to be used
+     * @return String formatted string of field contents
+     */
+    private static String formatString(String data, boolean prefix) {
+        String returnString = "";
+        if (checkNull(data)) {
+            returnString = prefix ? String.format(" - %s", data) : data;
+        }
+        return returnString;
     }
 }
