@@ -106,29 +106,18 @@ public class HomeViewController implements Initializable {
              */
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+
+                // gets the slider volume in %
+                double volumeValue = sliderVolume.getValue();
+
                 // sets the volume on mediaPlayer based on the volume slider's value
-                mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
+                mediaPlayer.setVolume(volumeValue * 0.01);
                 // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
                 // volume (0.0 to 1.0)
+
+                volumeMedia(volumeValue);
             }
         });
-    }
-
-
-
-    @FXML
-    public void onActionbtnImportClick(){
-
-        FileHandlerMedia.fileChooser();
-    }
-
-
-    /**
-     * Method that handles the button click event for the play/pause button.
-     */
-    @FXML
-    public void onBtnPlayPauseClick(){
-        mediaPlayPause();
     }
 
 
@@ -187,6 +176,25 @@ public class HomeViewController implements Initializable {
     }
 
 
+
+    @FXML
+    public void onActionbtnImportClick(){
+
+        FileHandlerMedia.fileChooser();
+    }
+
+
+    /**
+     * Method that handles the button click event for the play/pause button.
+     */
+    @FXML
+    private void onBtnPlayPauseClick(){
+        mediaPlayPause();
+    }
+
+
+
+
     /**
      * Method that handles the button click event for the skip forward button.
      */
@@ -200,7 +208,7 @@ public class HomeViewController implements Initializable {
      * Method that handles the button click event for the skip backward button.
      */
     @FXML
-    public void onBtnSkipBackwardsClick(){
+    private void onBtnSkipBackwardsClick(){
         mediaSkipBackward();
     }
 
@@ -261,6 +269,22 @@ public class HomeViewController implements Initializable {
 
     // Associated methods for button click events
 
+
+    /**
+     * Method that updates the mute button image based on the volume slider's value (in percentage - from 0 to 100 %)
+     * @param volumeValue
+     */
+    private void volumeMedia(double volumeValue) {
+
+        if (volumeValue == 0){
+            updateMuteButtonImage(muteImageURL);
+        } else if (volumeValue > 0 && volumeValue < 50) {
+            updateMuteButtonImage(soundStepOneImageURL);
+        }
+        else {
+            updateMuteButtonImage(soundStepTwoImageURL);
+        }
+    }
 
     /**
      * Method for playing/pausing media
@@ -327,7 +351,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for updating the current time label with the new track time
+     * Method for updating the current time label with the formatted time based on the given time in seconds
      * @param time
      */
     private void updateCurrentTimeLabel(int time){
@@ -371,7 +395,7 @@ public class HomeViewController implements Initializable {
     private void mediaMute() {
 
         if (mute) {
-            // gets the current slider volume
+            // gets the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
 
             sliderVolume.setValue(0);
@@ -379,7 +403,15 @@ public class HomeViewController implements Initializable {
         }
         else {
             sliderVolume.setValue(currentSliderVol);
-            updateMuteButtonImage(soundStepOneImageURL);
+
+            // if current slider volume is less than 50%
+            if (currentSliderVol > 0 && currentSliderVol < 50) {
+                updateMuteButtonImage(soundStepOneImageURL);
+            }
+            // if current slider volume is more than 50%
+            else if (currentSliderVol >= 50 && currentSliderVol <= 100){
+                updateMuteButtonImage(soundStepTwoImageURL);
+            }
         }
 
         toggleMuteState();
