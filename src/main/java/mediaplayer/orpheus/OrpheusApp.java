@@ -19,7 +19,7 @@ public class OrpheusApp extends Application {
         jdbc = new JDBC();
         try {
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMediaView.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
             Scene scene = new Scene(root);
             SceneController.setStage(stage);
             stage.setScene(scene);

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -147,7 +147,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="labCurrentTime" text="00:00:00" />
-                        <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Slider fx:id="sliderProges" blockIncrement="1.0" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css" />
                         <Label fx:id="labMediaLength" text="00:00:00" />
                         <Button fx:id="btnVolumeMute" mnemonicParsing="false" onAction="#onBtnVolumeMuteClick" styleClass="button" stylesheets="@../../css/styles.css">
                         <graphic>

@@ -7,10 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import java.io.IOException;
 import javafx.fxml.Initializable;
@@ -37,6 +39,9 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private Slider sliderVolume;
+
+    @FXML
+    private Slider sliderProges;
 
     @FXML
     private Label labCurrentTime;
@@ -91,15 +96,14 @@ public class HomeViewController implements Initializable {
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
             // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         } else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
         // associates the mediaPlayer with the mediaViewDisplay for content playback
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
-
 
 
         // listens for changes in the value of the volume slider
@@ -126,6 +130,35 @@ public class HomeViewController implements Initializable {
                 volumeMedia(volumeValue);
             }
         });
+
+        /*
+        // listens for changes in the value of the progress slider
+
+        StackPane trackPane = (StackPane) sliderProges.lookup(".track");
+        sliderProges.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                String style = String.format("-fx-background-color: linear-gradient(to right, #2D819D %d%%, #969696 %d%%);",
+                        new_val.intValue(), new_val.intValue());
+                trackPane.setStyle(style);
+            }
+        });
+
+        trackPane.setStyle("-fx-background-color: linear-gradient(to right, #2D819D 0%, #969696 0%);");*/
+
+
+        ProgressBar progressBar = new ProgressBar();
+
+
+        sliderProges.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double progressValue = sliderProges.getValue();
+            System.out.println("??");
+            System.out.println("progress value; "+progressValue);
+            progressBar.setProgress(progressValue);
+
+
+    });
+
     }
 
 
@@ -439,6 +472,24 @@ public class HomeViewController implements Initializable {
     private void toggleMuteState() {
         mute = !mute;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
