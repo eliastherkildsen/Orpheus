@@ -18,6 +18,7 @@ public class OrpheusApp extends Application {
             Scene scene = new Scene(root);
             SceneController.setStage(stage);
             stage.setScene(scene);
+            stage.setTitle("Orpheus");
             stage.show();
 
         } catch (Exception e) {
