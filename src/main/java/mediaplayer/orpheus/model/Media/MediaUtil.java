@@ -27,16 +27,10 @@ public class MediaUtil {
      * @param btnPlayIcon
      */
     public static void playMedia(MediaPlayer mediaPlayer, boolean playSwitchStage, ImageView btnPlayIcon) {
-        // if in play state; play the media and update the play button image to pause
-        if (playSwitchStage) {
-            mediaPlayer.play();
-            updatePlayButtonImage(pauseImageURL, btnPlayIcon);
-        // if in pause state; pause the media and update the play button image to play
-        } else {
-            mediaPlayer.pause();
-            updatePlayButtonImage(playImageURL, btnPlayIcon);
-        }
     }
+
+
+
 
     /**
      * Method for updating the play button's image with the specified URL
@@ -44,10 +38,7 @@ public class MediaUtil {
      * @param imageURL
      */
     public static void updatePlayButtonImage(String imageURL, ImageView btnPlayIcon){
-        // creates an image object using the provided URL
-        Image image = new Image(imageURL);
-        // assigns the specified image from the given imageURL to the play button
-        btnPlayIcon.setImage(image);
+
     }
 
 
@@ -148,14 +139,7 @@ public class MediaUtil {
      * @param mute
      */
     public static void muteMedia(Slider sliderVolume, double currentSliderVol, boolean mute){
-        // checks if muted, and then sets the volume to 0
-        if (mute) {
-            sliderVolume.setValue(0);
-        }
-        // otherwise set the volume to the previously saved value
-        else {
-            sliderVolume.setValue(currentSliderVol);
-        }
+
     }
 
 

@@ -10,17 +10,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,10 +41,18 @@ public class HomeViewController implements Initializable {
     private Label labMediaLength;
 
     @FXML
-    private ImageView btnPlayIcon;
+    private ImageView btnPlayPauseIcon;
+
+    @FXML
+    private ImageView btnMuteIcon;
 
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+    private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+    private static String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
+    private static String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
+    private static String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
+    private static String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -61,7 +67,6 @@ public class HomeViewController implements Initializable {
 
     /**
      * Initialization method that loads and initializes data.
-     *
      * The method is called on startup to prepare and load necessary data.
      * @param url
      * @param resourceBundle
@@ -78,7 +83,7 @@ public class HomeViewController implements Initializable {
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
             // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\\n\",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET");
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
         } else {
             // prints an error message if the file wasn't found
             System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
@@ -118,27 +123,13 @@ public class HomeViewController implements Initializable {
     }
 
 
-
-
     /**
-     * Method that handles the button click event for the play button.
-     *
-     * The method starts a timer, calls a utility method that plays or pauses the media based on the current state,
-     * and updates the play button icon accordingly.
-     * Finally, toggles the playSwitchStage for the next button click.
-     *
+     * Method that handles the button click event for the play/pause button.
      */
     @FXML
-    public void onBtnPlayClick(){
-
-        // starts a timer
-        beginTimer();
-        // play or pause the media and update the play button icon
-        MediaUtil.playMedia(mediaPlayer,playSwitchStage,btnPlayIcon);
-        // toggles the playSwitchStage for the next button click
-        playSwitchStage = !playSwitchStage;
+    public void onBtnPlayPauseClick(){
+        mediaPlayPause();
     }
-
 
 
 
@@ -190,56 +181,38 @@ public class HomeViewController implements Initializable {
     /**
      *
      */
-    public void cancelTimer(){
+    private void cancelTimer(){
         timer.cancel();
         //TODO - when making skipMedia
     }
 
 
-
-
     /**
      * Method that handles the button click event for the skip forward button.
-     *
-     * The method calls a utility method to skip the media forward by 15 seconds and update the UI components.
      */
     @FXML
-    public void onBtnSkipForwardsClick(){
-
-        MediaUtil.skipMediaForward(currentTrackTime, media, mediaPlayer, labCurrentTime);
+    private void onBtnSkipForwardsClick(){
+        mediaSkipForward();
     }
-
 
 
     /**
      * Method that handles the button click event for the skip backward button.
-     *
-     * The method calls a utility method to skip the media backward by 15 seconds and update the UI components.
      */
     @FXML
     public void onBtnSkipBackwardsClick(){
-
-        MediaUtil.skipMediaBackward(currentTrackTime, media, mediaPlayer, labCurrentTime);
+        mediaSkipBackward();
     }
-
 
 
 
     /**
      * Method that handles the button click event for toggling volume mute
-     *
-     * The method calls a utility method to mute/unmute the volume
      */
     @FXML
     private void onBtnVolumeMuteClick(){
-        // gets the current slider volume
-        currentSliderVol = sliderVolume.getValue();
-
-        MediaUtil.muteMedia(sliderVolume, currentSliderVol, mute);
-        // toggles the mute switch for the next button click
-        mute = !mute;
+        mediaMute();
     }
-
 
 
 
@@ -282,5 +255,153 @@ public class HomeViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+
+
+    // Associated methods for button click events
+
+
+    /**
+     * Method for playing/pausing media
+     * The method starts a timer, plays or pauses the media based on the current state,
+     * and updates the play button icon accordingly.
+     * Finally, toggles the playSwitchStage for the next button click.
+     */
+    private void mediaPlayPause() {
+        beginTimer();
+
+        if (playSwitchStage) {
+            mediaPlayer.play();
+            updatePlayButtonImage(pauseImageURL);
+        } else {
+            mediaPlayer.pause();
+            updatePlayButtonImage(playImageURL);
+        }
+
+        togglePlayState();
+    }
+
+    /**
+     * Method for updating the play/pause button image
+     *
+     * @param imageURL
+     */
+    private void updatePlayButtonImage(String imageURL){
+        Image image = new Image(imageURL);
+        // assigns the specified image from the given imageURL to the play button
+        btnPlayPauseIcon.setImage(image);
+    }
+
+    /**
+     * Method to toggle play/pause state
+     */
+    private void togglePlayState() {
+        playSwitchStage = !playSwitchStage;
+    }
+
+
+    /**
+     * Method for skipping media 15 seconds forward
+     * The method skip the media forward by 15 seconds and updates the current time label
+     */
+    private void mediaSkipForward() {
+        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+        // variable that determines the new track time after skipping forward by 15 seconds
+        int forwardTime;
+
+        if (currentTrackTime < media.getDuration().toSeconds() - 15) {
+            forwardTime = (int) currentTrackTime + 15;
+        }
+        else {
+            forwardTime = (int) media.getDuration().toSeconds();
+        }
+
+        // updates the current time label with the new track time
+        updateCurrentTimeLabel(forwardTime);
+
+        // sets the media player to the new track time and continues playing
+        mediaPlayer.seek(Duration.seconds(forwardTime));
+        mediaPlayer.play();
+    }
+
+
+    /**
+     * Method for updating the current time label with the new track time
+     * @param time
+     */
+    private void updateCurrentTimeLabel(int time){
+
+        labCurrentTime.setText(MediaUtil.secondsFormattedToTime(time));
+    }
+
+
+    /**
+     * Method for skipping media 15 seconds backward
+     * The method skip the media backward by 15 seconds and updates the current time label
+     */
+    private void mediaSkipBackward() {
+        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+        // variable that determines the new track time after skipping backward by 15 seconds
+        int backwardTime;
+
+        // checks if the current track time is greater than the first 14 seconds of the media
+        if (currentTrackTime > 14) {
+            backwardTime = (int) currentTrackTime - 15;
+        }
+        // if the current track time is less than 15 seconds (less than the skip backward time)
+        else {
+            backwardTime = (int) Duration.ZERO.toSeconds();
+        }
+
+        updateCurrentTimeLabel(backwardTime);
+
+        // sets the media player to the new track time and continues playing
+        mediaPlayer.seek(Duration.seconds(backwardTime));
+        mediaPlayer.play();
+    }
+
+
+    /**
+     * Method for mute/unmute the media
+     * The method mute or mutes the media based on the current state,
+     * and updates the mute button icon accordingly.
+     * Finally, toggles the mute stage for the next button click.
+     */
+    private void mediaMute() {
+
+        if (mute) {
+            // gets the current slider volume
+            currentSliderVol = sliderVolume.getValue();
+
+            sliderVolume.setValue(0);
+            updateMuteButtonImage(muteImageURL);
+        }
+        else {
+            sliderVolume.setValue(currentSliderVol);
+            updateMuteButtonImage(soundStepOneImageURL);
+        }
+
+        toggleMuteState();
+    }
+
+    /**
+     * Method for updating the mute/unmute button image
+     * @param imageURL
+     */
+    private void updateMuteButtonImage(String imageURL) {
+        Image image = new Image(imageURL);
+        // assigns the specified image from the given imageURL to the play button
+        btnMuteIcon.setImage(image);
+
+    }
+
+    /**
+     * Method to toggle mute/unmute state
+     */
+    private void toggleMuteState() {
+        mute = !mute;
+    }
+
 }
 
