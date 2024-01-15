@@ -39,7 +39,7 @@ White   #F7FFF7
     -fx-background-radius: 10; /* Set the text-field background-radius */
     -fx-background-color: #6CA6C1;
     -fx-font-family: "Times New Roman";
-    -fx-text-fill: White;
+    -fx-text-fill: white;
 }
 
 .list-view {

@@ -11,9 +11,7 @@ package mediaplayer.orpheus.model.Database;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class JDBC {
@@ -27,6 +25,8 @@ public class JDBC {
     // Connection object to interact with the database
     private Connection connection;
     private Properties properties;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
 
     /**
      * Constructs a JDBC instance and initializes a database connection.
@@ -125,4 +125,32 @@ public class JDBC {
     public Properties getProperties() {
         return properties;
     }
+
+    public ResultSet executeQuary(String quarry){
+
+        try {
+            preparedStatement = connection.prepareCall(quarry);
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultSet;
+
+    }
+
+    public void executeUpdate(String quarry){
+
+        try {
+            preparedStatement = connection.prepareCall(quarry);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+
+
 }

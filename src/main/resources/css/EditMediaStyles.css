@@ -1,0 +1,49 @@
+/**
+Our Colours:
+Black   #343434
+Blueish #6CA6C1
+Grey    #969A96
+White   #F7FFF7
+ */
+.main {
+    -fx-background-color: #969A96; /* Set the background color */
+}
+.secondary{
+    -fx-background-color: #343434;
+}
+
+.button{
+    -fx-background-color: #343434; /* Set the background color */
+}
+.button:hover {
+    -fx-background-color: #978B67;
+}
+
+.label {
+    -fx-text-fill: #F7FFF7; /* Set the label color */
+}
+
+.text-field {
+    -fx-background-radius: 10; /* Set the text-field background-radius */
+    -fx-background-color: #6CA6C1;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+    -fx-pref-width: 220;
+}
+
+.choice-box {
+    -fx-background-radius: 10; /* Set the text-field background-radius */
+    -fx-background-color: #6CA6C1;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+    -fx-pref-width: 220;
+
+
+}
+
+
+
+
+
