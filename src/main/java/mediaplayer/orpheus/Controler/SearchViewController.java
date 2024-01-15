@@ -37,7 +37,7 @@ public class SearchViewController implements Initializable {
 
     @FXML
     private void onActionbtnEditClick(){
-
+        editMedia();
     }
 
     /**
@@ -124,6 +124,14 @@ public class SearchViewController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void switchToEditView() {
+        try {
+            sceneController.switchToEditScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Method for updating the mediaPath in Home view, and switching scene view.
      * @param filePath
@@ -187,6 +195,13 @@ public class SearchViewController implements Initializable {
      */
     private void clearListView(){
         LWSearchResult.getItems().clear();
+    }
+
+    private void editMedia() {
+        // get selected medias mediaID.
+        EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+        switchToEditView();
+
     }
 
 }

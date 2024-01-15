@@ -4,6 +4,7 @@ Black   #343434
 Blueish #6CA6C1
 Grey    #969A96
 White   #F7FFF7
+Hover color #978B67
  */
 .main {
     -fx-background-color: #969A96; /* Set the background color */
@@ -39,9 +40,17 @@ White   #F7FFF7
     -fx-text-fill: white;
     -fx-padding: 5px;
     -fx-pref-width: 220;
-
-
+    -fx-mark-color: #969A96; /* Arrow color */
 }
+
+.choice-box .context-menu{
+    -fx-background-color: #343434;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #6CA6C1;
+}
+
 
 
 

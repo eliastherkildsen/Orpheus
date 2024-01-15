@@ -80,6 +80,8 @@ public class EditMediaViewController implements Initializable {
         // load all artists in to cbArtist
         loadArtist();
 
+        System.out.println("SELECTED MEDIA ID " + selectedMediaID);
+
     }
 
     private void loadGenre(){
