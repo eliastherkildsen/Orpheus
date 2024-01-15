@@ -3,6 +3,7 @@ package mediaplayer.orpheus.Controler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import java.io.IOException;
@@ -40,6 +41,6 @@ public class PlaylistViewController {
 
     public void onActionbtnImportClick(){
 
-        FileHandlerMedia.fileChooser();
+        FileChooser.fileChooser();
     }
 }

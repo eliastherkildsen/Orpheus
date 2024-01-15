@@ -56,6 +56,7 @@ White   #F7FFF7
 .list-view .cell:hover {
     -fx-background-color: #978B67;
     -fx-text-fill: white;
+    -fx-background-radius: 10;
 }
 
 .list-view .scroll-bar:vertical{
@@ -83,5 +84,6 @@ White   #F7FFF7
 .list-view:focused .list-cell:filled:selected {
     /* 3: (This is more specific and therefore overrides the above)*/
     -fx-background-color: #6CA6C1;
+    -fx-background-radius: 10;
 }
 

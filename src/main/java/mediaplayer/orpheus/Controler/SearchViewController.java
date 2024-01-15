@@ -6,12 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -93,8 +95,9 @@ public class SearchViewController implements Initializable {
         }
     }
     @FXML
-    private void onActionbtnImportClick(){
-        FileHandlerMedia.fileChooser();
+    public void onActionbtnImportClick(){
+
+        FileChooser.fileChooser();
         refreshSearchResults();
     }
     @FXML
