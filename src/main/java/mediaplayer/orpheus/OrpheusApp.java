@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class OrpheusApp extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
