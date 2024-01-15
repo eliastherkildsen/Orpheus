@@ -7,14 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mediaplayer.orpheus.Controler.SceneController;
+import mediaplayer.orpheus.model.Database.JDBC;
+
 import java.util.Objects;
 
 public class OrpheusApp extends Application {
+
+    public static JDBC jdbc;
     @Override
     public void start(Stage stage) {
+        jdbc = new JDBC();
         try {
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMediaView.fxml")));
             Scene scene = new Scene(root);
             SceneController.setStage(stage);
             stage.setScene(scene);
@@ -29,5 +34,7 @@ public class OrpheusApp extends Application {
 
     public static void main(String[] args) {
         launch();
+        // closing database.
+        jdbc.databaseClose();
     }
 }

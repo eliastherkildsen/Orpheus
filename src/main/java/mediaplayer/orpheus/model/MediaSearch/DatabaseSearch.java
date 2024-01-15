@@ -1,5 +1,6 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
+import mediaplayer.orpheus.model.Database.DatabaseUtil;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
@@ -79,15 +80,15 @@ public class DatabaseSearch {
             // storing values of the result set in a String array, for insuring a fixed index of fields,
             // to make it easy to make a formatted print.
 
-            data[0] = validateResultNotNull("fldArtistName",  resultSet);
-            data[1] = validateResultNotNull("fldFirstName",   resultSet);
-            data[2] = validateResultNotNull("fldLastName",    resultSet);
-            data[3] = validateResultNotNull("fldMediaTitle",  resultSet);
-            data[4] = validateResultNotNull("fldFileType",    resultSet);
-            data[5] = validateResultNotNull("fldFilePath",    resultSet);
-            data[6] = validateResultNotNull("fldTrackLength", resultSet);
-            data[7] = validateResultNotNull("fldGenre",       resultSet);
-            data[8] = validateResultNotNull("fldMediaID",     resultSet);
+            data[0] = DatabaseUtil.validateResultNotNull("fldArtistName",  resultSet);
+            data[1] = DatabaseUtil.validateResultNotNull("fldFirstName",   resultSet);
+            data[2] = DatabaseUtil.validateResultNotNull("fldLastName",    resultSet);
+            data[3] = DatabaseUtil.validateResultNotNull("fldMediaTitle",  resultSet);
+            data[4] = DatabaseUtil.validateResultNotNull("fldFileType",    resultSet);
+            data[5] = DatabaseUtil.validateResultNotNull("fldFilePath",    resultSet);
+            data[6] = DatabaseUtil.validateResultNotNull("fldTrackLength", resultSet);
+            data[7] = DatabaseUtil.validateResultNotNull("fldGenre",       resultSet);
+            data[8] = DatabaseUtil.validateResultNotNull("fldMediaID",     resultSet);
 
             // adds the string array to an arraylist.
             dataSet.add(data);
@@ -98,20 +99,6 @@ public class DatabaseSearch {
 
     }
 
-    /**
-     * Method for checking if a field is empty, if not it returns the String value of the field data.
-     * @param fieldName reference to the field in the result to search for.
-     * @param resultSet reference to the result to search through.
-     * @return String value of the field. or "NULL" if the database field is empty.
-     */
-    private String validateResultNotNull(String fieldName, ResultSet resultSet){
-        try {
-            return resultSet.getString(fieldName);
-        } catch (SQLException e) {
-            return "NULL";
-        }
-
-    }
 
     /**
      * Method for appending the sql query needed to search in the database.
