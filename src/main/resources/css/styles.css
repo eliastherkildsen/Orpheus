@@ -37,7 +37,51 @@ White   #F7FFF7
 
 .text-field {
     -fx-background-radius: 10; /* Set the text-field background-radius */
-    -fx-background-color: #6CA6C1 ;
-    -fx-text-fill: #F7FFF7;
+    -fx-background-color: #6CA6C1;
+}
+
+.list-view {
+    -fx-font-family: "Times New Roman";
+    -fx-background-color: #343434;
+    -fx-background-radius: 10;
+
+}
+
+.list-view .cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+}
+
+.list-view .cell:hover {
+    -fx-background-color: #978B67;
+    -fx-text-fill: white;
+}
+
+.list-view .scroll-bar:vertical{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color:#6CA6C1;
+    -fx-background-insets: 5, 5, 5;
+    -fx-background-radius: 5;
+}
+
+.list-view .scroll-bar:horizontal{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view .scroll-bar:horizontal .thumb {
+    -fx-background-color:#6CA6C1;
+    -fx-background-insets: 5, 5, 5;
+    -fx-background-radius: 5;
+}
+
+.list-view:focused .list-cell:filled:selected {
+    /* 3: (This is more specific and therefore overrides the above)*/
+    -fx-background-color: #6CA6C1;
 }
 

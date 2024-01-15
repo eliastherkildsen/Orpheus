@@ -11,13 +11,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
-import mediaplayer.orpheus.Controler.ViewControler;
 
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import java.io.File;
 import java.net.URL;
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeViewController implements Initializable {
+    public class HomeViewController implements Initializable {
 
         @FXML
         private MediaView mediaViewDisplay;
@@ -38,69 +38,92 @@ public class HomeViewController implements Initializable {
 
         @FXML
         private Label labMediaLength;
-
-
-        private String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+        public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
         private File file;
         private Media media;
         private MediaPlayer mediaPlayer;
-        private int playSwitchStage = 0;
+        private boolean playSwitchStage;
         private Timer timer;
         private TimerTask task;
         private double current;
         private double currentSliderVol;
-        private int mute = 0;
-        private boolean running;
+        private boolean mute;
 
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+            try {
+                labCurrentTime.setText("");
+                labMediaLength.setText("");
 
-            labCurrentTime.setText("");
-            labMediaLength.setText("");
+                file = new File(mediaPath);
 
-            file = new File(mediaPath);
-
-            if (file.exists()) {
-                media = new Media(file.toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-            } else {
-                System.out.println("The file was not found at the specified path");
-            }
-
-            // when the MediaPlayer is ready to play the media
-            mediaPlayer.setOnReady(() -> {
-                double trackLength = media.getDuration().toSeconds();
-                String formattedTime = secondsFormattedToTime(trackLength);
-            });
-
-            mediaViewDisplay.setMediaPlayer(mediaPlayer);
-
-            sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-
-                    mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
+                if (file.exists()) {
+                    media = new Media(file.toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                } else {
+                    System.out.println("The file was not found at the specified path");
                 }
-            });
+
+                // when the MediaPlayer is ready to play the media
+                mediaPlayer.setOnReady(() -> {
+                    //double trackLength = media.getDuration().toSeconds();
+                    //String formattedTime = secondsFormattedToTime(trackLength);
+                });
+
+                mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+                sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+
+                        mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
+                    }
+                });
+            }catch (Exception e){};
+        }
+
+        public void onActionbtnImportClick(){
+
+            FileHandlerMedia.fileChooser();
+
         }
 
         public void onBtnPlayClick(){
 
             beginTimer();
 
-            if (playSwitchStage == 0) {
-                mediaPlayer.play();
+            String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+            String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
 
-                playSwitchStage = 1;
+            if (playSwitchStage) {
+
+                mediaPlayer.play();
+                updatePlayButtonImage(pauseImageURL);
+
+                playSwitchStage = !playSwitchStage;
             }
             else {
                 mediaPlayer.pause();
-                playSwitchStage = 0;
+                updatePlayButtonImage(playImageURL);
+
+                playSwitchStage = !playSwitchStage;
             }
         }
 
+
+        @FXML
+        private ImageView btnPlayIcon;
+
+
+
+        public void updatePlayButtonImage(String imageURL){
+
+            Image image = new Image(imageURL);
+            btnPlayIcon.setImage(image);
+
+        }
 
 
         public void beginTimer(){
@@ -139,7 +162,7 @@ public class HomeViewController implements Initializable {
 
 
 
-        public static String secondsFormattedToTime(double durationTime) {
+        public String secondsFormattedToTime(double durationTime) {
             //test: durationTime = 5420;
             int hours = (int) durationTime / 3600;
             int secondsLeft = (int) durationTime % 3600;
@@ -198,17 +221,24 @@ public class HomeViewController implements Initializable {
         @FXML
         private void onBtnVolumeMuteClick(){
 
-            if (mute == 0) {
+            if (mute) {
                 currentSliderVol = sliderVolume.getValue();
 
                 sliderVolume.setValue(0);
-                mute = 1;
+                mute = !mute;
             }
             else {
                 sliderVolume.setValue(currentSliderVol);
-                mute = 0;
+                mute = !mute;
             }
         }
+
+
+
+
+       // "@../../css/images/play-circle.png" (play knap)
+
+
 
 
 
@@ -218,36 +248,36 @@ public class HomeViewController implements Initializable {
         @FXML
         private Button btnSearch, btnPlaylist, btnDelete;
 
-        private ViewControler viewControler = new ViewControler();
+        private SceneController sceneController = new SceneController();
 
-        public void switchToPlaylistView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
+        public void switchToPlaylistView() {
             try {
-                viewControler.switchToPlaylistScene(event);
+                mediaPlayer.pause();
+            } catch (Exception e){};
+            try {
+                sceneController.switchToPlaylistScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public void switchToSearchView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
+        public void switchToSearchView() {
             try {
-                viewControler.switchToSearchScene(event);
+                mediaPlayer.pause();
+            } catch (Exception e){};
+            try {
+                sceneController.switchToSearchScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public void switchToHomeView(ActionEvent event) {
-
-            mediaPlayer.pause();
-
+        public void switchToHomeView() {
             try {
-                viewControler.switchToHomeScene(event);
+                mediaPlayer.pause();
+            } catch (Exception e){};
+            try {
+                sceneController.switchToHomeScene();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -5,21 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mediaplayer.orpheus.Controler.ViewControler;
+import mediaplayer.orpheus.Controler.SceneController;
 import java.io.IOException;
 import java.util.Objects;
 
 public class OrpheusApp extends Application {
-    private final int SCREEN_WITH = 800;
-    private final int SCREEN_HIGHT = 800;
     @Override
     public void start(Stage stage) throws IOException {
         try {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
             Scene scene = new Scene(root);
-            ViewControler.setStage(stage);
+            SceneController.setStage(stage);
             stage.setScene(scene);
+            stage.setTitle("Orpheus");
             stage.show();
 
         } catch (Exception e) {
