@@ -1,7 +1,6 @@
 package mediaplayer.orpheus.Controler;
 import javafx.fxml.Initializable;
 import mediaplayer.orpheus.model.MediaSearch.DatabaseSearch;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -87,8 +86,6 @@ public class SearchViewController implements Initializable {
 
         clearListView();
 
-
-
         // loops through the resultset.
         for (String[] strings : dataSet) {
             // formats the result.
@@ -104,7 +101,7 @@ public class SearchViewController implements Initializable {
         refreshSearchResults();
     }
     @FXML
-    public void switchToPlaylistView() {
+    private void switchToPlaylistView() {
         try {
             sceneController.switchToPlaylistScene();
         } catch (IOException e) {
@@ -112,7 +109,7 @@ public class SearchViewController implements Initializable {
         }
     }
     @FXML
-    public void switchToSearchView() {
+    private void switchToSearchView() {
         try {
             sceneController.switchToSearchScene();
         } catch (IOException e) {
@@ -120,7 +117,7 @@ public class SearchViewController implements Initializable {
         }
     }
     @FXML
-    public void switchToHomeView() {
+    private void switchToHomeView() {
         try {
             sceneController.switchToHomeScene();
         } catch (IOException e) {
