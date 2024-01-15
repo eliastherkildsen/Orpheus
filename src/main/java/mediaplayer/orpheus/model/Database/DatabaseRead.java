@@ -8,7 +8,6 @@ public class DatabaseRead {
                 .append(" WHERE fldMediaID = ")
                 .append(mediaId)
                 .toString();
-
     }
     public static String getMediaType(int mediaId){
         return new StringBuilder()
