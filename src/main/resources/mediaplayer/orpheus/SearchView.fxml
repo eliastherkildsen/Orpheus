@@ -11,6 +11,16 @@
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
 
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../css/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="labHome" text="Home" textFill="WHITE" />
             <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
@@ -44,27 +54,6 @@
             </Button>
             <Label fx:id="labImport" text="Import" textFill="WHITE" />
 
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../css/images/trash-2.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../css/images/home.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-
-            <Label text="Home" />
          </children></VBox>
    </left>
    <bottom>
@@ -87,7 +76,7 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox prefHeight="92.0" prefWidth="567.0">
+            <VBox prefHeight="92.0" prefWidth="567.0" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
@@ -184,7 +173,10 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="FldSearch" prefHeight="26.0" prefWidth="421.0" />
+                  <TextField fx:id="FldSearch" prefHeight="26.0" prefWidth="421.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></TextField>
                   <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="40.0">
                      <children>
                         <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" style="-fx-background-radius: 50;" styleClass="button" stylesheets="@../../css/styles.css">
@@ -201,7 +193,7 @@
                </children></HBox>
             <VBox prefHeight="303.0" prefWidth="667.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0">
+                  <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ListView fx:id="LWSearchResult" prefHeight="166.0" prefWidth="580.0" styleClass="list-view" stylesheets="@../../css/styles.css">
                            <HBox.margin>
