@@ -1,7 +1,7 @@
 package mediaplayer.orpheus.model.Database;
 
 public class DatabaseRead {
-    public String getMediaTitle(int mediaId) {
+    public static String getMediaTitle(int mediaId) {
         return new StringBuilder()
                 .append("SELECT fldFilePath")
                 .append(" FROM tblMedia")
@@ -10,7 +10,15 @@ public class DatabaseRead {
                 .toString();
 
     }
-    public String getMediaType(int mediaId){
+    public static String getMediaType(int mediaId){
+        return new StringBuilder()
+                .append("SELECT fldFileType")
+                .append(" FROM tblMedia")
+                .append(" WHERE fldMediaID = ")
+                .append(mediaId)
+                .toString();
+    }
+    public static String getMediaAlbum(int mediaId){
         return new StringBuilder()
                 .append("SELECT fldFilePath")
                 .append(" FROM tblMedia")
@@ -18,7 +26,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaAlbum(int mediaId){
+    public static String getMediaYear(int mediaId){
         return new StringBuilder()
                 .append("SELECT fldFilePath")
                 .append(" FROM tblMedia")
@@ -26,15 +34,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaYear(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFilePath")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public String getMediaTrack(int mediaId){
+    public static String getMediaTrack(int mediaId){
         return new StringBuilder()
                 .append("SELECT fldMediaTrack")
                 .append(" FROM tblMedia")
@@ -42,7 +42,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaLength(int mediaId){
+    public static String getMediaLength(int mediaId){
         return new StringBuilder()
                 .append("SELECT fldTrackLength")
                 .append(" FROM tblMedia")
@@ -50,7 +50,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaPath(int mediaId){
+    public static String getMediaPath(int mediaId){
         return new StringBuilder()
                 .append("SELECT fldFilePath")
                 .append(" FROM tblMedia")
@@ -58,7 +58,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaArtistArtName(int mediaId){
+    public static String getMediaArtistArtName(int mediaId){
         return new StringBuilder()
                 .append("SELECT DISTINCT p.fldArtistName")
                 .append(" FROM tblPerson p")
@@ -67,7 +67,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaArtistFirstName(int mediaId){
+    public static String getMediaArtistFirstName(int mediaId){
         return new StringBuilder()
                 .append("SELECT DISTINCT p.fldFirstName")
                 .append(" FROM tblPerson p")
@@ -76,7 +76,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getMediaArtistLastName(int mediaId){
+    public static String getMediaArtistLastName(int mediaId){
         return new StringBuilder()
                 .append("SELECT DISTINCT p.fldLastName")
                 .append(" FROM tblPerson p")
@@ -85,10 +85,10 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getAllArtists (){
+    public static String getAllArtists (){
         return "SELECT DISTINCT fldArtistName FROM tblPerson";
     }
-    public String getMediaGenre(int mediaId){
+    public static String getMediaGenre(int mediaId){
         return new StringBuilder()
                 .append("SELECT DISTINCT mg.fldGenre")
                 .append(" FROM tblMedia m")
@@ -97,7 +97,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
-    public String getAllGenres (){
+    public static String getAllGenres (){
         return "SELECT * FROM tblGenre";
     }
 }
