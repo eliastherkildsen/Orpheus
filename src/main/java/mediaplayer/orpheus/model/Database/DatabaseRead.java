@@ -3,7 +3,7 @@ package mediaplayer.orpheus.model.Database;
 public class DatabaseRead {
     public static String getMediaTitle(int mediaId) {
         return new StringBuilder()
-                .append("SELECT fldFilePath")
+                .append("SELECT fldMediaTitle")
                 .append(" FROM tblMedia")
                 .append(" WHERE fldMediaID = ")
                 .append(mediaId)

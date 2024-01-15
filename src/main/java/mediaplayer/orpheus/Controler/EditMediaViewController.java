@@ -33,7 +33,11 @@ public class EditMediaViewController implements Initializable {
     private ArrayList<String> artist = new ArrayList<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        load();
+        try {
+            load();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     private void onBtnUpdataClick(){}
@@ -70,9 +74,19 @@ public class EditMediaViewController implements Initializable {
     private int getSelectedItemIndex(ChoiceBox choiceBox){
         return choiceBox.getSelectionModel().getSelectedIndex();
     }
+    private void presentItem(ChoiceBox choiceBox, String string){
+        choiceBox.getSelectionModel().select(string);
+    }
 
-    private void load(){
-        labMedia.setText("MEDIA TITLE");
+    private void load() throws SQLException {
+        String mediaTitle = setMediaTitleOnScene(DatabaseRead.getMediaTitle(selectedMediaID),"fldMediaTitle");
+        String artistName = setMediaTitleOnScene(DatabaseRead.getMediaArtistArtName(selectedMediaID),"fldArtistName");
+        String genre = setMediaTitleOnScene(DatabaseRead.getMediaGenre(selectedMediaID), "fldGenre");
+        presentItem(cbArtist,artistName);
+        presentItem(cbGenre,genre);
+
+        labMedia.setText(mediaTitle);
+        fldMediaTitle.setText(mediaTitle);
 
         // load all genres in to cbGenre
         loadGenre();
@@ -83,6 +97,18 @@ public class EditMediaViewController implements Initializable {
         System.out.println("SELECTED MEDIA ID " + selectedMediaID);
 
     }
+
+    private String setMediaTitleOnScene(String quary, String fld){
+        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+            while (resultSet.next()) {
+                return resultSet.getString(fld); // Replace "columnName" with the actual column name
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
 
     private void loadGenre(){
         String quary = DatabaseRead.getAllGenres();
