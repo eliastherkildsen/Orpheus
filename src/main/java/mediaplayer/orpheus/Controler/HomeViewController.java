@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -17,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import java.io.File;
@@ -27,6 +32,8 @@ import java.util.TimerTask;
 
     public class HomeViewController implements Initializable {
 
+        @FXML
+        private BorderPane homePane;
         @FXML
         private MediaView mediaViewDisplay;
 
@@ -48,6 +55,8 @@ import java.util.TimerTask;
         private double current;
         private double currentSliderVol;
         private boolean mute;
+
+        private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
 
@@ -72,6 +81,12 @@ import java.util.TimerTask;
                 //String formattedTime = secondsFormattedToTime(trackLength);
             });
 
+//            StackPane stackPane = new StackPane();
+//            stackPane.getChildren().add(mediaViewDisplay);
+//            homePane.setCenter(stackPane);
+//
+//            mediaViewDisplay.fitWidthProperty().bind(stackPane.widthProperty());
+//            mediaViewDisplay.fitHeightProperty().bind(stackPane.heightProperty());
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
             sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
@@ -85,7 +100,7 @@ import java.util.TimerTask;
 
         public void onActionbtnImportClick(){
 
-            FileHandlerMedia.fileChooser();
+            FileChooser.fileChooser();
 
         }
 

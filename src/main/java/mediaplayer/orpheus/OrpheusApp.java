@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mediaplayer.orpheus.Controler.SceneController;
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class OrpheusApp extends Application {
             Scene scene = new Scene(root);
             SceneController.setStage(stage);
             stage.setScene(scene);
+            stage.setTitle("Orpheus");
+            stage.getIcons().add(new Image("file:src/main/resources/css/images/trash-2.png"));
             stage.show();
 
         } catch (Exception e) {

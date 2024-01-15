@@ -1,4 +1,5 @@
 package mediaplayer.orpheus.Controler;
+import javafx.scene.control.ListCell;
 import mediaplayer.orpheus.model.MediaSearch.DatabaseSearch;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,11 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLWarning;
 import java.util.ArrayList;
 
 public class SearchViewController {
@@ -77,6 +80,8 @@ public class SearchViewController {
         dataSet = databaseSearch.processResultSet(res);
         LWSearchResult.getItems().clear();
 
+
+
         // loops through the resultset.
         for (String[] strings : dataSet) {
             // formats the result.
@@ -88,7 +93,7 @@ public class SearchViewController {
 
     public void onActionbtnImportClick(){
 
-        FileHandlerMedia.fileChooser();
+        FileChooser.fileChooser();
 
     }
 
