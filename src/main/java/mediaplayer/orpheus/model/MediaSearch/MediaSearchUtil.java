@@ -9,21 +9,32 @@ public class MediaSearchUtil {
      * and the retrieving the path for the String at the index og the integer retrieved.
      * @return String filepath to selected media.
      */
-    public static String parseLWSearchResult(String mediaPicked, ArrayList<String[]> dataSet) {
-
-        // the returned value from getSelectedIndices() is a text, therefor we need to parse it to an int, and exclude
-        // the start char '[' and the last char ']'
-        String mediaIndex = mediaPicked;
-        mediaIndex = mediaIndex.substring(1,mediaIndex.length()-1);
-
-        int mediaIndexFormatted = Integer.parseInt(mediaIndex);
-
+    public static String getMediaPathFromDataset(int mediaPicked, ArrayList<String[]> dataSet) {
         // gets the String array from the arraylist,
-        String[] temp = dataSet.get(mediaIndexFormatted);
 
-        // returns the String at index 5, witch referees to the index where the filePath exists.
-        return temp[5];
+        if (mediaPicked != -1) {
+            String[] temp = dataSet.get(mediaPicked);
+            // check if the array has enough elements
+            if (temp.length > 5) {
+                // returns the String at index 5, which refers to the index where the filePath exists.
+                // check if temp[5] is null
+                if (!(temp[5] == null)){
+                    return temp[5];
+                }
+            }
+        }
+
+        return "";
+
     }
+
+    public static int getMediaIDFromDataset(int mediaPicked, ArrayList<String[]> dataSet) {
+        String[] temp = dataSet.get(mediaPicked);
+
+        int mediaID = Integer.parseInt(temp[8]);
+        return mediaID;
+    }
+
 
     /**
      * Method for creating a formatted string output for a quarry result.

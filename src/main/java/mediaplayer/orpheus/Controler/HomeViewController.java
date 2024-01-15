@@ -62,24 +62,24 @@ import java.util.TimerTask;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+            try {
+                labCurrentTime.setText("");
+                labMediaLength.setText("");
 
-            labCurrentTime.setText("");
-            labMediaLength.setText("");
+                file = new File(mediaPath);
 
-            file = new File(mediaPath);
+                if (file.exists()) {
+                    media = new Media(file.toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                } else {
+                    System.out.println("The file was not found at the specified path");
+                }
 
-            if (file.exists()) {
-                media = new Media(file.toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-            } else {
-                System.out.println("The file was not found at the specified path");
-            }
-
-            // when the MediaPlayer is ready to play the media
-            mediaPlayer.setOnReady(() -> {
-                //double trackLength = media.getDuration().toSeconds();
-                //String formattedTime = secondsFormattedToTime(trackLength);
-            });
+                // when the MediaPlayer is ready to play the media
+                mediaPlayer.setOnReady(() -> {
+                    //double trackLength = media.getDuration().toSeconds();
+                    //String formattedTime = secondsFormattedToTime(trackLength);
+                });
 
 //            StackPane stackPane = new StackPane();
 //            stackPane.getChildren().add(mediaViewDisplay);
@@ -89,13 +89,14 @@ import java.util.TimerTask;
 //            mediaViewDisplay.fitHeightProperty().bind(stackPane.heightProperty());
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
-            sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
-                    mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
-                }
-            });
+                        mediaPlayer.setVolume(sliderVolume.getValue() * 0.01);
+                    }
+                });
+            }catch (Exception e){};
         }
 
         public void onActionbtnImportClick(){
@@ -265,9 +266,9 @@ import java.util.TimerTask;
         private SceneController sceneController = new SceneController();
 
         public void switchToPlaylistView() {
-
-            mediaPlayer.pause();
-
+            try {
+                mediaPlayer.pause();
+            } catch (Exception e){};
             try {
                 sceneController.switchToPlaylistScene();
             } catch (IOException e) {
@@ -276,9 +277,9 @@ import java.util.TimerTask;
         }
 
         public void switchToSearchView() {
-
-            mediaPlayer.pause();
-
+            try {
+                mediaPlayer.pause();
+            } catch (Exception e){};
             try {
                 sceneController.switchToSearchScene();
             } catch (IOException e) {
@@ -287,9 +288,9 @@ import java.util.TimerTask;
         }
 
         public void switchToHomeView() {
-
-            mediaPlayer.pause();
-
+            try {
+                mediaPlayer.pause();
+            } catch (Exception e){};
             try {
                 sceneController.switchToHomeScene();
             } catch (IOException e) {

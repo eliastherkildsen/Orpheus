@@ -50,10 +50,11 @@ White   #F7FFF7
 .list-view .cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;
+
 }
 
 .list-view .cell:hover {
-    -fx-background-color: #6CA6C1;
+    -fx-background-color: #978B67;
     -fx-text-fill: white;
     -fx-background-radius: 10;
 }
@@ -79,3 +80,9 @@ White   #F7FFF7
     -fx-background-insets: 5, 5, 5;
     -fx-background-radius: 5;
 }
+
+.list-view:focused .list-cell:filled:selected {
+    /* 3: (This is more specific and therefore overrides the above)*/
+    -fx-background-color: #6CA6C1;
+}
+
