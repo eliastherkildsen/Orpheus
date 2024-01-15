@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.Service.FileChooser;
 
+import mediaplayer.orpheus.util.AlertPopup;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
@@ -144,6 +145,7 @@ public class SearchViewController implements Initializable {
 
         else {
             System.out.printf("%s[SearchViewController][switchMedia] switching media-player file pointer to %n path: %s path%s%n", AnsiColorCode.ANSI_YELLOW, filePath, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected", "No media has been selected, pleas select a media to listen to").showInformation();
         }
 
     }
@@ -166,6 +168,7 @@ public class SearchViewController implements Initializable {
         }
         else {
             System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected.", "No media to delete has been selected, please select a media to delete.").showInformation();
         }
 
     }
@@ -197,8 +200,14 @@ public class SearchViewController implements Initializable {
 
     private void editMedia() {
         // get selected medias mediaID.
-        EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
-        switchToEditView();
+        if (getSelectedItemIndex()!= -1) {
+            EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+            switchToEditView();
+        }
+        else {
+            System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
+        }
 
     }
 
