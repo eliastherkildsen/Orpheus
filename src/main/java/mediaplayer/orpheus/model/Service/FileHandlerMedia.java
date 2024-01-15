@@ -106,7 +106,7 @@ public class FileHandlerMedia {
 
         // Trys to extract all the metadata from the file as it can
         try {
-            metadataHandler.insertAndGatherMedia();
+            metadataHandler.insertAndGatherMediaMp3();
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
