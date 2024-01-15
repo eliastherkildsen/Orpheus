@@ -30,6 +30,10 @@ public class PlaylistHandler {
                 preparedStatement = connection.prepareCall(query);
                 preparedStatement.executeUpdate();
 
+                AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
+                        , "Playlist has been created.");
+                alertPopupPlaylistAdded.showInformation();
+
             } catch (SQLException e){
 
                 throw new RuntimeException(e);
