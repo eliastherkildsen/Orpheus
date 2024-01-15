@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.Metadata;
 
-public class Metadata {
+public class Mp3 {
     private String filePath;
     private String mediaTitle;
     private String fileType;
@@ -10,6 +10,16 @@ public class Metadata {
     private Integer mediaTrack;
     private Integer trackLength;
 
+    public Mp3(String filePath, String mediaTitle, String fileType, String album, String artist, Integer mediaYear, Integer mediaTrack, Integer trackLength) {
+        this.filePath = filePath;
+        this.mediaTitle = mediaTitle;
+        this.fileType = fileType;
+        this.album = album;
+        this.artist = artist;
+        this.mediaYear = mediaYear;
+        this.mediaTrack = mediaTrack;
+        this.trackLength = trackLength;
+    }
 
     public String getFilePath() {
         return filePath;

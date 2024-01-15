@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- *
  *       model
  *     │   └── Metadata.java
  *     ├── db
@@ -22,7 +21,7 @@ import java.sql.Types;
  *     MetadataService coordinates metadata extraction and database interaction.
  */
 
-public class DatabaseHandler {
+public class DatabaseCreate {
     private String filePath;
     private String mediaTitle;
     private String fileType;
@@ -30,7 +29,7 @@ public class DatabaseHandler {
     Integer mediaYear;
     Integer mediaTrack;
     Integer trackLength;
-    public DatabaseHandler(String mediaTitle, String fileType, String album, Integer mediaYear, Integer mediaTrack, Integer trackLength, String filePath) {
+    public DatabaseCreate(String mediaTitle, String fileType, String album, Integer mediaYear, Integer mediaTrack, Integer trackLength, String filePath) {
         setMediaTitle(mediaTitle);
         setFileType(fileType);
         setAlbum(album);
@@ -71,7 +70,6 @@ public class DatabaseHandler {
             preparedStatment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-
             throw e;
         }
     }

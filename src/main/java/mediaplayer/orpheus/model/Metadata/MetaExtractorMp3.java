@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.Metadata;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,6 +126,7 @@ public class MetaExtractorMp3 {
         try {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
+
             if (Objects.equals(tag.getFirst(FieldKey.TRACK), "")){
                 return null;
             } else {
