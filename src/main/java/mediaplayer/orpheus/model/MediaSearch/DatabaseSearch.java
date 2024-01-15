@@ -1,6 +1,8 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
 import mediaplayer.orpheus.model.Database.JDBC;
+import mediaplayer.orpheus.util.AnsiColorCode;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,6 +11,25 @@ public class DatabaseSearch {
     // creating a JDBC connection
     private static final JDBC jdbc = new JDBC();
     private static final Connection connection = jdbc.getConnection();
+
+    public void deleteMediaFromDatabase(int mediaId){
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        String quarry = deleteMediaQuarry(mediaId);
+
+        try {
+
+            preparedStatement = connection.prepareCall(quarry);
+            preparedStatement.executeUpdate();
+
+            System.out.printf("%s[DarabaseSearch][deleteMedia] media with %s as media id was deleted%s%n", AnsiColorCode.ANSI_YELLOW, mediaId, AnsiColorCode.ANSI_RESET);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     /**
      * Method executing a search in the database fields [tblMedia] & [tblPerson]
@@ -21,7 +42,7 @@ public class DatabaseSearch {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
-        String query = appendQuery(searchCriteria);
+        String query = appendQuerySearch(searchCriteria);
 
         try {
             preparedStatement = connection.prepareCall(query);
@@ -53,7 +74,7 @@ public class DatabaseSearch {
                 throw new RuntimeException(e);
             }
 
-            String[] data = new String[8];
+            String[] data = new String[9];
 
             // storing values of the result set in a String array, for insuring a fixed index of fields,
             // to make it easy to make a formatted print.
@@ -66,6 +87,7 @@ public class DatabaseSearch {
             data[5] = validateResultNotNull("fldFilePath",    resultSet);
             data[6] = validateResultNotNull("fldTrackLength", resultSet);
             data[7] = validateResultNotNull("fldGenre",       resultSet);
+            data[8] = validateResultNotNull("fldMediaID",     resultSet);
 
             // adds the string array to an arraylist.
             dataSet.add(data);
@@ -76,14 +98,13 @@ public class DatabaseSearch {
 
     }
 
-
     /**
      * Method for checking if a field is empty, if not it returns the String value of the field data.
      * @param fieldName reference to the field in the result to search for.
      * @param resultSet reference to the result to search through.
      * @return String value of the field. or "NULL" if the database field is empty.
      */
-    public String validateResultNotNull(String fieldName, ResultSet resultSet){
+    private String validateResultNotNull(String fieldName, ResultSet resultSet){
         try {
             return resultSet.getString(fieldName);
         } catch (SQLException e) {
@@ -97,12 +118,14 @@ public class DatabaseSearch {
      * @param searchCriteria What is being searched for
      * @return SQL query as string
      */
-    public String appendQuery(String searchCriteria){
+    private String appendQuerySearch(String searchCriteria){
 
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
-        return new StringBuilder().append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, " +
-                        "tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, tblPerson.fldLastName, tblMediaGenre.fldGenre ")
+        return new StringBuilder()
+                .append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, ")
+                .append("tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, ")
+                .append("tblPerson.fldLastName, tblMediaGenre.fldGenre, tblMedia.fldMediaID ")
                 .append("FROM tblMedia ")
 
                 .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
@@ -138,4 +161,26 @@ public class DatabaseSearch {
                 .toString();
 
     }
+
+    private String deleteMediaQuarry(int mediaID){
+
+
+        return new StringBuilder()
+                .append("DELETE FROM tblMediaGenre WHERE fldMediaID= ")
+                .append(mediaID)
+
+                .append("DELETE FROM tblMediaPerson WHERE fldMediaID= ")
+                .append(mediaID)
+
+                .append("DELETE FROM tblMediaPlaylist WHERE fldMediaID= ")
+                .append(mediaID)
+
+                .append("DELETE FROM tblMedia WHERE fldMediaID= ")
+                .append(mediaID)
+
+                .toString();
+
+    }
+
+
 }

@@ -1,10 +1,10 @@
 package mediaplayer.orpheus.Controler;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
+import mediaplayer.orpheus.model.Service.FileChooser;
 
 import java.io.IOException;
 
@@ -13,27 +13,30 @@ public class PlaylistViewController {
     @FXML
     private Button btnSearch, btnPlaylist, btnImport, btnDelete;
 
-    private ViewControler viewControler = new ViewControler();
+    @FXML
+    private TextField playlistCreateBar;
 
-    public void switchToPlaylistView(ActionEvent event) {
+    private SceneController sceneController = new SceneController();
+
+    public void switchToPlaylistView() {
         try {
-            viewControler.switchToPlaylistScene(event);
+            sceneController.switchToPlaylistScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToSearchView(ActionEvent event) {
+    public void switchToSearchView() {
         try {
-            viewControler.switchToSearchScene(event);
+            sceneController.switchToSearchScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToHomeView(ActionEvent event) {
+    public void switchToHomeView() {
         try {
-            viewControler.switchToHomeScene(event);
+            sceneController.switchToHomeScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,6 +44,18 @@ public class PlaylistViewController {
 
     public void onActionbtnImportClick(){
 
-        FileHandlerMedia.fileChooser();
+        FileChooser.fileChooser();
+    }
+
+    @FXML
+    private void onActionbtnCreateClick(){
+
+        PlaylistHandler.createPlaylist(playlistCreateBar.getText());
+
+    }
+
+    @FXML
+    private void onActionbtnCancelClick(){
+
     }
 }

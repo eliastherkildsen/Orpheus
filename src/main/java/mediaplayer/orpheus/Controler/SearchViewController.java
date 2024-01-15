@@ -1,18 +1,23 @@
 package mediaplayer.orpheus.Controler;
+import javafx.fxml.Initializable;
 import mediaplayer.orpheus.model.MediaSearch.DatabaseSearch;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLWarning;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class SearchViewController {
+public class SearchViewController implements Initializable {
 
     @FXML
     private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
@@ -20,63 +25,30 @@ public class SearchViewController {
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
-    private ResultSet resultSet;
     private final DatabaseSearch databaseSearch = new DatabaseSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
+    private final SceneController sceneController = new SceneController();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // to auto-populate the search results.
+        refreshSearchResults();
+    }
 
     @FXML
     private void onActionbtnEditClick(){
 
     }
 
+    /**
+     * method for switching the media player song reference to the user selected.
+     *
+     */
     @FXML
     private void onActionbtnListenClick(){
-        // gets the selected media.
-        String mediaPicked = LWSearchResult.getSelectionModel().getSelectedItems().toString();
         // retrieves the path for the selected media.
-        String filePath = parseLWSearchResult(mediaPicked);
-        // switches to home view, and sets the media at home view to the selected media.
+        String filePath = MediaSearchUtil.getMediaPathFromDataset(getSelectedItemIndex(), dataSet);
         switchMedia(filePath);
-        // debug logging.
-        System.out.printf("%s[MEDIA-SEARCH] Media picked: %s %s%n", AnsiColorCode.ANSI_YELLOW, mediaPicked, AnsiColorCode.ANSI_RESET);
-        System.out.println(filePath);
-
-    }
-
-
-    /**
-     * Method for updating the mediaPath in Homeview, and switching scene view.
-     * @param filePath
-     */
-    private void switchMedia(String filePath) {
-        // switches the filepath for the media view to the user selected filepath
-        HomeViewController.mediaPath = filePath;
-
-        // switing sceens.
-        try {
-            viewControler.switchToHomeScene();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Method for parsing the position of the selected item from a string to an integer.
-     * and the retriving the path for the String at the index og the integer retrived.
-     * @param mediaPicked
-     * @return String filepath to selected media.
-     */
-    private String parseLWSearchResult(String mediaPicked) {
-
-        // the returend value from getSelectedIndices() is a text, therefor we need to parse it to an int, and exclude
-        // the start char '[' and the last char ']'
-        String mediaIndex = LWSearchResult.getSelectionModel().getSelectedIndices().toString();
-
-        mediaIndex = mediaIndex.substring(1,mediaIndex.length()-1);
-        int mediaIndexFormatted = Integer.parseInt(mediaIndex);
-        String[] temp = dataSet.get(mediaIndexFormatted);
-        // returns the String at index 5, witch referees to the index where the filePath exists.
-        return temp[5];
     }
 
     @FXML
@@ -84,84 +56,137 @@ public class SearchViewController {
 
     }
 
+    /**
+     * method for deleting the selected item from the database.
+     */
     @FXML
     private void onActionbtnDeleteMediaClick(){
-
+        deleteMedia(getSelectedItemIndex());
     }
+
+    /**
+     * method for getting the selected item in LW
+     * @return the index of the selected item. return -1 if no item is selected.
+     */
+
+
     @FXML
     private void onActionbtnSearchBarClick(){
 
-        dataSet = new ArrayList<>();
+        /**
+         * TODO: move into separate method.
+         */
+
+        // quarry's the users search input.
         ResultSet res = databaseSearch.searchMedia(FldSearch.getText());
+        // parses the result of the quarry to a String array for each row.
+
         dataSet = databaseSearch.processResultSet(res);
-        LWSearchResult.getItems().clear();
+        // clears the search LW  (list-view)
 
+        clearListView();
 
-
+        // loops through the resultset.
         for (String[] strings : dataSet) {
-
-            StringBuilder sb = new StringBuilder();
-
-            if(strings[3] != "NULL" || strings[3] != "null"){
-                sb.append(strings[3]);
-                sb.append(" ");
-            }
-            if(strings[0] != "NULL" || strings[0] != "null"){
-                sb.append(strings[0]);
-                sb.append(" ");
-            }
-            if(strings[1] != "NULL" || strings[1] != "null"){
-                sb.append(strings[1]);
-                sb.append(" ");
-            }
-            if(strings[2] != "NULL" || strings[2] != "null"){
-                sb.append(strings[2]);
-                sb.append(" ");
-            }
-            if(strings[6] != "NULL" || strings[6] != "null"){
-                sb.append(strings[6]);
-                sb.append(" ");
-            }
-            if(strings[7] != "NULL" || strings[7] != "null"){
-                sb.append(strings[7]);
-                sb.append(" ");
-            }
-
-            LWSearchResult.getItems().add(sb.toString());
+            // formats the result.
+            String formatedResult = MediaSearchUtil.formatedQuarryResultString(strings);
+            // adds the result to the search list.
+            LWSearchResult.getItems().add(formatedResult);
         }
-
-
     }
-
+    @FXML
     public void onActionbtnImportClick(){
 
-        FileHandlerMedia.fileChooser();
-
+        FileChooser.fileChooser();
+        refreshSearchResults();
     }
-
-    private ViewControler viewControler = new ViewControler();
-
-    public void switchToPlaylistView(ActionEvent event) {
+    @FXML
+    private void switchToPlaylistView() {
         try {
-            viewControler.switchToPlaylistScene(event);
+            sceneController.switchToPlaylistScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void switchToSearchView(ActionEvent event) {
+    @FXML
+    private void switchToSearchView() {
         try {
-            viewControler.switchToSearchScene(event);
+            sceneController.switchToSearchScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void switchToHomeView(ActionEvent event) {
+    @FXML
+    private void switchToHomeView() {
         try {
-            viewControler.switchToHomeScene(event);
+            sceneController.switchToHomeScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    /**
+     * Method for updating the mediaPath in Home view, and switching scene view.
+     * @param filePath
+     */
+    private void switchMedia(String filePath) {
+        // switches the filepath for the media view to the user selected filepath
+        if (!filePath.isEmpty()){
+            HomeViewController.mediaPath = filePath;
+            switchToHomeView();
+            System.out.printf("%s[SearchViewController][switchMedia] the selected media has no file path%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+
+        else {
+            System.out.printf("%s[SearchViewController][switchMedia] switching media-player file pointer to %n path: %s path%s%n", AnsiColorCode.ANSI_YELLOW, filePath, AnsiColorCode.ANSI_RESET);
+        }
+
+    }
+
+
+    /**
+     * method for deleting a Media in the database.
+     * @param itemIndex
+     */
+    private void deleteMedia(int itemIndex) {
+
+        // checks if an item in LW has been selected.
+        if (getSelectedItemIndex() != -1){
+
+            int mediaID = MediaSearchUtil.getMediaIDFromDataset(itemIndex, dataSet);
+            databaseSearch.deleteMediaFromDatabase(mediaID);
+
+            refreshSearchResults();
+            System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+        else {
+            System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+
+    }
+
+
+    /**
+     * method for refreshing the search results, with a search for all media,
+     */
+    private void refreshSearchResults() {
+        onActionbtnSearchBarClick();
+    }
+
+    /**
+     * method for fetching the selecedt items index in the list view.
+     * Return -1 if no item is selected.
+     *
+     * @return int selected items index.
+     */
+    private int getSelectedItemIndex() {
+        return LWSearchResult.getSelectionModel().getSelectedIndex();
+    }
+
+    /**
+     * method for clearing the list view for all items.
+     */
+    private void clearListView(){
+        LWSearchResult.getItems().clear();
+    }
+
 }

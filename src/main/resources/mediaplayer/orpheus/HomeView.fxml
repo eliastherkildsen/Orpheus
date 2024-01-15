@@ -6,10 +6,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
+            <graphic>
+               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../css/images/home.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+            </Button>
+            <Label text="Home" />
 
             <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
                <graphic>
@@ -44,26 +54,6 @@
             </Button>
             <Label fx:id="labImport" text="Import" textFill="WHITE" />
 
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../css/images/trash-2.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="labDelete" text="Delete" textFill="WHITE" />
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
-            <graphic>
-               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../css/images/home.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-            </Button>
-            <Label text="Home" />
          </children></VBox>
    </left>
    <bottom>
@@ -182,6 +172,7 @@
       <MediaView fx:id="mediaViewDisplay" fitHeight="400.0" fitWidth="600.0" BorderPane.alignment="CENTER">
          <viewport>
             <Rectangle2D />
-         </viewport></MediaView>
+         </viewport>
+      </MediaView>
    </center>
 </BorderPane>

@@ -10,24 +10,28 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import java.io.IOException;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.util.Duration;
 import mediaplayer.orpheus.model.Media.MediaUtil;
-import mediaplayer.orpheus.model.Service.FileHandlerMedia;
+import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import mediaplayer.orpheus.Controler.SceneController;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
+    @FXML
+    private BorderPane homePane;
     @FXML
     private MediaView mediaViewDisplay;
 
@@ -46,6 +50,8 @@ public class HomeViewController implements Initializable {
     @FXML
     private ImageView btnMuteIcon;
 
+    private SceneController viewControler = new SceneController();
+
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
@@ -63,6 +69,8 @@ public class HomeViewController implements Initializable {
     private double currentTrackTime;
     private double currentSliderVol;
     private boolean mute = true;
+
+        private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
     /**
@@ -180,7 +188,7 @@ public class HomeViewController implements Initializable {
     @FXML
     public void onActionbtnImportClick(){
 
-        FileHandlerMedia.fileChooser();
+        FileChooser.fileChooser();
     }
 
 
@@ -228,37 +236,34 @@ public class HomeViewController implements Initializable {
     //to handle stage-switch
     @FXML
     private Button btnSearch, btnPlaylist, btnDelete;
-
-    private ViewControler viewControler = new ViewControler();
-
-    public void switchToPlaylistView(ActionEvent event) {
+    public void switchToPlaylistView() {
 
         mediaPlayer.pause();
 
         try {
-            viewControler.switchToPlaylistScene(event);
+            viewControler.switchToPlaylistScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToSearchView(ActionEvent event) {
+    public void switchToSearchView() {
 
         mediaPlayer.pause();
 
         try {
-            viewControler.switchToSearchScene(event);
+            viewControler.switchToSearchScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void switchToHomeView(ActionEvent event) {
+    public void switchToHomeView() {
 
         mediaPlayer.pause();
 
         try {
-            viewControler.switchToHomeScene(event);
+            viewControler.switchToHomeScene();
         } catch (IOException e) {
             e.printStackTrace();
         }
