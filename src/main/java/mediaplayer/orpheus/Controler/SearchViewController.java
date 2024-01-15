@@ -1,19 +1,17 @@
 package mediaplayer.orpheus.Controler;
 import javafx.fxml.Initializable;
-import mediaplayer.orpheus.model.MediaSearch.DatabaseSearch;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.Service.FileChooser;
-import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -25,7 +23,7 @@ public class SearchViewController implements Initializable {
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
-    private final DatabaseSearch databaseSearch = new DatabaseSearch();
+    private final MediaSearch mediaSearch = new MediaSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
 
@@ -78,10 +76,10 @@ public class SearchViewController implements Initializable {
          */
 
         // quarry's the users search input.
-        ResultSet res = databaseSearch.searchMedia(FldSearch.getText());
+        ResultSet res = mediaSearch.searchMedia(FldSearch.getText());
         // parses the result of the quarry to a String array for each row.
 
-        dataSet = databaseSearch.processResultSet(res);
+        dataSet = mediaSearch.processResultSet(res);
         // clears the search LW  (list-view)
 
         clearListView();
@@ -161,7 +159,7 @@ public class SearchViewController implements Initializable {
         if (getSelectedItemIndex() != -1){
 
             int mediaID = MediaSearchUtil.getMediaIDFromDataset(itemIndex, dataSet);
-            databaseSearch.deleteMediaFromDatabase(mediaID);
+            mediaSearch.deleteMediaFromDatabase(mediaID);
 
             refreshSearchResults();
             System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
