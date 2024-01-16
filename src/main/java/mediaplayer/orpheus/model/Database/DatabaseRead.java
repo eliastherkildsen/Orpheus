@@ -36,7 +36,7 @@ public class DatabaseRead {
     }
     public static String getMediaYear(int mediaId){
         return new StringBuilder()
-                .append("SELECT fldFilePath")
+                .append("SELECT fldMediaYear")
                 .append(" FROM tblMedia")
                 .append(" WHERE fldMediaID = ")
                 .append(mediaId)

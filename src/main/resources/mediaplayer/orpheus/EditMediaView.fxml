@@ -185,7 +185,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Media Title" />
-                        <TextField fx:id="fldMediaTitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="288.0" promptText="Media Title" styleClass="text-field" stylesheets="@../../css/EditMediaStyles.css" text="Rasmus Klumb og snus eventyret">
+                        <TextField fx:id="fldMediaTitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="288.0" promptText="Media Title" styleClass="text-field" stylesheets="@../../css/EditMediaStyles.css">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></TextField>

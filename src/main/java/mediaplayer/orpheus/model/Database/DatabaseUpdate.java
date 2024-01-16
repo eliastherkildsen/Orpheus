@@ -34,7 +34,7 @@ public class DatabaseUpdate {
                 .append(mediaId)
                 .toString();
     }
-    public static String setMediaYear(int year, int mediaId){
+    public static String setMediaYear(String year, int mediaId){
         return new StringBuilder()
                 .append("UPDATE tblMedia")
                 .append(" SET fldMediaYear = ")
@@ -70,6 +70,8 @@ public class DatabaseUpdate {
                 .append(mediaId)
                 .toString();
     }
+
+
 
     /**
      * Setting the Artist name for the person.
@@ -119,6 +121,24 @@ public class DatabaseUpdate {
                 .append(mediaId)
                 .toString();
     }
+        /**
+     * Setting the genre in relation to the Media
+     * @param genre Int
+     * @param mediaId Int
+     * @return String query
+     */
+    public static String setMediaGenre(String genre, int mediaId){
+        return new StringBuilder()
+                .append("UPDATE tblMediaGenre")
+                .append(" SET fldGenre = '")
+                .append(genre)
+                .append("' WHERE fldMediaID = ")
+                .append(mediaId)
+                .toString();
+    }
+
+
+
 
     /**
      * Updates the Genre for a specific song. Obviously the Genre needs to match a Genre in the tblGenre.
