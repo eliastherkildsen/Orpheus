@@ -120,5 +120,29 @@ public class DatabaseUpdate {
                 .toString();
     }
 
+    /**
+     * Updates the Genre for a specific song. Obviously the Genre needs to match a Genre in the tblGenre.
+     * @param updatedGenre String
+     * @param mediaId int
+     * @return String query
+     */
+    public static String updateMediaGenre(String updatedGenre, int mediaId){
+        return new StringBuilder()
+                .append("UPDATE tblMediaGenre")
+                .append(" SET fldGenre = '")
+                .append(updatedGenre)
+                .append("' WHERE = ")
+                .append(mediaId)
+                .toString();
+    }
+
 
 }
+
+
+
+
+
+
+
+
