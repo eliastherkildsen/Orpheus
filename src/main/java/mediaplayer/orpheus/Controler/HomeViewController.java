@@ -114,29 +114,23 @@ public class HomeViewController implements Initializable {
 
 
 
-       /* // listens for changes in the value of the progres slider
-        sliderProgres.valueProperty().addListener(new ChangeListener<Number>() {
+
+        System.out.println("______________________________________________________________________________________________________________");
+
+
+        mediaPlayer.totalDurationProperty().addListener(new ChangeListener<Duration>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double currenProgres = mediaPlayer.getCurrentTime().toSeconds();
-                double trackLentgh = media.getDuration().toSeconds();
-
-                // Undgå rekursiv opdatering
-                if (!sliderProgres.isValueChanging()) {
-                    double newValue = currenProgres / trackLentgh;
-
-                    // Sørg for, at værdien er inden for intervallet [0, 1]
-                    newValue = Math.min(Math.max(newValue, 0), 1);
-
-                    sliderProgres.setValue(newValue);
-
-                    if (newValue >= 1) {
-                        cancelTimer();
-                    }
-                }
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                sliderProgres.setMax(newValue.toSeconds());
             }
         });
-        timer.scheduleAtFixedRate(task, 1000, 1000);  */
+
+        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                sliderProgres.setValue(newValue.toSeconds());
+            }
+        });
 
 
 
@@ -151,7 +145,7 @@ public class HomeViewController implements Initializable {
 
 
 
-
+        System.out.println("______________________________________________________________________________________________________________");
 
 
         // listens for changes in the value of the volume slider
@@ -203,6 +197,19 @@ public class HomeViewController implements Initializable {
             @Override
             public void run() {
 
+                Platform.runLater(() -> {
+
+                    if (mediaPlayer != null){
+
+                        double sliderVol = sliderProgres.getValue();
+                    }
+
+                });
+
+
+
+
+
                 // The code within Platform.runLater() ensures that UI updates occur on the JavaFX Application Thread,
                 // preventing the "Not on FX application thread" error.
                 Platform.runLater(() -> {
@@ -227,7 +234,6 @@ public class HomeViewController implements Initializable {
 
         // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
         timer.scheduleAtFixedRate(task, 1000, 1000);
-
 
 
 
