@@ -33,12 +33,9 @@ public class EditMediaViewController implements Initializable {
     private ArrayList<String> artist = new ArrayList<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            load();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        load();
     }
+
     @FXML
     private void onBtnUpdataClick(){}
     @FXML
@@ -78,7 +75,8 @@ public class EditMediaViewController implements Initializable {
         choiceBox.getSelectionModel().select(string);
     }
 
-    private void load() throws SQLException {
+
+    private void load() {
         String mediaTitle = setMediaTitleOnScene(DatabaseRead.getMediaTitle(selectedMediaID),"fldMediaTitle");
         String artistName = setMediaTitleOnScene(DatabaseRead.getMediaArtistArtName(selectedMediaID),"fldArtistName");
         String genre = setMediaTitleOnScene(DatabaseRead.getMediaGenre(selectedMediaID), "fldGenre");
@@ -109,7 +107,9 @@ public class EditMediaViewController implements Initializable {
         return null;
     }
 
-
+    /*
+    TODO move to a seperet utill class.
+     */
     private void loadGenre(){
         String quary = DatabaseRead.getAllGenres();
 
@@ -126,7 +126,9 @@ public class EditMediaViewController implements Initializable {
         }
 
     }
-
+    /*
+    TODO move to a seperet utill class.
+     */
     private void loadArtist(){
         String quary = DatabaseRead.getAllArtists();
 

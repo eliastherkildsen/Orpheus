@@ -204,6 +204,7 @@ public class SearchViewController implements Initializable {
             EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
             switchToEditView();
         }
+
         else {
             System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
