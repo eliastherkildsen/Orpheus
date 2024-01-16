@@ -28,6 +28,7 @@ public class EditMediaViewController implements Initializable {
     private MediaEdit mediaEdit;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("init");
         load();
     }
     @FXML
@@ -97,6 +98,8 @@ public class EditMediaViewController implements Initializable {
 
         setMediaArtist();
 
+        setMediaTextField();
+
         System.out.println("SELECTED MEDIA ID " + selectedMediaID);
 
     }
@@ -108,19 +111,23 @@ public class EditMediaViewController implements Initializable {
     private void setMediaTitleOnScene(){
         labMedia.setText(mediaEdit.getMediaTitle());
     }
+    private void setMediaTextField(){
+        fldMediaTitle.setText(mediaEdit.getMediaTitle());
+    }
 
     private void setMediaGenre(){
         presentItem(cbGenre, mediaEdit.getMediaGenre());
     }
 
-
     private void loadGenre(){
+        cbGenre.getItems().clear();
         for (String genre : MediaEditUtil.getAllGenre()){
             addItemToChoiceBox(cbGenre, genre);
         }
     }
 
     private void loadArtist(){
+        cbArtist.getItems().clear();
         for (String artist : MediaEditUtil.getAllArtist()){
             addItemToChoiceBox(cbArtist, artist);
         }
@@ -128,9 +135,13 @@ public class EditMediaViewController implements Initializable {
 
     private void updataMediaData() {
 
-        mediaEdit.setMediaGenre(getSelectedItem(cbGenre));
+        if (getSelectedItem(cbGenre) != null){
+            mediaEdit.setMediaGenre(getSelectedItem(cbGenre));
+        }
 
-        mediaEdit.setMediaArtistName(getSelectedItem(cbArtist));
+        if (getSelectedItem(cbArtist) != null) {
+            mediaEdit.setMediaArtistName(getSelectedItem(cbArtist));
+        }
 
         // set year
         mediaEdit.setMediaYear(fldYear.getText());
