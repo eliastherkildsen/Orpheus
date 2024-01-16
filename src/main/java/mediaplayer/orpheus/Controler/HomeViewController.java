@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.io.IOException;
 import javafx.fxml.Initializable;
@@ -30,6 +32,8 @@ import mediaplayer.orpheus.Controler.SceneController;
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
+    @FXML
+    public HBox hBoxButtons;
     @FXML
     private BorderPane homePane;
     @FXML
@@ -51,6 +55,8 @@ public class HomeViewController implements Initializable {
     private ImageView btnMuteIcon;
 
     private SceneController viewControler = new SceneController();
+    private double heightOfScene;
+    private double widthOfScene;
 
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
@@ -105,17 +111,17 @@ public class HomeViewController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double padding = 100.0;
                 mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
+                widthOfScene = (double) number;
             }
         });
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 120.0;
+                double padding = 100.0;
                 mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
+                heightOfScene = (double) number;
             }
         });
-
-
 
         // listens for changes in the value of the volume slider
         sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
