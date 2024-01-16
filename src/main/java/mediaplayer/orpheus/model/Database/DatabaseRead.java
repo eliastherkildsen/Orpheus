@@ -122,4 +122,14 @@ public class DatabaseRead {
                 .append("')")
                 .toString();
     }
+
+    public static String getMediaArtistIDFromName(String mediaArtistName) {
+
+        return new StringBuilder()
+                .append("SELECT fldPersonID FROM tblPerson WHERE fldArtistName = '")
+                .append(mediaArtistName)
+                .append("'")
+                .toString();
+
+    }
 }
