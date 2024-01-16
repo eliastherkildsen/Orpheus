@@ -1,43 +1,74 @@
 package mediaplayer.orpheus.Controler;
-import javafx.fxml.Initializable;
-import mediaplayer.orpheus.model.MediaSearch.DatabaseSearch;
+import  javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.DatabaseRead;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
-import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
+import mediaplayer.orpheus.util.AlertPopup;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLWarning;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist
+            , btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
-    private final DatabaseSearch databaseSearch = new DatabaseSearch();
+    private final MediaSearch mediaSearch = new MediaSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
+    private ArrayList<String> playListNamesArr = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
+    @FXML
+    private ChoiceBox cbPlaylist;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // to auto-populate the search results.
         refreshSearchResults();
+
+        loadChoiceBox();
+
     }
+
+    private void loadChoiceBox() {
+
+        String query = DatabaseRead.getAllPlaylistNames();
+
+        try(ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query)){
+            while(resultSet.next()){
+                playListNamesArr.add(resultSet.getString("fldPlaylistName"));
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        for (String playlistName : playListNamesArr) {
+            addItemToChoiceBox(cbPlaylist, playlistName);
+        }
+
+    }
+
+    private void addItemToChoiceBox(ChoiceBox choiceBox, String item){choiceBox.getItems().add(item);}
 
     @FXML
     private void onActionbtnEditClick(){
-
+        editMedia();
     }
 
     /**
@@ -52,8 +83,11 @@ public class SearchViewController implements Initializable {
     }
 
     @FXML
-    private void onActionbtnAddToPlaylistClick(){
+    private void onActionbtnAddToPlaylistClick() throws IndexOutOfBoundsException {
 
+        int selectedMedia = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+        PlaylistHandler.addMediaToPlaylist(selectedMedia, getSelectedChoiceBoxItem());
+        System.out.println(cbPlaylist.getSelectionModel().getSelectedItem());
     }
 
     /**
@@ -78,10 +112,10 @@ public class SearchViewController implements Initializable {
          */
 
         // quarry's the users search input.
-        ResultSet res = databaseSearch.searchMedia(FldSearch.getText());
+        ResultSet res = mediaSearch.searchMedia(FldSearch.getText());
         // parses the result of the quarry to a String array for each row.
 
-        dataSet = databaseSearch.processResultSet(res);
+        dataSet = mediaSearch.processResultSet(res);
         // clears the search LW  (list-view)
 
         clearListView();
@@ -124,6 +158,14 @@ public class SearchViewController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void switchToEditView() {
+        try {
+            sceneController.switchToEditScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Method for updating the mediaPath in Home view, and switching scene view.
      * @param filePath
@@ -138,6 +180,7 @@ public class SearchViewController implements Initializable {
 
         else {
             System.out.printf("%s[SearchViewController][switchMedia] switching media-player file pointer to %n path: %s path%s%n", AnsiColorCode.ANSI_YELLOW, filePath, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected", "No media has been selected, pleas select a media to listen to").showInformation();
         }
 
     }
@@ -153,13 +196,14 @@ public class SearchViewController implements Initializable {
         if (getSelectedItemIndex() != -1){
 
             int mediaID = MediaSearchUtil.getMediaIDFromDataset(itemIndex, dataSet);
-            databaseSearch.deleteMediaFromDatabase(mediaID);
+            mediaSearch.deleteMediaFromDatabase(mediaID);
 
             refreshSearchResults();
             System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
         else {
             System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected.", "No media to delete has been selected, please select a media to delete.").showInformation();
         }
 
     }
@@ -182,11 +226,31 @@ public class SearchViewController implements Initializable {
         return LWSearchResult.getSelectionModel().getSelectedIndex();
     }
 
+    private String getSelectedChoiceBoxItem(){
+        return cbPlaylist.getSelectionModel().getSelectedItem().toString();
+    }
+
     /**
      * method for clearing the list view for all items.
      */
     private void clearListView(){
         LWSearchResult.getItems().clear();
     }
+
+    private void editMedia() {
+        // get selected medias mediaID.
+        if (getSelectedItemIndex()!= -1) {
+            EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+            switchToEditView();
+        }
+
+        else {
+            System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
+        }
+
+    }
+
+
 
 }

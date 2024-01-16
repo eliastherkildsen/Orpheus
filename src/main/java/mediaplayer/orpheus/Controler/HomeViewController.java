@@ -5,6 +5,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,7 +14,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import java.io.IOException;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,11 +35,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import mediaplayer.orpheus.Controler.SceneController;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
+    @FXML
+    public HBox hBoxButtons;
     @FXML
     private BorderPane homePane;
     @FXML
@@ -56,9 +65,9 @@ public class HomeViewController implements Initializable {
     @FXML
     private ImageView btnMuteIcon;
 
-
-
     private SceneController viewControler = new SceneController();
+    private double heightOfScene;
+    private double widthOfScene;
 
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
@@ -81,9 +90,6 @@ public class HomeViewController implements Initializable {
         private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
-
-
-
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
@@ -102,15 +108,40 @@ public class HomeViewController implements Initializable {
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
             // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
         } else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
         }
 
         // associates the mediaPlayer with the mediaViewDisplay for content playback
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
+        homePane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double padding = 100.0;
+                mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
+
+                //Saving the width everytime its changed for later use.
+                widthOfScene = (double) number;
+                //System.out.println("Width " + widthOfScene);
+
+            }
+        });
+
+        homePane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double padding = 100.0;
+                mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
+
+                //Saving the height every time its changed for later use.
+                heightOfScene = (double) number;
+                //System.out.println("Height " + heightOfScene);
+
+            }
+        });
 
 
 
@@ -176,9 +207,6 @@ public class HomeViewController implements Initializable {
 
 
 
-
-
-
     /**
      * Method that initializes and starts a timer to update the current time display of the media player.
      *
@@ -197,23 +225,9 @@ public class HomeViewController implements Initializable {
             @Override
             public void run() {
 
-                Platform.runLater(() -> {
-
-                    if (mediaPlayer != null){
-
-                        double sliderVol = sliderProgres.getValue();
-                    }
-
-                });
-
-
-
-
-
                 // The code within Platform.runLater() ensures that UI updates occur on the JavaFX Application Thread,
                 // preventing the "Not on FX application thread" error.
                 Platform.runLater(() -> {
-
                     if (mediaPlayer != null) {
                         currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
                         double trackLength = media.getDuration().toSeconds();
@@ -234,29 +248,7 @@ public class HomeViewController implements Initializable {
 
         // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
         timer.scheduleAtFixedRate(task, 1000, 1000);
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -325,16 +317,6 @@ public class HomeViewController implements Initializable {
         sliderProgresMouseRelease();
     }
 
-   /* private void initializeSlider() {
-        sliderProgres.valueProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("1");
-            double newTracktime = sliderProgres.getValue();
-            System.out.println(newTracktime);
-            System.out.println("2");
-            System.out.println(newTracktime * 0.01);
-            mediaPlayer.setVolume(newTracktime * 0.01);
-        });
-    }*/
 
     private void sliderProgresOnDrag() {
         mediaPlayer.pause();
@@ -580,24 +562,6 @@ public class HomeViewController implements Initializable {
     private void toggleMuteState() {
         mute = !mute;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

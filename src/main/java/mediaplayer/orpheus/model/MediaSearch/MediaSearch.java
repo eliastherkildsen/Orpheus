@@ -1,17 +1,16 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
+import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseUtil;
-import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseSearch {
+public class MediaSearch {
 
     // creating a JDBC connection
-    private static final JDBC jdbc = new JDBC();
-    private static final Connection connection = jdbc.getConnection();
+    private static final Connection connection = OrpheusApp.jdbc.getConnection();
 
     public void deleteMediaFromDatabase(int mediaId){
 

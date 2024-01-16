@@ -1,7 +1,6 @@
 package mediaplayer.orpheus.model.Service;
 
-import mediaplayer.orpheus.model.Database.DatabaseCreate;
-import mediaplayer.orpheus.model.Database.DatabaseRead;
+import mediaplayer.orpheus.model.Database.DatabaseExtractorInsert;
 import mediaplayer.orpheus.model.Metadata.MetaExtractorMp3;
 import mediaplayer.orpheus.model.Metadata.Mp3;
 import mediaplayer.orpheus.util.AnsiColorCode;
@@ -25,7 +24,7 @@ public class MetadataService {
 
         Mp3 media = new Mp3(filepath,song.gatherMetaDataTitle(),filetype,song.gatherMetaDataAlbumName(),song.gatherMetaDataArtist(),song.gatherMetaDataYear(),song.gatherMetaDataTrack(),song.gatherMetaDataLength());
 
-        DatabaseCreate newsong = new DatabaseCreate(media.getMediaTitle(),filetype, media.getAlbum(),media.getMediaYear(),media.getMediaTrack(),media.getTrackLength(),filepath);
+        DatabaseExtractorInsert newsong = new DatabaseExtractorInsert(media.getMediaTitle(),filetype, media.getAlbum(),media.getMediaYear(),media.getMediaTrack(),media.getTrackLength(),filepath);
         newsong.insertIntoDBNewMp3();
         //DEBUG LOGGING
         System.out.printf("%s[META SERVICE] Inserting into DB complete.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);

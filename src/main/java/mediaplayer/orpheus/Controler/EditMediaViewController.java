@@ -6,15 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.OrpheusApp;
-import mediaplayer.orpheus.model.Database.DatabaseRead;
-import mediaplayer.orpheus.model.Database.DatabaseUtil;
+import mediaplayer.orpheus.model.MediaEdit.MediaEdit;
+import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditMediaViewController implements Initializable {
@@ -29,19 +25,22 @@ public class EditMediaViewController implements Initializable {
     @FXML
     private Label labMedia;
     public static int selectedMediaID;
-    private ArrayList<String> genre = new ArrayList<>();
-    private ArrayList<String> artist = new ArrayList<>();
+    private MediaEdit mediaEdit;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("init");
         load();
     }
     @FXML
-    private void onBtnUpdataClick(){}
-    @FXML
-    public void onBtnCancelClick() {}
+    private void onBtnUpdataClick(){
+        updataMediaData();
+        switchToSearchView();
+    }
 
-    // populate genre.
-    // get all genre in array list to keep track of indecies.
+    @FXML
+    public void onBtnCancelClick() {
+        switchToSearchView();
+    }
 
     /**
      * method for adding a String to a choice box
@@ -70,9 +69,21 @@ public class EditMediaViewController implements Initializable {
     private int getSelectedItemIndex(ChoiceBox choiceBox){
         return choiceBox.getSelectionModel().getSelectedIndex();
     }
+    private String getSelectedItem(ChoiceBox choiceBox){
+        if (choiceBox.getSelectionModel().getSelectedItem() != null) {
+            return choiceBox.getSelectionModel().getSelectedItem().toString();
+        }
+        return null;
+    }
 
-    private void load(){
-        labMedia.setText("MEDIA TITLE");
+    private void presentItem(ChoiceBox choiceBox, String string){
+        choiceBox.getSelectionModel().select(string);
+    }
+
+    private void load() {
+
+        // initializing the mediaEdit obj.
+        mediaEdit = new MediaEdit(selectedMediaID);
 
         // load all genres in to cbGenre
         loadGenre();
@@ -80,47 +91,71 @@ public class EditMediaViewController implements Initializable {
         // load all artists in to cbArtist
         loadArtist();
 
+        // sets the choice box to select the selected medias genre.
+        setMediaGenre();
+
+        setMediaTitleOnScene();
+
+        setMediaArtist();
+
+        setMediaTextField();
+
+        setMediaYear();
+
+        System.out.println("SELECTED MEDIA ID " + selectedMediaID);
+
+    }
+    public void setMediaYear(){
+        fldYear.setText(mediaEdit.getMediaYear());
+    }
+
+    private void setMediaArtist() {
+        presentItem(cbArtist, mediaEdit.getMediaArtistName());
+    }
+
+    private void setMediaTitleOnScene(){
+        labMedia.setText(mediaEdit.getMediaTitle());
+    }
+    private void setMediaTextField(){
+        fldMediaTitle.setText(mediaEdit.getMediaTitle());
+    }
+
+    private void setMediaGenre(){
+        presentItem(cbGenre, mediaEdit.getMediaGenre());
     }
 
     private void loadGenre(){
-        String quary = DatabaseRead.getAllGenres();
-
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
-            while (resultSet.next()) {
-                genre.add(resultSet.getString("fldGenre")); // Replace "columnName" with the actual column name
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (String genre : genre){
+        cbGenre.getItems().clear();
+        for (String genre : MediaEditUtil.getAllGenre()){
             addItemToChoiceBox(cbGenre, genre);
         }
-
     }
 
     private void loadArtist(){
-        String quary = DatabaseRead.getAllArtists();
-
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
-            while (resultSet.next()) {
-                artist.add(resultSet.getString("fldArtistName")); // Replace "columnName" with the actual column name
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (String artist : artist){
+        cbArtist.getItems().clear();
+        for (String artist : MediaEditUtil.getAllArtist()){
             addItemToChoiceBox(cbArtist, artist);
         }
-
     }
 
+    private void updataMediaData() {
 
+        if (getSelectedItem(cbGenre) != null){
+            mediaEdit.setMediaGenre(getSelectedItem(cbGenre));
+        }
 
+        if (getSelectedItem(cbArtist) != null) {
+            mediaEdit.setMediaArtistName(getSelectedItem(cbArtist));
+        }
 
+        // set year
+        mediaEdit.setMediaYear(fldYear.getText());
+        System.out.println(fldYear.getText());
 
+        // set media title
+        mediaEdit.setMediaTitle(fldMediaTitle.getText());
 
+    }
 
     @FXML
     public void switchToPlaylistView() {
