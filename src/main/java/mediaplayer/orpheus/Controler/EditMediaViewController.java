@@ -100,8 +100,13 @@ public class EditMediaViewController implements Initializable {
 
         setMediaTextField();
 
+        setMediaYear();
+
         System.out.println("SELECTED MEDIA ID " + selectedMediaID);
 
+    }
+    public void setMediaYear(){
+        fldYear.setText(mediaEdit.getMediaYear());
     }
 
     private void setMediaArtist() {
@@ -145,6 +150,7 @@ public class EditMediaViewController implements Initializable {
 
         // set year
         mediaEdit.setMediaYear(fldYear.getText());
+        System.out.println(fldYear.getText());
 
         // set media title
         mediaEdit.setMediaTitle(fldMediaTitle.getText());
