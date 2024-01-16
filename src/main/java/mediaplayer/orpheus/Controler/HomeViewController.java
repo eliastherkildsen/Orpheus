@@ -112,6 +112,7 @@ public class HomeViewController implements Initializable {
                 double padding = 100.0;
                 mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
                 widthOfScene = (double) number;
+                System.out.println("Width " + widthOfScene);
             }
         });
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
@@ -120,6 +121,7 @@ public class HomeViewController implements Initializable {
                 double padding = 100.0;
                 mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
                 heightOfScene = (double) number;
+                System.out.println("Height " + heightOfScene);
             }
         });
 

@@ -1,6 +1,15 @@
 package mediaplayer.orpheus.model.Database;
 
 public class DatabaseRead {
+    public static String getMediaIdFromTitle(String mediaTitle){
+        return new StringBuilder()
+                .append("SELECT fldMediaID")
+                .append(" FROM tblMedia")
+                .append(" WHERE fldMediaTitle = '")
+                .append(mediaTitle)
+                .append("'")
+                .toString();
+    }
     public static String getMediaTitle(int mediaId) {
         return new StringBuilder()
                 .append("SELECT fldMediaTitle")

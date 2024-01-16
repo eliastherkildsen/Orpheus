@@ -18,7 +18,7 @@ public class OrpheusApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         jdbc = new JDBC();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchView.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
         Scene scene = new Scene(root);
 
         SceneController.setStage(stage);
