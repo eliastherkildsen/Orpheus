@@ -100,6 +100,21 @@ public class HomeViewController implements Initializable {
         // associates the mediaPlayer with the mediaViewDisplay for content playback
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
+        homePane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double padding = 100.0;
+                mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
+            }
+        });
+        homePane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double padding = 120.0;
+                mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
+            }
+        });
+
 
 
         // listens for changes in the value of the volume slider
