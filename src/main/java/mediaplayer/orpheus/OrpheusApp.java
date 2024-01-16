@@ -12,8 +12,6 @@ import mediaplayer.orpheus.model.Database.JDBC;
 import java.io.IOException;
 import java.util.Objects;
 
-import static javafx.scene.paint.Color.BLACK;
-
 public class OrpheusApp extends Application {
 
     public static JDBC jdbc;

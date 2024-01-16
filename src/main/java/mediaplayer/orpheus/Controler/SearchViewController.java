@@ -19,7 +19,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SearchViewController implements Initializable {
@@ -44,6 +43,7 @@ public class SearchViewController implements Initializable {
         refreshSearchResults();
 
         loadChoiceBox();
+
     }
 
     private void loadChoiceBox() {

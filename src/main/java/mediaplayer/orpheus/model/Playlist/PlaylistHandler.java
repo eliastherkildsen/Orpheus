@@ -71,14 +71,6 @@ public class PlaylistHandler {
             pSTrackOrder = connection.prepareCall(DatabaseRead.getMaxTrackOrder(choiceBoxIndex));
             resultSetTrackOrder = pSTrackOrder.executeQuery();
 
-//            while (resultSet.next()){
-//
-//
-//                int column1 = resultSet.getInt("fldTrackOrder");
-//
-//                System.out.println("Column1: " + column1 );
-//
-//            }
 
             if(resultSetTrackOrder.next()){
                 int nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
