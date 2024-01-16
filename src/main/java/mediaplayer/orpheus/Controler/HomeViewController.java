@@ -1,6 +1,8 @@
 package mediaplayer.orpheus.Controler;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -40,7 +42,7 @@ public class HomeViewController implements Initializable {
     private Slider sliderVolume;
 
     @FXML
-    private Slider sliderProges;
+    private Slider sliderProgres;
 
     @FXML
     private Label labCurrentTime;
@@ -53,6 +55,8 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private ImageView btnMuteIcon;
+
+
 
     private SceneController viewControler = new SceneController();
 
@@ -106,6 +110,46 @@ public class HomeViewController implements Initializable {
 
         // associates the mediaPlayer with the mediaViewDisplay for content playback
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+
+
+
+       /* // listens for changes in the value of the progres slider
+        sliderProgres.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                double currenProgres = mediaPlayer.getCurrentTime().toSeconds();
+                double trackLentgh = media.getDuration().toSeconds();
+
+                // Undgå rekursiv opdatering
+                if (!sliderProgres.isValueChanging()) {
+                    double newValue = currenProgres / trackLentgh;
+
+                    // Sørg for, at værdien er inden for intervallet [0, 1]
+                    newValue = Math.min(Math.max(newValue, 0), 1);
+
+                    sliderProgres.setValue(newValue);
+
+                    if (newValue >= 1) {
+                        cancelTimer();
+                    }
+                }
+            }
+        });
+        timer.scheduleAtFixedRate(task, 1000, 1000);  */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -191,53 +235,22 @@ public class HomeViewController implements Initializable {
 
 
 
-
-
-        //StackPane trackPane = (StackPane) sliderProges.lookup(".track");
-
-        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> {
-                double currentSeconds = newValue.toSeconds();
-                double totalSeconds = media.getDuration().toSeconds();
-
-                //noget jeg prøver
-                //double newColorValue = (currentSeconds / totalSeconds) * 100;
-
-                /*String stylesheet = String.format("-fx-background-color: linear-gradient(to right, #6CA6C1 %d, #969696 %d)",
-                        newColorValue, newColorValue);
-
-                sliderProges.setValue(newColorValue);
-                sliderProges.setStyle(stylesheet);*/
-
-
-
-                sliderProges.setValue(currentSeconds / totalSeconds * 100.0);
-
-                //String stylesheet = String.format("-fx-background-color: linear-gradient(to right, #6CA6C1 %f%%, #969696 %f%%)!important;",
-                //        newColorValue, newColorValue);
-
-
-                //sliderProges.setValue(newColorValue);
-
-               // sliderProges.setStyle(stylesheet);
-            });
-        });
-
-
-        sliderProges.getStyleClass().add("custom-slider");
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -295,6 +308,62 @@ public class HomeViewController implements Initializable {
     private void onBtnVolumeMuteClick(){
         mediaMute();
     }
+
+    @FXML
+    private void onSliderProgresButtonClick() {
+        sliderProgresOnDrag();
+    }
+
+    @FXML
+    private void onSliderProgresMouseReleased() {
+        sliderProgresMouseRelease();
+    }
+
+   /* private void initializeSlider() {
+        sliderProgres.valueProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("1");
+            double newTracktime = sliderProgres.getValue();
+            System.out.println(newTracktime);
+            System.out.println("2");
+            System.out.println(newTracktime * 0.01);
+            mediaPlayer.setVolume(newTracktime * 0.01);
+        });
+    }*/
+
+    private void sliderProgresOnDrag() {
+        mediaPlayer.pause();
+        System.out.println("pause");
+    }
+
+    private void sliderProgresMouseRelease() {
+
+        double newCurrentVal= sliderProgres.getValue();
+        System.out.println("track time før 0.01: "+newCurrentVal);
+
+        double trackLength = media.getDuration().toSeconds();
+
+        int newSpot;
+
+        System.out.println(newCurrentVal);
+
+        if (newCurrentVal == 0){
+            newSpot = (int) Duration.ZERO.toSeconds();
+        }
+        else {
+            newSpot = (int) (trackLength * (newCurrentVal/100));
+        }
+
+        updateCurrentTimeLabel(newSpot);
+
+        mediaPlayer.seek(Duration.seconds(newSpot));
+        mediaPlayer.play();
+
+        System.out.println("YEAH!");
+    }
+
+
+
+
 
 
 

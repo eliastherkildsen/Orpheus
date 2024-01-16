@@ -147,7 +147,10 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="labCurrentTime" text="00:00:00" />
-                        <Slider id="custom-slider .track" fx:id="sliderProges" blockIncrement="1.0" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css" />
+                        <Slider id="custom-slider .track" fx:id="sliderProgres" blockIncrement="1.0"
+                                onMousePressed="#onSliderProgresButtonClick" onMouseReleased="#onSliderProgresMouseReleased"
+                                prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css"
+                                min="0" max="100" />
                         <Label fx:id="labMediaLength" text="00:00:00" />
                         <Button fx:id="btnVolumeMute" mnemonicParsing="false" onAction="#onBtnVolumeMuteClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
