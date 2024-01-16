@@ -99,4 +99,17 @@ public class DatabaseRead {
     public static String getAllGenres (){
         return "SELECT * FROM tblGenre";
     }
+
+    public static String getAllPlaylistNames() {return "SELECT fldPlaylistName FROM tblPlaylist";}
+
+    //SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = " +
+    //                    "(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = 'Hello')
+    public static String getMaxTrackOrder(String playlistName){
+        return new StringBuilder()
+                .append("SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = ")
+                .append("(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = '")
+                .append(playlistName)
+                .append("')")
+                .toString();
+    }
 }

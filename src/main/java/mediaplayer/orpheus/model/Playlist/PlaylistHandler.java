@@ -1,16 +1,16 @@
 package mediaplayer.orpheus.model.Playlist;
 
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Database.JDBC;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.util.AlertPopup;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PlaylistHandler {
 
-    private static final JDBC jdbc = new JDBC();
-    private static final Connection connection = jdbc.getConnection();
+    private static final Connection connection = OrpheusApp.jdbc.getConnection();
 
     public static void createPlaylist(String playListName){
 
@@ -59,5 +59,64 @@ public class PlaylistHandler {
 
 
     }
+
+    public static void addMediaToPlaylist(int mediaID, String choiceBoxIndex){
+
+        PreparedStatement pSTrackOrder;
+        PreparedStatement pSInsertIntoPlaylist;
+        ResultSet resultSetTrackOrder;
+
+        try {
+
+            pSTrackOrder = connection.prepareCall(DatabaseRead.getMaxTrackOrder(choiceBoxIndex));
+            resultSetTrackOrder = pSTrackOrder.executeQuery();
+
+//            while (resultSet.next()){
+//
+//
+//                int column1 = resultSet.getInt("fldTrackOrder");
+//
+//                System.out.println("Column1: " + column1 );
+//
+//            }
+
+            if(resultSetTrackOrder.next()){
+                int nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
+                System.out.println(nextTackOrder);
+                String insertQuery = insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder);
+
+                pSInsertIntoPlaylist = connection.prepareCall(insertQuery);
+                pSInsertIntoPlaylist.executeUpdate();
+
+                AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
+                        , "Media has been added to " + choiceBoxIndex + ".");
+                alertPopupPlaylistAdded.showInformation();
+
+            }
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+    private static String insertMediaQuery(int mediaID, String playlistName, int trackOrder){
+
+        return new StringBuilder()
+                .append("INSERT INTO tblMediaPlaylist (fldPlaylistName, fldMediaID, fldTrackOrder) ")
+                .append("VALUES ('")
+                .append(playlistName)
+                .append("', ")
+                .append(mediaID)
+                .append(", ")
+                .append(trackOrder)
+                .append(")")
+                .toString();
+
+    }
+
 
 }

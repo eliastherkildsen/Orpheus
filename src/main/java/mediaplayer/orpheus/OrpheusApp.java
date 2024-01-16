@@ -12,14 +12,17 @@ import mediaplayer.orpheus.model.Database.JDBC;
 import java.io.IOException;
 import java.util.Objects;
 
+import static javafx.scene.paint.Color.BLACK;
+
 public class OrpheusApp extends Application {
 
     public static JDBC jdbc;
     @Override
     public void start(Stage stage) throws IOException {
         jdbc = new JDBC();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SearchView.fxml")));
         Scene scene = new Scene(root);
+
         SceneController.setStage(stage);
         stage.setScene(scene);
         stage.setTitle("Orpheus");

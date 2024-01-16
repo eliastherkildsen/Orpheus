@@ -2,6 +2,7 @@ package mediaplayer.orpheus.Controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -56,6 +57,11 @@ public class PlaylistViewController {
 
     @FXML
     private void onActionbtnCancelClick(){
-
+        try {
+            sceneController.switchToHomeScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
