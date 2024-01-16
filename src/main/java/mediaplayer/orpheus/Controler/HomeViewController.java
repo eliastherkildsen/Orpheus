@@ -1,9 +1,12 @@
 package mediaplayer.orpheus.Controler;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,6 +37,8 @@ public class HomeViewController implements Initializable {
 
     @FXML
     public HBox hBoxButtons;
+    @FXML
+    public Label mediaViewTitle;
     @FXML
     private BorderPane homePane;
     @FXML
@@ -229,6 +234,7 @@ public class HomeViewController implements Initializable {
     @FXML
     private void onBtnPlayPauseClick(){
         mediaPlayPause();
+        updateMediaViewTitle();
     }
 
 
@@ -462,6 +468,30 @@ public class HomeViewController implements Initializable {
         // assigns the specified image from the given imageURL to the play button
         btnMuteIcon.setImage(image);
 
+    }
+
+    /**
+     * Updates the title overlaying the mediaView with a song title.
+     * Then makes it disappear after X seconds.
+     */
+    public void updateMediaViewTitle() {
+        mediaViewTitle.setVisible(true);
+        mediaViewTitle.setText(""); //TODO I NEED A TITLE DUDE
+        // Set the time duration for which the label should be visible (in seconds)
+        double visibilityTimeInSeconds = 6.0;
+
+        // Create a Timeline that hides the label after the specified duration
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
+                        Platform.runLater(() -> mediaViewTitle.setVisible(false));
+                    }
+                })
+        );
+        // Start the timeline
+        timeline.play();
     }
 
     /**
