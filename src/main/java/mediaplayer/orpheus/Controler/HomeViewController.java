@@ -3,31 +3,30 @@ package mediaplayer.orpheus.Controler;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
-import java.io.IOException;
-import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import mediaplayer.orpheus.Controler.SceneController;
+
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
@@ -78,6 +77,9 @@ public class HomeViewController implements Initializable {
         private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
+
+
+
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
@@ -106,6 +108,8 @@ public class HomeViewController implements Initializable {
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
 
+
+
         // listens for changes in the value of the volume slider
         sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
 
@@ -130,36 +134,10 @@ public class HomeViewController implements Initializable {
                 volumeMedia(volumeValue);
             }
         });
-
-        /*
-        // listens for changes in the value of the progress slider
-
-        StackPane trackPane = (StackPane) sliderProges.lookup(".track");
-        sliderProges.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                String style = String.format("-fx-background-color: linear-gradient(to right, #2D819D %d%%, #969696 %d%%);",
-                        new_val.intValue(), new_val.intValue());
-                trackPane.setStyle(style);
-            }
-        });
-
-        trackPane.setStyle("-fx-background-color: linear-gradient(to right, #2D819D 0%, #969696 0%);");*/
-
-
-        ProgressBar progressBar = new ProgressBar();
-
-
-        sliderProges.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double progressValue = sliderProges.getValue();
-            System.out.println("??");
-            System.out.println("progress value; "+progressValue);
-            progressBar.setProgress(progressValue);
-
-
-    });
-
     }
+
+
+
 
 
 
@@ -184,6 +162,7 @@ public class HomeViewController implements Initializable {
                 // The code within Platform.runLater() ensures that UI updates occur on the JavaFX Application Thread,
                 // preventing the "Not on FX application thread" error.
                 Platform.runLater(() -> {
+
                     if (mediaPlayer != null) {
                         currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
                         double trackLength = media.getDuration().toSeconds();
@@ -204,6 +183,60 @@ public class HomeViewController implements Initializable {
 
         // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
         timer.scheduleAtFixedRate(task, 1000, 1000);
+
+
+
+
+
+
+
+
+
+
+        //StackPane trackPane = (StackPane) sliderProges.lookup(".track");
+
+        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                double currentSeconds = newValue.toSeconds();
+                double totalSeconds = media.getDuration().toSeconds();
+
+                //noget jeg prøver
+                //double newColorValue = (currentSeconds / totalSeconds) * 100;
+
+                /*String stylesheet = String.format("-fx-background-color: linear-gradient(to right, #6CA6C1 %d, #969696 %d)",
+                        newColorValue, newColorValue);
+
+                sliderProges.setValue(newColorValue);
+                sliderProges.setStyle(stylesheet);*/
+
+
+
+                sliderProges.setValue(currentSeconds / totalSeconds * 100.0);
+
+                //String stylesheet = String.format("-fx-background-color: linear-gradient(to right, #6CA6C1 %f%%, #969696 %f%%)!important;",
+                //        newColorValue, newColorValue);
+
+
+                //sliderProges.setValue(newColorValue);
+
+               // sliderProges.setStyle(stylesheet);
+            });
+        });
+
+
+        sliderProges.getStyleClass().add("custom-slider");
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

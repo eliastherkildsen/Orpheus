@@ -6,7 +6,9 @@ Grey    #969A96
 White   #F7FFF7
  */
 
-.slider .track {
 
-    -fx-background-color: linear-gradient(to right, #6CA6C1 0%, #969A96 0%);
+
+.custom-slider .track {
+    -fx-background-color: linear-gradient(to right, #6CA6C1, #969A96) !important;
 }
+
