@@ -212,7 +212,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Label text="Year" />
-                        <TextField fx:id="fldYear" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="288.0" promptText="Year" styleClass="text-field" stylesheets="@../../css/EditMediaStyles.css" text="2023" />
+                        <TextField fx:id="fldYear" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="288.0" promptText="Year" styleClass="text-field" stylesheets="@../../css/EditMediaStyles.css" />
                      </children>
                   </VBox>
                </children>
