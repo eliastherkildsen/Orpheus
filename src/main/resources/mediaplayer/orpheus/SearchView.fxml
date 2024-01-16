@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -233,15 +233,20 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" styleClass="button" stylesheets="@../../css/styles.css">
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../css/images/list-plus.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../css/images/list-plus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <ChoiceBox fx:id="cbPlaylist" prefWidth="150.0" stylesheets="@../../css/EditMediaStyles.css" />
+                                 </children>
+                              </HBox>
                               <Label text="Add to Playlist" />
                            </children>
                         </VBox>
