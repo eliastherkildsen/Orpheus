@@ -111,19 +111,27 @@ public class HomeViewController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double padding = 100.0;
                 mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
+
+                //Saving the width everytime its changed for later use.
                 widthOfScene = (double) number;
-                System.out.println("Width " + widthOfScene);
+                //System.out.println("Width " + widthOfScene);
+
             }
         });
+
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double padding = 100.0;
                 mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
+
+                //Saving the height every time its changed for later use.
                 heightOfScene = (double) number;
-                System.out.println("Height " + heightOfScene);
+                //System.out.println("Height " + heightOfScene);
+
             }
         });
+
 
         // listens for changes in the value of the volume slider
         sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
