@@ -112,7 +112,7 @@ public class DatabaseUpdate {
      * @param mediaId Int
      * @return String query
      */
-    public static String setMediaArtist(int personId, String mediaId){
+    public static String setMediaArtist(String personId, int mediaId){
         return new StringBuilder()
                 .append("Update tblMediaPerson")
                 .append(" SET fldPersonID = ")
@@ -146,7 +146,7 @@ public class DatabaseUpdate {
      * @param mediaId int
      * @return String query
      */
-    public static String updateMediaGenre(String updatedGenre, String mediaId){
+    public static String updateMediaGenre(String updatedGenre, int mediaId){
         return new StringBuilder()
                 .append("UPDATE tblMediaGenre")
                 .append(" SET fldGenre = '")

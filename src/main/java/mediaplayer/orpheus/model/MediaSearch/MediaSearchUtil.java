@@ -46,11 +46,9 @@ public class MediaSearchUtil {
         StringBuilder sb = new StringBuilder();
 
         // appending to the presented String.
-        sb.append(formatString(dataset[3], false));
-        sb.append(formatString(dataset[1], true ));
-        sb.append(formatString(dataset[2], true ));
-        sb.append(formatString(dataset[6], true ));
-        sb.append(formatString(dataset[7], true ));
+        sb.append(formatString(dataset[3], false)); // media title
+        sb.append(formatString(dataset[0], true )); // artist name
+        sb.append(formatString(dataset[7], true )); // media genre
 
         return sb.toString();
     }

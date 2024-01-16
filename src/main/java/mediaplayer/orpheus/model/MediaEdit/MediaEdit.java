@@ -81,7 +81,11 @@ public class MediaEdit {
     }
 
     private void updateArtistName(){
-        String quary = DatabaseUpdate.setArtistName(this.mediaArtistName, MEDIA_ID);
+
+        // get person id from person name.
+        String fldPersonID = getPersonIDFromPersonName();
+
+        String quary = DatabaseUpdate.setMediaArtist(fldPersonID, MEDIA_ID);
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
@@ -141,6 +145,18 @@ public class MediaEdit {
         updateMediaYear();
         System.out.println("updated mediaYear");
 
+    }
 
+    private String getPersonIDFromPersonName(){
+        String quary = DatabaseRead.getMediaArtistIDFromName(this.mediaArtistName);
+
+        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+            while (resultSet.next()) {
+                return resultSet.getString("fldPersonID");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
     }
 }
