@@ -1,6 +1,9 @@
 package mediaplayer.orpheus.model.Database;
 
+import mediaplayer.orpheus.OrpheusApp;
+
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -72,6 +75,17 @@ public class DatabaseExtractorInsert {
             e.printStackTrace();
             throw e;
         }
+        String mediaID = " ";
+        try {
+            ResultSet ress = OrpheusApp.jdbc.executeQuary(DatabaseRead.getMediaIdFromTitle(this.mediaTitle));
+            while (ress.next()){
+                mediaID =  ress.getString("fldMediaID");
+            }
+        }catch (SQLException e ){}
+
+        OrpheusApp.jdbc.executeQuary(DatabaseCreate.insertMediaPerson(1,mediaID));
+        OrpheusApp.jdbc.executeQuary(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
+
     }
 
 //region Getter and setter
