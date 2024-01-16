@@ -9,6 +9,7 @@ import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
+import mediaplayer.orpheus.util.AlertPopup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -93,6 +94,8 @@ public class PlaylistViewController implements Initializable {
     private void onActionbtnCreateClick(){
 
         PlaylistHandler.createPlaylist(playlistCreateBar.getText());
+        clearListViewDisplay();
+        loadListView();
 
     }
 
@@ -103,6 +106,36 @@ public class PlaylistViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private  void onActionbtnDeletePlaylistClick(){
+
+        AlertPopup confirmDelete = new AlertPopup("Delete Playlist"
+                , "Are you sure you want to delete the playlist?");
+
+        if(confirmDelete.showConfirmation("Yes", "No")){
+
+            try{
+
+                PlaylistHandler.deletePlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+
+                clearListViewDisplay();
+                loadListView();
+
+            }catch (IndexOutOfBoundsException e){
+                throw new IndexOutOfBoundsException();
+            }
+
+        }
+
+    }
+
+    private void clearListViewDisplay() {
+
+        playlistNameArr.clear();
+        LWPlaylistDisplay.getItems().clear();
+
     }
 
 }

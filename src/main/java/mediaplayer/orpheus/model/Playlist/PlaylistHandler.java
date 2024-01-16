@@ -74,7 +74,6 @@ public class PlaylistHandler {
 
             if(resultSetTrackOrder.next()){
                 int nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
-                System.out.println(nextTackOrder);
                 String insertQuery = insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder);
 
                 pSInsertIntoPlaylist = connection.prepareCall(insertQuery);
@@ -110,5 +109,45 @@ public class PlaylistHandler {
 
     }
 
+    public static void deletePlaylist(String playlistName){
+
+        PreparedStatement psDeleteFromPlaylist;
+        PreparedStatement psDeleteFromMediaPlaylist;
+
+        String queryDeletePlaylist = deleteFromPlaylistQuery(playlistName);
+        String queryDeleteMediaPlaylist = deleteFromMediaPlaylistQuery(playlistName);
+
+        try{
+
+            psDeleteFromPlaylist = connection.prepareCall(queryDeletePlaylist);
+            psDeleteFromMediaPlaylist = connection.prepareCall(queryDeleteMediaPlaylist);
+
+            psDeleteFromPlaylist.executeUpdate();
+            psDeleteFromMediaPlaylist.executeUpdate();
+
+
+        }catch (SQLException e) {throw new RuntimeException(e);}
+
+    }
+
+    private static String deleteFromPlaylistQuery(String playlistName){
+
+        return new StringBuilder()
+                .append("Delete FROM tblPlaylist WHERE fldPlaylistName = '")
+                .append(playlistName)
+                .append("'")
+                .toString();
+
+    }
+
+    private static String deleteFromMediaPlaylistQuery(String playlistName){
+
+        return new StringBuilder()
+                .append("DELETE FROM tblMediaPlaylist WHERE fldPlaylistName = '")
+                .append(playlistName)
+                .append("'")
+                .toString();
+
+    }
 
 }
