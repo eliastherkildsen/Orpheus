@@ -1,11 +1,15 @@
 package mediaplayer.orpheus.Controler;
-import javafx.fxml.Initializable;
+import  javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.DatabaseRead;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
+import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
 
 import mediaplayer.orpheus.util.AlertPopup;
@@ -13,26 +17,54 @@ import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist
+            , btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
     private final MediaSearch mediaSearch = new MediaSearch();
     private ArrayList<String[]> dataSet = new ArrayList<>();
+    private ArrayList<String> playListNamesArr = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
+    @FXML
+    private ChoiceBox cbPlaylist;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // to auto-populate the search results.
         refreshSearchResults();
+
+        loadChoiceBox();
+
     }
+
+    private void loadChoiceBox() {
+
+        String query = DatabaseRead.getAllPlaylistNames();
+
+        try(ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query)){
+            while(resultSet.next()){
+                playListNamesArr.add(resultSet.getString("fldPlaylistName"));
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        for (String playlistName : playListNamesArr) {
+            addItemToChoiceBox(cbPlaylist, playlistName);
+        }
+
+    }
+
+    private void addItemToChoiceBox(ChoiceBox choiceBox, String item){choiceBox.getItems().add(item);}
 
     @FXML
     private void onActionbtnEditClick(){
@@ -51,8 +83,11 @@ public class SearchViewController implements Initializable {
     }
 
     @FXML
-    private void onActionbtnAddToPlaylistClick(){
+    private void onActionbtnAddToPlaylistClick() throws IndexOutOfBoundsException {
 
+        int selectedMedia = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+        PlaylistHandler.addMediaToPlaylist(selectedMedia, getSelectedChoiceBoxItem());
+        System.out.println(cbPlaylist.getSelectionModel().getSelectedItem());
     }
 
     /**
@@ -191,6 +226,10 @@ public class SearchViewController implements Initializable {
         return LWSearchResult.getSelectionModel().getSelectedIndex();
     }
 
+    private String getSelectedChoiceBoxItem(){
+        return cbPlaylist.getSelectionModel().getSelectedItem().toString();
+    }
+
     /**
      * method for clearing the list view for all items.
      */
@@ -211,5 +250,7 @@ public class SearchViewController implements Initializable {
         }
 
     }
+
+
 
 }

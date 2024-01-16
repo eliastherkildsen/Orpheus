@@ -3,6 +3,7 @@ package mediaplayer.orpheus.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class AlertPopup {
@@ -28,6 +29,12 @@ public class AlertPopup {
         name.setTitle(getTitle());
         name.setHeaderText(null);
         name.setContentText(getMessage());
+        /*
+        name.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+
+        // Apply the custom style class
+        name.getDialogPane().getStyleClass().add("dialog-pane");
+        */
         name.showAndWait();
     }
 
