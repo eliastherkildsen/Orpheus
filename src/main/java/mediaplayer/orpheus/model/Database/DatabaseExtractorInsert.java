@@ -83,8 +83,8 @@ public class DatabaseExtractorInsert {
             }
         }catch (SQLException e ){}
 
-        OrpheusApp.jdbc.executeQuary(DatabaseCreate.insertMediaPerson(1,mediaID));
-        OrpheusApp.jdbc.executeQuary(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
+        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaPerson(1,mediaID));
+        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
 
     }
 

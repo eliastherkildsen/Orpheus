@@ -7,7 +7,7 @@ public class DatabaseCreate {
                 .append("INSERT INTO tblMediaGenre (fldGenre, fldMediaID)")
                 .append(" VALUES ('")
                 .append(genre)
-                .append(",")
+                .append("',")
                 .append(mediaId)
                 .append(")")
                 .toString();
@@ -18,7 +18,7 @@ public class DatabaseCreate {
                 .append("INSERT INTO tblMediaPerson (fldPersonID, fldMediaID)")
                 .append(" VALUES ('")
                 .append(person)
-                .append(",")
+                .append("',")
                 .append(mediaId)
                 .append(")")
                 .toString();

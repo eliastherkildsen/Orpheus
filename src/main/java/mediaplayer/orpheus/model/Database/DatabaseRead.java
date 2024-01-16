@@ -93,6 +93,7 @@ public class DatabaseRead {
                 .append(mediaId)
                 .toString();
     }
+
     public static String getAllArtists (){
         return "SELECT DISTINCT fldArtistName FROM tblPerson";
     }
