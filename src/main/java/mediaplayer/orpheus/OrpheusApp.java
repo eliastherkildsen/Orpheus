@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import mediaplayer.orpheus.Controler.SceneController;
 import mediaplayer.orpheus.model.Database.JDBC;
-
 import java.io.IOException;
 import java.util.Objects;
 
