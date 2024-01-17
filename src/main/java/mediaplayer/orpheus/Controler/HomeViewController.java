@@ -1,42 +1,29 @@
 package mediaplayer.orpheus.Controler;
 
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Slider;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.io.IOException;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.StackPane;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.util.Duration;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import mediaplayer.orpheus.Controler.SceneController;
+import java.util.*;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
@@ -71,7 +58,18 @@ public class HomeViewController implements Initializable {
     private double widthOfScene;
 
 
+    private ArrayList<File> medias;
+    private File directory;
+    private File[] files;
+
+
+
+
+
+
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+    public static ArrayList<Media> playlist;
+    private static String mediaFilesPath = "file:src/main/java/mediaplayer/orpheus/mediaFiles";
     private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private static String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private static String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
@@ -88,12 +86,19 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     private boolean mute = true;
 
-        private  static final double ASPECT_RATIO = 16.0 / 9.0;
+    private static final double ASPECT_RATIO = 16.0 / 9.0;
+
+    // previous/next media:
+    private int mediaNumber;
+    private ArrayList<File> mediafiles;
+    private boolean running;
+
 
 
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -194,9 +199,7 @@ public class HomeViewController implements Initializable {
                 }
             }
         });
-
     }
-
 
 
 
@@ -256,6 +259,24 @@ public class HomeViewController implements Initializable {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @FXML
     public void onActionbtnImportClick(){
 
@@ -280,7 +301,50 @@ public class HomeViewController implements Initializable {
 
     private void mediaNext() {
 
+        //mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles";
+
+        // Angiv stien til din mappe med mediefiler
+        File directory = new File(mediaFilesPath);
+
+        // Få en liste over filer i mappen
+        File[] files = directory.listFiles();
+
+        // Konverter arrayet af filer til en ArrayList
+        ArrayList<File> medias = new ArrayList<>(Arrays.asList(files));
+
+        // Udskriv indholdet af ArrayList
+        System.out.println("ArrayList indhold: " + medias);
     }
+/*
+        if (mediaNumber < medias.size(); -1 ){
+
+            mediaNumber++ ;
+            mediaPlayer.stop();
+
+            if (running){
+                cancelTimer();
+            }
+
+            media = new Media(medias.get(mediaNumber).toURI().toString());
+
+            mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayPause();
+        }
+        else {
+            mediaNumber = 0;
+
+            mediaPlayer.stop();
+
+            media = new Media(medias.get(mediaNumber).toURI().toString());
+
+            mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayPause();
+        }
+        */
+
+
 
     @FXML
     private void onBtnPreviousClick(){
@@ -290,6 +354,9 @@ public class HomeViewController implements Initializable {
     private void mediaPrevious() {
 
     }
+
+
+
 
 
     /**
