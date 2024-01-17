@@ -123,27 +123,23 @@ public class MediaEdit {
     public void setMediaTitle(String mediaTitel) {
         this.mediaTitle = mediaTitel;
         updateMediaTitle();
-        System.out.println("updated mediaTitel");
 
     }
 
     public void setMediaGenre(String mediaGenre) {
         this.mediaGenre = mediaGenre;
         updateMediaGenre();
-        System.out.println("updated media Genre");
 
     }
 
     public void setMediaArtistName(String artistName) {
         this.mediaArtistName = artistName;
         updateArtistName();
-        System.out.println("updated artistname");
     }
 
     public void setMediaYear(String mediaYear) {
         this.mediaYear = mediaYear;
         updateMediaYear();
-        System.out.println("updated mediaYear");
 
     }
 

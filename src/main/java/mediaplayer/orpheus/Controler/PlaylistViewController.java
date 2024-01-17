@@ -138,4 +138,10 @@ public class PlaylistViewController implements Initializable {
 
     }
 
+    public void onActionbtnPlayPlaylistClick(){
+
+
+
+    }
+
 }

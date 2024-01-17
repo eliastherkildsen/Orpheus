@@ -1,8 +1,12 @@
 package mediaplayer.orpheus.Controler;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,11 +14,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.io.IOException;
-
+import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -24,12 +30,17 @@ import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
+import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
     @FXML
     public HBox hBoxButtons;
+    @FXML
+    public Label mediaViewTitle;
     @FXML
     private BorderPane homePane;
     @FXML
@@ -50,7 +61,6 @@ public class HomeViewController implements Initializable {
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     public static ArrayList<Media> mediaQue;
     public static int cntQue;
-
 
     private SceneController viewControler = new SceneController();
     private double heightOfScene;
@@ -79,7 +89,6 @@ public class HomeViewController implements Initializable {
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
-     *
      * @param url
      * @param resourceBundle
      */
@@ -250,6 +259,7 @@ public class HomeViewController implements Initializable {
     @FXML
     private void onBtnPlayPauseClick(){
         mediaPlayPause();
+        updateMediaViewTitle();
     }
 
 
@@ -550,6 +560,30 @@ public class HomeViewController implements Initializable {
         // assigns the specified image from the given imageURL to the play button
         btnMuteIcon.setImage(image);
 
+    }
+
+    /**
+     * Updates the title overlaying the mediaView with a song title.
+     * Then makes it disappear after X seconds.
+     */
+    public void updateMediaViewTitle() {
+        mediaViewTitle.setVisible(true);
+        mediaViewTitle.setText("I need a dynamic Title"); //TODO I NEED A TITLE DUDE
+        // Set the time duration for which the label should be visible (in seconds)
+        double visibilityTimeInSeconds = 6.0;
+
+        // Create a Timeline that hides the label after the specified duration
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
+                        Platform.runLater(() -> mediaViewTitle.setVisible(false));
+                    }
+                })
+        );
+        // Start the timeline
+        timeline.play();
     }
 
     /**

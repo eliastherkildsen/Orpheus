@@ -15,8 +15,6 @@ public class MediaSearch {
     public void deleteMediaFromDatabase(int mediaId){
 
         PreparedStatement preparedStatement;
-        ResultSet resultSet;
-
         String quarry = deleteMediaQuarry(mediaId);
 
         try {
@@ -97,7 +95,6 @@ public class MediaSearch {
         return dataSet;
 
     }
-
 
     /**
      * Method for appending the sql query needed to search in the database.
