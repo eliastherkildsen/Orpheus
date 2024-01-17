@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
-
 import mediaplayer.orpheus.util.AlertPopup;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
@@ -48,17 +47,7 @@ public class SearchViewController implements Initializable {
 
     private void loadChoiceBox() {
 
-        String query = DatabaseRead.getAllPlaylistNames();
-
-        try(ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query)){
-            while(resultSet.next()){
-                playListNamesArr.add(resultSet.getString("fldPlaylistName"));
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        for (String playlistName : playListNamesArr) {
+        for (String playlistName : MediaSearchUtil.getAllPlaylist()) {
             addItemToChoiceBox(cbPlaylist, playlistName);
         }
 
