@@ -68,7 +68,7 @@
          </children></VBox>
    </left>
    <bottom>
-      <HBox prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER" alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0" />
             <VBox alignment="CENTER" prefHeight="92.0" prefWidth="567.0">
@@ -95,7 +95,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" onAction="#onBtnPreviousClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -115,7 +115,7 @@
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onBtnNextClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -142,10 +142,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="labCurrentTime" text="00:00:00" />
-                        <Slider id="custom-slider .track" fx:id="sliderProgres" blockIncrement="1.0"
-                                onMousePressed="#onSliderProgresButtonClick" onMouseReleased="#onSliderProgresMouseReleased"
-                                prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css"
-                                min="0" max="100" />
+                        <Slider id="custom-slider .track" fx:id="sliderProgres" blockIncrement="1.0" max="100" min="0" onMouseClicked="#testing" onMousePressed="#onSliderProgresButtonClick" onMouseReleased="#onSliderProgresMouseReleased" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css" />
                         <Label fx:id="labMediaLength" text="00:00:00" />
                         <Button fx:id="btnVolumeMute" mnemonicParsing="false" onAction="#onBtnVolumeMuteClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>

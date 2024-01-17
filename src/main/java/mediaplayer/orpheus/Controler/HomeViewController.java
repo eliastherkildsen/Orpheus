@@ -15,6 +15,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -108,10 +109,10 @@ public class HomeViewController implements Initializable {
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
             // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         } else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n",AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
         // associates the mediaPlayer with the mediaViewDisplay for content playback
@@ -121,7 +122,7 @@ public class HomeViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double padding = 100.0;
-                mediaViewDisplay.setFitWidth(t1.doubleValue()-padding);
+                mediaViewDisplay.setFitWidth(t1.doubleValue() - padding);
 
                 //Saving the width everytime its changed for later use.
                 widthOfScene = (double) number;
@@ -134,7 +135,7 @@ public class HomeViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double padding = 100.0;
-                mediaViewDisplay.setFitHeight(t1.doubleValue()-padding);
+                mediaViewDisplay.setFitHeight(t1.doubleValue() - padding);
 
                 //Saving the height every time its changed for later use.
                 heightOfScene = (double) number;
@@ -142,8 +143,6 @@ public class HomeViewController implements Initializable {
 
             }
         });
-
-
 
 
         System.out.println("______________________________________________________________________________________________________________");
@@ -159,21 +158,11 @@ public class HomeViewController implements Initializable {
         mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                sliderProgres.setValue(newValue.toSeconds());
+                if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    sliderProgres.setValue(newValue.toSeconds());
+                }
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         System.out.println("______________________________________________________________________________________________________________");
@@ -192,18 +181,22 @@ public class HomeViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
-                // gets the slider volume in %
-                double volumeValue = sliderVolume.getValue();
+                if (!mute) {
+                    // gets the slider volume in %
+                    double volumeValue = sliderVolume.getValue();
 
-                // sets the volume on mediaPlayer based on the volume slider's value
-                mediaPlayer.setVolume(volumeValue * 0.01);
-                // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
-                // volume (0.0 to 1.0)
+                    // sets the volume on mediaPlayer based on the volume slider's value
+                    mediaPlayer.setVolume(volumeValue * 0.01);
+                    // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
+                    // volume (0.0 to 1.0)
 
-                volumeMedia(volumeValue);
+                    volumeMedia(volumeValue);
+                }
             }
         });
+
     }
+
 
 
 
@@ -255,11 +248,12 @@ public class HomeViewController implements Initializable {
     /**
      *
      */
-    private void cancelTimer(){
-        timer.cancel();
+    public void cancelTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
         //TODO - when making skipMedia
     }
-
 
 
     @FXML
@@ -278,6 +272,24 @@ public class HomeViewController implements Initializable {
     }
 
 
+    @FXML
+    private void onBtnNextClick(){
+        mediaNext();
+
+    }
+
+    private void mediaNext() {
+
+    }
+
+    @FXML
+    private void onBtnPreviousClick(){
+        mediaPrevious();
+    }
+
+    private void mediaPrevious() {
+
+    }
 
 
     /**
@@ -314,7 +326,13 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private void onSliderProgresMouseReleased() {
-        sliderProgresMouseRelease();
+        Platform.runLater(() -> sliderProgresMouseRelease());
+    }
+
+    @FXML
+    private void testing(){
+        mediaPlayer.pause();
+        System.out.println("stop");
     }
 
 
@@ -324,28 +342,19 @@ public class HomeViewController implements Initializable {
     }
 
     private void sliderProgresMouseRelease() {
+        cancelTimer();
 
-        double newCurrentVal= sliderProgres.getValue();
-        System.out.println("track time før 0.01: "+newCurrentVal);
+        double newCurrentVal = sliderProgres.getValue();
+        System.out.println("track time før 0.01: " + newCurrentVal);
 
-        double trackLength = media.getDuration().toSeconds();
-
-        int newSpot;
-
-        System.out.println(newCurrentVal);
-
-        if (newCurrentVal == 0){
-            newSpot = (int) Duration.ZERO.toSeconds();
-        }
-        else {
-            newSpot = (int) (trackLength * (newCurrentVal/100));
-        }
+        int newSpot = (int) newCurrentVal;
 
         updateCurrentTimeLabel(newSpot);
 
         mediaPlayer.seek(Duration.seconds(newSpot));
         mediaPlayer.play();
 
+        beginTimer();
         System.out.println("YEAH!");
     }
 
@@ -421,6 +430,9 @@ public class HomeViewController implements Initializable {
      * Finally, toggles the playSwitchStage for the next button click.
      */
     private void mediaPlayPause() {
+
+        cancelTimer();
+
         beginTimer();
 
         if (playSwitchStage) {
