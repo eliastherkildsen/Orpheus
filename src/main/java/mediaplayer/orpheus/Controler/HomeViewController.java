@@ -159,32 +159,15 @@ public class HomeViewController implements Initializable {
 
 
 
-        // listens for changes in the value of the volume slider
-        sliderVolume.valueProperty().addListener(new ChangeListener<Number>() {
 
-            /**
-             * Method that responds on changes in the volume slider's value
-             *
-             * @param observableValue
-             * @param number
-             * @param t1
-             */
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
-                if (!mute) {
-                    // gets the slider volume in %
-                    double volumeValue = sliderVolume.getValue();
 
-                    // sets the volume on mediaPlayer based on the volume slider's value
-                    mediaPlayer.setVolume(volumeValue * 0.01);
-                    // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
-                    // volume (0.0 to 1.0)
+        // HER HER HER HER HER HER HER HER !!!!!!!!!!!!!
 
-                    volumeMedia(volumeValue);
-                }
-            }
-        });
+
+
+
+
     }
 
 
@@ -243,6 +226,50 @@ public class HomeViewController implements Initializable {
         }
         //TODO - when making skipMedia
     }
+
+
+
+    @FXML
+    private void onSliderVolumeMouseClick(){
+        sliderVolumeClick();
+    }
+
+    private void sliderVolumeClick() {
+        if (mute) {
+            // gets the slider volume in %
+            double volumeValue = sliderVolume.getValue();
+
+            // sets the volume on mediaPlayer based on the volume slider's value
+            mediaPlayer.setVolume(volumeValue * 0.01);
+            // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
+            // volume (0.0 to 1.0)
+
+            System.out.println("[listener] volume value: "+volumeValue);
+            volumeMedia(volumeValue);
+        }
+    }
+
+    @FXML
+    private void onSliderVolumeMousePressed(){
+        sliderVolumePressed();
+    }
+
+    private void sliderVolumePressed() {
+    }
+
+
+    @FXML
+    private void onSliderVolumeMouseReleased(){
+       // sliderVolumeReleased();
+        sliderVolumeClick();
+    }
+
+    private void sliderVolumeReleased() {
+    }
+
+
+
+
 
 
 
@@ -310,11 +337,13 @@ public class HomeViewController implements Initializable {
      */
     @FXML
     private void onBtnVolumeMuteClick(){
+        System.out.println("Aktiveret");
         mediaMute();
+        System.out.println("done");
     }
 
     @FXML
-    private void onSliderProgresButtonClick() {
+    private void onSliderProgresMousePressed() {
         sliderProgresOnDrag();
     }
 
@@ -324,9 +353,8 @@ public class HomeViewController implements Initializable {
     }
 
     @FXML
-    private void testing(){
+    private void onSliderProgresMouseClick(){
         mediaPlayer.pause();
-        System.out.println("stop");
     }
 
 
@@ -406,13 +434,17 @@ public class HomeViewController implements Initializable {
      * @param volumeValue
      */
     private void volumeMedia(double volumeValue) {
+        System.out.println("[volumeMedia] volume value: "+volumeValue);
 
         if (volumeValue == 0){
+            System.out.println("1");
             updateMuteButtonImage(muteImageURL);
         } else if (volumeValue > 0 && volumeValue < 50) {
+            System.out.println("2");
             updateMuteButtonImage(soundStepOneImageURL);
         }
         else {
+            System.out.println("3");
             updateMuteButtonImage(soundStepTwoImageURL);
         }
     }
@@ -527,23 +559,29 @@ public class HomeViewController implements Initializable {
      * Finally, toggles the mute stage for the next button click.
      */
     private void mediaMute() {
-
+    // VIRKER!
         if (mute) {
+            System.out.println("if mute");
             // gets the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
-
-            sliderVolume.setValue(0);
+            System.out.println("if mute - sliderVolume: " + currentSliderVol);
+            sliderVolume.setValue(0);  // Opdater sliderens værdi før setMute
+            mediaPlayer.setMute(true);
             updateMuteButtonImage(muteImageURL);
         }
         else {
+            mediaPlayer.setMute(false);
             sliderVolume.setValue(currentSliderVol);
-
+            System.out.println("else");
             // if current slider volume is less than 50%
             if (currentSliderVol > 0 && currentSliderVol < 50) {
+                System.out.println("else - sliderVol 0 - 50: "+currentSliderVol);
                 updateMuteButtonImage(soundStepOneImageURL);
             }
             // if current slider volume is more than 50%
             else if (currentSliderVol >= 50 && currentSliderVol <= 100){
+                System.out.println("else if");
+                System.out.println("sliderVol: "+currentSliderVol);
                 updateMuteButtonImage(soundStepTwoImageURL);
             }
         }
@@ -559,7 +597,6 @@ public class HomeViewController implements Initializable {
         Image image = new Image(imageURL);
         // assigns the specified image from the given imageURL to the play button
         btnMuteIcon.setImage(image);
-
     }
 
     /**

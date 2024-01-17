@@ -143,7 +143,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="labCurrentTime" text="00:00:00" />
-                        <Slider id="custom-slider .track" fx:id="sliderProgres" blockIncrement="1.0" max="100" min="0" onMouseClicked="#testing" onMousePressed="#onSliderProgresButtonClick" onMouseReleased="#onSliderProgresMouseReleased" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css" />
+                        <Slider id="custom-slider .track" fx:id="sliderProgres" blockIncrement="1.0" max="100" min="0" onMouseClicked="#onSliderProgresMouseClick" onMousePressed="#onSliderProgresMousePressed" onMouseReleased="#onSliderProgresMouseReleased" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/progressBar.css" />
                         <Label fx:id="labMediaLength" text="00:00:00" />
                         <Button fx:id="btnVolumeMute" mnemonicParsing="false" onAction="#onBtnVolumeMuteClick" styleClass="button" stylesheets="@../../css/styles.css">
                            <graphic>
@@ -157,7 +157,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Slider fx:id="sliderVolume" blockIncrement="5.0" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
+                        <Slider fx:id="sliderVolume" blockIncrement="5.0" onMouseClicked="#onSliderVolumeMouseClick" onMousePressed="#onSliderVolumeMousePressed" onMouseReleased="#onSliderVolumeMouseReleased" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
                      </children>
                   </HBox>
                </children>
