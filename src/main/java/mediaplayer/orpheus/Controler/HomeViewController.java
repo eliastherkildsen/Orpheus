@@ -30,7 +30,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import mediaplayer.orpheus.Controler.SceneController;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
