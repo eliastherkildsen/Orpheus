@@ -34,42 +34,27 @@ public class HomeViewController implements Initializable {
     private BorderPane homePane;
     @FXML
     private MediaView mediaViewDisplay;
-
     @FXML
     private Slider sliderVolume;
-
     @FXML
     private Slider sliderProgres;
-
     @FXML
     private Label labCurrentTime;
-
     @FXML
     private Label labMediaLength;
-
     @FXML
     private ImageView btnPlayPauseIcon;
-
     @FXML
     private ImageView btnMuteIcon;
+
+    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
+    public static ArrayList<Media> mediaQue;
+    public static int cntQue;
+
 
     private SceneController viewControler = new SceneController();
     private double heightOfScene;
     private double widthOfScene;
-
-
-    private ArrayList<File> medias;
-    private File directory;
-    private File[] files;
-
-
-
-
-
-
-    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-    public static ArrayList<Media> playlist;
-    private static String mediaFilesPath = "file:src/main/java/mediaplayer/orpheus/mediaFiles";
     private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private static String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private static String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
@@ -88,10 +73,6 @@ public class HomeViewController implements Initializable {
 
     private static final double ASPECT_RATIO = 16.0 / 9.0;
 
-    // previous/next media:
-    private int mediaNumber;
-    private ArrayList<File> mediafiles;
-    private boolean running;
 
 
 
@@ -150,8 +131,6 @@ public class HomeViewController implements Initializable {
         });
 
 
-        System.out.println("______________________________________________________________________________________________________________");
-
 
         mediaPlayer.totalDurationProperty().addListener(new ChangeListener<Duration>() {
             @Override
@@ -169,8 +148,6 @@ public class HomeViewController implements Initializable {
             }
         });
 
-
-        System.out.println("______________________________________________________________________________________________________________");
 
 
         // listens for changes in the value of the volume slider
@@ -260,23 +237,6 @@ public class HomeViewController implements Initializable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @FXML
     public void onActionbtnImportClick(){
 
@@ -296,54 +256,11 @@ public class HomeViewController implements Initializable {
     @FXML
     private void onBtnNextClick(){
         mediaNext();
-
     }
 
     private void mediaNext() {
 
-        //mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles";
-
-        // Angiv stien til din mappe med mediefiler
-        File directory = new File(mediaFilesPath);
-
-        // Få en liste over filer i mappen
-        File[] files = directory.listFiles();
-
-        // Konverter arrayet af filer til en ArrayList
-        ArrayList<File> medias = new ArrayList<>(Arrays.asList(files));
-
-        // Udskriv indholdet af ArrayList
-        System.out.println("ArrayList indhold: " + medias);
     }
-/*
-        if (mediaNumber < medias.size(); -1 ){
-
-            mediaNumber++ ;
-            mediaPlayer.stop();
-
-            if (running){
-                cancelTimer();
-            }
-
-            media = new Media(medias.get(mediaNumber).toURI().toString());
-
-            mediaPlayer = new MediaPlayer(media);
-
-            mediaPlayPause();
-        }
-        else {
-            mediaNumber = 0;
-
-            mediaPlayer.stop();
-
-            media = new Media(medias.get(mediaNumber).toURI().toString());
-
-            mediaPlayer = new MediaPlayer(media);
-
-            mediaPlayPause();
-        }
-        */
-
 
 
     @FXML
