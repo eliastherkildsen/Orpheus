@@ -133,4 +133,14 @@ public class DatabaseRead {
 
     }
 
+    public static String getMediaIDFromPlaylistName(String playlistName){
+
+        return new StringBuilder()
+                .append("SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = '")
+                .append(playlistName)
+                .append("'")
+                .toString();
+
+    }
+
 }

@@ -76,7 +76,6 @@ public class SearchViewController implements Initializable {
 
         int selectedMedia = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
         PlaylistHandler.addMediaToPlaylist(selectedMedia, getSelectedChoiceBoxItem());
-        System.out.println(cbPlaylist.getSelectionModel().getSelectedItem());
     }
 
     /**

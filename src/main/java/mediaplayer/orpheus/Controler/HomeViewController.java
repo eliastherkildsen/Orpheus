@@ -27,6 +27,7 @@ import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -79,8 +80,9 @@ public class HomeViewController implements Initializable {
     private double currentTrackTime;
     private double currentSliderVol;
     private boolean mute = true;
-
-        private  static final double ASPECT_RATIO = 16.0 / 9.0;
+    public static ArrayList<Media> mediaQue;
+    public static int queCnt;
+    private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
     /**
