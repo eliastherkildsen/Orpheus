@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.MediaSearch;
 
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseUtil;
+import mediaplayer.orpheus.model.Playlist.Media;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
@@ -59,9 +60,9 @@ public class MediaSearch {
      * @return ArrayList<String[]> a list of String arrays
      *         containing the resultSets data parsed to a formatted String
      */
-    public ArrayList<String[]> processResultSet(ResultSet resultSet) {
+    public ArrayList<Media> processResultSet(ResultSet resultSet) {
 
-        ArrayList<String[]> dataSet = new ArrayList<>();
+        ArrayList<Media> dataSet = new ArrayList<>();
 
         // loops through the result set.
         while (true) {
@@ -72,23 +73,15 @@ public class MediaSearch {
                 throw new RuntimeException(e);
             }
 
-            String[] data = new String[9];
+            // create media obj for each media returned from the quarry.
+            try {
 
-            // storing values of the result set in a String array, for insuring a fixed index of fields,
-            // to make it easy to make a formatted print.
+                int mediaID = Integer.parseInt(DatabaseUtil.validateResultNotNull("fldMediaID", resultSet));
+                dataSet.add(new Media(mediaID));
 
-            data[0] = DatabaseUtil.validateResultNotNull("fldArtistName",  resultSet);
-            data[1] = DatabaseUtil.validateResultNotNull("fldFirstName",   resultSet);
-            data[2] = DatabaseUtil.validateResultNotNull("fldLastName",    resultSet);
-            data[3] = DatabaseUtil.validateResultNotNull("fldMediaTitle",  resultSet);
-            data[4] = DatabaseUtil.validateResultNotNull("fldFileType",    resultSet);
-            data[5] = DatabaseUtil.validateResultNotNull("fldFilePath",    resultSet);
-            data[6] = DatabaseUtil.validateResultNotNull("fldTrackLength", resultSet);
-            data[7] = DatabaseUtil.validateResultNotNull("fldGenre",       resultSet);
-            data[8] = DatabaseUtil.validateResultNotNull("fldMediaID",     resultSet);
-
-            // adds the string array to an arraylist.
-            dataSet.add(data);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
         }
 
@@ -106,9 +99,7 @@ public class MediaSearch {
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
         return new StringBuilder()
-                .append("SELECT tblMedia.fldMediaTitle, tblPerson.fldArtistName, ")
-                .append("tblMedia.fldTrackLength, tblMedia.fldFilePath, tblPerson.fldFirstName, ")
-                .append("tblPerson.fldLastName, tblMediaGenre.fldGenre, tblMedia.fldMediaID ")
+                .append("SELECT tblMedia.fldMediaID ")
                 .append("FROM tblMedia ")
 
                 .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")

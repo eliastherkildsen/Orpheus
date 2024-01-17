@@ -1,12 +1,15 @@
 package mediaplayer.orpheus.model.Playlist;
 
+import mediaplayer.orpheus.Controler.HomeViewController;
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.util.AlertPopup;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PlaylistHandler {
 
@@ -147,6 +150,16 @@ public class PlaylistHandler {
                 .append(playlistName)
                 .append("'")
                 .toString();
+
+    }
+
+    private static void createMediaArray(String playlistName){
+
+        HomeViewController.mediaQue.clear();
+        HomeViewController.queCnt = 0;
+
+
+        //HomeViewController.mediaQue.add();
 
     }
 

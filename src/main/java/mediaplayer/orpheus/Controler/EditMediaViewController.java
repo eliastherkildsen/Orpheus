@@ -6,8 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.model.MediaEdit.MediaEdit;
 import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
+import mediaplayer.orpheus.model.Playlist.Media;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import java.io.IOException;
 import java.net.URL;
@@ -24,8 +24,7 @@ public class EditMediaViewController implements Initializable {
     private ChoiceBox cbArtist, cbGenre;
     @FXML
     private Label labMedia;
-    public static int selectedMediaID;
-    private MediaEdit mediaEdit;
+    public static Media selectedMedia;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("init");
@@ -83,7 +82,6 @@ public class EditMediaViewController implements Initializable {
     private void load() {
 
         // initializing the mediaEdit obj.
-        mediaEdit = new MediaEdit(selectedMediaID);
 
         // load all genres in to cbGenre
         loadGenre();
@@ -102,26 +100,26 @@ public class EditMediaViewController implements Initializable {
 
         setMediaYear();
 
-        System.out.println("SELECTED MEDIA ID " + selectedMediaID);
+        System.out.println("SELECTED MEDIA ID " + selectedMedia.getMediaID());
 
     }
     public void setMediaYear(){
-        fldYear.setText(mediaEdit.getMediaYear());
+        fldYear.setText(selectedMedia.getMediaYear());
     }
 
     private void setMediaArtist() {
-        presentItem(cbArtist, mediaEdit.getMediaArtistName());
+        presentItem(cbArtist, selectedMedia.getMediaArtist());
     }
 
     private void setMediaTitleOnScene(){
-        labMedia.setText(mediaEdit.getMediaTitle());
+        labMedia.setText(selectedMedia.getMediaTitle());
     }
     private void setMediaTextField(){
-        fldMediaTitle.setText(mediaEdit.getMediaTitle());
+        fldMediaTitle.setText(selectedMedia.getMediaTitle());
     }
 
     private void setMediaGenre(){
-        presentItem(cbGenre, mediaEdit.getMediaGenre());
+        presentItem(cbGenre, selectedMedia.getMediaGenre());
     }
 
     private void loadGenre(){
@@ -140,20 +138,20 @@ public class EditMediaViewController implements Initializable {
 
     private void updataMediaData() {
 
+        // set media genre.
         if (getSelectedItem(cbGenre) != null){
-            mediaEdit.setMediaGenre(getSelectedItem(cbGenre));
+            selectedMedia.setMediaGenre(getSelectedItem(cbGenre));
         }
 
         if (getSelectedItem(cbArtist) != null) {
-            mediaEdit.setMediaArtistName(getSelectedItem(cbArtist));
+            selectedMedia.setMediaArtistName(getSelectedItem(cbArtist));
         }
 
         // set year
-        mediaEdit.setMediaYear(fldYear.getText());
-        System.out.println(fldYear.getText());
+        selectedMedia.setMediaYear(fldYear.getText());
 
         // set media title
-        mediaEdit.setMediaTitle(fldMediaTitle.getText());
+        selectedMedia.setMediaTitle(fldMediaTitle.getText());
 
     }
 
