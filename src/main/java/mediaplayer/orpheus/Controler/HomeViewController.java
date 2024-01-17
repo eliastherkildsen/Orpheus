@@ -80,7 +80,7 @@ public class HomeViewController implements Initializable {
     private double currentTrackTime;
     private double currentSliderVol;
     private boolean mute = true;
-    public static ArrayList<Media> mediaQue;
+    public static ArrayList<mediaplayer.orpheus.model.Playlist.Media> mediaQue = new ArrayList<>();
     public static int queCnt;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
 

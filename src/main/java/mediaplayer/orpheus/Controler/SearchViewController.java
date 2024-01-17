@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.Playlist.Media;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
@@ -23,26 +24,22 @@ import java.util.ResourceBundle;
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist
-            , btnDeleteMedia;
+    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
     private ListView<String> LWSearchResult;
     private final MediaSearch mediaSearch = new MediaSearch();
-    private ArrayList<String[]> dataSet = new ArrayList<>();
+    private ArrayList<Media> dataSet = new ArrayList<>();
     private ArrayList<String> playListNamesArr = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
     @FXML
     private ChoiceBox cbPlaylist;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // to auto-populate the search results.
         refreshSearchResults();
-
         loadChoiceBox();
-
     }
 
     private void loadChoiceBox() {
@@ -50,7 +47,6 @@ public class SearchViewController implements Initializable {
         for (String playlistName : MediaSearchUtil.getAllPlaylist()) {
             addItemToChoiceBox(cbPlaylist, playlistName);
         }
-
     }
 
     private void addItemToChoiceBox(ChoiceBox choiceBox, String item){choiceBox.getItems().add(item);}
@@ -67,14 +63,13 @@ public class SearchViewController implements Initializable {
     @FXML
     private void onActionbtnListenClick(){
         // retrieves the path for the selected media.
-        String filePath = MediaSearchUtil.getMediaPathFromDataset(getSelectedItemIndex(), dataSet);
-        switchMedia(filePath);
+        switchMedia();
     }
 
     @FXML
     private void onActionbtnAddToPlaylistClick() throws IndexOutOfBoundsException {
 
-        int selectedMedia = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+        int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaID();
         PlaylistHandler.addMediaToPlaylist(selectedMedia, getSelectedChoiceBoxItem());
     }
 
@@ -95,27 +90,25 @@ public class SearchViewController implements Initializable {
     @FXML
     private void onActionbtnSearchBarClick(){
 
-        /**
-         * TODO: move into separate method.
-         */
+        loadSearchedMedia();
 
-        // quarry's the users search input.
-        ResultSet res = mediaSearch.searchMedia(FldSearch.getText());
-        // parses the result of the quarry to a String array for each row.
-
-        dataSet = mediaSearch.processResultSet(res);
         // clears the search LW  (list-view)
-
         clearListView();
 
-        // loops through the resultset.
-        for (String[] strings : dataSet) {
+        // addes each Media obj. to the list view.
+        for (Media media : dataSet) {
             // formats the result.
-            String formatedResult = MediaSearchUtil.formatedQuarryResultString(strings);
             // adds the result to the search list.
-            LWSearchResult.getItems().add(formatedResult);
+            LWSearchResult.getItems().add(media.getMediaTitle());
         }
     }
+
+    private void loadSearchedMedia() {
+        // quarry's the users search input.
+        ResultSet res = mediaSearch.searchMedia(FldSearch.getText());
+        dataSet = mediaSearch.processResultSet(res);
+    }
+
     @FXML
     public void onActionbtnImportClick(){
 
@@ -156,20 +149,14 @@ public class SearchViewController implements Initializable {
     }
     /**
      * Method for updating the mediaPath in Home view, and switching scene view.
-     * @param filePath
+     *
      */
-    private void switchMedia(String filePath) {
+    private void switchMedia() {
         // switches the filepath for the media view to the user selected filepath
-        if (!filePath.isEmpty()){
-            HomeViewController.mediaPath = filePath;
-            switchToHomeView();
-            System.out.printf("%s[SearchViewController][switchMedia] the selected media has no file path%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-        }
+        HomeViewController.mediaPath = dataSet.get(getSelectedItemIndex()).getMediaPath();
+        HomeViewController.mediaQue.add(dataSet.get(getSelectedItemIndex()));
 
-        else {
-            System.out.printf("%s[SearchViewController][switchMedia] switching media-player file pointer to %n path: %s path%s%n", AnsiColorCode.ANSI_YELLOW, filePath, AnsiColorCode.ANSI_RESET);
-            new AlertPopup("No media selected", "No media has been selected, pleas select a media to listen to").showInformation();
-        }
+        switchToHomeView();
 
     }
 
@@ -183,7 +170,7 @@ public class SearchViewController implements Initializable {
         // checks if an item in LW has been selected.
         if (getSelectedItemIndex() != -1){
 
-            int mediaID = MediaSearchUtil.getMediaIDFromDataset(itemIndex, dataSet);
+            int mediaID = dataSet.get(itemIndex).getMediaID();
             mediaSearch.deleteMediaFromDatabase(mediaID);
 
             refreshSearchResults();
@@ -228,7 +215,7 @@ public class SearchViewController implements Initializable {
     private void editMedia() {
         // get selected medias mediaID.
         if (getSelectedItemIndex()!= -1) {
-            EditMediaViewController.selectedMediaID = MediaSearchUtil.getMediaIDFromDataset(getSelectedItemIndex(), dataSet);
+            EditMediaViewController.selectedMedia = dataSet.get(getSelectedItemIndex());
             switchToEditView();
         }
 
