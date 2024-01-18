@@ -64,7 +64,7 @@ public class MetaExtractorMp3 {
             System.out.printf("%s[METADATA] Getting Artist.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             if (Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA] No Artist found returning%s%nNULL%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA] No Artist found returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             }
             //DEBUG LOGGING
@@ -93,7 +93,7 @@ public class MetaExtractorMp3 {
             //DEBUG LOGGING
             System.out.printf("%s[METADATA] Getting Album name.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             if (Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
-                System.out.printf("%s[METADATA] No Album fund returning%s%nNULL%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA] No Album fund returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             } else {
                 //DEBUG LOGGING
@@ -110,7 +110,7 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
-                System.out.printf("%s[METADATA] No release year fund returning%s%nNULL%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA] No release year fund returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             } else {
                 //DEBUG LOGGING
