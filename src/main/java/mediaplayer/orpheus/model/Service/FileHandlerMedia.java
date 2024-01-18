@@ -1,5 +1,7 @@
 package mediaplayer.orpheus.model.Service;
 
+import mediaplayer.orpheus.util.AnsiColorCode;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,6 +41,7 @@ public class FileHandlerMedia {
      */
     public String mp3OrMp4(){
         String extension = this.returnFileExtension();
+        System.out.printf("%s[FILEHANDLERMEDIA] Extension found as: %s%s%n", AnsiColorCode.ANSI_YELLOW, extension, AnsiColorCode.ANSI_RESET);
         return switch (extension) {
             case "mp3" -> "mp3";
             case "mp4" -> "mp4";
