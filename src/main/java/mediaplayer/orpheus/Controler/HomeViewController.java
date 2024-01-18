@@ -58,6 +58,10 @@ public class HomeViewController implements Initializable {
     private ImageView btnMuteIcon;
     @FXML
     private ImageView imgThumbnail;
+    @FXML
+    private Label labMediaName;
+    @FXML
+    private Label labArtistName;
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     private SceneController viewControler = new SceneController();
@@ -80,6 +84,7 @@ public class HomeViewController implements Initializable {
     private boolean mute = true;
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
     public static int cntQue;
+    private static int mediaArrIndex;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
     private boolean isInitialized = false;
 
@@ -174,8 +179,9 @@ public class HomeViewController implements Initializable {
         }
 
         else {
+            mediaArrIndex =  cntQue % mediaObjQue.size();
             // creates a file object based on the media path
-            file = new File(mediaObjQue.get(cntQue % mediaObjQue.size()).getMediaPath());
+            file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
         }
 
         // checks if the file exists
@@ -200,6 +206,8 @@ public class HomeViewController implements Initializable {
         System.out.println("Seting display");
         // associates the mediaPlayer with the mediaViewDisplay for content playback
         mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+        changeThumbnailAndImageLabels();
 
         beginTimer();
 
@@ -684,15 +692,32 @@ public class HomeViewController implements Initializable {
     }
 
     /**
-     * Method for switching thumbnail in the homeview
-     * @param arrIndex
+     * Method that calls the change methods
      */
-    private void changethumbnail(int arrIndex){
+    private void changeThumbnailAndImageLabels(){
+        changeThumbnail();
+        changeImagelables();
+    }
+
+    /**
+     * Method for switching thumbnail in the homeview
+     */
+    private void changeThumbnail(){
         //Gets the objects image path
-        String imagePath =  "file:" + mediaObjQue.get(arrIndex).getImagePath();
+        String imagePath =  "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
         Image thumbnailImage = new Image(imagePath);
 
         imgThumbnail.setImage(thumbnailImage);
+
+    }
+
+    /**
+     * Method for changing the media title displayed next to the thumbnail
+     */
+    private void changeImagelables(){
+
+        labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
+        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
 
     }
 

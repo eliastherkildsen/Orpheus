@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20" minWidth="20" prefHeight="500" prefWidth="800" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20" minWidth="20" prefHeight="500" prefWidth="800" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="419.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
             <graphic>
@@ -59,8 +58,11 @@
                <image>
                   <Image url="@../../css/images/download.png" />
                </image>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </ImageView>
-            <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="100.0">
                <children>
                   <Label fx:id="labMediaName" text="Media name" />
                   <Label fx:id="labArtistName" text="Artist name" />
@@ -70,7 +72,7 @@
          </children></VBox>
    </left>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="86.0" prefWidth="676.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0" />
             <VBox alignment="CENTER" prefHeight="92.0" prefWidth="567.0">
