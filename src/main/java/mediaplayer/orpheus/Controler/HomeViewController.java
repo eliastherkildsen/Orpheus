@@ -17,6 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,6 +27,7 @@ import javafx.scene.media.MediaView;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
+import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
@@ -101,13 +105,21 @@ public class HomeViewController implements Initializable {
 
         if (!isInitialized && !mediaObjQue.isEmpty()) {
 
-            loadMedia();
+            try {
+                loadMedia();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         }
         else if (!mediaObjQue.isEmpty()) {
 
-            loadMedia();
+            try {
+                loadMedia();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         }
@@ -168,7 +180,7 @@ public class HomeViewController implements Initializable {
     }
 
 
-    private void loadMedia() {
+    private void loadMedia() throws FileNotFoundException {
 
         System.out.println("Jeg loader");
 
@@ -204,8 +216,22 @@ public class HomeViewController implements Initializable {
         }
 
         System.out.println("Seting display");
-        // associates the mediaPlayer with the mediaViewDisplay for content playback
-        mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+        FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
+
+        if (fileType.equals("mp3")){
+            // Skab ImageView-objektet
+            ImageView imageView = new ImageView();
+
+            // Indstil billedet fra filen
+            Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
+            imageView.setImage(image);
+        }
+        else {
+            // associates the mediaPlayer with the mediaViewDisplay for content playback
+            mediaViewDisplay.setMediaPlayer(mediaPlayer);
+        }
+
 
         changeThumbnailAndImageLabels();
 
@@ -322,11 +348,11 @@ public class HomeViewController implements Initializable {
 
 
     @FXML
-    private void onBtnNextClick(){
+    private void onBtnNextClick() throws FileNotFoundException {
         mediaNext();
     }
 
-    private void mediaNext() {
+    private void mediaNext() throws FileNotFoundException {
         // mediaPlayer.stop();
         stopWithValidation();
         cancelTimer();
@@ -344,11 +370,11 @@ public class HomeViewController implements Initializable {
 
 
     @FXML
-    private void onBtnPreviousClick(){
+    private void onBtnPreviousClick() throws FileNotFoundException {
         mediaPrevious();
     }
 
-    private void mediaPrevious() {
+    private void mediaPrevious() throws FileNotFoundException {
         if (cntQue == 0) {
             // mediaPlayer.stop();
             stopWithValidation();
