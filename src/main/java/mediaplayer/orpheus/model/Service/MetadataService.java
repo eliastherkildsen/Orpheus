@@ -51,11 +51,11 @@ public class MetadataService {
         //Using Mp3 functions for now.
         MetaExtractorMp4 video = new MetaExtractorMp4(filepath);
 
-        ImportMedia media = new ImportMedia(filepath,video.gatherMetaDataTitle(),null,null,null,null,null,video.gatherMetaDataLength());
+        ImportMedia media = new ImportMedia(filepath,video.gatherMetaDataTitle(),filetype,null,null,null,null,video.gatherMetaDataLength());
 
         FileHandlerMedia videoString = new FileHandlerMedia(filepath);
 
-        DatabaseExtractorInsert videoIntoDb = new DatabaseExtractorInsert(media.getMediaTitle(), null, null, null, null, media.getTrackLength(), filepath);
+        DatabaseExtractorInsert videoIntoDb = new DatabaseExtractorInsert(media.getMediaTitle(), media.getFileType(), null, null, null, media.getTrackLength(), filepath);
         videoIntoDb.insertIntoDBNewMp3();
 
         System.out.printf("%s[METADATA SERVICE] Inserting MP4 into DB complete.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
