@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 public class MediaEditUtil {
 
-    private static ArrayList<String> genre = new ArrayList<>();
-    private static ArrayList<String> artist = new ArrayList<>();
+    private static ArrayList<String> genre;
+    private static ArrayList<String> artist;
 
     public static ArrayList<String> getAllGenre(){
 
         String quary = DatabaseRead.getAllGenres();
+
+        genre = new ArrayList<>();
 
         try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
             while (resultSet.next()) {
@@ -30,6 +32,8 @@ public class MediaEditUtil {
     public static ArrayList<String> getAllArtist(){
 
         String quary = DatabaseRead.getAllArtists();
+
+        artist = new ArrayList<>();
 
         try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
             while (resultSet.next()) {

@@ -59,6 +59,8 @@ public class HomeViewController implements Initializable {
     private ImageView btnPlayPauseIcon;
     @FXML
     private ImageView btnMuteIcon;
+    @FXML
+    private ImageView imgThumbnail;
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     private SceneController viewControler = new SceneController();
@@ -656,6 +658,19 @@ public class HomeViewController implements Initializable {
      */
     private void toggleMuteState() {
         mute = !mute;
+    }
+
+    /**
+     * Method for switching thumbnail in the homeview
+     * @param arrIndex
+     */
+    private void changethumbnail(int arrIndex){
+        //Gets the objects image path
+        String imagePath =  "file:" + mediaObjQue.get(arrIndex).getImagePath();
+        Image thumbnailImage = new Image(imagePath);
+
+        imgThumbnail.setImage(thumbnailImage);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package mediaplayer.orpheus.Controler;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,6 +31,8 @@ public class EditMediaViewController implements Initializable {
         System.out.println("init");
         load();
     }
+
+
     @FXML
     private void onBtnUpdataClick(){
         updataMediaData();
@@ -81,7 +84,9 @@ public class EditMediaViewController implements Initializable {
 
     private void load() {
 
-        // initializing the mediaEdit obj.
+        // empty all cb
+        cbGenre.getItems().clear();
+        cbArtist.getItems().clear();
 
         // load all genres in to cbGenre
         loadGenre();
@@ -179,10 +184,35 @@ public class EditMediaViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void switchToAddArtistView() {
+        try {
+            sceneController.switchToAddArtistView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void switchToAddGenreView() {
+        try {
+            sceneController.switchToAddGenreView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void onActionbtnImportClick(){
 
         FileChooser.fileChooser();
     }
 
+    @FXML
+    public void onBtnAddGenreClick() {
+        switchToAddGenreView();
+    }
+    @FXML
+    public void onBtnAddArtistClick() {
+        switchToAddArtistView();
+    }
 }

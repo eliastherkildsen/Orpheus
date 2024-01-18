@@ -23,6 +23,26 @@ public class DatabaseCreate {
                 .append(")")
                 .toString();
     }
+    //INSERT INTO tblPerson (fldFirstName, fldLastName, fldArtistName) VALUES ()
+    public static String insertPerson(String firstName, String lastName, String artistName){
+        return new StringBuilder()
+                .append("INSERT INTO tblPerson (fldFirstName, fldLastName, fldArtistName)")
+                .append(" VALUES ('")
+                .append(firstName)
+                .append("','")
+                .append(artistName)
+                .append("','")
+                .append(artistName)
+                .append("')")
+                .toString();
+    }
 
 
+    public static String insertGenre(String genre) {
+        return new StringBuilder()
+                .append("INSERT INTO tblGenre (fldGenre) VALUES (' ")
+                .append(genre)
+                .append("')")
+                .toString();
+    }
 }
