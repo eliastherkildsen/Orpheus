@@ -151,7 +151,7 @@ public class PlaylistHandler {
     private static void createMediaArray(String playlistName){
 
         HomeViewController.mediaObjQue.clear();
-        HomeViewController.queCnt = 0;
+        HomeViewController.cntQue = 0;
 
 
         //HomeViewController.mediaObjQue.add();
