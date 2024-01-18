@@ -519,7 +519,7 @@ public class HomeViewController implements Initializable {
             mediaPlayer.pause();
             updatePlayButtonImage(playImageURL);
          } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
     }
     private void playWithValidation(){
@@ -527,7 +527,7 @@ public class HomeViewController implements Initializable {
             mediaPlayer.play();
             updatePlayButtonImage(pauseImageURL);
         } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
     }
 
