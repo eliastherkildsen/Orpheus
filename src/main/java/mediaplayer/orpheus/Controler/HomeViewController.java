@@ -82,8 +82,6 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     private boolean mute = true;
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
-
-    public static int cntQueIni;
     public static int cntQue;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
     private boolean isInitialized = false;
@@ -100,23 +98,15 @@ public class HomeViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         if (!isInitialized && !mediaObjQue.isEmpty()) {
-            int count = 0;
-            count++;
+
             loadMedia();
-
             System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-            System.out.println("!initalized entered: " + count);
-
 
         }
         else if (!mediaObjQue.isEmpty()) {
-            int count = 0;
-            count++;
+
             loadMedia();
-
             System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-            System.out.println("!initalized entered: " + count);
-
 
         }
         else {
@@ -181,33 +171,14 @@ public class HomeViewController implements Initializable {
         System.out.println("Jeg loader");
 
         if (mediaObjQue.size() == 1){
+
             // get media index 0
-
-            System.out.println("Jeg er if");
-
             file = new File(mediaObjQue.get(0).getMediaPath());
-
-            System.out.println("% " + cntQue % mediaObjQue.size());
-            System.out.println("size: " + mediaObjQue.size());
-            System.out.println("title: " + file);
         }
 
-
         else {
-
-            System.out.println("Jeg er else");
-
-
             // creates a file object based on the media path
             file = new File(mediaObjQue.get(cntQue % mediaObjQue.size()).getMediaPath());
-
-            System.out.println("% " + cntQue % mediaObjQue.size());
-            System.out.println("size: " + mediaObjQue.size());
-            System.out.println("filePath: " + file);
-
-
-
-            System.out.println("Loaded listeneres");
         }
 
         // checks if the file exists
@@ -319,7 +290,6 @@ public class HomeViewController implements Initializable {
             // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
             // volume (0.0 to 1.0)
 
-            System.out.println("[listener] volume value: "+volumeValue);
             volumeMedia(volumeValue);
         }
     }
@@ -354,7 +324,6 @@ public class HomeViewController implements Initializable {
         cancelTimer();
 
         cntQue++;
-        System.out.println("mediaNext count: "+cntQue);
 
         loadMedia();
         mediaPlayer.play();
@@ -377,20 +346,15 @@ public class HomeViewController implements Initializable {
 
             mediaObjQue.get(0);
 
-            System.out.println("count (før): " + cntQue);
-
             loadMedia();
             mediaPlayer.play();
-
-            System.out.println("count (efter): " + cntQue);
-
         }
+
         else {
             mediaPlayer.stop();
             cancelTimer();
 
             cntQue--;
-            System.out.println("mediaPrevious count: " + cntQue);
 
             loadMedia();
             mediaPlayer.play();
@@ -446,14 +410,12 @@ public class HomeViewController implements Initializable {
 
     private void sliderProgresOnDrag() {
         pauseWithValidation();
-        System.out.println("pause");
     }
 
     private void sliderProgresMouseRelease() {
         cancelTimer();
 
         double newCurrentVal = sliderProgres.getValue();
-        System.out.println("track time før 0.01: " + newCurrentVal);
 
         int newSpot = (int) newCurrentVal;
 
@@ -463,7 +425,6 @@ public class HomeViewController implements Initializable {
         mediaPlayer.play();
 
         beginTimer();
-        System.out.println("YEAH!");
     }
 
 
@@ -658,7 +619,6 @@ public class HomeViewController implements Initializable {
      * Finally, toggles the mute stage for the next button click.
      */
     private void mediaMute() {
-    // VIRKER!
         if (mute) {
             // gets the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
