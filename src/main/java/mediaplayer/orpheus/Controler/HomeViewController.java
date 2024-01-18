@@ -60,15 +60,10 @@ public class HomeViewController implements Initializable {
     private ImageView btnMuteIcon;
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-    public static ArrayList<Media> mediaQue;
     public static int cntQue;
-
     private SceneController viewControler = new SceneController();
     private double heightOfScene;
     private double widthOfScene;
-
-
-    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
     private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private static String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private static String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
