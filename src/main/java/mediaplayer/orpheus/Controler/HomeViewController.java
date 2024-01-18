@@ -85,6 +85,7 @@ public class HomeViewController implements Initializable {
     private boolean isInitialized = false;
 
 
+
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
@@ -96,13 +97,7 @@ public class HomeViewController implements Initializable {
         if (!isInitialized) {
 
             try {
-                mediaObjQue.add(new MediaObj(1));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                mediaObjQue.add(new MediaObj(2));
+                mediaObjQue.add(new MediaObj(21));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -110,7 +105,15 @@ public class HomeViewController implements Initializable {
             loadMedia();
 
             cntQue++;
-            System.out.println(cntQue);
+            isInitialized = true;
+
+            System.out.println("count (if): " + cntQue);
+        }
+        else {
+            loadMedia();
+
+            cntQue++;
+            System.out.println("count (else): " + cntQue);
         }
     }
 
@@ -288,8 +291,19 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaNext() {
+        mediaPlayer.stop();
+        cancelTimer();
 
+        cntQue++;
+        System.out.println("mediaNext count: "+cntQue);
+
+        loadMedia();
+        mediaPlayer.play();
     }
+
+
+
+
 
 
     @FXML
@@ -298,7 +312,30 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaPrevious() {
+        if (cntQue == 0) {
+            mediaPlayer.stop();
+            cancelTimer();
 
+            mediaObjQue.get(0);
+
+            System.out.println("count (før): " + cntQue);
+
+            loadMedia();
+            mediaPlayer.play();
+
+            System.out.println("count (efter): " + cntQue);
+
+        }
+        else {
+            mediaPlayer.stop();
+            cancelTimer();
+
+            cntQue--;
+            System.out.println("mediaPrevious count: " + cntQue);
+
+            loadMedia();
+            mediaPlayer.play();
+        }
     }
 
 
