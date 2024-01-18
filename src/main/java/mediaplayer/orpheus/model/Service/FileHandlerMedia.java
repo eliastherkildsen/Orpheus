@@ -41,7 +41,7 @@ public class FileHandlerMedia {
      */
     public String mp3OrMp4(){
         String extension = this.returnFileExtension();
-        System.out.printf("%s[FILEHANDLERMEDIA] Extension found as: %s%s%n", AnsiColorCode.ANSI_YELLOW, extension, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[FILE HANDLER MEDIA]%s Extension found as: %s%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET, extension);
         return switch (extension) {
             case "mp3" -> "mp3";
             case "mp4" -> "mp4";

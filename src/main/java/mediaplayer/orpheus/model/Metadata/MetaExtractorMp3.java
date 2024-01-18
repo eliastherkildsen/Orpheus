@@ -106,6 +106,7 @@ public class MetaExtractorMp3 {
 
     public Integer gatherMetaDataYear() throws IOException {
         try {
+            System.out.printf("%s[METADATA MP3]%s Getting release year.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
@@ -113,7 +114,7 @@ public class MetaExtractorMp3 {
                 return null;
             } else {
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA MP3]%s Getting release year.%s%n" + tag.getFirst(FieldKey.YEAR) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s Release year found.%s%n" + tag.getFirst(FieldKey.YEAR) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
                 return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
             }
         } catch (IOException e) {
