@@ -1,6 +1,7 @@
 package mediaplayer.orpheus.Controler;
 import  javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import mediaplayer.orpheus.model.MediaEdit.DeleteMedia;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import javafx.fxml.FXML;
@@ -150,6 +151,7 @@ public class SearchViewController implements Initializable {
      */
     private void switchMedia() {
         // switches the filepath for the media view to the user selected filepath
+        HomeViewController.mediaObjQue.clear();
         HomeViewController.mediaPath = dataSet.get(getSelectedItemIndex()).getMediaPath();
         HomeViewController.mediaObjQue.add(dataSet.get(getSelectedItemIndex()));
 
@@ -167,14 +169,14 @@ public class SearchViewController implements Initializable {
         // checks if an item in LW has been selected.
         if (getSelectedItemIndex() != -1){
 
-            int mediaID = dataSet.get(itemIndex).getMediaID();
-            mediaSearch.deleteMediaFromDatabase(mediaID);
+            DeleteMedia.deleteMediaFromDatabase(dataSet.get(itemIndex).getMediaID());
+            DeleteMedia.deleteMediaFileFromDir(dataSet.get(itemIndex).getMediaPath());
 
             refreshSearchResults();
             System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
         else {
-            System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
             new AlertPopup("No media selected.", "No media to delete has been selected, please select a media to delete.").showInformation();
         }
 
@@ -217,7 +219,7 @@ public class SearchViewController implements Initializable {
         }
 
         else {
-            System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
             new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
         }
 
