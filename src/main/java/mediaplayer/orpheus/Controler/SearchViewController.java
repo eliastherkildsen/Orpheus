@@ -67,8 +67,15 @@ public class SearchViewController implements Initializable {
     @FXML
     private void onActionbtnAddToPlaylistClick() throws IndexOutOfBoundsException {
 
-        int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaID();
-        PlaylistHandler.addMediaToPlaylist(selectedMedia, getSelectedChoiceBoxItem());
+        String cbItem = getSelectedChoiceBoxItem();
+        if(cbItem != null){
+            int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaID();
+            PlaylistHandler.addMediaToPlaylist(selectedMedia, cbItem);
+        }else{
+            AlertPopup alertPopupNoItemSelected = new AlertPopup("Failed"
+                    ,"No playlist was selected.");
+            alertPopupNoItemSelected.showError();
+        }
     }
 
     /**
@@ -201,6 +208,10 @@ public class SearchViewController implements Initializable {
     }
 
     private String getSelectedChoiceBoxItem(){
+
+        if(cbPlaylist.getSelectionModel().getSelectedItem() == null){
+            return null;
+        }
         return cbPlaylist.getSelectionModel().getSelectedItem().toString();
     }
 
