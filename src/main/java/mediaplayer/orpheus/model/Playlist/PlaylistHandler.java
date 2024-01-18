@@ -234,6 +234,8 @@ public class PlaylistHandler {
             e.printStackTrace();
         }
 
+
+        System.out.println("size a: " + HomeViewController.mediaObjQue.size());
         for (MediaObj mediaObj : HomeViewController.mediaObjQue){
             System.out.println(mediaObj.getMediaTitle());
         }

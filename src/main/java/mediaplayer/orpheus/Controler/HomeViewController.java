@@ -79,8 +79,6 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     private boolean mute = true;
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
-
-    public static int cntQueIni;
     public static int cntQue;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
     private boolean isInitialized = false;
@@ -95,56 +93,47 @@ public class HomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (!isInitialized) {
-            int count = 0;
 
-            count ++;
-            System.out.println("!initalized entered: " + count);
-            try {
-                mediaObjQue.add(new MediaObj(21));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+        if (!isInitialized && !mediaObjQue.isEmpty()) {
 
-            loadMedia(cntQueIni);
+            loadMedia();
+            System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
+        }
+        else if (!mediaObjQue.isEmpty()) {
 
-            cntQueIni++;
-            isInitialized = true;
-
-            System.out.println("count (if): " + cntQue);
+            loadMedia();
+            System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         }
         else {
-            loadMedia(cntQue);
+            System.out.printf("%s[HomeViewController][Initialized] Class has not been init.%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            loadListenersView();
 
-            cntQue++;
-            System.out.println("count (else): " + cntQue);
         }
+
+
     }
 
-    private void loadMedia(int cnt) {
-        // creates a file object based on the media path
-        file = new File(mediaObjQue.get(cnt % mediaObjQue.size()).getMediaPath());
+    private void loadListenersMediaPlay() {
+        mediaPlayer.totalDurationProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                sliderProgres.setMax(newValue.toSeconds());
+            }
+        });
 
-        System.out.println("title: " + file);
+        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    sliderProgres.setValue(newValue.toSeconds());
+                }
+            }
+        });
+    }
 
-        // checks if the file exists
-        if (file.exists()) {
-            // creates a media object based on the file's URI
-            media = new Media(file.toURI().toString());
-            // creates a media player based on the media object
-            mediaPlayer = new MediaPlayer(media);
-            // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-        } else {
-            // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-        }
-
-        // associates the mediaPlayer with the mediaViewDisplay for content playback
-        mediaViewDisplay.setMediaPlayer(mediaPlayer);
-
+    private void loadListenersView() {
         homePane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -171,24 +160,54 @@ public class HomeViewController implements Initializable {
             }
         });
 
-
-
-        mediaPlayer.totalDurationProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                sliderProgres.setMax(newValue.toSeconds());
-            }
-        });
-
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                    sliderProgres.setValue(newValue.toSeconds());
-                }
-            }
-        });
     }
+
+
+    private void loadMedia() {
+
+        System.out.println("Jeg loader");
+
+        if (mediaObjQue.size() == 1){
+
+            // get media index 0
+            file = new File(mediaObjQue.get(0).getMediaPath());
+        }
+
+        else {
+            // creates a file object based on the media path
+            file = new File(mediaObjQue.get(cntQue % mediaObjQue.size()).getMediaPath());
+        }
+
+        // checks if the file exists
+        if (file.exists()) {
+
+            System.out.println("Jeg er her");
+
+            // creates a media object based on the file's URI
+            media = new Media(file.toURI().toString());
+            // creates a media player based on the media object
+            mediaPlayer = new MediaPlayer(media);
+            // prints a message if the file is found
+
+            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+
+        else {
+            // prints an error message if the file wasn't found
+            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        }
+
+        System.out.println("Seting display");
+        // associates the mediaPlayer with the mediaViewDisplay for content playback
+        mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+        beginTimer();
+
+        loadListenersMediaPlay();
+        loadListenersView();
+
+    }
+
 
 
     /**
@@ -268,7 +287,6 @@ public class HomeViewController implements Initializable {
             // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
             // volume (0.0 to 1.0)
 
-            System.out.println("[listener] volume value: "+volumeValue);
             volumeMedia(volumeValue);
         }
     }
@@ -304,9 +322,8 @@ public class HomeViewController implements Initializable {
         cancelTimer();
 
         cntQue++;
-        System.out.println("mediaNext count: "+cntQue);
 
-        loadMedia(cntQue);
+        loadMedia();
         mediaPlayer.play();
     }
 
@@ -327,22 +344,17 @@ public class HomeViewController implements Initializable {
 
             mediaObjQue.get(0);
 
-            System.out.println("count (før): " + cntQue);
-
-            loadMedia(cntQue);
+            loadMedia();
             mediaPlayer.play();
-
-            System.out.println("count (efter): " + cntQue);
-
         }
+
         else {
             mediaPlayer.stop();
             cancelTimer();
 
             cntQue--;
-            System.out.println("mediaPrevious count: " + cntQue);
 
-            loadMedia(cntQue);
+            loadMedia();
             mediaPlayer.play();
         }
     }
@@ -390,20 +402,18 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private void onSliderProgresMouseClick(){
-        mediaPlayer.pause();
+        pauseWithValidation();
     }
 
 
     private void sliderProgresOnDrag() {
-        mediaPlayer.pause();
-        System.out.println("pause");
+        pauseWithValidation();
     }
 
     private void sliderProgresMouseRelease() {
         cancelTimer();
 
         double newCurrentVal = sliderProgres.getValue();
-        System.out.println("track time før 0.01: " + newCurrentVal);
 
         int newSpot = (int) newCurrentVal;
 
@@ -413,7 +423,6 @@ public class HomeViewController implements Initializable {
         mediaPlayer.play();
 
         beginTimer();
-        System.out.println("YEAH!");
     }
 
 
@@ -428,7 +437,7 @@ public class HomeViewController implements Initializable {
     private Button btnSearch, btnPlaylist, btnDelete;
     public void switchToPlaylistView() {
 
-        mediaPlayer.pause();
+        pauseWithValidation();
 
         try {
             viewControler.switchToPlaylistScene();
@@ -439,7 +448,7 @@ public class HomeViewController implements Initializable {
 
     public void switchToSearchView() {
 
-        mediaPlayer.pause();
+        pauseWithValidation();
 
         try {
             viewControler.switchToSearchScene();
@@ -450,7 +459,7 @@ public class HomeViewController implements Initializable {
 
     public void switchToHomeView() {
 
-        mediaPlayer.pause();
+        pauseWithValidation();
 
         try {
             viewControler.switchToHomeScene();
@@ -494,14 +503,31 @@ public class HomeViewController implements Initializable {
         beginTimer();
 
         if (playSwitchStage) {
-            mediaPlayer.play();
-            updatePlayButtonImage(pauseImageURL);
+
+            playWithValidation();
+
         } else {
-            mediaPlayer.pause();
-            updatePlayButtonImage(playImageURL);
+            pauseWithValidation();
         }
 
         togglePlayState();
+    }
+
+    private void pauseWithValidation(){
+        try{
+            mediaPlayer.pause();
+            updatePlayButtonImage(playImageURL);
+         } catch (NullPointerException e){
+            System.out.println("No obj to pause");
+        }
+    }
+    private void playWithValidation(){
+        try{
+            mediaPlayer.play();
+            updatePlayButtonImage(pauseImageURL);
+        } catch (NullPointerException e){
+            System.out.println("No obj to play");
+        }
     }
 
     /**
@@ -591,7 +617,6 @@ public class HomeViewController implements Initializable {
      * Finally, toggles the mute stage for the next button click.
      */
     private void mediaMute() {
-    // VIRKER!
         if (mute) {
             // gets the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
@@ -633,7 +658,7 @@ public class HomeViewController implements Initializable {
      */
     public void updateMediaViewTitle() {
         mediaViewTitle.setVisible(true);
-        mediaViewTitle.setText("I need a dynamic Title"); //TODO I NEED A TITLE DUDE
+        mediaViewTitle.setText(mediaObjQue.get(cntQue).getMediaTitle()); //TODO I NEED A TITLE DUDE
         // Set the time duration for which the label should be visible (in seconds)
         double visibilityTimeInSeconds = 6.0;
 
