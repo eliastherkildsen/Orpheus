@@ -316,7 +316,12 @@ public class HomeViewController implements Initializable {
     private void onBtnPlayPauseClick(){
 
             mediaPlayPause();
-            updateMediaViewTitle();
+
+            try{
+               updateMediaViewTitle();
+            }catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+            }
     }
 
 
@@ -688,7 +693,7 @@ public class HomeViewController implements Initializable {
      */
     public void updateMediaViewTitle() {
         mediaViewTitle.setVisible(true);
-        mediaViewTitle.setText(mediaObjQue.get(cntQue).getMediaTitle()); //TODO I NEED A TITLE DUDE
+        mediaViewTitle.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle()); //TODO I NEED A TITLE DUDE
         // Set the time duration for which the label should be visible (in seconds)
         double visibilityTimeInSeconds = 6.0;
 
