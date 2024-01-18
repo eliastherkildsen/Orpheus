@@ -293,6 +293,7 @@ public class HomeViewController implements Initializable {
     }
 
 
+
     @FXML
     private void onBtnNextClick(){
         mediaNext();
