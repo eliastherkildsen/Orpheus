@@ -12,6 +12,8 @@ Furthermore the mediaplayer is able to display the video encoded in .mp4 files.
 ### Playlist view
 <img src="PlaylistView.png">
 
+### Home View
+<img src="img.png"/>
 to run the project simply follow the instructions in the `Installing and Usage` hedder. 
 
 ## Installing and Usage
