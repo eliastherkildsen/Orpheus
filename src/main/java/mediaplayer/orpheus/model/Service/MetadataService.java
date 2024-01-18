@@ -19,7 +19,7 @@ public class MetadataService {
     }
 
     public void mp3OrMp4() throws SQLException, IOException {
-        System.out.printf("%s[METADATA SERVICE] Deciding if Mp3 or Mp4%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA SERVICE]%s Deciding if Mp3 or Mp4%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
         FileHandlerMedia media = new FileHandlerMedia(filepath);
         setFiletype(media.mp3OrMp4());
         switch (filetype) {
@@ -33,7 +33,7 @@ public class MetadataService {
     }
 
     private void insertAndGatherMediaMp3() throws IOException, SQLException {
-        System.out.printf("%s[METADATA SERVICE] Mp3 Attempting to Insert into DB.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA SERVICE]%s Mp3 Attempting to Insert into DB.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
 
         MetaExtractorMp3 song = new MetaExtractorMp3(filepath);
         FileHandlerMedia soundString = new FileHandlerMedia(filepath);
@@ -43,11 +43,11 @@ public class MetadataService {
         DatabaseExtractorInsert newsong = new DatabaseExtractorInsert(media.getMediaTitle(),filetype, media.getAlbum(),media.getMediaYear(),media.getMediaTrack(),media.getTrackLength(),filepath);
         newsong.insertIntoDBNewMp3();
         //DEBUG LOGGING
-        System.out.printf("%s[METADATA SERVICE] Inserting MP3 into DB complete.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA SERVICE]%s Inserting MP3 into DB complete.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
     }
 
     private void insertAndGatherMediaMp4() throws SQLException, IOException {
-        System.out.printf("%s[METADATA SERVICE] Attempting to insert MP4 into DB.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA SERVICE]%s Attempting to insert MP4 into DB.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
         //Using Mp3 functions for now.
         MetaExtractorMp4 video = new MetaExtractorMp4(filepath);
 
@@ -58,7 +58,7 @@ public class MetadataService {
         DatabaseExtractorInsert videoIntoDb = new DatabaseExtractorInsert(media.getMediaTitle(), media.getFileType(), null, null, null, media.getTrackLength(), filepath);
         videoIntoDb.insertIntoDBNewMp3();
 
-        System.out.printf("%s[METADATA SERVICE] Inserting MP4 into DB complete.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA SERVICE]%s Inserting MP4 into DB complete.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
     }
 
     public String getFilepath() {

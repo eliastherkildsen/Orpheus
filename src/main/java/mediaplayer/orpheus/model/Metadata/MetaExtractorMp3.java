@@ -2,7 +2,6 @@ package mediaplayer.orpheus.model.Metadata;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +24,7 @@ public class MetaExtractorMp3 {
         setFilePath(filePath);
 
         //DEBUG LOGGING
-        System.out.printf("%s[METADATA] Object Created.%s%n" + filePath + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[METADATA MP3]%s Object Created.%s%n" + filePath + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
     }
 
     private AudioFile readAudioFile() throws IOException {
@@ -40,17 +39,17 @@ public class MetaExtractorMp3 {
     public String gatherMetaDataTitle() throws IOException {
         try {
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Getting Title.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Getting Title.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.TITLE), "")){
                 FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA] No Title found, using file name instead.%s%n" + newTitle.getFileNameWithoutExtension() + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s No Title found, using file name instead.%s%n" + newTitle.getFileNameWithoutExtension() + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
                 return newTitle.getFileNameWithoutExtension();
             }
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Title found.%s%n" + tag.getFirst(FieldKey.TITLE) + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Title found.%s%n" + tag.getFirst(FieldKey.TITLE) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             return tag.getFirst(FieldKey.TITLE);
         } catch (IOException e) {
             throw e;
@@ -61,14 +60,14 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Getting Artist.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Getting Artist.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             if (Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA] No Artist found returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s No Artist found returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             }
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Artist found.%s%n" + tag.getFirst(FieldKey.COMPOSER) + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Artist found.%s%n" + tag.getFirst(FieldKey.COMPOSER) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             return tag.getFirst(FieldKey.COMPOSER);
         } catch (IOException e) {
             throw e;
@@ -79,7 +78,7 @@ public class MetaExtractorMp3 {
         try {
             AudioFile audioFile = readAudioFile();
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Getting TrackLength in seconds.%s%n" + audioFile.getAudioHeader().getTrackLength() + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Getting TrackLength in seconds.%s%n" + audioFile.getAudioHeader().getTrackLength() + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             return audioFile.getAudioHeader().getTrackLength();
         } catch (IOException e) {
             throw e;
@@ -91,13 +90,13 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA] Getting Album name.%s%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Getting Album name.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             if (Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
-                System.out.printf("%s[METADATA] No Album fund returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s No Album fund returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             } else {
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA] Getting Album name.%s%n" + tag.getFirst(FieldKey.ALBUM) + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s Getting Album name.%s%n" + tag.getFirst(FieldKey.ALBUM) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
                 return tag.getFirst(FieldKey.ALBUM);
             }
         } catch (IOException e) {
@@ -110,11 +109,11 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
             if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
-                System.out.printf("%s[METADATA] No release year fund returning%s%nNULL%n", AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s No release year fund returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
                 return null;
             } else {
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA] Getting release year.%s%n" + tag.getFirst(FieldKey.YEAR) + "%n", AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                System.out.printf("%s[METADATA MP3]%s Getting release year.%s%n" + tag.getFirst(FieldKey.YEAR) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
                 return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
             }
         } catch (IOException e) {
