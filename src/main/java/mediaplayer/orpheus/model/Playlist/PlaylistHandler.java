@@ -191,8 +191,6 @@ public class PlaylistHandler {
                 emptyPlaylist.showWarning();
             }
 
-
-
         }catch (SQLException e){
             e.printStackTrace();
         }
