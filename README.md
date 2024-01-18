@@ -5,9 +5,9 @@
 #### dependencies. 
 `Java Database Connectivity` https://learn.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver16 <br>
 `Jthink` https://www.jthink.net/jaudiotagger/examples_id3.jsp <br>
-`Javafx-media-18-win.jar` https://repo1.maven.org/maven2/org/openjfx/javafx-media/18-ea+2/
+`Javafx-mediaObj-18-win.jar` https://repo1.maven.org/maven2/org/openjfx/javafx-mediaObj/18-ea+2/
 
-media reference:
+mediaObj reference:
 https://www.youtube.com/watch?v=eFjjO_lhf9c
 https://www.youtube.com/watch?v=ru0K8uYEZWw
 https://www.youtube.com/watch?v=ASfVIFUw20Y

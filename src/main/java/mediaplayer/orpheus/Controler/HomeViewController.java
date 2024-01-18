@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.io.IOException;
 import javafx.fxml.Initializable;
@@ -23,6 +22,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import mediaplayer.orpheus.model.Media.MediaUtil;
+import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
@@ -80,7 +80,7 @@ public class HomeViewController implements Initializable {
     private double currentTrackTime;
     private double currentSliderVol;
     private boolean mute = true;
-    public static ArrayList<mediaplayer.orpheus.model.Playlist.Media> mediaQue = new ArrayList<>();
+    public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
     public static int queCnt;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
 

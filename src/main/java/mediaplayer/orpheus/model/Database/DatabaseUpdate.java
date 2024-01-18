@@ -107,7 +107,7 @@ public class DatabaseUpdate {
                 .toString();
     }
     /**
-     * Setting the PersonId in relation to the Media
+     * Setting the PersonId in relation to the MediaObj
      * @param personId Int
      * @param mediaId Int
      * @return String query
@@ -122,7 +122,7 @@ public class DatabaseUpdate {
                 .toString();
     }
         /**
-     * Setting the genre in relation to the Media
+     * Setting the genre in relation to the MediaObj
      * @param genre Int
      * @param mediaId Int
      * @return String query

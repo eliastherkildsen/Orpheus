@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
+<?import javafx.scene.mediaObj.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20" minWidth="20" prefHeight="500" prefWidth="800" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">

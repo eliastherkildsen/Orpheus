@@ -7,7 +7,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
-import mediaplayer.orpheus.model.Playlist.Media;
+import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +24,7 @@ public class EditMediaViewController implements Initializable {
     private ChoiceBox cbArtist, cbGenre;
     @FXML
     private Label labMedia;
-    public static Media selectedMedia;
+    public static MediaObj selectedMediaObj;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("init");
@@ -100,26 +100,26 @@ public class EditMediaViewController implements Initializable {
 
         setMediaYear();
 
-        System.out.println("SELECTED MEDIA ID " + selectedMedia.getMediaID());
+        System.out.println("SELECTED MEDIA ID " + selectedMediaObj.getMediaID());
 
     }
     public void setMediaYear(){
-        fldYear.setText(selectedMedia.getMediaYear());
+        fldYear.setText(selectedMediaObj.getMediaYear());
     }
 
     private void setMediaArtist() {
-        presentItem(cbArtist, selectedMedia.getMediaArtist());
+        presentItem(cbArtist, selectedMediaObj.getMediaArtist());
     }
 
     private void setMediaTitleOnScene(){
-        labMedia.setText(selectedMedia.getMediaTitle());
+        labMedia.setText(selectedMediaObj.getMediaTitle());
     }
     private void setMediaTextField(){
-        fldMediaTitle.setText(selectedMedia.getMediaTitle());
+        fldMediaTitle.setText(selectedMediaObj.getMediaTitle());
     }
 
     private void setMediaGenre(){
-        presentItem(cbGenre, selectedMedia.getMediaGenre());
+        presentItem(cbGenre, selectedMediaObj.getMediaGenre());
     }
 
     private void loadGenre(){
@@ -140,18 +140,18 @@ public class EditMediaViewController implements Initializable {
 
         // set media genre.
         if (getSelectedItem(cbGenre) != null){
-            selectedMedia.setMediaGenre(getSelectedItem(cbGenre));
+            selectedMediaObj.setMediaGenre(getSelectedItem(cbGenre));
         }
 
         if (getSelectedItem(cbArtist) != null) {
-            selectedMedia.setMediaArtistName(getSelectedItem(cbArtist));
+            selectedMediaObj.setMediaArtistName(getSelectedItem(cbArtist));
         }
 
         // set year
-        selectedMedia.setMediaYear(fldYear.getText());
+        selectedMediaObj.setMediaYear(fldYear.getText());
 
         // set media title
-        selectedMedia.setMediaTitle(fldMediaTitle.getText());
+        selectedMediaObj.setMediaTitle(fldMediaTitle.getText());
 
     }
 

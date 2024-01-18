@@ -1,15 +1,13 @@
 package mediaplayer.orpheus.Controler;
 import  javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import mediaplayer.orpheus.OrpheusApp;
-import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.model.Playlist.Media;
+import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
@@ -17,7 +15,6 @@ import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -30,7 +27,7 @@ public class SearchViewController implements Initializable {
     @FXML
     private ListView<String> LWSearchResult;
     private final MediaSearch mediaSearch = new MediaSearch();
-    private ArrayList<Media> dataSet = new ArrayList<>();
+    private ArrayList<MediaObj> dataSet = new ArrayList<>();
     private ArrayList<String> playListNamesArr = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
     @FXML
@@ -95,11 +92,11 @@ public class SearchViewController implements Initializable {
         // clears the search LW  (list-view)
         clearListView();
 
-        // addes each Media obj. to the list view.
-        for (Media media : dataSet) {
+        // addes each MediaObj obj. to the list view.
+        for (MediaObj mediaObj : dataSet) {
             // formats the result.
             // adds the result to the search list.
-            LWSearchResult.getItems().add(media.getMediaTitle());
+            LWSearchResult.getItems().add(mediaObj.getMediaTitle());
         }
     }
 
@@ -154,7 +151,7 @@ public class SearchViewController implements Initializable {
     private void switchMedia() {
         // switches the filepath for the media view to the user selected filepath
         HomeViewController.mediaPath = dataSet.get(getSelectedItemIndex()).getMediaPath();
-        HomeViewController.mediaQue.add(dataSet.get(getSelectedItemIndex()));
+        HomeViewController.mediaObjQue.add(dataSet.get(getSelectedItemIndex()));
 
         switchToHomeView();
 
@@ -162,7 +159,7 @@ public class SearchViewController implements Initializable {
 
 
     /**
-     * method for deleting a Media in the database.
+     * method for deleting a MediaObj in the database.
      * @param itemIndex
      */
     private void deleteMedia(int itemIndex) {
@@ -215,7 +212,7 @@ public class SearchViewController implements Initializable {
     private void editMedia() {
         // get selected medias mediaID.
         if (getSelectedItemIndex()!= -1) {
-            EditMediaViewController.selectedMedia = dataSet.get(getSelectedItemIndex());
+            EditMediaViewController.selectedMediaObj = dataSet.get(getSelectedItemIndex());
             switchToEditView();
         }
 

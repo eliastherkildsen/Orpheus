@@ -3,13 +3,9 @@ package mediaplayer.orpheus.model.Playlist;
 import mediaplayer.orpheus.Controler.HomeViewController;
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
-import mediaplayer.orpheus.model.Database.JDBC;
-import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.util.AlertPopup;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class PlaylistHandler {
 
@@ -74,7 +70,6 @@ public class PlaylistHandler {
             pSTrackOrder = connection.prepareCall(DatabaseRead.getMaxTrackOrder(choiceBoxIndex));
             resultSetTrackOrder = pSTrackOrder.executeQuery();
 
-
             if(resultSetTrackOrder.next()){
                 int nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
                 String insertQuery = insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder);
@@ -83,7 +78,7 @@ public class PlaylistHandler {
                 pSInsertIntoPlaylist.executeUpdate();
 
                 AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
-                        , "Media has been added to " + choiceBoxIndex + ".");
+                        , "MediaObj has been added to " + choiceBoxIndex + ".");
                 alertPopupPlaylistAdded.showInformation();
 
             }
@@ -155,11 +150,11 @@ public class PlaylistHandler {
 
     private static void createMediaArray(String playlistName){
 
-        HomeViewController.mediaQue.clear();
+        HomeViewController.mediaObjQue.clear();
         HomeViewController.queCnt = 0;
 
 
-        //HomeViewController.mediaQue.add();
+        //HomeViewController.mediaObjQue.add();
 
     }
 

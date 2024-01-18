@@ -1,4 +1,4 @@
-package mediaplayer.orpheus.model.Playlist;
+package mediaplayer.orpheus.model.Media;
 
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Media {
+public class MediaObj {
 
     private int mediaID;
     private String mediaPath;
@@ -22,7 +22,7 @@ public class Media {
 
     private static final Connection connection = OrpheusApp.jdbc.getConnection();
 
-    public Media(int mediaID) throws SQLException {
+    public MediaObj(int mediaID) throws SQLException {
         this.mediaID = mediaID;
         this.imagePath = imagePath;
         generateObject(mediaID);
