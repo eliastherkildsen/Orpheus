@@ -1,9 +1,12 @@
 package mediaplayer.orpheus.model.Playlist;
 
+import javafx.scene.chart.PieChart;
 import mediaplayer.orpheus.Controler.HomeViewController;
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
+import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AlertPopup;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.sql.*;
 
@@ -64,6 +67,7 @@ public class PlaylistHandler {
         PreparedStatement pSTrackOrder;
         PreparedStatement pSInsertIntoPlaylist;
         ResultSet resultSetTrackOrder;
+        int nextTackOrder;
 
         try {
 
@@ -71,7 +75,8 @@ public class PlaylistHandler {
             resultSetTrackOrder = pSTrackOrder.executeQuery();
 
             if(resultSetTrackOrder.next()){
-                int nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
+
+                nextTackOrder = resultSetTrackOrder.getInt("fldTrackOrder") + 1;
                 String insertQuery = insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder);
 
                 pSInsertIntoPlaylist = connection.prepareCall(insertQuery);
@@ -81,8 +86,17 @@ public class PlaylistHandler {
                         , "MediaObj has been added to " + choiceBoxIndex + ".");
                 alertPopupPlaylistAdded.showInformation();
 
-            }
+            }else{
 
+                nextTackOrder = 1;
+                String insertQuery = insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder);
+                pSInsertIntoPlaylist = connection.prepareCall(insertQuery);
+                pSInsertIntoPlaylist.executeUpdate();
+
+                AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
+                        , "MediaObj has been added to " + choiceBoxIndex + ".");
+                alertPopupPlaylistAdded.showInformation();
+            }
 
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -148,13 +162,39 @@ public class PlaylistHandler {
 
     }
 
-    private static void createMediaArray(String playlistName){
+    public static void createMediaArray(String playlistName){
 
         HomeViewController.mediaObjQue.clear();
-        HomeViewController.queCnt = 0;
+        HomeViewController.cntQue = 0;
+
+        PreparedStatement psMediaID;
+        String query = DatabaseRead.getMediaIDFromPlaylistName(playlistName);
+        try{
+            psMediaID = connection.prepareCall(query);
+            ResultSet rsMediaID = psMediaID.executeQuery();
+
+            if(rsMediaID.next()){
+
+                while (rsMediaID.next()){
+                    int mediaIDFromResultset = rsMediaID.getInt("fldMediaID");
+                    HomeViewController.mediaObjQue.add(new MediaObj(mediaIDFromResultset));
+
+                }
 
 
-        //HomeViewController.mediaObjQue.add();
+
+            }else{
+
+                AlertPopup emptyPlaylist = new AlertPopup("Empty Playlist"
+                        , "The selected playlist is empty.\nAdd media to be able to listen to the playlist.");
+
+                emptyPlaylist.showWarning();
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
     }
 
