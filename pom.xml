@@ -54,6 +54,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>18.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.mp4parser</groupId>
+            <artifactId>isoparser</artifactId>
+            <version>1.9.27</version>
+        </dependency>
 
 
     </dependencies>
