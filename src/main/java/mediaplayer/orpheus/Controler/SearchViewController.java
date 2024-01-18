@@ -151,6 +151,7 @@ public class SearchViewController implements Initializable {
      */
     private void switchMedia() {
         // switches the filepath for the media view to the user selected filepath
+        HomeViewController.mediaObjQue.clear();
         HomeViewController.mediaPath = dataSet.get(getSelectedItemIndex()).getMediaPath();
         HomeViewController.mediaObjQue.add(dataSet.get(getSelectedItemIndex()));
 
