@@ -140,7 +140,7 @@ public class PlaylistViewController implements Initializable {
 
     public void onActionbtnPlayPlaylistClick(){
 
-        PlaylistHandler.createPlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+        PlaylistHandler.createMediaArray(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
 
     }
 
