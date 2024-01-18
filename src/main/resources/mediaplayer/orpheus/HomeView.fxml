@@ -168,9 +168,9 @@
          </children></HBox>
    </bottom>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <MediaView fx:id="mediaViewDisplay" fitHeight="800.0" fitWidth="1200.0">
+            <MediaView fx:id="mediaViewDisplay" fitHeight="410.0" fitWidth="700.0">
                <viewport>
                   <Rectangle2D />
                </viewport>
