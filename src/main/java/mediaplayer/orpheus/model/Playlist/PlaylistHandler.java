@@ -182,7 +182,6 @@ public class PlaylistHandler {
                 }
 
 
-
             }else{
 
                 AlertPopup emptyPlaylist = new AlertPopup("Empty Playlist"
@@ -195,6 +194,9 @@ public class PlaylistHandler {
             e.printStackTrace();
         }
 
+        for (MediaObj mediaObj : HomeViewController.mediaObjQue){
+            System.out.println(mediaObj.getMediaTitle());
+        }
 
     }
 

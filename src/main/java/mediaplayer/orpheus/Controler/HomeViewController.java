@@ -80,6 +80,8 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     private boolean mute = true;
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
+
+    public static int cntQueIni;
     public static int cntQue;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
     private boolean isInitialized = false;
@@ -95,31 +97,38 @@ public class HomeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (!isInitialized) {
+            int count = 0;
 
+            count ++;
+            System.out.println("!initalized entered: " + count);
             try {
                 mediaObjQue.add(new MediaObj(21));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
-            loadMedia();
+            loadMedia(cntQueIni);
 
-            cntQue++;
+
+            cntQueIni++;
             isInitialized = true;
 
             System.out.println("count (if): " + cntQue);
+
         }
         else {
-            loadMedia();
+            loadMedia(cntQue);
 
             cntQue++;
             System.out.println("count (else): " + cntQue);
         }
     }
 
-    private void loadMedia() {
+    private void loadMedia(int cnt) {
         // creates a file object based on the media path
-        file = new File(mediaObjQue.get(cntQue % mediaObjQue.size()).getMediaPath());
+        file = new File(mediaObjQue.get(cnt % mediaObjQue.size()).getMediaPath());
+
+        System.out.println("title: " + file);
 
         // checks if the file exists
         if (file.exists()) {
@@ -297,7 +306,7 @@ public class HomeViewController implements Initializable {
         cntQue++;
         System.out.println("mediaNext count: "+cntQue);
 
-        loadMedia();
+        loadMedia(cntQue);
         mediaPlayer.play();
     }
 
@@ -320,7 +329,7 @@ public class HomeViewController implements Initializable {
 
             System.out.println("count (før): " + cntQue);
 
-            loadMedia();
+            loadMedia(cntQue);
             mediaPlayer.play();
 
             System.out.println("count (efter): " + cntQue);
@@ -333,7 +342,7 @@ public class HomeViewController implements Initializable {
             cntQue--;
             System.out.println("mediaPrevious count: " + cntQue);
 
-            loadMedia();
+            loadMedia(cntQue);
             mediaPlayer.play();
         }
     }
