@@ -319,16 +319,18 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaNext() {
-        mediaPlayer.stop();
+        // mediaPlayer.stop();
+        stopWithValidation();
         cancelTimer();
 
         cntQue++;
 
         loadMedia();
-        mediaPlayer.play();
+
+        // mediaPlayer.play();
+        playSwitchStage = true;
+        onBtnPlayPauseClick();
     }
-
-
 
 
 
@@ -340,23 +342,33 @@ public class HomeViewController implements Initializable {
 
     private void mediaPrevious() {
         if (cntQue == 0) {
-            mediaPlayer.stop();
+            // mediaPlayer.stop();
+            stopWithValidation();
             cancelTimer();
 
             mediaObjQue.get(0);
 
             loadMedia();
-            mediaPlayer.play();
+
+            // mediaPlayer.play();
+            playSwitchStage = true;
+            onBtnPlayPauseClick();
+
         }
 
         else {
-            mediaPlayer.stop();
+            // mediaPlayer.stop();
+            stopWithValidation();
+
             cancelTimer();
 
             cntQue--;
 
             loadMedia();
-            mediaPlayer.play();
+
+            // mediaPlayer.play();
+            playSwitchStage = true;
+            onBtnPlayPauseClick();
         }
     }
 
@@ -512,6 +524,15 @@ public class HomeViewController implements Initializable {
         }
 
         togglePlayState();
+    }
+
+
+    private void stopWithValidation(){
+        try{
+            mediaPlayer.stop();
+        }catch (NullPointerException e){
+            System.out.printf("%s[HomeViewController][stopWithValidation] No media to stop%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
     }
 
     private void pauseWithValidation(){
