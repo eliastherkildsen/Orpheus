@@ -219,13 +219,15 @@ public class HomeViewController implements Initializable {
 
         FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
 
-        if (fileType.equals("mp3")){
-            // Skab ImageView-objektet
+        String type = fileType.mp3OrMp4();
+
+        if ("mp3".equalsIgnoreCase(type)){
             ImageView imageView = new ImageView();
 
-            // Indstil billedet fra filen
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
+            // "file:src/main/resources/css/images/audio-lines.png"
             imageView.setImage(image);
+
         }
         else {
             // associates the mediaPlayer with the mediaViewDisplay for content playback
