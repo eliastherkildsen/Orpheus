@@ -309,8 +309,9 @@ public class HomeViewController implements Initializable {
      */
     @FXML
     private void onBtnPlayPauseClick(){
-        mediaPlayPause();
-        updateMediaViewTitle();
+
+            mediaPlayPause();
+            updateMediaViewTitle();
     }
 
 
@@ -520,7 +521,7 @@ public class HomeViewController implements Initializable {
             mediaPlayer.pause();
             updatePlayButtonImage(playImageURL);
          } catch (NullPointerException e){
-            System.out.println("No obj to pause");
+            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
     }
     private void playWithValidation(){
@@ -528,7 +529,7 @@ public class HomeViewController implements Initializable {
             mediaPlayer.play();
             updatePlayButtonImage(pauseImageURL);
         } catch (NullPointerException e){
-            System.out.println("No obj to play");
+            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
     }
 
