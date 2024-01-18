@@ -45,7 +45,7 @@ public class FileChooser {
 
         // Trys to extract all the metadata from the file as it can
         try {
-            metadataHandler.insertAndGatherMediaMp3();
+            metadataHandler.mp3OrMp4();
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }

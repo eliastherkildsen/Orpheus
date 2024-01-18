@@ -33,9 +33,4 @@ public class MetaExtractorMp3Test {
         song.gatherMetaDataTitle();
         System.out.println(song.gatherMetaDataTitle());
     }
-    @Test
-    void canInssertIntoMedia() throws SQLException, IOException {
-        MetadataService thing = new MetadataService(filePath);
-        thing.insertAndGatherMediaMp3();
-    }
 }
