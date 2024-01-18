@@ -13,22 +13,6 @@ public class MediaSearch {
     // creating a JDBC connection
     private static final Connection connection = OrpheusApp.jdbc.getConnection();
 
-    public void deleteMediaFromDatabase(int mediaId){
-
-        PreparedStatement preparedStatement;
-        String quarry = deleteMediaQuarry(mediaId);
-
-        try {
-
-            preparedStatement = connection.prepareCall(quarry);
-            preparedStatement.executeUpdate();
-
-            System.out.printf("%s[DarabaseSearch][deleteMedia] media with %s as media id was deleted%s%n", AnsiColorCode.ANSI_YELLOW, mediaId, AnsiColorCode.ANSI_RESET);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     /**
      * Method executing a search in the database fields [tblMedia] & [tblPerson]
@@ -135,26 +119,5 @@ public class MediaSearch {
                 .toString();
 
     }
-
-    private String deleteMediaQuarry(int mediaID){
-
-
-        return new StringBuilder()
-                .append("DELETE FROM tblMediaGenre WHERE fldMediaID= ")
-                .append(mediaID)
-
-                .append("DELETE FROM tblMediaPerson WHERE fldMediaID= ")
-                .append(mediaID)
-
-                .append("DELETE FROM tblMediaPlaylist WHERE fldMediaID= ")
-                .append(mediaID)
-
-                .append("DELETE FROM tblMedia WHERE fldMediaID= ")
-                .append(mediaID)
-
-                .toString();
-
-    }
-
 
 }

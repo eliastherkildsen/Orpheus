@@ -40,7 +40,7 @@ public class PlaylistViewController implements Initializable {
     }
 
     private void loadListView() {
-
+        clearListViewDisplay();
         String query = DatabaseRead.getAllPlaylistNames();
 
         try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query)){
@@ -140,7 +140,8 @@ public class PlaylistViewController implements Initializable {
 
     public void onActionbtnPlayPlaylistClick(){
 
-        PlaylistHandler.createPlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+        PlaylistHandler.createMediaArray(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+        switchToHomeView();
 
     }
 

@@ -73,6 +73,23 @@ public class SceneController {
         stage.setScene(HomeView);
     }
 
+    public void switchToAddArtistView() throws IOException {
+        // Stores the path to the fxml file in a variable.
+        Parent root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/AddArtistView.fxml"));
+        // Creates a new scene, using the file path stored in root
+        Scene HomeView = new Scene(root);
+        // Sets the stage to the new scene
+        stage.setScene(HomeView);
+    }
+
+    public void switchToAddGenreView() throws IOException {
+        // Stores the path to the fxml file in a variable.
+        Parent root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/AddGenreView.fxml"));
+        // Creates a new scene, using the file path stored in root
+        Scene HomeView = new Scene(root);
+        // Sets the stage to the new scene
+        stage.setScene(HomeView);
+    }
 }
 
 

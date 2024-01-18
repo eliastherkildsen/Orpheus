@@ -27,6 +27,7 @@ import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -55,17 +56,18 @@ public class HomeViewController implements Initializable {
     private ImageView btnPlayPauseIcon;
     @FXML
     private ImageView btnMuteIcon;
+    @FXML
+    private ImageView imgThumbnail;
 
     public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-    public static int cntQue;
     private SceneController viewControler = new SceneController();
     private double heightOfScene;
     private double widthOfScene;
-    private static String playImageURL = "file:src/main/resources/css/images/play-circle.png";
-    private static String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
-    private static String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
-    private static String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
-    private static String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+    private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+    private String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
+    private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
+    private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
+    private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -77,8 +79,12 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     private boolean mute = true;
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
-    public static int queCnt;
+
+    public static int cntQueIni;
+    public static int cntQue;
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
+    private boolean isInitialized = false;
+
 
 
     /**
@@ -89,8 +95,39 @@ public class HomeViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!isInitialized) {
+            int count = 0;
+
+            count ++;
+            System.out.println("!initalized entered: " + count);
+            try {
+                mediaObjQue.add(new MediaObj(21));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            loadMedia(cntQueIni);
+
+
+            cntQueIni++;
+            isInitialized = true;
+
+            System.out.println("count (if): " + cntQue);
+
+        }
+        else {
+            loadMedia(cntQue);
+
+            cntQue++;
+            System.out.println("count (else): " + cntQue);
+        }
+    }
+
+    private void loadMedia(int cnt) {
         // creates a file object based on the media path
-        file = new File(mediaPath);
+        file = new File(mediaObjQue.get(cnt % mediaObjQue.size()).getMediaPath());
+
+        System.out.println("title: " + file);
 
         // checks if the file exists
         if (file.exists()) {
@@ -151,20 +188,7 @@ public class HomeViewController implements Initializable {
                 }
             }
         });
-
-
-
-
-
-
-        // HER HER HER HER HER HER HER HER !!!!!!!!!!!!!
-
-
-
-
-
     }
-
 
 
     /**
@@ -226,10 +250,15 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private void onSliderVolumeMouseClick(){
-        sliderVolumeClick();
+        mediaChangeVol();
     }
 
-    private void sliderVolumeClick() {
+    @FXML
+    private void onSliderVolumeMouseReleased(){
+        mediaChangeVol();
+    }
+
+    private void mediaChangeVol() {
         if (mute) {
             // gets the slider volume in %
             double volumeValue = sliderVolume.getValue();
@@ -245,11 +274,6 @@ public class HomeViewController implements Initializable {
     }
 
 
-    @FXML
-    private void onSliderVolumeMouseReleased(){
-       // sliderVolumeReleased();
-        sliderVolumeClick();
-    }
 
 
     @FXML
@@ -275,8 +299,19 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaNext() {
+        mediaPlayer.stop();
+        cancelTimer();
 
+        cntQue++;
+        System.out.println("mediaNext count: "+cntQue);
+
+        loadMedia(cntQue);
+        mediaPlayer.play();
     }
+
+
+
+
 
 
     @FXML
@@ -285,7 +320,30 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaPrevious() {
+        if (cntQue == 0) {
+            mediaPlayer.stop();
+            cancelTimer();
 
+            mediaObjQue.get(0);
+
+            System.out.println("count (før): " + cntQue);
+
+            loadMedia(cntQue);
+            mediaPlayer.play();
+
+            System.out.println("count (efter): " + cntQue);
+
+        }
+        else {
+            mediaPlayer.stop();
+            cancelTimer();
+
+            cntQue--;
+            System.out.println("mediaPrevious count: " + cntQue);
+
+            loadMedia(cntQue);
+            mediaPlayer.play();
+        }
     }
 
 
@@ -597,6 +655,19 @@ public class HomeViewController implements Initializable {
      */
     private void toggleMuteState() {
         mute = !mute;
+    }
+
+    /**
+     * Method for switching thumbnail in the homeview
+     * @param arrIndex
+     */
+    private void changethumbnail(int arrIndex){
+        //Gets the objects image path
+        String imagePath =  "file:" + mediaObjQue.get(arrIndex).getImagePath();
+        Image thumbnailImage = new Image(imagePath);
+
+        imgThumbnail.setImage(thumbnailImage);
+
     }
 
 }
