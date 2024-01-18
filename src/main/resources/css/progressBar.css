@@ -1,0 +1,14 @@
+/**
+Our Colours:
+Black   #343434
+Blueish #6CA6C1
+Grey    #969A96
+White   #F7FFF7
+ */
+
+
+
+.custom-slider .track {
+    -fx-background-color: linear-gradient(to right, #6CA6C1, #969A96) !important;
+}
+
