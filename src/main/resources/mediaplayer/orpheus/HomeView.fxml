@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.mediaObj.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.media.MediaView?>
 
 <BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20" minWidth="20" prefHeight="500" prefWidth="800" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
    <left>
@@ -157,7 +158,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Slider fx:id="sliderVolume" blockIncrement="5.0" onMouseClicked="#onSliderVolumeMouseClick" onMousePressed="#onSliderVolumeMousePressed" onMouseReleased="#onSliderVolumeMouseReleased" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
+                        <Slider fx:id="sliderVolume" blockIncrement="5.0" onMouseClicked="#onSliderVolumeMouseClick" onMouseReleased="#onSliderVolumeMouseReleased" styleClass="slider" stylesheets="@../../css/styles.css" value="15.0" />
                      </children>
                   </HBox>
                </children>
