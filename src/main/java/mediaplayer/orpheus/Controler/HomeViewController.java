@@ -24,6 +24,7 @@ import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.model.Media.MediaSkip;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -184,11 +185,9 @@ public class HomeViewController implements Initializable {
 
     private void loadMedia() throws FileNotFoundException {
 
-        System.out.println("Jeg loader");
+        System.out.printf("%s[HomeViewControl][loadMedia] Trying to load media%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         if (mediaObjQue.size() == 1){
-
-            // get media index 0
             file = new File(mediaObjQue.get(0).getMediaPath());
         }
 
@@ -198,10 +197,7 @@ public class HomeViewController implements Initializable {
             file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
         }
 
-        // checks if the file exists
         if (file.exists()) {
-
-            System.out.println("Jeg er her");
 
             // creates a media object based on the file's URI
             media = new Media(file.toURI().toString());
@@ -209,33 +205,28 @@ public class HomeViewController implements Initializable {
             mediaPlayer = new MediaPlayer(media);
             // prints a message if the file is found
 
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][loadMedia] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
         else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][loadMedia] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
 
 
 
 
-
-        System.out.println("Seting display");
+        System.out.printf("%s[HomeViewControl][loadMedia] Setting display...%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
-
         String type = fileType.mp3OrMp4();
-
-
 
         if ((type).equalsIgnoreCase("mp3")) {
 
             imageViewTN.setVisible(true);
 
-            // mediaObjQue.get(mediaArrIndex).getImagePath()
-            // "file:src/main/resources/css/images/audio-lines.png"
+            // TODO mediaObjQue.get(mediaArrIndex).getImagePath()
 
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
             imageViewTN.setImage(image);
@@ -244,26 +235,17 @@ public class HomeViewController implements Initializable {
 
         }
         else {
-            //imageView.setVisibility(View.INVISIBLE); // eller View.GONE
             imageViewTN.setVisible(false);
-
-            // associates the mediaPlayer with the mediaViewDisplay for content playback
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
             System.out.printf("%s[HomeViewController][load] selected media is a mp4, loading video.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
         }
 
-
         changeThumbnailAndImageLabels();
-
         beginTimer();
-
         loadListenersMediaPlay();
         loadListenersView();
-
     }
-
 
 
     /**
@@ -314,7 +296,7 @@ public class HomeViewController implements Initializable {
     /**
      *
      */
-    public void cancelTimer() {
+    private void cancelTimer() {
         if (timer != null) {
             timer.cancel();
         }
@@ -347,12 +329,8 @@ public class HomeViewController implements Initializable {
         }
     }
 
-
-
-
     @FXML
     public void onActionbtnImportClick(){
-
         FileChooser.fileChooser();
     }
 
@@ -380,15 +358,16 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaNext() throws FileNotFoundException {
-        // mediaPlayer.stop();
+
+        // handles stopping the media
         stopWithValidation();
         cancelTimer();
 
+        // loads next media
         cntQue++;
-
         loadMedia();
 
-        // mediaPlayer.play();
+        // plays the next media
         playSwitchStage = true;
         onBtnPlayPauseClick();
     }
@@ -402,38 +381,26 @@ public class HomeViewController implements Initializable {
     }
 
     private void mediaPrevious() throws FileNotFoundException {
+
+        // handles stopping the media
+        stopWithValidation();
+        cancelTimer();
+
         if (cntQue == 0) {
-            // mediaPlayer.stop();
-            stopWithValidation();
-            cancelTimer();
-
             mediaObjQue.get(0);
-
-            loadMedia();
-
-            // mediaPlayer.play();
-            playSwitchStage = true;
-            onBtnPlayPauseClick();
-
         }
 
         else {
-            // mediaPlayer.stop();
-            stopWithValidation();
-
-            cancelTimer();
-
             cntQue--;
-
-            loadMedia();
-
-            // mediaPlayer.play();
-            playSwitchStage = true;
-            onBtnPlayPauseClick();
         }
+
+        // loads next media
+        loadMedia();
+
+        // plays the next media
+        playSwitchStage = true;
+        onBtnPlayPauseClick();
     }
-
-
 
 
 
@@ -485,25 +452,18 @@ public class HomeViewController implements Initializable {
     }
 
     private void sliderProgresMouseRelease() {
+
         cancelTimer();
 
-        double newCurrentVal = sliderProgres.getValue();
+        // gets the now updated user selected media time
+        int selectedMediaTime = (int) sliderProgres.getValue();
 
-        int newSpot = (int) newCurrentVal;
-
-        updateCurrentTimeLabel(newSpot);
-
-        mediaPlayer.seek(Duration.seconds(newSpot));
+        updateCurrentTimeLabel(selectedMediaTime);
+        mediaPlayer.seek(Duration.seconds(selectedMediaTime));
         mediaPlayer.play();
 
         beginTimer();
     }
-
-
-
-
-
-
 
 
     //to handle stage-switch
@@ -573,11 +533,9 @@ public class HomeViewController implements Initializable {
     private void mediaPlayPause() {
 
         cancelTimer();
-
         beginTimer();
 
         if (playSwitchStage) {
-
             playWithValidation();
 
         } else {
@@ -587,7 +545,9 @@ public class HomeViewController implements Initializable {
         togglePlayState();
     }
 
-
+    /**
+     *
+     */
     private void stopWithValidation(){
         try{
             mediaPlayer.stop();
@@ -596,6 +556,10 @@ public class HomeViewController implements Initializable {
         }
     }
 
+
+    /**
+     *
+     */
     private void pauseWithValidation(){
         try{
             mediaPlayer.pause();
@@ -604,6 +568,11 @@ public class HomeViewController implements Initializable {
             System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
     }
+
+
+    /**
+     *
+     */
     private void playWithValidation(){
         try{
             mediaPlayer.play();
@@ -613,10 +582,11 @@ public class HomeViewController implements Initializable {
         }
     }
 
+
     /**
      * Method for updating the play/pause button image
      *
-     * @param imageURL
+     * @param imageURL button image
      */
     private void updatePlayButtonImage(String imageURL){
         Image image = new Image(imageURL);
@@ -633,26 +603,20 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for skipping media 15 seconds forward
-     * The method skip the media forward by 15 seconds and updates the current time label
+     * Method for skipping the media forward by 15 seconds and updates the current time label
      */
     private void mediaSkipForward() {
-        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-        // variable that determines the new track time after skipping forward by 15 seconds
-        int forwardTime;
 
-        if (currentTrackTime < media.getDuration().toSeconds() - 15) {
-            forwardTime = (int) currentTrackTime + 15;
-        }
-        else {
-            forwardTime = (int) media.getDuration().toSeconds();
-        }
+        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+        double mediaLength = media.getDuration().toSeconds();
+
+        int newTrackTime = MediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
 
         // updates the current time label with the new track time
-        updateCurrentTimeLabel(forwardTime);
+        updateCurrentTimeLabel(newTrackTime);
 
         // sets the media player to the new track time and continues playing
-        mediaPlayer.seek(Duration.seconds(forwardTime));
+        mediaPlayer.seek(Duration.seconds(newTrackTime));
         mediaPlayer.play();
     }
 
@@ -668,27 +632,19 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for skipping media 15 seconds backward
-     * The method skip the media backward by 15 seconds and updates the current time label
+     * Method for skipping the media backward by 15 seconds and updates the current time label
      */
     private void mediaSkipBackward() {
         currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-        // variable that determines the new track time after skipping backward by 15 seconds
-        int backwardTime;
+        double mediaLength = media.getDuration().toSeconds();
 
-        // checks if the current track time is greater than the first 14 seconds of the media
-        if (currentTrackTime > 14) {
-            backwardTime = (int) currentTrackTime - 15;
-        }
-        // if the current track time is less than 15 seconds (less than the skip backward time)
-        else {
-            backwardTime = (int) Duration.ZERO.toSeconds();
-        }
+        int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
 
-        updateCurrentTimeLabel(backwardTime);
+        // updates the current time label with the new track time
+        updateCurrentTimeLabel(newTrackTime);
 
         // sets the media player to the new track time and continues playing
-        mediaPlayer.seek(Duration.seconds(backwardTime));
+        mediaPlayer.seek(Duration.seconds(newTrackTime));
         mediaPlayer.play();
     }
 
@@ -703,8 +659,10 @@ public class HomeViewController implements Initializable {
         if (mute) {
             // gets the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
+
             // updates the slider value before setMute
             sliderVolume.setValue(0);
+
             mediaPlayer.setMute(true);
             updateMuteButtonImage(muteImageURL);
         }
