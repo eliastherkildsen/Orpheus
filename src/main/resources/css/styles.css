@@ -111,3 +111,20 @@ treansparent{
 .button {
     -fx-background-color: transparent; /* Valid hexadecimal value */
 }
+
+.choice-box {
+    -fx-background-radius: 10; /* Set the text-field background-radius */
+    -fx-background-color: #6CA6C1;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: white;
+    -fx-pref-width: 300;
+    -fx-mark-color: #969A96; /* Arrow color */
+}
+
+.choice-box .context-menu{
+    -fx-background-color: #343434;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #6CA6C1;
+}
