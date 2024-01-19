@@ -1,191 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.AddGenreController">
-   <left>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0">
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../css/images/home.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label text="Home" />
-
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../css/images/search.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="labSearch" alignment="CENTER" contentDisplay="CENTER" text="Search" textFill="WHITE" />
-
-            <Button fx:id="btnPlaylist" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
-            <graphic>
-               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../css/images/list-video.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </Button>
-            <Label fx:id="labPlaylist" text="Playlist" textFill="WHITE" />
-
-             <Button fx:id="btnImport" mnemonicParsing="false" onAction="#onActionbtnImportClick" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
-            <graphic>
-               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../css/images/file-up.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-             </Button>
-            <Label fx:id="labImport" text="Import" textFill="WHITE" />
-
-         </children></VBox>
-   </left>
-   <bottom>
-      <HBox prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0">
-               <children>
-                  <ImageView fx:id="imgThumbnail" fitHeight="92.0" fitWidth="92.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../../css/images/download.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin></ImageView>
-                  <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="81.0">
-                     <children>
-                        <Label fx:id="labMediaName" text="Media name" />
-                        <Label fx:id="labArtistName" text="Artist name" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox prefHeight="92.0" prefWidth="567.0" visible="false">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/shuffle.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/skip-back.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/step-back.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/play-circle.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/step-forward.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-
-                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
-                           <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../css/images/skip-forward.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                     <padding>
-                        <Insets right="160.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="labCurrentTime" text="Label" />
-                        <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
-                        <Label fx:id="labMediaLength" text="Label" />
-                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" />
-                        <Slider fx:id="sliderVolume" styleClass="slider" stylesheets="@../../css/styles.css" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children></HBox>
-   </bottom>
+<?import javafx.scene.control.TextField?>
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.AddGenreController">
+    <left>
+        <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnHome" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="0.0" prefWidth="150.0" text="Home" textFill="WHITE">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../css/images/home.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnSearch" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="0.0" prefWidth="150.0" text="Search" textFill="WHITE">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../css/images/search.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnPlaylist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToPlaylistView" prefHeight="0.0" prefWidth="150.0" text="Playlist" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../css/images/list-video.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnImport" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnImportClick" prefHeight="0.0" prefWidth="150.0" text="Import" textFill="WHITE">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../css/images/file-up.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <Pane maxHeight="-Infinity" prefHeight="2000" prefWidth="200.0" />
+            <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="110.0" prefWidth="80.0" />
+            </children>
+        </VBox>
+    </left>
+    <bottom>
+        <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-alignment: center;" styleClass="footer_colour" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnUpdate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Create" textFill="WHITE" />
+                <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
+            </children>
+        </HBox>
+    </bottom>
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="label" stylesheets="@../../css/EditMediaStyles.css" text="Create new genre">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding></Label>
-            <Label text="Genre" />
-            <TextField fx:id="fldGenre" alignment="TOP_LEFT" prefHeight="24.0" prefWidth="450.0" promptText="Genre name" styleClass="text-field" stylesheets="@../../css/EditMediaStyles.css">
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="535.0" text="Create New Genre" />
+            <TextField fx:id="fldGenre" prefHeight="22.0" prefWidth="538.0" promptText="Genre Name">
                <VBox.margin>
-                  <Insets left="200.0" right="200.0" top="20.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </TextField>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
-               <children>
-                  <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#onBtnUpdataClick" scaleX="1.3" scaleY="1.3" stylesheets="@../../css/styles.css" text="Create" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelClick" scaleX="1.3" scaleY="1.3" stylesheets="@../../css/styles.css" text="Cancel" textFill="WHITE" />
-               </children>
-            </HBox>
          </children>
       </VBox>
    </center>

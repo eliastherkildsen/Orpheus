@@ -54,7 +54,7 @@ public class AddGenreController {
     }
 
     @FXML
-    public void onBtnUpdataClick() {
+    public void onBtnUpdateClick() {
         addGenre();
     }
 
