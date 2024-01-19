@@ -52,13 +52,11 @@ public class HomeViewController implements Initializable {
     @FXML
     private MediaView mediaViewDisplay;
     @FXML
-    private ImageView imageViewTN;
-    @FXML
     private Slider sliderVolume, sliderProgres;
     @FXML
     private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
-    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail;
+    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, imageViewTN;
 
 
     private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
