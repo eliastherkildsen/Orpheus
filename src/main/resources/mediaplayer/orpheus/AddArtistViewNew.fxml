@@ -68,8 +68,8 @@
     <bottom>
         <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-alignment: center;" styleClass="footer_colour" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnUpdate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Create" textFill="WHITE" />
-                <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnCancel" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
+                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Update" textFill="WHITE" />
+                <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
             </children>
         </HBox>
     </bottom>
@@ -77,11 +77,48 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="80.0" prefWidth="535.0" text="Create New Genre" />
-            <TextField fx:id="fldGenre" prefHeight="22.0" prefWidth="538.0" promptText="Genre Name">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </TextField>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="267.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="275.0" text="First Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="275.0" text="Last Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="270.0" text="Artist Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="267.0">
+                     <children>
+                        <TextField fx:id="fldFirstName" prefHeight="22.0" prefWidth="538.0" promptText="First Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="fldLastName" prefHeight="22.0" prefWidth="538.0" promptText="Last Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="fldArtistName" prefHeight="22.0" prefWidth="538.0" promptText="Artist Name">
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
