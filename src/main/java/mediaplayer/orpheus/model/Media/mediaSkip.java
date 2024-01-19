@@ -2,7 +2,7 @@ package mediaplayer.orpheus.model.Media;
 
 import javafx.util.Duration;
 
-public class MediaSkip {
+public class mediaSkip {
 
     private static final int SKIP_BY_SECONDS = 15;
 
