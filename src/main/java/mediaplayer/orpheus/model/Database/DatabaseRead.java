@@ -1,5 +1,9 @@
 package mediaplayer.orpheus.model.Database;
 
+import javafx.beans.property.MapProperty;
+
+import java.nio.MappedByteBuffer;
+
 public class DatabaseRead {
     public static String getMediaIdFromTitle(String mediaTitle){
         return new StringBuilder()
@@ -98,6 +102,7 @@ public class DatabaseRead {
         return "SELECT DISTINCT fldArtistName FROM tblPerson";
     }
     public static String getMediaGenre(int mediaId){
+
         return new StringBuilder()
                 .append("SELECT DISTINCT mg.fldGenre")
                 .append(" FROM tblMedia m")
@@ -105,6 +110,7 @@ public class DatabaseRead {
                 .append(" WHERE mg.fldMediaID = ")
                 .append(mediaId)
                 .toString();
+
     }
     public static String getAllGenres (){
         return "SELECT * FROM tblGenre";
@@ -138,6 +144,16 @@ public class DatabaseRead {
         return new StringBuilder()
                 .append("SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = '")
                 .append(playlistName)
+                .append("'")
+                .toString();
+
+    }
+
+    public static String getMediaImagePathFromMediaID(int mediaID){
+
+        return new StringBuilder()
+                .append("SELECT fldImagePath FROM tblMedia WHERE fldMediaID = '")
+                .append(mediaID)
                 .append("'")
                 .toString();
 

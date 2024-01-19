@@ -61,6 +61,15 @@ public class DatabaseUpdate {
                 .append(mediaId)
                 .toString();
     }
+    public static String setMediaImagePath(String imagePath, int mediaId){
+        return new StringBuilder()
+                .append("UPDATE tblMedia")
+                .append(" SET fldImagePath = '")
+                .append(imagePath)
+                .append("' WHERE fldMediaID = ")
+                .append(mediaId)
+                .toString();
+    }
     public static String setFilePath(String filepath, int mediaId){
         return new StringBuilder()
                 .append("Update tblMedia")

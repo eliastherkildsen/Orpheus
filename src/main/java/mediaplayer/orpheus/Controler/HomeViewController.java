@@ -334,12 +334,8 @@ public class HomeViewController implements Initializable {
     private void onBtnPlayPauseClick(){
 
             mediaPlayPause();
+            updateMediaViewTitle();
 
-            try{
-               updateMediaViewTitle();
-            }catch (IndexOutOfBoundsException e){
-                e.printStackTrace();
-            }
     }
 
 
@@ -458,17 +454,20 @@ public class HomeViewController implements Initializable {
      */
     private void mediaPlayPause() {
 
-        cancelTimer();
-        beginTimer();
+        if (!mediaObjQue.isEmpty()){
+            cancelTimer();
+            beginTimer();
 
-        if (playSwitchStage) {
-            playWithValidation();
+            if (playSwitchStage) {
 
-        } else {
-            pauseWithValidation();
+                playWithValidation();
+
+            } else {
+                pauseWithValidation();
+            }
+
+            togglePlayState();
         }
-
-        togglePlayState();
     }
 
     /**
@@ -709,23 +708,26 @@ public class HomeViewController implements Initializable {
      * Then makes it disappear after X seconds.
      */
     public void updateMediaViewTitle() {
-        mediaViewTitle.setVisible(true);
-        mediaViewTitle.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle()); //TODO I NEED A TITLE DUDE
-        // Set the time duration for which the label should be visible (in seconds)
-        double visibilityTimeInSeconds = 6.0;
 
-        // Create a Timeline that hides the label after the specified duration
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
-                        Platform.runLater(() -> mediaViewTitle.setVisible(false));
-                    }
-                })
-        );
-        // Start the timeline
-        timeline.play();
+        if (!mediaObjQue.isEmpty()){
+            mediaViewTitle.setVisible(true);
+            mediaViewTitle.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
+            // Set the time duration for which the label should be visible (in seconds)
+            double visibilityTimeInSeconds = 6.0;
+
+            // Create a Timeline that hides the label after the specified duration
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
+                            Platform.runLater(() -> mediaViewTitle.setVisible(false));
+                        }
+                    })
+            );
+            // Start the timeline
+            timeline.play();
+        }
     }
 
 

@@ -11,6 +11,7 @@ import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -214,5 +215,11 @@ public class EditMediaViewController implements Initializable {
     @FXML
     public void onBtnAddArtistClick() {
         switchToAddArtistView();
+    }
+
+    @FXML
+    public void onActionbtnAddThumbnail(){
+        String imagePath = FileChooser.imageChooser();
+        selectedMediaObj.setMediaImagePath(imagePath);
     }
 }

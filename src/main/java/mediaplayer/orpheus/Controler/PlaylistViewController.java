@@ -141,7 +141,7 @@ public class PlaylistViewController implements Initializable {
     public void onActionbtnPlayPlaylistClick(){
 
         PlaylistHandler.createMediaArray(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
-
+        System.out.println("Hello o/");
         switchToHomeView();
 
     }
