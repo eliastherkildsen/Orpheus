@@ -26,6 +26,7 @@ treansparent{
 
 .button{
     -fx-background-color: in; /* Set the background color */
+    -fx-padding: 10px, 10px, 5px, 5px;
 }
 .button:hover {
     -fx-background-color: #978B67;
