@@ -41,6 +41,8 @@ import java.util.TimerTask;
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
+    private SceneController viewControler = new SceneController();
+
     @FXML
     public HBox hBoxButtons;
     @FXML
@@ -52,48 +54,41 @@ public class HomeViewController implements Initializable {
     @FXML
     private ImageView imageViewTN;
     @FXML
-    private Slider sliderVolume;
+    private Slider sliderVolume, sliderProgres;
     @FXML
-    private Slider sliderProgres;
+    private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
-    private Label labCurrentTime;
-    @FXML
-    private Label labMediaLength;
-    @FXML
-    private ImageView btnPlayPauseIcon;
-    @FXML
-    private ImageView btnMuteIcon;
-    @FXML
-    private ImageView imgThumbnail;
-    @FXML
-    private Label labMediaName;
-    @FXML
-    private Label labArtistName;
+    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail;
 
-    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-    private SceneController viewControler = new SceneController();
-    private double heightOfScene;
-    private double widthOfScene;
+
     private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
     private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
     private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+
+    private double heightOfScene;
+    private double widthOfScene;
+
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
-    private boolean playSwitchStage = true;
     private Timer timer;
     private TimerTask task;
+
     //laves om til int
     private double currentTrackTime;
     private double currentSliderVol;
-    private boolean mute = true;
-    public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
     public static int cntQue;
     private static int mediaArrIndex;
-    private  static final double ASPECT_RATIO = 16.0 / 9.0;
+
+    private boolean playSwitchStage = true;
+    private boolean mute = true;
     private boolean isInitialized = false;
+
+    public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
+
+    private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
 
