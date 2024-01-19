@@ -19,7 +19,6 @@ public class MediaObj {
     private int trackLength;
     private String imagePath = "src/main/resources/css/images/audio-lines.png";
 
-    private static final Connection connection = OrpheusApp.jdbc.getConnection();
 
     public MediaObj(int mediaID) throws SQLException {
         this.mediaID = mediaID;
@@ -140,24 +139,6 @@ public class MediaObj {
         try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
             while (resultSet.next()) {
                 return resultSet.getString("fldGenre");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
-    /**
-     * Method for getting the artist name from the database
-     * @return Returns the artist name
-     */
-    private String loadArtistName(){
-
-        String quary = DatabaseRead.getMediaArtistArtName(mediaID);
-
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
-            while (resultSet.next()) {
-                return resultSet.getString("fldArtistName");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
