@@ -41,7 +41,7 @@ public class FileChooser {
     private static void processSelectedFile(File file){
         String mediaPath = file.getAbsolutePath();
         // Debug line
-        System.out.printf("%s[File Chooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[File Chooser][processSelectedFile] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         MetadataService metadataHandler = new MetadataService(mediaPath);
 
@@ -73,10 +73,12 @@ public class FileChooser {
 
         // Checks if a valid file has been chosen
         try{
+            // Debug line
+            System.out.printf("%s[File Chooser][imageChooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             return file.toString();
         }catch (NullPointerException e){
             // Debug line
-            System.out.printf("%s[File Chooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[File Chooser][imageChooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
         return null;
     }
