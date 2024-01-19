@@ -77,73 +77,73 @@
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="labMedia" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="535.0" text="No selected Object">
+                  <Label fx:id="labMedia" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="450.0" text="No selected Object">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="230.0" prefWidth="535.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <VBox prefHeight="126.0" prefWidth="92.0">
+                  <HBox prefHeight="30.0" prefWidth="200.0">
                      <children>
-                        <Label prefHeight="37.0" prefWidth="275.0" text="Media Title">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="37.0" prefWidth="275.0" text="Artist">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="37.0" prefWidth="270.0" text="Genre">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label layoutX="10.0" layoutY="84.0" prefHeight="37.0" prefWidth="270.0" text="Year">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="37.0" prefWidth="270.0" text="Add Thumbnail">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="141.0" prefWidth="267.0">
-                     <children>
+                        <Label prefHeight="20.0" prefWidth="80.0" text="Media Title" />
                         <TextField fx:id="fldMediaTitle" prefHeight="20.0" prefWidth="300.0" promptText="Title">
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
                         </TextField>
-                        <ChoiceBox fx:id="cbArtist" prefHeight="22.0" prefWidth="279.0">
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="30.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="80.0" text="Artist" />
+                        <ChoiceBox fx:id="cbArtist" prefHeight="20.0" prefWidth="279.0">
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
                         </ChoiceBox>
-                        <ChoiceBox fx:id="cbGenre" prefWidth="150.0">
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="230.0" prefWidth="535.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="90.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="270.0" text="Genre">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="84.0" prefHeight="20.0" prefWidth="270.0" text="Year">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label prefHeight="20.0" prefWidth="270.0" text="Add Thumbnail" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="300.0">
+                     <children>
+                        <ChoiceBox fx:id="cbGenre" prefHeight="20.0" prefWidth="150.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
+                              <Insets bottom="5.0" />
                            </VBox.margin>
                         </ChoiceBox>
-                        <TextField fx:id="fldYear" layoutX="10.0" layoutY="94.0" prefHeight="22.0" prefWidth="300.0" promptText="Year">
+                        <TextField fx:id="fldYear" layoutX="10.0" layoutY="94.0" prefHeight="20.0" prefWidth="300.0" promptText="Year">
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </TextField>
-                        <Button fx:id="btnAddThumbNail" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddThumbnail" prefHeight="0.0" prefWidth="150.0" textFill="WHITE">
+                        <Button fx:id="btnAddThumbNail" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddThumbnail" prefHeight="20.0" prefWidth="150.0" textFill="WHITE">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -157,7 +157,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="20.0">
                      <children>
                         <Pane prefHeight="35.0" prefWidth="20.0" />
                         <Button fx:id="btnAddArtist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnAddArtistClick" prefHeight="0.0" prefWidth="150.0" textFill="WHITE">
@@ -192,4 +192,7 @@
          </children>
       </VBox>
    </center>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="85.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
