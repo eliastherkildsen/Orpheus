@@ -49,6 +49,8 @@ public class HomeViewController implements Initializable {
     @FXML
     private MediaView mediaViewDisplay;
     @FXML
+    private ImageView imageViewTN;
+    @FXML
     private Slider sliderVolume;
     @FXML
     private Slider sliderProgres;
@@ -215,23 +217,41 @@ public class HomeViewController implements Initializable {
             System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
+
+
+
+
+
         System.out.println("Seting display");
 
         FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
 
         String type = fileType.mp3OrMp4();
 
-        if ("mp3".equalsIgnoreCase(type)){
-            ImageView imageView = new ImageView();
+
+
+        if ((type).equalsIgnoreCase("mp3")) {
+
+            imageViewTN.setVisible(true);
+
+            // mediaObjQue.get(mediaArrIndex).getImagePath()
+            // "file:src/main/resources/css/images/audio-lines.png"
 
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
-            // "file:src/main/resources/css/images/audio-lines.png"
-            imageView.setImage(image);
+            imageViewTN.setImage(image);
+
+            System.out.printf("%s[HomeViewController][load] selected media is a mp3, loading thumbnail.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         }
         else {
+            //imageView.setVisibility(View.INVISIBLE); // eller View.GONE
+            imageViewTN.setVisible(false);
+
             // associates the mediaPlayer with the mediaViewDisplay for content playback
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
+
+            System.out.printf("%s[HomeViewController][load] selected media is a mp4, loading video.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
         }
 
 
