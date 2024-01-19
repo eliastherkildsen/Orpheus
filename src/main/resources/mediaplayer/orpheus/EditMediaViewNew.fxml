@@ -69,8 +69,8 @@
     <bottom>
         <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-alignment: center;" styleClass="footer_colour" BorderPane.alignment="CENTER">
             <children>
-                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Update" textFill="WHITE" />
-                <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
+                <Button fx:id="btnUpdate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#btnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Update" textFill="WHITE" />
+                <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbtnCancelClick" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
             </children>
         </HBox>
     </bottom>
@@ -84,7 +84,7 @@
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="535.0" text="No selected Object">
+                  <Label fx:id="labMedia" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="535.0" text="No selected Object">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -124,7 +124,7 @@
                   </VBox>
                   <VBox prefHeight="141.0" prefWidth="267.0">
                      <children>
-                        <TextField fx:id="fldFirstName" prefHeight="22.0" prefWidth="300.0" promptText="Title">
+                        <TextField fx:id="fldMediaTitle" prefHeight="22.0" prefWidth="300.0" promptText="Title">
                            <padding>
                               <Insets bottom="15.0" top="10.0" />
                            </padding>
@@ -132,7 +132,7 @@
                               <Insets bottom="5.0" />
                            </opaqueInsets>
                         </TextField>
-                        <ChoiceBox prefHeight="22.0" prefWidth="279.0">
+                        <ChoiceBox fx:id="cbArtist" prefHeight="22.0" prefWidth="279.0">
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
@@ -140,7 +140,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </ChoiceBox>
-                        <ChoiceBox prefWidth="150.0">
+                        <ChoiceBox fx:id="cbGenre" prefWidth="150.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -148,7 +148,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </ChoiceBox>
-                        <TextField fx:id="fldArtistName1" layoutX="10.0" layoutY="94.0" prefHeight="22.0" prefWidth="300.0" promptText="Year">
+                        <TextField fx:id="fldYear" layoutX="10.0" layoutY="94.0" prefHeight="22.0" prefWidth="300.0" promptText="Year">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
@@ -156,7 +156,7 @@
                               <Insets bottom="5.0" />
                            </opaqueInsets>
                         </TextField>
-                        <Button fx:id="btnHome111" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="0.0" prefWidth="150.0" text="Home" textFill="WHITE">
+                        <Button fx:id="btnAddThumbNail" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionAddThumbNail" prefHeight="0.0" prefWidth="150.0" textFill="WHITE">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -173,7 +173,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Pane prefHeight="35.0" prefWidth="20.0" />
-                        <Button fx:id="btnHome1" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="0.0" prefWidth="150.0" text="Home" textFill="WHITE">
+                        <Button fx:id="btnAddArtist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onbtnAddArtistClick" prefHeight="0.0" prefWidth="150.0" textFill="WHITE">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -185,7 +185,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnHome11" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="0.0" prefWidth="150.0" text="Home" textFill="WHITE">
+                        <Button fx:id="btnAddGenre" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnAddGenreClick" prefHeight="0.0" prefWidth="150.0" textFill="WHITE">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
