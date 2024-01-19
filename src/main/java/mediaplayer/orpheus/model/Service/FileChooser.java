@@ -1,7 +1,6 @@
 package mediaplayer.orpheus.model.Service;
 
 import javafx.stage.Stage;
-import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.io.File;
@@ -22,7 +21,7 @@ public class FileChooser {
         javafx.stage.FileChooser.ExtensionFilter extensionFilter = new javafx.stage.FileChooser.ExtensionFilter("mp4 files", "*.mp4", "*.mp3");
         // Adds extension filter to the fil chooser
         fileChooser.getExtensionFilters().add(extensionFilter);
-
+        // Opens the fil choosers dialog and if any file is selected then set file to that
         File file = fileChooser.showOpenDialog(fileStage);
 
         // Checks if a valid file has been chosen
@@ -42,7 +41,7 @@ public class FileChooser {
     private static void processSelectedFile(File file){
         String mediaPath = file.getAbsolutePath();
         // Debug line
-        System.out.printf("%s[File Chooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[File Chooser][processSelectedFile] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         MetadataService metadataHandler = new MetadataService(mediaPath);
 
@@ -56,6 +55,10 @@ public class FileChooser {
         }
     }
 
+    /**
+     * Method for choosing an image path for thumbnail
+     * @return This is the file path for the selected image
+     */
     public static String imageChooser(){
 
         Stage imageStage = new Stage();
@@ -65,15 +68,17 @@ public class FileChooser {
         // Makes a filter for the FileChooser, so when using FileChooser file explore only shows mp3 and mp4 files
         javafx.stage.FileChooser.ExtensionFilter extensionFilter = new javafx.stage.FileChooser.ExtensionFilter("PNG files", "*.png");
         imageChooser.getExtensionFilters().add(extensionFilter);
-
+        // Opens the image choosers dialog and if any file is chosen set that to file
         File file = imageChooser.showOpenDialog(imageStage);
 
         // Checks if a valid file has been chosen
         try{
+            // Debug line
+            System.out.printf("%s[File Chooser][imageChooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             return file.toString();
         }catch (NullPointerException e){
             // Debug line
-            System.out.printf("%s[File Chooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[File Chooser][imageChooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
         return null;
     }

@@ -1,12 +1,11 @@
 package mediaplayer.orpheus.model.Playlist;
 
-import javafx.scene.chart.PieChart;
 import mediaplayer.orpheus.Controler.HomeViewController;
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AlertPopup;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
 
@@ -21,7 +20,7 @@ public class PlaylistHandler {
     public static void createPlaylist(String playListName){
 
         // Checks if there is anything entered
-        if(!PlaylistVerify.emptyPlaylistName(playListName)){
+        if(playListName.isEmpty()){
             // Error popup to tell the user what is wrong
             AlertPopup alertPopupNoName = new AlertPopup("Name text is empty"
                     , "Please enter another name for the playlist.");
@@ -31,7 +30,7 @@ public class PlaylistHandler {
 
             PreparedStatement preparedStatement;
             String query = insertQuery(playListName);
-            // Tries execute the prepared statement
+            // Tries to execute the prepared statement
             try{
 
                 preparedStatement = connection.prepareCall(query);
@@ -40,10 +39,12 @@ public class PlaylistHandler {
                 AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
                         , "Playlist has been created.");
                 alertPopupPlaylistAdded.showInformation();
+                System.out.printf("%s[PlaylistHandler][createPlaylist] Playlist has been created%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
 
             } catch (SQLException e){
 
-                throw new RuntimeException(e);
+                System.out.printf("%s[PlaylistHandler][createPlaylist] Could not add the playlist%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
             }
 
@@ -109,9 +110,12 @@ public class PlaylistHandler {
             pSInsertIntoPlaylist.executeUpdate();
             // Information popup to tell the user that the media has been added
             alertPopupPlaylistAdded.showInformation();
+            System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Media has been added to the playlist%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
 
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Could not add media to the playlist%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+
         }
 
 
@@ -159,9 +163,13 @@ public class PlaylistHandler {
             // Executes the queries
             psDeleteFromMediaPlaylist.executeUpdate();
             psDeleteFromPlaylist.executeUpdate();
+            System.out.printf("%s[PlaylistHandler][deletePlaylist] Playlist has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
 
-        }catch (SQLException e) {throw new RuntimeException(e);}
+        }catch (SQLException e) {
+            System.out.printf("%s[PlaylistHandler][deletePlaylist] Could not delete the playlist%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+
+        }
 
     }
 
@@ -228,17 +236,16 @@ public class PlaylistHandler {
                         , "The selected playlist is empty.\nAdd media to be able to listen to the playlist.");
 
                 emptyPlaylist.showWarning();
+
+                System.out.printf("%s[PlaylistHandler][createMediaArray] Media Queue is empty%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+
             }
 
         }catch (SQLException e){
             e.printStackTrace();
         }
 
-
-        System.out.println("size a: " + HomeViewController.mediaObjQue.size());
-        for (MediaObj mediaObj : HomeViewController.mediaObjQue){
-            System.out.println(mediaObj.getMediaTitle());
-        }
+        System.out.printf("%s[PlaylistHandler][createMediaArray] Media Queue has been created%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
     }
 

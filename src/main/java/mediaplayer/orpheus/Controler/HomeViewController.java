@@ -24,6 +24,7 @@ import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.model.Media.MediaSkip;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -40,6 +41,8 @@ import java.util.TimerTask;
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
 
+    private SceneController viewControler = new SceneController();
+
     @FXML
     public HBox hBoxButtons;
     @FXML
@@ -51,48 +54,41 @@ public class HomeViewController implements Initializable {
     @FXML
     private ImageView imageViewTN;
     @FXML
-    private Slider sliderVolume;
+    private Slider sliderVolume, sliderProgres;
     @FXML
-    private Slider sliderProgres;
+    private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
-    private Label labCurrentTime;
-    @FXML
-    private Label labMediaLength;
-    @FXML
-    private ImageView btnPlayPauseIcon;
-    @FXML
-    private ImageView btnMuteIcon;
-    @FXML
-    private ImageView imgThumbnail;
-    @FXML
-    private Label labMediaName;
-    @FXML
-    private Label labArtistName;
+    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail;
 
-    public static String mediaPath = "src/main/java/mediaplayer/orpheus/mediaFiles/CAN T STOP THE FEELING! (from DreamWorks Animation s  TROLLS ) (Official Video).mp4";
-    private SceneController viewControler = new SceneController();
-    private double heightOfScene;
-    private double widthOfScene;
+
     private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
     private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
     private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+
+    private double heightOfScene;
+    private double widthOfScene;
+
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
-    private boolean playSwitchStage = true;
     private Timer timer;
     private TimerTask task;
+
     //laves om til int
     private double currentTrackTime;
     private double currentSliderVol;
-    private boolean mute = true;
-    public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
     public static int cntQue;
     private static int mediaArrIndex;
-    private  static final double ASPECT_RATIO = 16.0 / 9.0;
+
+    private boolean playSwitchStage = true;
+    private boolean mute = true;
     private boolean isInitialized = false;
+
+    public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
+
+    private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
 
 
@@ -119,6 +115,7 @@ public class HomeViewController implements Initializable {
 
             try {
                 loadMedia();
+
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -150,6 +147,8 @@ public class HomeViewController implements Initializable {
                 }
             }
         });
+
+
     }
 
     private void loadListenersView() {
@@ -184,11 +183,9 @@ public class HomeViewController implements Initializable {
 
     private void loadMedia() throws FileNotFoundException {
 
-        System.out.println("Jeg loader");
+        System.out.printf("%s[HomeViewControl][loadMedia] Trying to load media%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         if (mediaObjQue.size() == 1){
-
-            // get media index 0
             file = new File(mediaObjQue.get(0).getMediaPath());
         }
 
@@ -198,44 +195,48 @@ public class HomeViewController implements Initializable {
             file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
         }
 
-        // checks if the file exists
         if (file.exists()) {
-
-            System.out.println("Jeg er her");
 
             // creates a media object based on the file's URI
             media = new Media(file.toURI().toString());
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
-            // prints a message if the file is found
 
-            System.out.printf("%s[HomeViewControl][initialize] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            //
+            mediaPlayer.setOnEndOfMedia(() -> {
+                try {
+                    cancelTimer();
+                    mediaNext();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            // prints a message if the file is found
+            System.out.printf("%s[HomeViewControl][loadMedia] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
         else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][initialize] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[HomeViewControl][loadMedia] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
 
 
 
 
-
-        System.out.println("Seting display");
+        System.out.printf("%s[HomeViewControl][loadMedia] Setting display...%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
-
         String type = fileType.mp3OrMp4();
-
-
 
         if ((type).equalsIgnoreCase("mp3")) {
 
             imageViewTN.setVisible(true);
 
-            // mediaObjQue.get(mediaArrIndex).getImagePath()
-            // "file:src/main/resources/css/images/audio-lines.png"
+            // TODO - new Image(mediaImagePath);
+            // gets the objects image path
+            // String mediaImagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
 
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
             imageViewTN.setImage(image);
@@ -244,27 +245,19 @@ public class HomeViewController implements Initializable {
 
         }
         else {
-            //imageView.setVisibility(View.INVISIBLE); // eller View.GONE
             imageViewTN.setVisible(false);
-
-            // associates the mediaPlayer with the mediaViewDisplay for content playback
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
             System.out.printf("%s[HomeViewController][load] selected media is a mp4, loading video.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
         }
 
-
         changeThumbnailAndImageLabels();
-        System.out.println("After change");
         beginTimer();
-        System.out.println("After begin timer");
         loadListenersMediaPlay();
-        System.out.println("after load listener media");
         loadListenersView();
 
+        //mediaNext();
     }
-
 
 
     /**
@@ -307,15 +300,14 @@ public class HomeViewController implements Initializable {
         };
 
         // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
-        timer.scheduleAtFixedRate(task, 1000, 1000);
+        timer.scheduleAtFixedRate(task, 100, 1000);
     }
-
 
 
     /**
      *
      */
-    public void cancelTimer() {
+    private void cancelTimer() {
         if (timer != null) {
             timer.cancel();
         }
@@ -323,37 +315,29 @@ public class HomeViewController implements Initializable {
     }
 
 
-
+    /**
+     * Method that handles "click with mouse" event for the volume slider.
+     */
     @FXML
     private void onSliderVolumeMouseClick(){
         mediaChangeVol();
     }
 
+
+    /**
+     * Method that handles "mouse released" event for the volume slider.
+     */
     @FXML
     private void onSliderVolumeMouseReleased(){
         mediaChangeVol();
     }
 
-    private void mediaChangeVol() {
-        if (mute) {
-            // gets the slider volume in %
-            double volumeValue = sliderVolume.getValue();
 
-            // sets the volume on mediaPlayer based on the volume slider's value
-            mediaPlayer.setVolume(volumeValue * 0.01);
-            // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
-            // volume (0.0 to 1.0)
-
-            volumeMedia(volumeValue);
-        }
-    }
-
-
-
-
+    /**
+     * Method that handles the button click event for the import button.
+     */
     @FXML
     public void onActionbtnImportClick(){
-
         FileChooser.fileChooser();
     }
 
@@ -370,68 +354,23 @@ public class HomeViewController implements Initializable {
     }
 
 
-
+    /**
+     * Method that handles the button click event for the next button.
+     */
     @FXML
     private void onBtnNextClick() throws FileNotFoundException {
         mediaNext();
     }
 
-    private void mediaNext() throws FileNotFoundException {
-        // mediaPlayer.stop();
-        stopWithValidation();
-        cancelTimer();
 
-        cntQue++;
-
-        loadMedia();
-
-        // mediaPlayer.play();
-        playSwitchStage = true;
-        onBtnPlayPauseClick();
-    }
-
-
-
-
+    /**
+     *
+     * @throws FileNotFoundException
+     */
     @FXML
     private void onBtnPreviousClick() throws FileNotFoundException {
         mediaPrevious();
     }
-
-    private void mediaPrevious() throws FileNotFoundException {
-        if (cntQue == 0) {
-            // mediaPlayer.stop();
-            stopWithValidation();
-            cancelTimer();
-
-            mediaObjQue.get(0);
-
-            loadMedia();
-
-            // mediaPlayer.play();
-            playSwitchStage = true;
-            onBtnPlayPauseClick();
-
-        }
-
-        else {
-            // mediaPlayer.stop();
-            stopWithValidation();
-
-            cancelTimer();
-
-            cntQue--;
-
-            loadMedia();
-
-            // mediaPlayer.play();
-            playSwitchStage = true;
-            onBtnPlayPauseClick();
-        }
-    }
-
-
-
 
 
     /**
@@ -452,7 +391,6 @@ public class HomeViewController implements Initializable {
     }
 
 
-
     /**
      * Method that handles the button click event for toggling volume mute
      */
@@ -461,45 +399,442 @@ public class HomeViewController implements Initializable {
         mediaMute();
     }
 
+
+    /**
+     * Method that handles "mouse pressed" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMousePressed() {
         sliderProgresOnDrag();
     }
 
+
+    /**
+     * Method that handles "mouse released" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMouseReleased() {
         Platform.runLater(() -> sliderProgresMouseRelease());
     }
 
+
+    /**
+     * Method that handles "click with mouse" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMouseClick(){
         pauseWithValidation();
     }
 
 
+
+
+    // Associated methods for button click events
+
+    private void mediaChangeVol() {
+
+        if (!mediaObjQue.isEmpty()){
+            if (mute) {
+                // gets the slider volume in %
+                double volumeValue = sliderVolume.getValue();
+
+                // sets the volume on mediaPlayer based on the volume slider's value
+                mediaPlayer.setVolume(volumeValue * 0.01);
+                // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
+                // volume (0.0 to 1.0)
+
+                volumeMedia(volumeValue);
+            }
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaChangeVol] No media to change volume on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     * Method that updates the mute button image based on the volume slider's value (in percentage - from 0 to 100 %)
+     * @param volumeValue
+     */
+    private void volumeMedia(double volumeValue) {
+
+        if (volumeValue == 0){
+            updateMuteButtonImage(muteImageURL);
+        } else if (volumeValue > 0 && volumeValue < 50) {
+            updateMuteButtonImage(soundStepOneImageURL);
+        }
+        else {
+            updateMuteButtonImage(soundStepTwoImageURL);
+        }
+    }
+
+    /**
+     * Method for playing/pausing media
+     * The method starts a timer, plays or pauses the media based on the current state,
+     * and updates the play button icon accordingly.
+     * Finally, toggles the playSwitchStage for the next button click.
+     */
+    private void mediaPlayPause() {
+
+        if (!mediaObjQue.isEmpty()){
+            cancelTimer();
+            beginTimer();
+
+            if (playSwitchStage) {
+
+                playWithValidation();
+
+            } else {
+                pauseWithValidation();
+            }
+
+            togglePlayState();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaPlayPause] No media to play or pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void stopWithValidation(){
+        try{
+            mediaPlayer.stop();
+        }catch (NullPointerException e){
+            System.out.printf("%s[HomeViewController][stopWithValidation] No media to stop%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void pauseWithValidation(){
+        try{
+            mediaPlayer.pause();
+            updatePlayButtonImage(playImageURL);
+
+            System.out.printf("%s[HomeViewControl][pauseWithValidation] Media is paused%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
+         } catch (NullPointerException e){
+            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void playWithValidation(){
+        try{
+            mediaPlayer.play();
+            updatePlayButtonImage(pauseImageURL);
+
+            System.out.printf("%s[HomeViewControl][playWithValidation] Media plays%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
+        } catch (NullPointerException e){
+            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     *
+     * @throws FileNotFoundException
+     */
+    private void mediaNext() throws FileNotFoundException {
+        if (!mediaObjQue.isEmpty()){
+
+            // handles stopping the media
+            cancelTimer();
+            stopWithValidation();
+
+            // loads next media
+            cntQue++;
+            loadMedia();
+
+            // plays the next media
+            playSwitchStage = true;
+            onBtnPlayPauseClick();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaNext] No media to skip%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     * Method for updating the play/pause button image
+     *
+     * @param imageURL button image
+     */
+    private void updatePlayButtonImage(String imageURL){
+        Image image = new Image(imageURL);
+        // assigns the specified image from the given imageURL to the play button
+        btnPlayPauseIcon.setImage(image);
+    }
+
+    /**
+     * Method to toggle play/pause state
+     */
+    private void togglePlayState() {
+        playSwitchStage = !playSwitchStage;
+    }
+
+
+    /**
+     *
+     * @throws FileNotFoundException
+     */
+    private void mediaPrevious() throws FileNotFoundException {
+        if (!mediaObjQue.isEmpty()){
+            // handles stopping the media
+            stopWithValidation();
+            cancelTimer();
+
+            if (cntQue == 0) {
+                mediaObjQue.get(0);
+            }
+
+            else {
+                cntQue--;
+            }
+
+            // loads next media
+            loadMedia();
+
+            // plays the next media
+            playSwitchStage = true;
+            onBtnPlayPauseClick();
+
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaPrevious] No media to skip backwards%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     * Method for skipping the media forward by 15 seconds and updates the current time label
+     */
+    private void mediaSkipForward() {
+
+        if (!mediaObjQue.isEmpty()){
+            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+            double mediaLength = media.getDuration().toSeconds();
+
+            int newTrackTime = MediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
+
+            // updates the current time label with the new track time
+            updateCurrentTimeLabel(newTrackTime);
+
+            // sets the media player to the new track time and continues playing
+            mediaPlayer.seek(Duration.seconds(newTrackTime));
+            mediaPlayer.play();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaSkipForward] No media to skip 15 seconds forward%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     * Method for updating the current time label with the formatted time based on the given time in seconds
+     * @param time
+     */
+    private void updateCurrentTimeLabel(int time){
+
+        labCurrentTime.setText(MediaUtil.secondsFormattedToTime(time));
+    }
+
+
+    /**
+     * Method for skipping the media backward by 15 seconds and updates the current time label
+     */
+    private void mediaSkipBackward() {
+
+        if (!mediaObjQue.isEmpty()){
+            currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
+            double mediaLength = media.getDuration().toSeconds();
+
+            int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
+
+            // updates the current time label with the new track time
+            updateCurrentTimeLabel(newTrackTime);
+
+            // sets the media player to the new track time and continues playing
+            mediaPlayer.seek(Duration.seconds(newTrackTime));
+            mediaPlayer.play();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaSkipBackward] No media to skip 15 seconds backward%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+    }
+
+
+    /**
+     * Method for mute/unmute the media
+     * The method mute or mutes the media based on the current state,
+     * and updates the mute button icon accordingly.
+     * Finally, toggles the mute stage for the next button click.
+     */
+    private void mediaMute() {
+
+        if (!mediaObjQue.isEmpty()){
+            if (mute) {
+                // gets and saves the current slider volume in %
+                currentSliderVol = sliderVolume.getValue();
+
+                // updates the slider value before setMute
+                sliderVolume.setValue(0);
+                mediaPlayer.setMute(true);
+
+                updateMuteButtonImage(muteImageURL);
+
+                System.out.printf("%s[HomeViewControl][mediaMute] The media is muted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            }
+            else {
+                mediaPlayer.setMute(false);
+                sliderVolume.setValue(currentSliderVol);
+
+                // imageURL if current slider volume is less than 50%
+                if (currentSliderVol > 0 && currentSliderVol < 50) {
+                    updateMuteButtonImage(soundStepOneImageURL);
+                }
+                // imageURL if current slider volume is more than 50%
+                else if (currentSliderVol >= 50 && currentSliderVol <= 100){
+                    updateMuteButtonImage(soundStepTwoImageURL);
+                }
+
+            System.out.printf("%s[HomeViewControl][mediaMute] The media is unmuted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            }
+
+            toggleMuteState();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][mediaMute] No media to mute or unmute%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
+
+    }
+
+
+    /**
+     * Method for updating the mute/unmute button image
+     * @param imageURL
+     */
+    private void updateMuteButtonImage(String imageURL) {
+        Image image = new Image(imageURL);
+        // assigns the specified image from the given imageURL to the play button
+        btnMuteIcon.setImage(image);
+    }
+
+
+    /**
+     *
+     */
     private void sliderProgresOnDrag() {
-        pauseWithValidation();
+        if (!mediaObjQue.isEmpty()){
+            pauseWithValidation();
+        }
+        else {
+            System.out.printf("%s[HomeViewController][sliderProgresOnDrag] No media to change playtime on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
     }
 
+
+    /**
+     *
+     */
     private void sliderProgresMouseRelease() {
-        cancelTimer();
 
-        double newCurrentVal = sliderProgres.getValue();
+        if (!mediaObjQue.isEmpty()) {
+            cancelTimer();
 
-        int newSpot = (int) newCurrentVal;
+            // gets the now updated user selected media time
+            int selectedMediaTime = (int) sliderProgres.getValue();
 
-        updateCurrentTimeLabel(newSpot);
+            updateCurrentTimeLabel(selectedMediaTime);
+            mediaPlayer.seek(Duration.seconds(selectedMediaTime));
+            mediaPlayer.play();
 
-        mediaPlayer.seek(Duration.seconds(newSpot));
-        mediaPlayer.play();
+            beginTimer();
+        }
 
-        beginTimer();
+        else {
+            System.out.printf("%s[HomeViewController][sliderProgresMouseRelease] No media to change playtime on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+        }
     }
 
 
+    /**
+     * Updates the title overlaying the mediaView with a song title.
+     * Then makes it disappear after X seconds.
+     */
+    public void updateMediaViewTitle() {
+
+        if (!mediaObjQue.isEmpty()){
+            mediaViewTitle.setVisible(true);
+            mediaViewTitle.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
+            // Set the time duration for which the label should be visible (in seconds)
+            double visibilityTimeInSeconds = 6.0;
+
+            // Create a Timeline that hides the label after the specified duration
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
+                            Platform.runLater(() -> mediaViewTitle.setVisible(false));
+                        }
+                    })
+            );
+            // Start the timeline
+            timeline.play();
+        }
+    }
 
 
+    /**
+     * Method to toggle mute/unmute state
+     */
+    private void toggleMuteState() {
+        mute = !mute;
+    }
 
+
+    /**
+     * Method that calls the change methods
+     */
+    private void changeThumbnailAndImageLabels(){
+        changeThumbnail();
+        changeImagelables();
+    }
+
+
+    /**
+     * Method for switching thumbnail in the homeView
+     */
+    private void changeThumbnail(){
+
+        // gets the objects image path
+        String imagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
+
+        Image thumbnailImage = new Image(imagePath);
+        imgThumbnail.setImage(thumbnailImage);
+    }
+
+
+    /**
+     * Method for changing the media title displayed next to the thumbnail
+     */
+    private void changeImagelables(){
+
+        labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
+        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
+
+    }
 
 
 
@@ -537,266 +872,6 @@ public class HomeViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-
-
-    // Associated methods for button click events
-
-
-    /**
-     * Method that updates the mute button image based on the volume slider's value (in percentage - from 0 to 100 %)
-     * @param volumeValue
-     */
-    private void volumeMedia(double volumeValue) {
-
-        if (volumeValue == 0){
-            updateMuteButtonImage(muteImageURL);
-        } else if (volumeValue > 0 && volumeValue < 50) {
-            updateMuteButtonImage(soundStepOneImageURL);
-        }
-        else {
-            updateMuteButtonImage(soundStepTwoImageURL);
-        }
-    }
-
-    /**
-     * Method for playing/pausing media
-     * The method starts a timer, plays or pauses the media based on the current state,
-     * and updates the play button icon accordingly.
-     * Finally, toggles the playSwitchStage for the next button click.
-     */
-    private void mediaPlayPause() {
-
-        if (!mediaObjQue.isEmpty()){
-            cancelTimer();
-
-            beginTimer();
-
-            if (playSwitchStage) {
-
-                playWithValidation();
-
-            } else {
-                pauseWithValidation();
-            }
-
-            togglePlayState();
-        }
-    }
-
-
-    private void stopWithValidation(){
-        try{
-            mediaPlayer.stop();
-        }catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][stopWithValidation] No media to stop%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-        }
-    }
-
-    private void pauseWithValidation(){
-        try{
-            mediaPlayer.pause();
-            updatePlayButtonImage(playImageURL);
-         } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-        }
-    }
-    private void playWithValidation(){
-        try{
-            mediaPlayer.play();
-            updatePlayButtonImage(pauseImageURL);
-        } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-        }
-    }
-
-    /**
-     * Method for updating the play/pause button image
-     *
-     * @param imageURL
-     */
-    private void updatePlayButtonImage(String imageURL){
-        Image image = new Image(imageURL);
-        // assigns the specified image from the given imageURL to the play button
-        btnPlayPauseIcon.setImage(image);
-    }
-
-    /**
-     * Method to toggle play/pause state
-     */
-    private void togglePlayState() {
-        playSwitchStage = !playSwitchStage;
-    }
-
-
-    /**
-     * Method for skipping media 15 seconds forward
-     * The method skip the media forward by 15 seconds and updates the current time label
-     */
-    private void mediaSkipForward() {
-        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-        // variable that determines the new track time after skipping forward by 15 seconds
-        int forwardTime;
-
-        if (currentTrackTime < media.getDuration().toSeconds() - 15) {
-            forwardTime = (int) currentTrackTime + 15;
-        }
-        else {
-            forwardTime = (int) media.getDuration().toSeconds();
-        }
-
-        // updates the current time label with the new track time
-        updateCurrentTimeLabel(forwardTime);
-
-        // sets the media player to the new track time and continues playing
-        mediaPlayer.seek(Duration.seconds(forwardTime));
-        mediaPlayer.play();
-    }
-
-
-    /**
-     * Method for updating the current time label with the formatted time based on the given time in seconds
-     * @param time
-     */
-    private void updateCurrentTimeLabel(int time){
-
-        labCurrentTime.setText(MediaUtil.secondsFormattedToTime(time));
-    }
-
-
-    /**
-     * Method for skipping media 15 seconds backward
-     * The method skip the media backward by 15 seconds and updates the current time label
-     */
-    private void mediaSkipBackward() {
-        currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-        // variable that determines the new track time after skipping backward by 15 seconds
-        int backwardTime;
-
-        // checks if the current track time is greater than the first 14 seconds of the media
-        if (currentTrackTime > 14) {
-            backwardTime = (int) currentTrackTime - 15;
-        }
-        // if the current track time is less than 15 seconds (less than the skip backward time)
-        else {
-            backwardTime = (int) Duration.ZERO.toSeconds();
-        }
-
-        updateCurrentTimeLabel(backwardTime);
-
-        // sets the media player to the new track time and continues playing
-        mediaPlayer.seek(Duration.seconds(backwardTime));
-        mediaPlayer.play();
-    }
-
-
-    /**
-     * Method for mute/unmute the media
-     * The method mute or mutes the media based on the current state,
-     * and updates the mute button icon accordingly.
-     * Finally, toggles the mute stage for the next button click.
-     */
-    private void mediaMute() {
-        if (mute) {
-            // gets the current slider volume in %
-            currentSliderVol = sliderVolume.getValue();
-            // updates the slider value before setMute
-            sliderVolume.setValue(0);
-            mediaPlayer.setMute(true);
-            updateMuteButtonImage(muteImageURL);
-        }
-        else {
-            mediaPlayer.setMute(false);
-            sliderVolume.setValue(currentSliderVol);
-
-            // if current slider volume is less than 50%
-            if (currentSliderVol > 0 && currentSliderVol < 50) {
-                updateMuteButtonImage(soundStepOneImageURL);
-            }
-            // if current slider volume is more than 50%
-            else if (currentSliderVol >= 50 && currentSliderVol <= 100){
-                updateMuteButtonImage(soundStepTwoImageURL);
-            }
-        }
-
-        toggleMuteState();
-    }
-
-    /**
-     * Method for updating the mute/unmute button image
-     * @param imageURL
-     */
-    private void updateMuteButtonImage(String imageURL) {
-        Image image = new Image(imageURL);
-        // assigns the specified image from the given imageURL to the play button
-        btnMuteIcon.setImage(image);
-    }
-
-    /**
-     * Updates the title overlaying the mediaView with a song title.
-     * Then makes it disappear after X seconds.
-     */
-    public void updateMediaViewTitle() {
-
-        if (!mediaObjQue.isEmpty()){
-            mediaViewTitle.setVisible(true);
-            mediaViewTitle.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
-            // Set the time duration for which the label should be visible (in seconds)
-            double visibilityTimeInSeconds = 6.0;
-
-            // Create a Timeline that hides the label after the specified duration
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.seconds(visibilityTimeInSeconds), new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            // Use Platform.runLater to ensure UI updates are on the JavaFX Application Thread
-                            Platform.runLater(() -> mediaViewTitle.setVisible(false));
-                        }
-                    })
-            );
-            // Start the timeline
-            timeline.play();
-        }
-    }
-
-    /**
-     * Method to toggle mute/unmute state
-     */
-    private void toggleMuteState() {
-        mute = !mute;
-    }
-
-    /**
-     * Method that calls the change methods
-     */
-    private void changeThumbnailAndImageLabels(){
-        changeThumbnail();
-        changeImagelables();
-    }
-
-    /**
-     * Method for switching thumbnail in the homeview
-     */
-    private void changeThumbnail(){
-        //Gets the objects image path
-        String imagePath =  "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
-        System.out.println(imagePath);
-        Image thumbnailImage = new Image(imagePath);
-
-        imgThumbnail.setImage(thumbnailImage);
-        System.out.println("After image set");
-    }
-
-    /**
-     * Method for changing the media title displayed next to the thumbnail
-     */
-    private void changeImagelables(){
-
-        labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
-        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
-
     }
 
 }
