@@ -157,8 +157,8 @@ public class PlaylistHandler {
             psDeleteFromPlaylist = connection.prepareCall(queryDeletePlaylist);
             psDeleteFromMediaPlaylist = connection.prepareCall(queryDeleteMediaPlaylist);
             // Executes the queries
-            psDeleteFromPlaylist.executeUpdate();
             psDeleteFromMediaPlaylist.executeUpdate();
+            psDeleteFromPlaylist.executeUpdate();
 
 
         }catch (SQLException e) {throw new RuntimeException(e);}

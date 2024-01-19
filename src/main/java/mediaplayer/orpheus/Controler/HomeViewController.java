@@ -256,10 +256,11 @@ public class HomeViewController implements Initializable {
 
 
         changeThumbnailAndImageLabels();
-
+        System.out.println("After change");
         beginTimer();
-
+        System.out.println("After begin timer");
         loadListenersMediaPlay();
+        System.out.println("after load listener media");
         loadListenersView();
 
     }
@@ -784,7 +785,7 @@ public class HomeViewController implements Initializable {
         Image thumbnailImage = new Image(imagePath);
 
         imgThumbnail.setImage(thumbnailImage);
-
+        System.out.println("After image set");
     }
 
     /**
