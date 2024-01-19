@@ -54,11 +54,20 @@
             <artifactId>javafx-graphics</artifactId>
             <version>18.0.2</version>
         </dependency>
+
+        <!--Project specific dependency-->
         <dependency>
             <groupId>org.mp4parser</groupId>
             <artifactId>isoparser</artifactId>
             <version>1.9.27</version>
         </dependency>
+
+
+
+
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+
+
 
 
     </dependencies>
