@@ -207,9 +207,14 @@ public class SearchViewController implements Initializable {
         return LWSearchResult.getSelectionModel().getSelectedIndex();
     }
 
+    /**
+     * Method for getting the selected item in the choice box
+     * @return Returns the selected item as a string
+     */
     private String getSelectedChoiceBoxItem(){
-
+        // Checks if there is anything selected in the choice box
         if(cbPlaylist.getSelectionModel().getSelectedItem() == null){
+            // Returns null if nothing is selected
             return null;
         }
         return cbPlaylist.getSelectionModel().getSelectedItem().toString();

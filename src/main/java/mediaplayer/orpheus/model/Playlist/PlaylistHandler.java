@@ -1,12 +1,10 @@
 package mediaplayer.orpheus.model.Playlist;
 
-import javafx.scene.chart.PieChart;
 import mediaplayer.orpheus.Controler.HomeViewController;
 import mediaplayer.orpheus.OrpheusApp;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AlertPopup;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.sql.*;
 
@@ -21,7 +19,7 @@ public class PlaylistHandler {
     public static void createPlaylist(String playListName){
 
         // Checks if there is anything entered
-        if(!PlaylistVerify.emptyPlaylistName(playListName)){
+        if(playListName.isEmpty()){
             // Error popup to tell the user what is wrong
             AlertPopup alertPopupNoName = new AlertPopup("Name text is empty"
                     , "Please enter another name for the playlist.");
@@ -31,7 +29,7 @@ public class PlaylistHandler {
 
             PreparedStatement preparedStatement;
             String query = insertQuery(playListName);
-            // Tries execute the prepared statement
+            // Tries to execute the prepared statement
             try{
 
                 preparedStatement = connection.prepareCall(query);

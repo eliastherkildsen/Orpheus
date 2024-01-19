@@ -118,8 +118,6 @@ public class DatabaseRead {
 
     public static String getAllPlaylistNames() {return "SELECT fldPlaylistName FROM tblPlaylist";}
 
-    //SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = " +
-    //                    "(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = 'Hello')
     public static String getMaxTrackOrder(String playlistName){
         return new StringBuilder()
                 .append("SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = ")
@@ -128,7 +126,6 @@ public class DatabaseRead {
                 .append("')")
                 .toString();
     }
-
     public static String getMediaArtistIDFromName(String mediaArtistName) {
 
         return new StringBuilder()
@@ -138,7 +135,6 @@ public class DatabaseRead {
                 .toString();
 
     }
-
     public static String getMediaIDFromPlaylistName(String playlistName){
 
         return new StringBuilder()
@@ -148,7 +144,6 @@ public class DatabaseRead {
                 .toString();
 
     }
-
     public static String getMediaImagePathFromMediaID(int mediaID){
 
         return new StringBuilder()

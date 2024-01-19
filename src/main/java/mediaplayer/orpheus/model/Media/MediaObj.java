@@ -5,7 +5,6 @@ import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Database.DatabaseUpdate;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -39,6 +38,10 @@ public class MediaObj {
 
     }
 
+    /**
+     *  Method for getting the image path from the database
+     * @return Returns the image path
+     */
     private String generateImagePath() {
 
         String query = DatabaseRead.getMediaImagePathFromMediaID(mediaID);
@@ -54,6 +57,10 @@ public class MediaObj {
 
     }
 
+    /**
+     * Method for getting Track length from the database
+     * @return Returns the track length
+     */
     private int generateMediaTrackLength() {
 
         String query = DatabaseRead.getMediaLength(mediaID);
@@ -68,6 +75,10 @@ public class MediaObj {
         return 0;
     }
 
+    /**
+     * Method for getting the artist name from the database
+     * @return Returns the artist name
+     */
     private String generateMediaArtist(){
 
         String query = DatabaseRead.getMediaArtistArtName(mediaID);
@@ -82,6 +93,10 @@ public class MediaObj {
         return null;
     }
 
+    /**
+     * Method for getting the file path from the database
+     * @return Returns the file path
+     */
     private String generateMediaPath() {
 
         String query = DatabaseRead.getMediaPath(mediaID);
@@ -96,6 +111,10 @@ public class MediaObj {
         return null;
     }
 
+    /**
+     * Method for getting the media title from the database
+     * @return Returns the title
+     */
     private String generateMediaTitle()  {
 
         String query = DatabaseRead.getMediaTitle(mediaID);
@@ -110,6 +129,10 @@ public class MediaObj {
         return null;
     }
 
+    /**
+     * Method for getting the medias genre from the database
+     * @return Returns the genre
+     */
     private String loadMediaGenre(){
 
         String quary = DatabaseRead.getMediaGenre(mediaID);
@@ -123,6 +146,11 @@ public class MediaObj {
         }
         return null;
     }
+
+    /**
+     * Method for getting the artist name from the database
+     * @return Returns the artist name
+     */
     private String loadArtistName(){
 
         String quary = DatabaseRead.getMediaArtistArtName(mediaID);
@@ -136,6 +164,11 @@ public class MediaObj {
         }
         return null;
     }
+
+    /**
+     * Method for getting the media year from the database
+     * @return Returns the year
+     */
     private String loadMediaYear(){
 
         String quary = DatabaseRead.getMediaYear(mediaID);
@@ -150,12 +183,17 @@ public class MediaObj {
         return "";
     }
 
-
+    /**
+     * Method for updating the media title in the database
+     */
     private void updateMediaTitle(){
         String quary = DatabaseUpdate.setMediaTitle(this.mediaTitle, mediaID);
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
+    /**
+     * Method for updating the artist name in the database
+     */
     private void updateArtistName(){
 
         // get person id from person name.
@@ -165,16 +203,25 @@ public class MediaObj {
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
+    /**
+     * Method for updating the media genre in the database
+     */
     private void updateMediaGenre(){
         String quary = DatabaseUpdate.setMediaGenre(this.mediaGenre, mediaID);
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
+    /**
+     * Method for updating the media year in the database
+     */
     private void updateMediaYear(){
         String quary = DatabaseUpdate.setMediaYear(this.mediaYear, mediaID);
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
+    /**
+     * Method for updating the image path in the database
+     */
     private void updateMediaImagePath(){
         String query = DatabaseUpdate.setMediaImagePath(this.imagePath, mediaID);
         OrpheusApp.jdbc.executeUpdate(query);
@@ -182,6 +229,10 @@ public class MediaObj {
 
     // region / getter & setter
 
+    /**
+     * Method for getting PersonID from the database using the artist name
+     * @return Returns the PersonID
+     */
     private String getPersonIDFromPersonName(){
         String quary = DatabaseRead.getMediaArtistIDFromName(this.mediaArtist);
 
@@ -195,60 +246,108 @@ public class MediaObj {
         return "";
     }
 
+    /**
+     * Method for getting the objects file path
+     * @return Returns the file path
+     */
     public String getMediaPath() {
         return mediaPath;
     }
 
+    /**
+     * Method for getting the objects title
+     * @return Returns the title
+     */
     public String getMediaTitle() {
         return mediaTitle;
     }
 
+    /**
+     * Method for getting the objects artist name
+     * @return Returns the artist name
+     */
     public String getMediaArtist() {
         return mediaArtist;
     }
 
+    /**
+     * Method for getting the objects track length
+     * @return Returns the track length
+     */
     public int getTrackLength() {
         return trackLength;
     }
 
+    /**
+     * Method for getting the objects image path
+     * @return Returns the image path
+     */
     public String getImagePath() {
         return imagePath;
     }
+
+    /**
+     * Method for getting the objects media year
+     * @return Returns the media year
+     */
     public String getMediaYear() {
         return mediaYear;
     }
 
+    /**
+     * Method for getting the objects media genre
+     * @return Returns the media genre
+     */
     public String getMediaGenre() {
         return mediaGenre;
     }
 
+    /**
+     * Method for getting the objects MediaID
+     * @return Returns the MediaID
+     */
     public int getMediaID() {
         return mediaID;
     }
 
+    /**
+     * Method for setting the objects media title
+     */
     public void setMediaTitle(String mediaTitel) {
         this.mediaTitle = mediaTitel;
         updateMediaTitle();
 
     }
 
+    /**
+     * Method for setting the objects media genre
+     */
     public void setMediaGenre(String mediaGenre) {
         this.mediaGenre = mediaGenre;
         updateMediaGenre();
 
     }
 
+    /**
+     * Method for setting the objects artist name
+     */
     public void setMediaArtistName(String artistName) {
         this.mediaArtist = artistName;
         updateArtistName();
     }
 
+    /**
+     * Method for setting the objects media year
+     */
     public void setMediaYear(String mediaYear) {
         this.mediaYear = mediaYear;
         updateMediaYear();
 
     }
 
+    /**
+     * Method for setting the objects image path
+     */
     public void setMediaImagePath(String imagePath) {
         this.imagePath = imagePath;
         updateMediaImagePath();
