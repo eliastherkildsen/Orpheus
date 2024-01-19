@@ -115,6 +115,7 @@ public class HomeViewController implements Initializable {
 
             try {
                 loadMedia();
+
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -146,6 +147,8 @@ public class HomeViewController implements Initializable {
                 }
             }
         });
+
+
     }
 
     private void loadListenersView() {
@@ -198,8 +201,18 @@ public class HomeViewController implements Initializable {
             media = new Media(file.toURI().toString());
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
-            // prints a message if the file is found
 
+            //
+            mediaPlayer.setOnEndOfMedia(() -> {
+                try {
+                    cancelTimer();
+                    mediaNext();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            // prints a message if the file is found
             System.out.printf("%s[HomeViewControl][loadMedia] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
@@ -243,7 +256,7 @@ public class HomeViewController implements Initializable {
         loadListenersMediaPlay();
         loadListenersView();
 
-        mediaNext();
+        //mediaNext();
     }
 
 
@@ -287,7 +300,7 @@ public class HomeViewController implements Initializable {
         };
 
         // schedules the timer task to run at fixed intervals (starting after 1000 milliseconds and repeating every 1000 milliseconds).
-        timer.scheduleAtFixedRate(task, 1000, 1000);
+        timer.scheduleAtFixedRate(task, 100, 1000);
     }
 
 
@@ -535,8 +548,8 @@ public class HomeViewController implements Initializable {
         if (!mediaObjQue.isEmpty()){
 
             // handles stopping the media
-            stopWithValidation();
             cancelTimer();
+            stopWithValidation();
 
             // loads next media
             cntQue++;
