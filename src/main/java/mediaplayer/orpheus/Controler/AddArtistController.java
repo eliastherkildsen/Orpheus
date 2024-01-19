@@ -53,7 +53,7 @@ public class AddArtistController {
     }
 
     @FXML
-    public void onBtnUpdataClick() {
+    public void onBtnUpdateClick() {
         addArtist();
     }
 
