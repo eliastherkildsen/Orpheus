@@ -24,29 +24,41 @@ public class MediaObj {
 
     public MediaObj(int mediaID) throws SQLException {
         this.mediaID = mediaID;
-        this.imagePath = imagePath;
-        generateObject(mediaID);
+        generateObject();
     }
 
-    private void generateObject(int mediaID) throws SQLException {
+    private void generateObject() {
 
-        this.mediaPath = generateMediaPath(mediaID);
-        this.mediaTitle = generateMediaTitle(mediaID);
-        this.mediaArtist = generateMediaArtist(mediaID);
-        this.trackLength = generateMediaTrackLength(mediaID);
+        this.mediaPath = generateMediaPath();
+        this.mediaTitle = generateMediaTitle();
+        this.mediaArtist = generateMediaArtist();
+        this.trackLength = generateMediaTrackLength();
+        this.imagePath = generateImagePath();
         this.mediaGenre = loadMediaGenre();
         this.mediaYear = loadMediaYear();
 
     }
 
-    private int generateMediaTrackLength(int mediaID) throws SQLException {
+    private String generateImagePath() {
 
-        PreparedStatement psMediaTackLength;
+        String query = DatabaseRead.getMediaImagePathFromMediaID(mediaID);
+
+        try(ResultSet rsMediaImagePath = OrpheusApp.jdbc.executeQuary(query)){
+            while (rsMediaImagePath.next()){
+                return rsMediaImagePath.getString("fldImagePath");
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return null;
+
+    }
+
+    private int generateMediaTrackLength() {
 
         String query = DatabaseRead.getMediaLength(mediaID);
-        psMediaTackLength = connection.prepareCall(query);
 
-        try(ResultSet rsMediaTrackLength = psMediaTackLength.executeQuery()){
+        try(ResultSet rsMediaTrackLength = OrpheusApp.jdbc.executeQuary(query)){
             while (rsMediaTrackLength.next()){
                 return rsMediaTrackLength.getInt("fldTrackLength");
             }
@@ -56,14 +68,11 @@ public class MediaObj {
         return 0;
     }
 
-    private String generateMediaArtist(int mediaID) throws SQLException {
-
-        PreparedStatement psMediaArtist;
+    private String generateMediaArtist(){
 
         String query = DatabaseRead.getMediaArtistArtName(mediaID);
-        psMediaArtist = connection.prepareCall(query);
 
-        try(ResultSet rsMediaArtist = psMediaArtist.executeQuery()){
+        try(ResultSet rsMediaArtist = OrpheusApp.jdbc.executeQuary(query)){
             while (rsMediaArtist.next()){
                 return rsMediaArtist.getString("fldArtistName");
             }
@@ -73,14 +82,11 @@ public class MediaObj {
         return null;
     }
 
-    private static String generateMediaPath(int mediaID) throws SQLException {
-
-        PreparedStatement psMediaPath;
+    private String generateMediaPath() {
 
         String query = DatabaseRead.getMediaPath(mediaID);
-        psMediaPath = connection.prepareCall(query);
 
-        try(ResultSet rsMediaPath = psMediaPath.executeQuery()){
+        try(ResultSet rsMediaPath = OrpheusApp.jdbc.executeQuary(query)){
             while (rsMediaPath.next()){
                 return rsMediaPath.getString("fldFilePath");
             }
@@ -90,12 +96,11 @@ public class MediaObj {
         return null;
     }
 
-    private String generateMediaTitle(int mediaID) throws SQLException {
+    private String generateMediaTitle()  {
 
         String query = DatabaseRead.getMediaTitle(mediaID);
-        PreparedStatement psMediaTitle = connection.prepareCall(query);
 
-        try(ResultSet rsMediaTitle = psMediaTitle.executeQuery()){
+        try(ResultSet rsMediaTitle = OrpheusApp.jdbc.executeQuary(query)){
             while (rsMediaTitle.next()){
                 return rsMediaTitle.getString("fldMediaTitle");
             }
@@ -170,6 +175,11 @@ public class MediaObj {
         OrpheusApp.jdbc.executeUpdate(quary);
     }
 
+    private void updateMediaImagePath(){
+        String query = DatabaseUpdate.setMediaImagePath(this.imagePath, mediaID);
+        OrpheusApp.jdbc.executeUpdate(query);
+    }
+
     // region / getter & setter
 
     private String getPersonIDFromPersonName(){
@@ -237,6 +247,11 @@ public class MediaObj {
         this.mediaYear = mediaYear;
         updateMediaYear();
 
+    }
+
+    public void setMediaImagePath(String imagePath) {
+        this.imagePath = imagePath;
+        updateMediaImagePath();
     }
 
 

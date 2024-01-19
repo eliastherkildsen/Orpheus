@@ -780,6 +780,7 @@ public class HomeViewController implements Initializable {
     private void changeThumbnail(){
         //Gets the objects image path
         String imagePath =  "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
+        System.out.println(imagePath);
         Image thumbnailImage = new Image(imagePath);
 
         imgThumbnail.setImage(thumbnailImage);

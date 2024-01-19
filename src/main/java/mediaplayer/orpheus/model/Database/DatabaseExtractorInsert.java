@@ -48,7 +48,7 @@ public class DatabaseExtractorInsert {
      */
     public void insertIntoDBNewMp3() throws SQLException {
         JDBC db = new JDBC();
-        String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath, fldImagePath) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatment = db.getConnection().prepareStatement(sql)){
             preparedStatment.setString(1, getMediaTitle());
             preparedStatment.setString(2, getFileType());
@@ -69,6 +69,7 @@ public class DatabaseExtractorInsert {
                 preparedStatment.setNull(6, Types.INTEGER);
             }
             preparedStatment.setString(7,getFilePath());
+            preparedStatment.setString(8,"src/main/resources/css/images/audio-lines.png");
 
             preparedStatment.executeUpdate();
         } catch (SQLException e) {
@@ -83,7 +84,7 @@ public class DatabaseExtractorInsert {
             }
         }catch (SQLException e ){}
 
-        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaPerson(1,mediaID));
+        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaPerson(20,mediaID));
         OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
 
     }
