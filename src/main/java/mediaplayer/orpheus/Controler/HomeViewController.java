@@ -24,7 +24,7 @@ import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import mediaplayer.orpheus.model.Media.MediaSkip;
+import mediaplayer.orpheus.model.Media.mediaSkip;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -625,7 +625,7 @@ public class HomeViewController implements Initializable {
             currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
             double mediaLength = media.getDuration().toSeconds();
 
-            int newTrackTime = MediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
+            int newTrackTime = mediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);
@@ -659,7 +659,7 @@ public class HomeViewController implements Initializable {
             currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
             double mediaLength = media.getDuration().toSeconds();
 
-            int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
+            int newTrackTime = mediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);

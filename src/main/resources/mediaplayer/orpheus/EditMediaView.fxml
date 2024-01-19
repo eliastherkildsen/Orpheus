@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.EditMediaViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.EditMediaViewController">
     <left>
         <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
             <children>
@@ -95,27 +88,27 @@
                <children>
                   <VBox prefHeight="126.0" prefWidth="92.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="275.0" text="Media Title">
+                        <Label prefHeight="37.0" prefWidth="275.0" text="Media Title">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="275.0" text="Artist">
+                        <Label prefHeight="37.0" prefWidth="275.0" text="Artist">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="270.0" text="Genre">
+                        <Label prefHeight="37.0" prefWidth="270.0" text="Genre">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="84.0" prefHeight="37.0" prefWidth="270.0" text="Year">
+                        <Label layoutX="10.0" layoutY="84.0" prefHeight="37.0" prefWidth="270.0" text="Year">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="37.0" prefWidth="270.0" text="Add Thumbnail">
+                        <Label prefHeight="37.0" prefWidth="270.0" text="Add Thumbnail">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding>
@@ -124,10 +117,7 @@
                   </VBox>
                   <VBox prefHeight="141.0" prefWidth="267.0">
                      <children>
-                        <TextField fx:id="fldMediaTitle" prefHeight="22.0" prefWidth="300.0" promptText="Title">
-                           <padding>
-                              <Insets bottom="15.0" top="10.0" />
-                           </padding>
+                        <TextField fx:id="fldMediaTitle" prefHeight="20.0" prefWidth="300.0" promptText="Title">
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
@@ -149,9 +139,6 @@
                            </VBox.margin>
                         </ChoiceBox>
                         <TextField fx:id="fldYear" layoutX="10.0" layoutY="94.0" prefHeight="22.0" prefWidth="300.0" promptText="Year">
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
                            <opaqueInsets>
                               <Insets bottom="5.0" />
                            </opaqueInsets>
@@ -161,7 +148,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../css/images/plus.png" />
                                  </image>
