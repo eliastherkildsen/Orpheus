@@ -226,7 +226,9 @@ public class HomeViewController implements Initializable {
 
             imageViewTN.setVisible(true);
 
-            // TODO mediaObjQue.get(mediaArrIndex).getImagePath()
+            // TODO - new Image(mediaImagePath);
+            // gets the objects image path
+            // String mediaImagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
 
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
             imageViewTN.setImage(image);
@@ -292,7 +294,6 @@ public class HomeViewController implements Initializable {
     }
 
 
-
     /**
      *
      */
@@ -304,31 +305,27 @@ public class HomeViewController implements Initializable {
     }
 
 
-
+    /**
+     * Method that handles "click with mouse" event for the volume slider.
+     */
     @FXML
     private void onSliderVolumeMouseClick(){
         mediaChangeVol();
     }
 
+
+    /**
+     * Method that handles "mouse released" event for the volume slider.
+     */
     @FXML
     private void onSliderVolumeMouseReleased(){
         mediaChangeVol();
     }
 
-    private void mediaChangeVol() {
-        if (mute) {
-            // gets the slider volume in %
-            double volumeValue = sliderVolume.getValue();
 
-            // sets the volume on mediaPlayer based on the volume slider's value
-            mediaPlayer.setVolume(volumeValue * 0.01);
-            // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
-            // volume (0.0 to 1.0)
-
-            volumeMedia(volumeValue);
-        }
-    }
-
+    /**
+     * Method that handles the button click event for the import button.
+     */
     @FXML
     public void onActionbtnImportClick(){
         FileChooser.fileChooser();
@@ -351,57 +348,23 @@ public class HomeViewController implements Initializable {
     }
 
 
-
+    /**
+     * Method that handles the button click event for the next button.
+     */
     @FXML
     private void onBtnNextClick() throws FileNotFoundException {
         mediaNext();
     }
 
-    private void mediaNext() throws FileNotFoundException {
 
-        // handles stopping the media
-        stopWithValidation();
-        cancelTimer();
-
-        // loads next media
-        cntQue++;
-        loadMedia();
-
-        // plays the next media
-        playSwitchStage = true;
-        onBtnPlayPauseClick();
-    }
-
-
-
-
+    /**
+     *
+     * @throws FileNotFoundException
+     */
     @FXML
     private void onBtnPreviousClick() throws FileNotFoundException {
         mediaPrevious();
     }
-
-    private void mediaPrevious() throws FileNotFoundException {
-
-        // handles stopping the media
-        stopWithValidation();
-        cancelTimer();
-
-        if (cntQue == 0) {
-            mediaObjQue.get(0);
-        }
-
-        else {
-            cntQue--;
-        }
-
-        // loads next media
-        loadMedia();
-
-        // plays the next media
-        playSwitchStage = true;
-        onBtnPlayPauseClick();
-    }
-
 
 
     /**
@@ -422,7 +385,6 @@ public class HomeViewController implements Initializable {
     }
 
 
-
     /**
      * Method that handles the button click event for toggling volume mute
      */
@@ -431,81 +393,50 @@ public class HomeViewController implements Initializable {
         mediaMute();
     }
 
+
+    /**
+     * Method that handles "mouse pressed" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMousePressed() {
         sliderProgresOnDrag();
     }
 
+
+    /**
+     * Method that handles "mouse released" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMouseReleased() {
         Platform.runLater(() -> sliderProgresMouseRelease());
     }
 
+
+    /**
+     * Method that handles "click with mouse" event for the progress slider.
+     */
     @FXML
     private void onSliderProgresMouseClick(){
         pauseWithValidation();
     }
 
 
-    private void sliderProgresOnDrag() {
-        pauseWithValidation();
-    }
-
-    private void sliderProgresMouseRelease() {
-
-        cancelTimer();
-
-        // gets the now updated user selected media time
-        int selectedMediaTime = (int) sliderProgres.getValue();
-
-        updateCurrentTimeLabel(selectedMediaTime);
-        mediaPlayer.seek(Duration.seconds(selectedMediaTime));
-        mediaPlayer.play();
-
-        beginTimer();
-    }
-
-
-    //to handle stage-switch
-    @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
-    public void switchToPlaylistView() {
-
-        pauseWithValidation();
-
-        try {
-            viewControler.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToSearchView() {
-
-        pauseWithValidation();
-
-        try {
-            viewControler.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToHomeView() {
-
-        pauseWithValidation();
-
-        try {
-            viewControler.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 
     // Associated methods for button click events
+
+    private void mediaChangeVol() {
+        if (mute) {
+            // gets the slider volume in %
+            double volumeValue = sliderVolume.getValue();
+
+            // sets the volume on mediaPlayer based on the volume slider's value
+            mediaPlayer.setVolume(volumeValue * 0.01);
+            // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
+            // volume (0.0 to 1.0)
+
+            volumeMedia(volumeValue);
+        }
+    }
 
 
     /**
@@ -564,6 +495,9 @@ public class HomeViewController implements Initializable {
         try{
             mediaPlayer.pause();
             updatePlayButtonImage(playImageURL);
+
+            System.out.printf("%s[HomeViewControl][pauseWithValidation] Media is paused%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
          } catch (NullPointerException e){
             System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
@@ -577,9 +511,32 @@ public class HomeViewController implements Initializable {
         try{
             mediaPlayer.play();
             updatePlayButtonImage(pauseImageURL);
+
+            System.out.printf("%s[HomeViewControl][playWithValidation] Media plays%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
         } catch (NullPointerException e){
             System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
         }
+    }
+
+
+    /**
+     *
+     * @throws FileNotFoundException
+     */
+    private void mediaNext() throws FileNotFoundException {
+
+        // handles stopping the media
+        stopWithValidation();
+        cancelTimer();
+
+        // loads next media
+        cntQue++;
+        loadMedia();
+
+        // plays the next media
+        playSwitchStage = true;
+        onBtnPlayPauseClick();
     }
 
 
@@ -599,6 +556,33 @@ public class HomeViewController implements Initializable {
      */
     private void togglePlayState() {
         playSwitchStage = !playSwitchStage;
+    }
+
+
+    /**
+     *
+     * @throws FileNotFoundException
+     */
+    private void mediaPrevious() throws FileNotFoundException {
+
+        // handles stopping the media
+        stopWithValidation();
+        cancelTimer();
+
+        if (cntQue == 0) {
+            mediaObjQue.get(0);
+        }
+
+        else {
+            cntQue--;
+        }
+
+        // loads next media
+        loadMedia();
+
+        // plays the next media
+        playSwitchStage = true;
+        onBtnPlayPauseClick();
     }
 
 
@@ -657,31 +641,36 @@ public class HomeViewController implements Initializable {
      */
     private void mediaMute() {
         if (mute) {
-            // gets the current slider volume in %
+            // gets and saves the current slider volume in %
             currentSliderVol = sliderVolume.getValue();
 
             // updates the slider value before setMute
             sliderVolume.setValue(0);
-
             mediaPlayer.setMute(true);
+
             updateMuteButtonImage(muteImageURL);
+
+            System.out.printf("%s[HomeViewControl][mediaMute] The media is muted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
         else {
             mediaPlayer.setMute(false);
             sliderVolume.setValue(currentSliderVol);
 
-            // if current slider volume is less than 50%
+            // imageURL if current slider volume is less than 50%
             if (currentSliderVol > 0 && currentSliderVol < 50) {
                 updateMuteButtonImage(soundStepOneImageURL);
             }
-            // if current slider volume is more than 50%
+            // imageURL if current slider volume is more than 50%
             else if (currentSliderVol >= 50 && currentSliderVol <= 100){
                 updateMuteButtonImage(soundStepTwoImageURL);
             }
+
+            System.out.printf("%s[HomeViewControl][mediaMute] The media is unmuted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
 
         toggleMuteState();
     }
+
 
     /**
      * Method for updating the mute/unmute button image
@@ -692,6 +681,33 @@ public class HomeViewController implements Initializable {
         // assigns the specified image from the given imageURL to the play button
         btnMuteIcon.setImage(image);
     }
+
+
+    /**
+     *
+     */
+    private void sliderProgresOnDrag() {
+        pauseWithValidation();
+    }
+
+
+    /**
+     *
+     */
+    private void sliderProgresMouseRelease() {
+
+        cancelTimer();
+
+        // gets the now updated user selected media time
+        int selectedMediaTime = (int) sliderProgres.getValue();
+
+        updateCurrentTimeLabel(selectedMediaTime);
+        mediaPlayer.seek(Duration.seconds(selectedMediaTime));
+        mediaPlayer.play();
+
+        beginTimer();
+    }
+
 
     /**
      * Updates the title overlaying the mediaView with a song title.
@@ -717,12 +733,14 @@ public class HomeViewController implements Initializable {
         timeline.play();
     }
 
+
     /**
      * Method to toggle mute/unmute state
      */
     private void toggleMuteState() {
         mute = !mute;
     }
+
 
     /**
      * Method that calls the change methods
@@ -732,17 +750,19 @@ public class HomeViewController implements Initializable {
         changeImagelables();
     }
 
+
     /**
-     * Method for switching thumbnail in the homeview
+     * Method for switching thumbnail in the homeView
      */
     private void changeThumbnail(){
-        //Gets the objects image path
-        String imagePath =  "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
+
+        // gets the objects image path
+        String imagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
+
         Image thumbnailImage = new Image(imagePath);
-
         imgThumbnail.setImage(thumbnailImage);
-
     }
+
 
     /**
      * Method for changing the media title displayed next to the thumbnail
@@ -752,6 +772,44 @@ public class HomeViewController implements Initializable {
         labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
         labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
 
+    }
+
+
+
+    //to handle stage-switch
+    @FXML
+    private Button btnSearch, btnPlaylist, btnDelete;
+    public void switchToPlaylistView() {
+
+        pauseWithValidation();
+
+        try {
+            viewControler.switchToPlaylistScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void switchToSearchView() {
+
+        pauseWithValidation();
+
+        try {
+            viewControler.switchToSearchScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void switchToHomeView() {
+
+        pauseWithValidation();
+
+        try {
+            viewControler.switchToHomeScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
