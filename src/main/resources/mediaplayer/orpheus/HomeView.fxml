@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
     <left>
         <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnHome" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="0.0" prefWidth="150.0" text="Home" textFill="WHITE">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../css/images/home.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
                 <Button fx:id="btnSearch" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="0.0" prefWidth="150.0" text="Search" textFill="WHITE">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

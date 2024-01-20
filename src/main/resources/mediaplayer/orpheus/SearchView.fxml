@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
     <left>
@@ -25,18 +26,6 @@
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../css/images/home.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnSearch" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="0.0" prefWidth="150.0" text="Search" textFill="WHITE">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../css/images/search.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -113,9 +102,9 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" prefHeight="64.0" prefWidth="535.0" text="Search">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
+               <font>
+                  <Font size="24.0" />
+               </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="450.0">
                <children>
@@ -143,11 +132,11 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </ListView>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="450.0">
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <ChoiceBox fx:id="cbPlaylist" prefWidth="150.0">
+                  <ChoiceBox fx:id="cbPlaylist" prefHeight="22.0" prefWidth="350.0">
                      <HBox.margin>
-                        <Insets top="8.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
                   </ChoiceBox>
                   <Button fx:id="btnAddToPlaylist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" prefHeight="40.0" prefWidth="40.0" textFill="WHITE">
