@@ -53,9 +53,10 @@ treansparent{
 
 .text-field {
     -fx-background-radius: 10; /* Set the text-field background-radius */
-    -fx-background-color: #6CA6C1;
-    -fx-font-family: "Times New Roman";
-    -fx-text-fill: white;
+    -fx-background-color: #F7FFF7;
+    -fx-font-family: "Courier New";
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
 }
 
 .list-view {
@@ -114,9 +115,9 @@ treansparent{
 
 .choice-box {
     -fx-background-radius: 10; /* Set the text-field background-radius */
-    -fx-background-color: #6CA6C1;
+    -fx-background-color: #F7FFF7;
     -fx-font-family: "Times New Roman";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-pref-width: 300;
     -fx-mark-color: #969A96; /* Arrow color */
 }
