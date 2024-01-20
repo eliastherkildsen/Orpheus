@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
@@ -40,7 +41,8 @@ import java.util.TimerTask;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
-
+    @FXML
+    public AnchorPane anchor;
     private SceneController viewControler = new SceneController();
 
     @FXML
@@ -155,12 +157,16 @@ public class HomeViewController implements Initializable {
         homePane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 100.0;
+                double padding = 85;
                 mediaViewDisplay.setFitWidth(t1.doubleValue() - padding);
 
                 //Saving the width everytime its changed for later use.
                 widthOfScene = (double) number;
                 //System.out.println("Width " + widthOfScene);
+                if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
+                    double x = (t1.doubleValue() - imageViewTN.getImage().getWidth()) / 2 - padding;
+                    AnchorPane.setLeftAnchor(imageViewTN, x);
+                }
 
             }
         });
@@ -168,12 +174,16 @@ public class HomeViewController implements Initializable {
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 85;
+                double padding = 40;
                 mediaViewDisplay.setFitHeight(t1.doubleValue() - padding);
 
                 //Saving the height every time its changed for later use.
                 heightOfScene = (double) number;
                 //System.out.println("Height " + heightOfScene);
+                if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
+                    double y = (t1.doubleValue() - imageViewTN.getImage().getHeight()) / 2 - padding;
+                    AnchorPane.setTopAnchor(imageViewTN, y);
+                }
 
             }
         });
