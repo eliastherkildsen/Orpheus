@@ -55,8 +55,8 @@
             <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="110.0" prefWidth="80.0">
                <children>
                   <ImageView fx:id="imgThumbnail" fitHeight="74.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="labMediaName" text="Label" />
-                  <Label fx:id="labArtistName" text="Label" />
+                  <Label fx:id="labMediaName" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" />
+                  <Label fx:id="labArtistName" prefHeight="17.0" prefWidth="85.0" />
                </children>
             </VBox>
             </children>
@@ -129,12 +129,12 @@
    <center>
       <AnchorPane fx:id="anchor" prefHeight="370.0" prefWidth="520.0" BorderPane.alignment="CENTER">
          <children>
+            <ImageView fx:id="imageViewTN" fitHeight="100.0" fitWidth="160.0" layoutX="190.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
               <MediaView fx:id="mediaViewDisplay" fitHeight="370.0" fitWidth="540.0" preserveRatio="false" />
             <Label fx:id="mediaViewTitle" layoutX="18.0" layoutY="12.0" prefHeight="20.0" prefWidth="500.0">
                <font>
                   <Font name="Segoe UI Bold" size="12.0" />
                </font></Label>
-            <ImageView fx:id="imageViewTN" fitHeight="100.0" fitWidth="160.0" layoutX="190.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </center>
