@@ -95,7 +95,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Slider fx:id="sliderProgres" onMousePressed="#onSliderProgresMousePressed" onMouseReleased="#onSliderProgresMouseReleased" prefHeight="36.0" prefWidth="161.0" />
+                <Slider fx:id="sliderProgres" onMousePressed="#onSliderProgresMousePressed" onMouseReleased="#onSliderProgresMouseReleased" prefHeight="36.0" prefWidth="161.0" HBox.hgrow="ALWAYS" />
                 <Button fx:id="btnSkipForwards" alignment="BASELINE_LEFT" layoutX="190.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnSkipForwardsClick" prefHeight="30.0" prefWidth="46.0" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -139,8 +139,8 @@
                   <Image url="@../../css/images/audio-lines.png" />
                </image>
             </ImageView>
-            <Pane prefHeight="40.0" prefWidth="470.0" />
-            <HBox BorderPane.alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="130.0">
+            <Pane prefHeight="40.0" prefWidth="470.0" HBox.hgrow="ALWAYS" />
+            <HBox prefHeight="40.0" prefWidth="130.0" BorderPane.alignment="TOP_RIGHT">
                <children>
                   <Button fx:id="BtnMini" alignment="CENTER" mnemonicParsing="false" onAction="#switchToSearchView" prefHeight="40.0" prefWidth="40.0" textFill="WHITE">
                      <padding>
