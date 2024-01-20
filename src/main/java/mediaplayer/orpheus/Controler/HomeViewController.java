@@ -152,7 +152,9 @@ public class HomeViewController implements Initializable {
 
 
     }
-
+    /**
+     * Listeners that changes the size of the MediaView depending on the screensize OR the location of the default background image, Also depedant of screen size.
+     */
     private void loadListenersView() {
         homePane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -163,6 +165,8 @@ public class HomeViewController implements Initializable {
                 //Saving the width everytime its changed for later use.
                 widthOfScene = (double) number;
                 //System.out.println("Width " + widthOfScene);
+
+                //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
                 if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
                     double x = (t1.doubleValue() - imageViewTN.getImage().getWidth()) / 2 - padding;
                     AnchorPane.setLeftAnchor(imageViewTN, x);
@@ -170,7 +174,6 @@ public class HomeViewController implements Initializable {
 
             }
         });
-
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -180,6 +183,8 @@ public class HomeViewController implements Initializable {
                 //Saving the height every time its changed for later use.
                 heightOfScene = (double) number;
                 //System.out.println("Height " + heightOfScene);
+
+                //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
                 if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
                     double y = (t1.doubleValue() - imageViewTN.getImage().getHeight()) / 2 - padding;
                     AnchorPane.setTopAnchor(imageViewTN, y);
