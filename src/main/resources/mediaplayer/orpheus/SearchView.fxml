@@ -144,12 +144,12 @@
             </ListView>
             <HBox prefHeight="30.0" prefWidth="450.0">
                <children>
-                  <ChoiceBox fx:id="cbPlayList" prefWidth="150.0">
+                  <ChoiceBox fx:id="cbPlaylist" prefWidth="150.0">
                      <HBox.margin>
                         <Insets top="8.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Button fx:id="btnAddToPlayList" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" prefHeight="40.0" prefWidth="40.0" textFill="WHITE">
+                  <Button fx:id="btnAddToPlaylist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" prefHeight="40.0" prefWidth="40.0" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>

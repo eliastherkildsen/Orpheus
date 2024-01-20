@@ -41,9 +41,10 @@ public class SearchViewController implements Initializable {
     }
 
     private void loadChoiceBox() {
-
+        System.out.printf("Loading Choice box?");
         for (String playlistName : MediaSearchUtil.getAllPlaylist()) {
             addItemToChoiceBox(cbPlaylist, playlistName);
+            System.out.printf("Adding item" + playlistName);
         }
     }
 
