@@ -19,13 +19,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import mediaplayer.orpheus.model.Media.mediaSkip;
+import mediaplayer.orpheus.model.Media.MediaSkip;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -33,7 +32,6 @@ import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -177,7 +175,7 @@ public class HomeViewController implements Initializable {
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 80;
+                double padding = 40;
                 mediaViewDisplay.setFitHeight(t1.doubleValue() - padding);
 
                 //Saving the height every time its changed for later use.
@@ -640,7 +638,7 @@ public class HomeViewController implements Initializable {
             currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
             double mediaLength = media.getDuration().toSeconds();
 
-            int newTrackTime = mediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
+            int newTrackTime = MediaSkip.mediaSkipForward(currentTrackTime, mediaLength);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);
@@ -674,7 +672,7 @@ public class HomeViewController implements Initializable {
             currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
             double mediaLength = media.getDuration().toSeconds();
 
-            int newTrackTime = mediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
+            int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);
