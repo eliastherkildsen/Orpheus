@@ -131,7 +131,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Slider fx:id="sliderVolume" blockIncrement="1.0" onMouseClicked="#onSliderVolumeMouseClick" onMouseReleased="#onSliderVolumeMouseReleased" prefHeight="36.0" prefWidth="80.0" value="20.0" />
+                <Slider fx:id="sliderVolume" blockIncrement="1.0" onMouseClicked="#onSliderVolumeMouseClick" onMouseReleased="#onSliderVolumeMouseReleased" prefHeight="36.0" prefWidth="80.0" value="50.0" />
             </children>
         </HBox>
     </bottom>
