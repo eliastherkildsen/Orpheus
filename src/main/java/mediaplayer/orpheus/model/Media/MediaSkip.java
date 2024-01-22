@@ -27,18 +27,16 @@ public class MediaSkip {
      * Method for skipping media 15 seconds backward
      *
      * @param currentTrackTime
-     * @param mediaLength
      * @return
      */
-    public static int mediaSkipBackward(double currentTrackTime, double mediaLength){
+    public static int mediaSkipBackward(double currentTrackTime){
 
-        // checks if the current track time is greater than the first 14 seconds of the media
-        if (currentTrackTime > 14) {
-            return (int) currentTrackTime - SKIP_BY_SECONDS;
+        if (currentTrackTime < SKIP_BY_SECONDS) {
+            return (int) Duration.ZERO.toSeconds();
         }
 
-        // if the current track time is less than 15 seconds (less than the skip backward time)
-        return (int) Duration.ZERO.toSeconds();
+        // if the current track time is greater than the first 14 seconds of the media
+        return (int) currentTrackTime - SKIP_BY_SECONDS;
     }
 
 }
