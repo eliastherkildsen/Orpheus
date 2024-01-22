@@ -1,9 +1,8 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
-import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 public class MediaSearch {
 
     // creating a JDBC connection
-    private static final Connection connection = OrpheusApp.jdbc.getConnection();
+    private static final Connection connection = JDBC.instance.getConnection();
 
 
     /**

@@ -16,6 +16,8 @@ import java.util.Properties;
 
 public class JDBC {
 
+    public static JDBC instance;
+
     // Path to the database properties file
     private final String DATBASE_PROPS_PATH = "src/main/java/mediaplayer/orpheus/model/Database/db.properties";
 
@@ -36,6 +38,7 @@ public class JDBC {
         // createConnection(setProps()); ?
          setProps();
          createConnection(getProperties());
+         instance = this;
     }
 
     /**

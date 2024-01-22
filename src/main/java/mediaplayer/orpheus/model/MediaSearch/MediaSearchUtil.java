@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.MediaSearch;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class MediaSearchUtil {
     String query = DatabaseRead.getAllPlaylistNames();
 
         try(
-    ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query))
+    ResultSet resultSet = JDBC.instance.executeQuary(query))
 
     {
 

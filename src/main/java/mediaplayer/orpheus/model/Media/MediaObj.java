@@ -1,10 +1,9 @@
 package mediaplayer.orpheus.model.Media;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Database.DatabaseUpdate;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -45,7 +44,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaImagePathFromMediaID(mediaID);
 
-        try(ResultSet rsMediaImagePath = OrpheusApp.jdbc.executeQuary(query)){
+        try(ResultSet rsMediaImagePath = JDBC.instance.executeQuary(query)){
             while (rsMediaImagePath.next()){
                 return rsMediaImagePath.getString("fldImagePath");
             }
@@ -64,7 +63,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaLength(mediaID);
 
-        try(ResultSet rsMediaTrackLength = OrpheusApp.jdbc.executeQuary(query)){
+        try(ResultSet rsMediaTrackLength = JDBC.instance.executeQuary(query)){
             while (rsMediaTrackLength.next()){
                 return rsMediaTrackLength.getInt("fldTrackLength");
             }
@@ -82,7 +81,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaArtistArtName(mediaID);
 
-        try(ResultSet rsMediaArtist = OrpheusApp.jdbc.executeQuary(query)){
+        try(ResultSet rsMediaArtist = JDBC.instance.executeQuary(query)){
             while (rsMediaArtist.next()){
                 return rsMediaArtist.getString("fldArtistName");
             }
@@ -100,7 +99,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaPath(mediaID);
 
-        try(ResultSet rsMediaPath = OrpheusApp.jdbc.executeQuary(query)){
+        try(ResultSet rsMediaPath = JDBC.instance.executeQuary(query)){
             while (rsMediaPath.next()){
                 return rsMediaPath.getString("fldFilePath");
             }
@@ -118,7 +117,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaTitle(mediaID);
 
-        try(ResultSet rsMediaTitle = OrpheusApp.jdbc.executeQuary(query)){
+        try(ResultSet rsMediaTitle = JDBC.instance.executeQuary(query)){
             while (rsMediaTitle.next()){
                 return rsMediaTitle.getString("fldMediaTitle");
             }
@@ -136,7 +135,7 @@ public class MediaObj {
 
         String quary = DatabaseRead.getMediaGenre(mediaID);
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
             while (resultSet.next()) {
                 return resultSet.getString("fldGenre");
             }
@@ -154,7 +153,7 @@ public class MediaObj {
 
         String quary = DatabaseRead.getMediaYear(mediaID);
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
             while (resultSet.next()) {
                 return resultSet.getString("fldMediaYear");
             }
@@ -169,7 +168,7 @@ public class MediaObj {
      */
     private void updateMediaTitle(){
         String quary = DatabaseUpdate.setMediaTitle(this.mediaTitle, mediaID);
-        OrpheusApp.jdbc.executeUpdate(quary);
+        JDBC.instance.executeUpdate(quary);
     }
 
     /**
@@ -181,7 +180,7 @@ public class MediaObj {
         String fldPersonID = getPersonIDFromPersonName();
 
         String quary = DatabaseUpdate.setMediaArtist(fldPersonID, mediaID);
-        OrpheusApp.jdbc.executeUpdate(quary);
+        JDBC.instance.executeUpdate(quary);
     }
 
     /**
@@ -189,7 +188,7 @@ public class MediaObj {
      */
     private void updateMediaGenre(){
         String quary = DatabaseUpdate.setMediaGenre(this.mediaGenre, mediaID);
-        OrpheusApp.jdbc.executeUpdate(quary);
+        JDBC.instance.executeUpdate(quary);
     }
 
     /**
@@ -197,7 +196,7 @@ public class MediaObj {
      */
     private void updateMediaYear(){
         String quary = DatabaseUpdate.setMediaYear(this.mediaYear, mediaID);
-        OrpheusApp.jdbc.executeUpdate(quary);
+        JDBC.instance.executeUpdate(quary);
     }
 
     /**
@@ -205,7 +204,7 @@ public class MediaObj {
      */
     private void updateMediaImagePath(){
         String query = DatabaseUpdate.setMediaImagePath(this.imagePath, mediaID);
-        OrpheusApp.jdbc.executeUpdate(query);
+        JDBC.instance.executeUpdate(query);
     }
 
     // region / getter & setter
@@ -217,7 +216,7 @@ public class MediaObj {
     private String getPersonIDFromPersonName(){
         String quary = DatabaseRead.getMediaArtistIDFromName(this.mediaArtist);
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
             while (resultSet.next()) {
                 return resultSet.getString("fldPersonID");
             }

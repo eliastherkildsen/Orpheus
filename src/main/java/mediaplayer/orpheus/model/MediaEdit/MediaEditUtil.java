@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.MediaEdit;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ public class MediaEditUtil {
 
         genre = new ArrayList<>();
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
             while (resultSet.next()) {
                 genre.add(resultSet.getString("fldGenre"));
             }
@@ -35,7 +35,7 @@ public class MediaEditUtil {
 
         artist = new ArrayList<>();
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
             while (resultSet.next()) {
                 artist.add(resultSet.getString("fldArtistName"));
             }

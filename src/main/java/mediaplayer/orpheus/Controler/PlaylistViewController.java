@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -43,7 +43,7 @@ public class PlaylistViewController implements Initializable {
         clearListViewDisplay();
         String query = DatabaseRead.getAllPlaylistNames();
 
-        try (ResultSet resultSet = OrpheusApp.jdbc.executeQuary(query)){
+        try (ResultSet resultSet = JDBC.jdbc.executeQuary(query)){
 
             while (resultSet.next()){
                 playlistNameArr.add(resultSet.getString("fldPlaylistName"));

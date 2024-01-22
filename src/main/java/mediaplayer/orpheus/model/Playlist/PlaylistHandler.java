@@ -1,7 +1,7 @@
 package mediaplayer.orpheus.model.Playlist;
 
 import mediaplayer.orpheus.Controler.HomeViewController;
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AlertPopup;
@@ -11,7 +11,7 @@ import java.sql.*;
 
 public class PlaylistHandler {
 
-    private static final Connection connection = OrpheusApp.jdbc.getConnection();
+    private static final Connection connection = JDBC.instance.getConnection();
 
     /**
      * Method for creating a new playlist

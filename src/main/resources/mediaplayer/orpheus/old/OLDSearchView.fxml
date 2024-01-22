@@ -6,48 +6,48 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="767.0" styleClass="main" stylesheets="@../../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.SearchViewController">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary" stylesheets="@../../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
 
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#switchToHomeView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../css/images/home.png" />
+                        <Image url="@../../../css/images/home.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Label fx:id="labHome" text="Home" textFill="WHITE" />
-            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+            <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../css/images/search.png" />
+                        <Image url="@../../../css/images/search.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Label fx:id="labSearch" alignment="CENTER" contentDisplay="CENTER" text="Search" textFill="WHITE" />
 
-            <Button fx:id="btnPlaylist" mnemonicParsing="false" onAction="#switchToPlaylistView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+            <Button fx:id="btnPlaylist" mnemonicParsing="false" onAction="#switchToPlaylistView" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../css/images/list-video.png" />
+                        <Image url="@../../../css/images/list-video.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Label fx:id="labPlaylist" text="Playlist" textFill="WHITE" />
 
-            <Button fx:id="btnImport" mnemonicParsing="false" onAction="#onActionbtnImportClick" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../css/styles.css">
+            <Button fx:id="btnImport" mnemonicParsing="false" onAction="#onActionbtnImportClick" prefHeight="38.0" prefWidth="139.0" styleClass="button" stylesheets="@../../../css/styles.css">
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../css/images/file-up.png" />
+                        <Image url="@../../../css/images/file-up.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -57,13 +57,13 @@
          </children></VBox>
    </left>
    <bottom>
-      <HBox prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../css/styles.css" BorderPane.alignment="CENTER">
+      <HBox prefHeight="74.0" prefWidth="600.0" styleClass="secondary" stylesheets="@../../../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="207.0">
                <children>
                   <ImageView fx:id="imgThumbnail" fitHeight="92.0" fitWidth="92.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../css/images/download.png" />
+                        <Image url="@../../../css/images/download.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -80,61 +80,61 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnShuffle" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/shuffle.png" />
+                                    <Image url="@../../../css/images/shuffle.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
 
-                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="brnSkipBackwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/skip-back.png" />
+                                    <Image url="@../../../css/images/skip-back.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnPrevious" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/step-back.png" />
+                                    <Image url="@../../../css/images/step-back.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnPlay" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/play-circle.png" />
+                                    <Image url="@../../../css/images/play-circle.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnNext" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/step-forward.png" />
+                                    <Image url="@../../../css/images/step-forward.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
 
-                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnSkipForwards" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="42.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/skip-forward.png" />
+                                    <Image url="@../../../css/images/skip-forward.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -147,10 +147,10 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="labCurrentTime" text="Label" />
-                        <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../css/styles.css" />
+                        <Slider fx:id="silderProgess" prefHeight="14.0" prefWidth="247.0" styleClass="slider" stylesheets="@../../../css/styles.css" />
                         <Label fx:id="labMediaLength" text="Label" />
-                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../css/styles.css" text="Volume" HBox.hgrow="ALWAYS" />
-                        <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="145.0" styleClass="slider" stylesheets="@../../css/styles.css" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btnVolume" mnemonicParsing="false" styleClass="button" stylesheets="@../../../css/styles.css" text="Volume" HBox.hgrow="ALWAYS" />
+                        <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="145.0" styleClass="slider" stylesheets="@../../../css/styles.css" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin></Slider>
@@ -179,11 +179,11 @@
                      </HBox.margin></TextField>
                   <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="40.0">
                      <children>
-                        <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" style="-fx-background-radius: 50;" styleClass="button" stylesheets="@../../css/styles.css">
+                        <Button fx:id="btnSearchBar" mnemonicParsing="false" onAction="#onActionbtnSearchBarClick" style="-fx-background-radius: 50;" styleClass="button" stylesheets="@../../../css/styles.css">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../css/images/search.png" />
+                                    <Image url="@../../../css/images/search.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -195,7 +195,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="221.0" prefWidth="667.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="LWSearchResult" prefHeight="166.0" prefWidth="580.0" styleClass="list-view" stylesheets="@../../css/styles.css">
+                        <ListView fx:id="LWSearchResult" prefHeight="166.0" prefWidth="580.0" styleClass="list-view" stylesheets="@../../../css/styles.css">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin></ListView>
@@ -205,11 +205,11 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onActionbtnEditClick" styleClass="button" stylesheets="@../../css/styles.css">
+                              <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onActionbtnEditClick" styleClass="button" stylesheets="@../../../css/styles.css">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../css/images/pencil-edit.png" />
+                                          <Image url="@../../../css/images/pencil-edit.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -219,11 +219,11 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="62.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="btnListen" mnemonicParsing="false" onAction="#onActionbtnListenClick" styleClass="button" stylesheets="@../../css/styles.css">
+                              <Button fx:id="btnListen" mnemonicParsing="false" onAction="#onActionbtnListenClick" styleClass="button" stylesheets="@../../../css/styles.css">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../css/images/play-circle.png" />
+                                          <Image url="@../../../css/images/play-circle.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -235,16 +235,16 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" styleClass="button" stylesheets="@../../css/styles.css">
+                                    <Button fx:id="btnAddToPlaylist" mnemonicParsing="false" onAction="#onActionbtnAddToPlaylistClick" styleClass="button" stylesheets="@../../../css/styles.css">
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../css/images/list-plus.png" />
+                                                <Image url="@../../../css/images/list-plus.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <ChoiceBox fx:id="cbPlaylist" prefWidth="150.0" stylesheets="@../../css/EditMediaStyles.css" />
+                                    <ChoiceBox fx:id="cbPlaylist" prefWidth="150.0" stylesheets="@../../../css/EditMediaStyles.css" />
                                  </children>
                               </HBox>
                               <Label text="Add to Playlist" />
@@ -252,11 +252,11 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="btnDeleteMedia" mnemonicParsing="false" onAction="#onActionbtnDeleteMediaClick" styleClass="button" stylesheets="@../../css/styles.css">
+                              <Button fx:id="btnDeleteMedia" mnemonicParsing="false" onAction="#onActionbtnDeleteMediaClick" styleClass="button" stylesheets="@../../../css/styles.css">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../css/images/trash-2.png" />
+                                          <Image url="@../../../css/images/trash-2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

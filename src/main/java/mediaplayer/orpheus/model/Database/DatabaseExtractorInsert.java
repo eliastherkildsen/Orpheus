@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.Database;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,9 +47,8 @@ public class DatabaseExtractorInsert {
      * @throws SQLException
      */
     public void insertIntoDBNewMp3() throws SQLException {
-        JDBC db = new JDBC();
         String sql = "INSERT INTO tblMedia (fldMediaTitle,fldFileType,fldAlbum,fldMediaYear,fldMediaTrack,fldTrackLength,fldFilePath, fldImagePath) VALUES (?,?,?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatment = db.getConnection().prepareStatement(sql)){
+        try (PreparedStatement preparedStatment = JDBC.instance.getConnection().prepareStatement(sql)){
             preparedStatment.setString(1, getMediaTitle());
             preparedStatment.setString(2, getFileType());
             preparedStatment.setString(3, getAlbum());
@@ -78,14 +77,14 @@ public class DatabaseExtractorInsert {
         }
         String mediaID = " ";
         try {
-            ResultSet ress = OrpheusApp.jdbc.executeQuary(DatabaseRead.getMediaIdFromTitle(this.mediaTitle));
+            ResultSet ress = JDBC.instance.executeQuary(DatabaseRead.getMediaIdFromTitle(this.mediaTitle));
             while (ress.next()){
                 mediaID =  ress.getString("fldMediaID");
             }
         }catch (SQLException e ){}
 
-        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaPerson(20,mediaID));
-        OrpheusApp.jdbc.executeUpdate(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
+        JDBC.instance.executeUpdate(DatabaseCreate.insertMediaPerson(20,mediaID));
+        JDBC.instance.executeUpdate(DatabaseCreate.insertMediaGenre("Unknown",mediaID));
 
     }
 

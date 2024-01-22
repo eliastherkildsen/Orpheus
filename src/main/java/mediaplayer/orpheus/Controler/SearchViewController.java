@@ -1,5 +1,5 @@
 package mediaplayer.orpheus.Controler;
-import  javafx.fxml.Initializable;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import mediaplayer.orpheus.model.MediaEdit.DeleteMedia;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class SearchViewController implements Initializable {
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
+    private Button btnPlaylist, btnImport, btnDelete, btnEdit, btnListen, btnAddToPlaylist, btnDeleteMedia;
     @FXML
     private TextField FldSearch;
     @FXML
@@ -124,14 +124,6 @@ public class SearchViewController implements Initializable {
     private void switchToPlaylistView() {
         try {
             sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
         } catch (IOException e) {
             e.printStackTrace();
         }

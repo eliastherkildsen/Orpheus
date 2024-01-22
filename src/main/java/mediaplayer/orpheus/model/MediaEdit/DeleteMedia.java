@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.MediaEdit;
 
-import mediaplayer.orpheus.OrpheusApp;
+import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseDelete;
 import mediaplayer.orpheus.util.AnsiColorCode;
 
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class DeleteMedia {
 
-    private static Connection connection = OrpheusApp.jdbc.getConnection();
+    private static Connection connection = JDBC.instance.getConnection();
 
     public static void deleteMediaFromDatabase(int mediaId){
 
