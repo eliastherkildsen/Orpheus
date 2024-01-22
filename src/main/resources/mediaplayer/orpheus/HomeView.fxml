@@ -93,7 +93,7 @@
                     </graphic>
                 </Button>
                 <Label fx:id="labCurrentTime" prefHeight="38.0" prefWidth="46.0" text="00:00:00" />
-                <Button fx:id="btnSkipBackwards" alignment="BASELINE_LEFT" layoutX="98.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnPreviousClick" prefHeight="30.0" prefWidth="46.0" textFill="WHITE">
+                <Button fx:id="btnSkipBackwards" alignment="BASELINE_LEFT" layoutX="98.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnSkipBackwardsClick" prefHeight="30.0" prefWidth="46.0" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -122,7 +122,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Slider fx:id="sliderVolume" onMouseClicked="#onSliderVolumeMouseClick" onMouseReleased="#onSliderVolumeMouseReleased" prefHeight="36.0" prefWidth="80.0" />
+                <Slider fx:id="sliderVolume" blockIncrement="1.0" onMouseClicked="#onSliderVolumeMouseClick" onMouseReleased="#onSliderVolumeMouseReleased" prefHeight="36.0" prefWidth="80.0" value="50.0" />
             </children>
         </HBox>
     </bottom>

@@ -203,7 +203,7 @@ public class HomeViewController implements Initializable {
         }
 
         else {
-            mediaArrIndex =  cntQue % mediaObjQue.size();
+            mediaArrIndex = cntQue % mediaObjQue.size();
             // creates a file object based on the media path
             file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
         }
@@ -233,8 +233,6 @@ public class HomeViewController implements Initializable {
             // prints an error message if the file wasn't found
             System.out.printf("%s[HomeViewControl][loadMedia] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
         }
-
-
 
 
 
@@ -324,7 +322,6 @@ public class HomeViewController implements Initializable {
         if (timer != null) {
             timer.cancel();
         }
-        //TODO - when making skipMedia
     }
 
 
@@ -363,7 +360,6 @@ public class HomeViewController implements Initializable {
 
             mediaPlayPause();
             updateMediaViewTitle();
-
     }
 
 
@@ -436,7 +432,8 @@ public class HomeViewController implements Initializable {
      */
     @FXML
     private void onSliderProgresMouseClick(){
-        pauseWithValidation();
+        sliderProgresMouseRelease();
+        //pauseWithValidation();
     }
 
 
@@ -670,9 +667,11 @@ public class HomeViewController implements Initializable {
 
         if (!mediaObjQue.isEmpty()){
             currentTrackTime = mediaPlayer.getCurrentTime().toSeconds();
-            double mediaLength = media.getDuration().toSeconds();
+            //double mediaLength = media.getDuration().toSeconds();
 
-            int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime, mediaLength);
+            int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime);
+            System.out.println("current tracktime: " + currentTrackTime);
+            System.out.println("new tracktime: " + newTrackTime);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);
@@ -770,7 +769,8 @@ public class HomeViewController implements Initializable {
 
             updateCurrentTimeLabel(selectedMediaTime);
             mediaPlayer.seek(Duration.seconds(selectedMediaTime));
-            mediaPlayer.play();
+
+            playWithValidation();
 
             beginTimer();
         }
