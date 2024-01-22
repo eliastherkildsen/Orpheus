@@ -14,11 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.scene.media.Media;
@@ -32,7 +32,6 @@ import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -40,7 +39,8 @@ import java.util.TimerTask;
 
 // implementing the initializable interface in the HomeViewController class
 public class HomeViewController implements Initializable {
-
+    @FXML
+    public AnchorPane anchor;
     private SceneController viewControler = new SceneController();
 
     @FXML
@@ -150,30 +150,43 @@ public class HomeViewController implements Initializable {
 
 
     }
-
+    /**
+     * Listeners that changes the size of the MediaView depending on the screensize OR the location of the default background image, Also depedant of screen size.
+     */
     private void loadListenersView() {
         homePane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 100.0;
+                double padding = 85;
                 mediaViewDisplay.setFitWidth(t1.doubleValue() - padding);
 
                 //Saving the width everytime its changed for later use.
                 widthOfScene = (double) number;
                 //System.out.println("Width " + widthOfScene);
 
+                //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
+                if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
+                    double x = (t1.doubleValue() - imageViewTN.getImage().getWidth()) / 2 - padding;
+                    AnchorPane.setLeftAnchor(imageViewTN, x);
+                }
+
             }
         });
-
         homePane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                double padding = 85;
+                double padding = 40;
                 mediaViewDisplay.setFitHeight(t1.doubleValue() - padding);
 
                 //Saving the height every time its changed for later use.
                 heightOfScene = (double) number;
                 //System.out.println("Height " + heightOfScene);
+
+                //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
+                if (imageViewTN.getImage() != null && !imageViewTN.getImage().isError()) {
+                    double y = (t1.doubleValue() - imageViewTN.getImage().getHeight()) / 2 - padding;
+                    AnchorPane.setTopAnchor(imageViewTN, y);
+                }
 
             }
         });
