@@ -18,6 +18,7 @@ public class MediaObj {
     private String mediaYear;
     private int trackLength;
     private String imagePath = "src/main/resources/css/images/audio-lines.png";
+    private String mediaExstention;
 
 
     public MediaObj(int mediaID) throws SQLException {
@@ -34,8 +35,9 @@ public class MediaObj {
         this.imagePath = generateImagePath();
         this.mediaGenre = loadMediaGenre();
         this.mediaYear = loadMediaYear();
+        this.mediaExstention = getMediaExstentionFromMediaID();
 
-        this.presentetedMedia = String.format("[MEDIA] - " + mediaTitle);
+        this.presentetedMedia = String.format("[%s] - %s", mediaExstention, mediaTitle);
 
 
     }
@@ -229,6 +231,25 @@ public class MediaObj {
         }
         return "";
     }
+
+    /**
+     * Method for getting PersonID from the database using the artist name
+     * @return Returns the PersonID
+     */
+    private String getMediaExstentionFromMediaID(){
+        String quary = DatabaseRead.getMediaExstentionFromMediaID(this.mediaID);
+
+        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
+            while (resultSet.next()) {
+                return resultSet.getString("fldFileType");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+
 
     /**
      * Method for getting the objects file path

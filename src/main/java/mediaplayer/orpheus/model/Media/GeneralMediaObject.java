@@ -1,5 +1,7 @@
 package mediaplayer.orpheus.model.Media;
 
+import mediaplayer.orpheus.model.Playlist.PlaylistObj;
+
 public class GeneralMediaObject {
 
     private MediaObj mediaObj = null;
