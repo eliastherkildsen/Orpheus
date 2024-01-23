@@ -27,7 +27,8 @@ public class MetaExtractorMp4 {
             IsoFile isoFile = new IsoFile(new FileInputStream(filePath).getChannel());
             MovieHeaderBox movieHeaderBox = isoFile.getMovieBox().getMovieHeaderBox();
             long durationInSeconds = movieHeaderBox.getDuration() / movieHeaderBox.getTimescale();
-            System.out.printf("%s[METADATA MP4]%s Getting length of MP4.%s%n" + Math.toIntExact(durationInSeconds) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP4]%s Getting length of MP4.%s%n" + Math.toIntExact(durationInSeconds)
+                    + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             return Math.toIntExact(durationInSeconds);
 
     }

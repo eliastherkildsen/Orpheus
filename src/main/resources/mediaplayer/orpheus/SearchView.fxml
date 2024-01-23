@@ -108,7 +108,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="450.0">
                <children>
-                  <TextField fx:id="FldSearch" alignment="CENTER" prefHeight="40.0" prefWidth="350.0">
+                  <TextField fx:id="FldSearch" prefHeight="40.0" prefWidth="350.0" promptText="Search">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
