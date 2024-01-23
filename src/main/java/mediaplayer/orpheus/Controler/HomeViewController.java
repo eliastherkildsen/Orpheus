@@ -212,9 +212,11 @@ public class HomeViewController implements Initializable {
         else {
 
             // shuffle button activated
-            if (!shuffle){
+            if (shuffle){
 
-                shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
+                System.out.println("shuffle chosen");
+
+
 
                 mediaArrIndex = cntQue % shufflePlaylist.size();
                 file = new File(shufflePlaylist.get(mediaArrIndex).getMediaPath());
@@ -222,6 +224,10 @@ public class HomeViewController implements Initializable {
 
             // Regular playback of playlist
             else{
+
+                System.out.println("regular chosen");
+
+
                 mediaArrIndex = cntQue % mediaObjQue.size();
                 // creates a file object based on the media path
                 file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
@@ -465,11 +471,15 @@ public class HomeViewController implements Initializable {
     private void mediaShuffle() throws FileNotFoundException {
 
         if (!mediaObjQue.isEmpty()) {
-            if (shuffle) {
+            if (!shuffle) {
+
+                System.out.println("shuffle activated");
 
                 // handles stopping the media
                 cancelTimer();
                 stopWithValidation();
+
+                shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
 
                 // resets cntQue and loads shuffled playlist
                 cntQue = 0;
@@ -478,20 +488,33 @@ public class HomeViewController implements Initializable {
 
                 loadMedia();
 
+                playSwitchStage = false;
+                mediaPlayPause();
+                //pauseWithValidation();
+
                 System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function activated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
             } else {
 
+                System.out.println("shuffle deactivated");
+
                 // handles stopping the media
                 cancelTimer();
-                stopWithValidation();
+                //stopWithValidation();
+                //pauseWithValidation();
 
                 // resets cntQue and loads shuffled playlist
                 cntQue = 0;
                 updateShuffleButtonImage(shuffleDeactImageURL);
                 toggleShuffleState();
 
+
+
                 loadMedia();
+
+                playSwitchStage = false;
+                mediaPlayPause();
+                //pauseWithValidation();
 
                 System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function deactivated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             }
