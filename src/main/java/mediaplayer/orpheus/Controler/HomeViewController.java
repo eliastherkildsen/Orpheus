@@ -24,6 +24,7 @@ import java.io.IOException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import mediaplayer.orpheus.model.Media.MediaShuffle;
 import mediaplayer.orpheus.model.Media.MediaSkip;
 import mediaplayer.orpheus.model.Media.MediaUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
@@ -81,12 +82,16 @@ public class HomeViewController implements Initializable {
     private double currentSliderVol;
     public static int cntQue;
     private static int mediaArrIndex;
+    private static int shuffleIndex;
 
     private boolean playSwitchStage = true;
     private boolean mute = true;
+    private boolean shuffle = false;
     private boolean isInitialized = false;
 
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
+
+    private static ArrayList<MediaObj> shufflePlaylist = new ArrayList<>();
 
     private  static final double ASPECT_RATIO = 16.0 / 9.0;
 
@@ -203,9 +208,22 @@ public class HomeViewController implements Initializable {
         }
 
         else {
-            mediaArrIndex = cntQue % mediaObjQue.size();
-            // creates a file object based on the media path
-            file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
+
+            // shuffle button activated
+            if (!shuffle){
+
+                shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
+
+                mediaArrIndex = cntQue % shufflePlaylist.size();
+                file = new File(shufflePlaylist.get(mediaArrIndex).getMediaPath());
+            }
+
+            // Regular playback of playlist
+            else{
+                mediaArrIndex = cntQue % mediaObjQue.size();
+                // creates a file object based on the media path
+                file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
+            }
         }
 
         if (file.exists()) {
