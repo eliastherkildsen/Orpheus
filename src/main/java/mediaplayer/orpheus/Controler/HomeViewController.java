@@ -500,7 +500,7 @@ public class HomeViewController implements Initializable {
 
                 // handles stopping the media
                 cancelTimer();
-                //stopWithValidation();
+                stopWithValidation();
                 //pauseWithValidation();
 
                 // resets cntQue and loads shuffled playlist
