@@ -1,6 +1,7 @@
 package mediaplayer.orpheus.Controler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.MediaEdit.DeleteMedia;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
@@ -28,7 +29,7 @@ public class SearchViewController implements Initializable {
     @FXML
     private ListView<String> LWSearchResult;
     private final MediaSearch mediaSearch = new MediaSearch();
-    private ArrayList<MediaObj> dataSet = new ArrayList<>();
+    private ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
     private ArrayList<String> playListNamesArr = new ArrayList<>();
     private final SceneController sceneController = new SceneController();
     @FXML
@@ -70,7 +71,7 @@ public class SearchViewController implements Initializable {
 
         String cbItem = getSelectedChoiceBoxItem();
         if(cbItem != null){
-            int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaID();
+            int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaObj().getMediaID();
             PlaylistHandler.addMediaToPlaylist(selectedMedia, cbItem);
         }else{
             AlertPopup alertPopupNoItemSelected = new AlertPopup("Failed"
@@ -102,10 +103,10 @@ public class SearchViewController implements Initializable {
         clearListView();
 
         // addes each MediaObj obj. to the list view.
-        for (MediaObj mediaObj : dataSet) {
+        for (GeneralMediaObject generalMediaObject : dataSet) {
             // formats the result.
             // adds the result to the search list.
-            LWSearchResult.getItems().add(mediaObj.getMediaTitle());
+            LWSearchResult.getItems().add(generalMediaObject.getMediaObj().getPresentetedMedia());
         }
     }
 
@@ -168,8 +169,19 @@ public class SearchViewController implements Initializable {
         // checks if an item in LW has been selected.
         if (getSelectedItemIndex() != -1){
 
-            DeleteMedia.deleteMediaFromDatabase(dataSet.get(itemIndex).getMediaID());
-            DeleteMedia.deleteMediaFileFromDir(dataSet.get(itemIndex).getMediaPath());
+            // checks if a media has been selected.
+
+            if (dataSet.get(itemIndex).getMediaObj() != null){
+
+                DeleteMedia.deleteMediaFromDatabase(dataSet.get(itemIndex).getMediaObj().getMediaID());
+                DeleteMedia.deleteMediaFileFromDir(dataSet.get(itemIndex).getMediaObj().getMediaPath());
+            }
+
+            // else checks if a playlist was selected.
+
+            else if (dataSet.get(itemIndex).getPlaylistObj() != null){
+                PlaylistHandler.deletePlaylist(dataSet.get(itemIndex).getPlaylistObj().getPlaylistName());
+            }
 
             refreshSearchResults();
             System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);

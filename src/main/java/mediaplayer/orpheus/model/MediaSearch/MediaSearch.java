@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.MediaSearch;
 
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseUtil;
+import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.Media.MediaObj;
 
 import java.sql.*;
@@ -43,9 +44,9 @@ public class MediaSearch {
      * @return ArrayList<String[]> a list of String arrays
      *         containing the resultSets data parsed to a formatted String
      */
-    public ArrayList<MediaObj> processResultSet(ResultSet resultSet) {
+    public ArrayList<GeneralMediaObject> processResultSet(ResultSet resultSet) {
 
-        ArrayList<MediaObj> dataSet = new ArrayList<>();
+        ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
         // loops through the result set.
         while (true) {
@@ -60,7 +61,7 @@ public class MediaSearch {
             try {
 
                 int mediaID = Integer.parseInt(DatabaseUtil.validateResultNotNull("fldMediaID", resultSet));
-                dataSet.add(new MediaObj(mediaID));
+                dataSet.add(new GeneralMediaObject(new MediaObj(mediaID)));
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);

@@ -12,6 +12,7 @@ public class MediaObj {
     private int mediaID;
     private String mediaPath;
     private String mediaTitle;
+    private String presentetedMedia;
     private String mediaArtist;
     private String mediaGenre;
     private String mediaYear;
@@ -33,6 +34,9 @@ public class MediaObj {
         this.imagePath = generateImagePath();
         this.mediaGenre = loadMediaGenre();
         this.mediaYear = loadMediaYear();
+
+        this.presentetedMedia = String.format("[MEDIA] - " + mediaTitle);
+
 
     }
 
@@ -331,6 +335,10 @@ public class MediaObj {
     public void setMediaImagePath(String imagePath) {
         this.imagePath = imagePath;
         updateMediaImagePath();
+    }
+
+    public String getPresentetedMedia() {
+        return presentetedMedia;
     }
 
 
