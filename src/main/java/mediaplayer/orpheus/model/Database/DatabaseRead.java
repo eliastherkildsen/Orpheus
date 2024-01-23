@@ -154,4 +154,16 @@ public class DatabaseRead {
 
     }
 
+    public static String getMediaExstentionFromMediaID(int mediaID){
+
+        return new StringBuilder()
+                .append("SELECT fldFileType FROM tblMedia WHERE fldMediaID = '")
+                .append(mediaID)
+                .append("'")
+                .toString();
+
+    }
+
+
+
 }

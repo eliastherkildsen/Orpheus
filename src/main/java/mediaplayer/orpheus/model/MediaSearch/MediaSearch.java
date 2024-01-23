@@ -2,7 +2,9 @@ package mediaplayer.orpheus.model.MediaSearch;
 
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseUtil;
+import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.Media.MediaObj;
+import mediaplayer.orpheus.model.Playlist.PlaylistObj;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,16 +21,35 @@ public class MediaSearch {
      * @return resultSet of the executed quarry, returns an empty result set if
      *         no fields matching the searchCriteria is found.
      */
-    public ResultSet searchMedia(String searchCriteria) {
+    public ResultSet searchMediaForMedia(String searchCriteria) {
 
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
-        String query = appendQuerySearch(searchCriteria);
+        String query = appendQuerySearchForMedia(searchCriteria);
 
         try {
             preparedStatement = connection.prepareCall(query);
             resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultSet;
+    }
+
+    public ResultSet searchMediaForPlaylist(String searchCriteria) {
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        String query = appendQuerySearchForPlaylist(searchCriteria);
+
+        try {
+
+            preparedStatement = connection.prepareCall(query);
+            resultSet = preparedStatement.executeQuery();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -43,9 +64,9 @@ public class MediaSearch {
      * @return ArrayList<String[]> a list of String arrays
      *         containing the resultSets data parsed to a formatted String
      */
-    public ArrayList<MediaObj> processResultSet(ResultSet resultSet) {
+    public ArrayList<GeneralMediaObject> processResultSet(ResultSet resultSet) {
 
-        ArrayList<MediaObj> dataSet = new ArrayList<>();
+        ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
         // loops through the result set.
         while (true) {
@@ -60,7 +81,7 @@ public class MediaSearch {
             try {
 
                 int mediaID = Integer.parseInt(DatabaseUtil.validateResultNotNull("fldMediaID", resultSet));
-                dataSet.add(new MediaObj(mediaID));
+                dataSet.add(new GeneralMediaObject(new MediaObj(mediaID)));
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -71,13 +92,41 @@ public class MediaSearch {
         return dataSet;
 
     }
+    public ArrayList<GeneralMediaObject> processResultSetPlaylist(ResultSet resultSet) {
+
+        ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
+
+        System.out.println("Prospering res, playlist");
+
+        // loops through the result set.
+
+        while (true) {
+            try {
+                // breaks out of the loop when end is reached.
+                if (!resultSet.next()) break;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            String playlistName = DatabaseUtil.validateResultNotNull("fldPlaylistName", resultSet);
+            dataSet.add(new GeneralMediaObject(new PlaylistObj(playlistName)));
+
+            System.out.println("Created new playlist OBJ ");
+
+        }
+
+        return dataSet;
+
+    }
+
+
 
     /**
      * Method for appending the sql query needed to search in the database.
      * @param searchCriteria What is being searched for
      * @return SQL query as string
      */
-    private String appendQuerySearch(String searchCriteria){
+    private String appendQuerySearchForMedia(String searchCriteria){
 
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
@@ -115,8 +164,30 @@ public class MediaSearch {
                 .append(searchCriteria)
                 .append("%'")
 
+
+
                 .toString();
 
     }
+
+
+
+    /**
+     * Method for appending the sql query needed to search in the database.
+     * @param searchCriteria What is being searched for
+     * @return SQL query as string
+     */
+    private String appendQuerySearchForPlaylist(String searchCriteria){
+
+        // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
+        // with use of string builder to avoid String concatenation.
+        return new StringBuilder()
+                .append("SELECT fldPlaylistName FROM tblPlaylist WHERE fldPlaylistName like '")
+                .append(searchCriteria)
+                .append("%'")
+                .toString();
+
+    }
+
 
 }
