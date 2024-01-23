@@ -67,8 +67,8 @@ public class HomeViewController implements Initializable {
     private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
     private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
     private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
-    private String shuffleActImageURL = "file:";
-    private String shuffleDeactImageURL = "file:";
+    private String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
+    private String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
 
     private double heightOfScene;
     private double widthOfScene;
