@@ -59,7 +59,7 @@ public class HomeViewController implements Initializable {
     @FXML
     private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
-    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail;
+    private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, bntShuffleIcon;
 
 
     private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
@@ -67,6 +67,8 @@ public class HomeViewController implements Initializable {
     private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
     private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
     private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+    private String shuffleActImageURL = "file:";
+    private String shuffleDeactImageURL = "file:";
 
     private double heightOfScene;
     private double widthOfScene;
@@ -455,6 +457,63 @@ public class HomeViewController implements Initializable {
     }
 
 
+    @FXML
+    private void onBtnShuffleClick() throws FileNotFoundException {
+        mediaShuffle();
+    }
+
+    private void mediaShuffle() throws FileNotFoundException {
+
+        if (!mediaObjQue.isEmpty()) {
+            if (shuffle) {
+
+                // handles stopping the media
+                cancelTimer();
+                stopWithValidation();
+
+                // resets cntQue and loads shuffled playlist
+                cntQue = 0;
+                updateShuffleButtonImage(shuffleActImageURL);
+                toggleShuffleState();
+
+                loadMedia();
+
+                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function activated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
+            } else {
+
+                // handles stopping the media
+                cancelTimer();
+                stopWithValidation();
+
+                // resets cntQue and loads shuffled playlist
+                cntQue = 0;
+                updateShuffleButtonImage(shuffleDeactImageURL);
+                toggleShuffleState();
+
+                loadMedia();
+
+                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function deactivated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            }
+        }
+
+    }
+
+
+    /**
+     * Method for updating the shuffle/not shuffle button image
+     * @param imageURL
+     */
+    private void updateShuffleButtonImage(String imageURL) {
+        Image image = new Image(imageURL);
+        // assigns the specified image from the given imageURL to the play button
+        bntShuffleIcon.setImage(image);
+    }
+
+
+    private void toggleShuffleState(){
+        shuffle = !shuffle;
+    }
 
 
     // Associated methods for button click events
@@ -906,4 +965,3 @@ public class HomeViewController implements Initializable {
     }
 
 }
-
