@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="620.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.EditMediaViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="680.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.EditMediaViewController">
     <left>
         <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
             <children>
@@ -75,25 +76,31 @@
         </HBox>
     </bottom>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="60.0" text="Edit">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="65.0" text="Editing:">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
-                  <Label fx:id="labMedia" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="450.0" text="No selected Object">
+                  <Label fx:id="labMedia" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="220.0" text="No selected Object" wrapText="true">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
-            <VBox prefWidth="100.0" spacing="10.0">
+            <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="40.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="90.0" text="Media Title" />
                         <TextField fx:id="fldMediaTitle" prefHeight="40.0" prefWidth="300.0" promptText="Title">
@@ -104,9 +111,10 @@
                               <Insets bottom="10.0" top="10.0" />
                            </HBox.margin>
                         </TextField>
+                        <Pane prefHeight="40.0" prefWidth="60.0" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="40.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="90.0" text="Artist" />
                         <ChoiceBox fx:id="cbArtist" prefHeight="40.0" prefWidth="300.0">
@@ -118,9 +126,6 @@
                            </HBox.margin>
                         </ChoiceBox>
                         <Button fx:id="btnAddArtist" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnAddArtistClick" prefHeight="40.0" prefWidth="60.0" textFill="WHITE">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -131,10 +136,13 @@
                            <HBox.margin>
                               <Insets top="2.0" />
                            </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </Button>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="90.0" text="Genre" />
                         <ChoiceBox fx:id="cbGenre" prefHeight="40.0" prefWidth="300.0">
@@ -162,7 +170,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="70.0" prefHeight="40.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="70.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="90.0" text="Year" />
                         <TextField fx:id="fldYear" prefHeight="40.0" prefWidth="300.0" promptText="Year">
@@ -173,9 +181,10 @@
                               <Insets bottom="10.0" top="10.0" />
                            </HBox.margin>
                         </TextField>
+                        <Pane prefHeight="40.0" prefWidth="60.0" />
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="100.0" prefHeight="40.0" prefWidth="450.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="100.0" prefHeight="40.0" prefWidth="450.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="90.0" text="Add Thumbnail" />
                         <Button fx:id="btnAddThumbNail" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onActionbtnAddThumbnail" prefHeight="40.0" prefWidth="80.0" textFill="WHITE">
@@ -190,6 +199,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Pane prefHeight="40.0" prefWidth="280.0" />
                      </children>
                   </HBox>
                </children>
