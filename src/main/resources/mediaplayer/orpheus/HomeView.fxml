@@ -14,7 +14,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="640.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="680.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
     <left>
         <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
             <children>
@@ -65,6 +65,15 @@
     <bottom>
         <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-alignment: center;" styleClass="footer_colour" BorderPane.alignment="CENTER">
             <children>
+            <Button fx:id="btnshuffle" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../css/images/shuffle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
                 <Button fx:id="btnPrevious" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnPreviousClick" prefHeight="30.0" prefWidth="30.0" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

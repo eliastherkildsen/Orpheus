@@ -78,7 +78,9 @@ public class MetaExtractorMp3 {
         try {
             AudioFile audioFile = readAudioFile();
             //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Getting TrackLength in seconds.%s%n" + audioFile.getAudioHeader().getTrackLength() + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[METADATA MP3]%s Getting TrackLength in seconds.%s%n"
+                    + audioFile.getAudioHeader().getTrackLength()
+                    + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
             return audioFile.getAudioHeader().getTrackLength();
         } catch (IOException e) {
             throw e;
