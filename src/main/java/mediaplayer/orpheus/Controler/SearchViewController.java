@@ -104,12 +104,6 @@ public class SearchViewController implements Initializable {
         deleteMedia(getSelectedItemIndex());
     }
 
-    /**
-     * method for getting the selected item in LW
-     * @return the index of the selected item. return -1 if no item is selected.
-     */
-
-
     @FXML
     private void onActionbtnSearchBarClick(){
         search();

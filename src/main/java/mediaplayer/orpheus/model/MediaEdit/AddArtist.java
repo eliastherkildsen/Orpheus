@@ -16,9 +16,7 @@ public class AddArtist {
      */
     public static void createArtist(String artistFirstname, String artistLastname, String artistName){
 
-        String query = DatabaseCreate.insertPerson(artistFirstname, artistLastname, artistName);
-
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseCreate.insertPerson(artistFirstname, artistLastname, artistName));
 
         debugMessage.debug(AddArtist.class,"CreateArtist: A new Media Artist has been added to the DB.");
     }

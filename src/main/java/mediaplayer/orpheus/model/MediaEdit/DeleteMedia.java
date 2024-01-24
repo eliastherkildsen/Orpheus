@@ -1,12 +1,10 @@
 package mediaplayer.orpheus.model.MediaEdit;
 
-import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseDelete;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import mediaplayer.orpheus.util.debugMessage;
 
 import java.io.File;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteMedia {
@@ -17,13 +15,9 @@ public class DeleteMedia {
      */
     public static void deleteMediaFromDatabase(int mediaId){
 
-        PreparedStatement preparedStatement;
-        String quarry = DatabaseDelete.deleteMediaQuarry(mediaId);
-
         try {
 
-            preparedStatement = JDBC.instance.getConnection().prepareCall(quarry);
-            preparedStatement.executeUpdate();
+            DatabaseDelete.deleteMediaQuarry(mediaId).executeUpdate();
 
             debugMessage.debug(DeleteMedia.class,"DeleteFromDB: Media with " + mediaId + " ID was DELETED.");
         } catch (SQLException e) {

@@ -11,118 +11,267 @@ public class DatabaseRead {
 
     private static final Connection connection = JDBC.instance.getConnection();
 
-    public static String getMediaIdFromTitle(String mediaTitle){
-        return new StringBuilder()
-                .append("SELECT fldMediaID")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaTitle = '")
-                .append(mediaTitle)
-                .append("'")
-                .toString();
-    }
-    public static String getMediaTitle(int mediaId) {
-        return new StringBuilder()
-                .append("SELECT fldMediaTitle")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaType(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFileType")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaAlbum(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFilePath")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaYear(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldMediaYear")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaTrack(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldMediaTrack")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaLength(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldTrackLength")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaPath(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFilePath")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaArtistArtName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldArtistName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaArtistFirstName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldFirstName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
-    public static String getMediaArtistLastName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldLastName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
-    }
+    public static PreparedStatement getMediaIdFromTitle(String mediaTitle){
 
-    public static String getAllArtists (){
-        return "SELECT DISTINCT fldArtistName FROM tblPerson";
-    }
-    public static String getMediaGenre(int mediaId){
+        try {
+            String query = "SELECT fldMediaID FROM tblMedia WHERE fldMediaTitle = ?";
 
-        return new StringBuilder()
-                .append("SELECT DISTINCT mg.fldGenre")
-                .append(" FROM tblMedia m")
-                .append(" JOIN tblMediaGenre mg ON m.fldMediaID = mg.fldMediaID")
-                .append(" WHERE mg.fldMediaID = ")
-                .append(mediaId)
-                .toString();
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, mediaTitle);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaIdFromTitle] Get mediaID from title failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaTitle(int mediaId) {
+
+        try {
+            String query = "SELECT fldMediaTitle FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaTitle] Get media title failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
 
     }
-    public static String getAllGenres (){
-        return "SELECT * FROM tblGenre";
+    public static PreparedStatement getMediaType(int mediaId){
+
+        try {
+
+            String query = "SELECT fldFileType FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaType] Get media type failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+    }
+    public static PreparedStatement getMediaAlbum(int mediaId){
+
+        try {
+
+            String query = "SELECT fldFilePath FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaAlbum] Get media album failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaYear(int mediaId){
+
+        try {
+            String query = "SELECT fldMediaYear FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaYear] Get media year failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaTrack(int mediaId){
+
+        try {
+
+            String query = "SELECT fldMediaTrack FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaTrack] Get media track failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+    }
+    public static PreparedStatement getMediaLength(int mediaId){
+
+        try {
+
+            String query = "SELECT fldTrackLength FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaLength] Get media length failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaPath(int mediaId){
+        try {
+
+            String query = "SELECT fldFilePath FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaPath] Get media path failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaArtistArtName(int mediaId){
+        try {
+            String query = "SELECT DISTINCT p.fldArtistName FROM tblPerson p " +
+                    "JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                    " WHERE mp.fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaArtistArtName] Get media artist art name failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaArtistFirstName(int mediaId){
+
+        try {
+
+            String query = "SELECT DISTINCT p.fldFirstName FROM tblPerson p" +
+                    " JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                    " WHERE mp.fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaArtistFirstName] Get media artist first name failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+    public static PreparedStatement getMediaArtistLastName(int mediaId){
+
+        try {
+
+            String query = "SELECT DISTINCT p.fldLastName FROM tblPerson p" +
+                    " JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                    " WHERE mp.fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaArtistLastName] Get media artist last name failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
     }
 
-    public static String getAllPlaylistNames() {return "SELECT fldPlaylistName FROM tblPlaylist";}
+    public static PreparedStatement getAllArtists (){
+        try {
+
+            return connection.prepareCall("SELECT DISTINCT fldArtistName FROM tblPerson");
+
+        }catch (SQLException e){
+            System.out.printf("%s[DatabaseRead][getAllArtists] Get all artists failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+    }
+    public static PreparedStatement getMediaGenre(int mediaId){
+
+        try {
+            String query = "SELECT DISTINCT mg.fldGenre FROM tblMedia m" +
+                    " JOIN tblMediaGenre mg ON m.fldMediaID = mg.fldMediaID" +
+                    " WHERE mg.fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaId);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+            System.out.printf("%s[DatabaseRead][getMediaGenre] Get media genres failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+    }
+    public static PreparedStatement getAllGenres (){
+
+        try {
+
+            return connection.prepareCall("SELECT * FROM tblGenre");
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getAllGenres] Get all genres failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+    }
+
+    public static PreparedStatement getAllPlaylistNames() {
+
+        try {
+
+            return connection.prepareCall("SELECT fldPlaylistName FROM tblPlaylist");
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getAllPlaylistNames] Get all playlist names failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+    }
 
     public static PreparedStatement getMaxTrackOrder(String playlistName){
 
@@ -137,19 +286,29 @@ public class DatabaseRead {
 
         }catch (SQLException e){
 
-            System.out.printf("%s[DatabaseRead][getMaxTrackOrder] Get max track order failed%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[DatabaseRead][getMaxTrackOrder] Get max track order failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             return null;
         }
 
 
     }
-    public static String getMediaArtistIDFromName(String mediaArtistName) {
+    public static PreparedStatement getMediaArtistIDFromName(String mediaArtistName) {
 
-        return new StringBuilder()
-                .append("SELECT fldPersonID FROM tblPerson WHERE fldArtistName = '")
-                .append(mediaArtistName)
-                .append("'")
-                .toString();
+        try {
+            String query = "SELECT fldPersonID FROM tblPerson WHERE fldArtistName = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, mediaArtistName);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaArtistIDFromName] Get media artist from name failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
 
     }
     public static PreparedStatement getMediaIDFromPlaylistName(String playlistName){
@@ -165,31 +324,48 @@ public class DatabaseRead {
 
         }catch(SQLException e){
 
-            System.out.printf("%s[DatabaseRead][getMediaIDFromPlaylistName] Get mediaID from playlist name failed%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            System.out.printf("%s[DatabaseRead][getMediaIDFromPlaylistName] Get mediaID from playlist name failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
             return null;
         }
 
     }
-    public static String getMediaImagePathFromMediaID(int mediaID){
+    public static PreparedStatement getMediaImagePathFromMediaID(int mediaID){
 
-        return new StringBuilder()
-                .append("SELECT fldImagePath FROM tblMedia WHERE fldMediaID = '")
-                .append(mediaID)
-                .append("'")
-                .toString();
+        try {
+            String query = "SELECT fldImagePath FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaID);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaImagePathFromMediaID] Get media image path from mediaID failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
 
     }
 
-    public static String getMediaExstentionFromMediaID(int mediaID){
+    public static PreparedStatement getMediaExtensionFromMediaID(int mediaID){
 
-        return new StringBuilder()
-                .append("SELECT fldFileType FROM tblMedia WHERE fldMediaID = '")
-                .append(mediaID)
-                .append("'")
-                .toString();
+        try {
+            String query = "SELECT fldFileType FROM tblMedia WHERE fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setInt(1, mediaID);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaExtensionFromMediaID] Get media extension from mediaID failed%s%n"
+                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
 
     }
-
-
 
 }

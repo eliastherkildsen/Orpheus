@@ -39,9 +39,7 @@ public class MediaObj {
      */
     private String generateImagePath() {
 
-        String query = DatabaseRead.getMediaImagePathFromMediaID(MEDIA_ID);
-
-        try(ResultSet rsMediaImagePath = JDBC.instance.executeQuery(query)){
+        try(ResultSet rsMediaImagePath = JDBC.instance.executeQuery(DatabaseRead.getMediaImagePathFromMediaID(MEDIA_ID))){
 
             if (rsMediaImagePath.next()){
                 return rsMediaImagePath.getString("fldImagePath");
@@ -60,9 +58,7 @@ public class MediaObj {
      */
     private String generateMediaArtist(){
 
-        String query = DatabaseRead.getMediaArtistArtName(MEDIA_ID);
-
-        try(ResultSet rsMediaArtist = JDBC.instance.executeQuery(query)){
+        try(ResultSet rsMediaArtist = JDBC.instance.executeQuery(DatabaseRead.getMediaArtistArtName(MEDIA_ID))){
             if (rsMediaArtist.next()){
                 return rsMediaArtist.getString("fldArtistName");
             }
@@ -80,9 +76,7 @@ public class MediaObj {
      */
     private String generateMediaPath() {
 
-        String query = DatabaseRead.getMediaPath(MEDIA_ID);
-
-        try(ResultSet rsMediaPath = JDBC.instance.executeQuery(query)){
+        try(ResultSet rsMediaPath = JDBC.instance.executeQuery(DatabaseRead.getMediaPath(MEDIA_ID))){
             if (rsMediaPath.next()){
                 return rsMediaPath.getString("fldFilePath");
             }
@@ -99,9 +93,7 @@ public class MediaObj {
      */
     private String generateMediaTitle()  {
 
-        String query = DatabaseRead.getMediaTitle(MEDIA_ID);
-
-        try(ResultSet rsMediaTitle = JDBC.instance.executeQuery(query)){
+        try(ResultSet rsMediaTitle = JDBC.instance.executeQuery(DatabaseRead.getMediaTitle(MEDIA_ID))){
             if (rsMediaTitle.next()){
                 return rsMediaTitle.getString("fldMediaTitle");
             }
@@ -117,9 +109,7 @@ public class MediaObj {
      */
     private String loadMediaGenre(){
 
-        String query = DatabaseRead.getMediaGenre(MEDIA_ID);
-
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getMediaGenre(MEDIA_ID))) {
             if (resultSet.next()){
                 return resultSet.getString("fldGenre");
             }
@@ -136,9 +126,7 @@ public class MediaObj {
      */
     private String loadMediaYear(){
 
-        String query = DatabaseRead.getMediaYear(MEDIA_ID);
-
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getMediaYear(MEDIA_ID))) {
             if (resultSet.next()){
                 return resultSet.getString("fldMediaYear");
             }
@@ -154,8 +142,7 @@ public class MediaObj {
      * Method for updating the media title in the database
      */
     private void updateMediaTitle(){
-        String query = DatabaseUpdate.setMediaTitle(this.mediaTitle, MEDIA_ID);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseUpdate.setMediaTitle(this.mediaTitle, MEDIA_ID));
     }
 
     /**
@@ -166,32 +153,28 @@ public class MediaObj {
         // get person id from person name.
         String fldPersonID = getPersonIDFromPersonName();
 
-        String query = DatabaseUpdate.setMediaArtist(fldPersonID, MEDIA_ID);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseUpdate.setMediaArtist(fldPersonID, MEDIA_ID));
     }
 
     /**
      * Method for updating the media genre in the database
      */
     private void updateMediaGenre(){
-        String query = DatabaseUpdate.setMediaGenre(this.mediaGenre, MEDIA_ID);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseUpdate.setMediaGenre(this.mediaGenre, MEDIA_ID));
     }
 
     /**
      * Method for updating the media year in the database
      */
     private void updateMediaYear(){
-        String query = DatabaseUpdate.setMediaYear(this.mediaYear, MEDIA_ID);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseUpdate.setMediaYear(this.mediaYear, MEDIA_ID));
     }
 
     /**
      * Method for updating the image path in the database
      */
     private void updateMediaImagePath(){
-        String query = DatabaseUpdate.setMediaImagePath(this.imagePath, MEDIA_ID);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseUpdate.setMediaImagePath(this.imagePath, MEDIA_ID));
     }
 
     // region / getter & setter
@@ -201,9 +184,8 @@ public class MediaObj {
      * @return Returns the PersonID
      */
     private String getPersonIDFromPersonName(){
-        String query = DatabaseRead.getMediaArtistIDFromName(this.mediaArtistStageName);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getMediaArtistIDFromName(this.mediaArtistStageName))) {
             if (resultSet.next()){
                 return resultSet.getString("fldPersonID");
             }
@@ -219,9 +201,8 @@ public class MediaObj {
      * @return Returns the PersonID
      */
     private String getMediaType(){
-        String query = DatabaseRead.getMediaExstentionFromMediaID(this.MEDIA_ID);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getMediaExtensionFromMediaID(this.MEDIA_ID))) {
             if (resultSet.next()){
                 return resultSet.getString("fldFileType");
             }
