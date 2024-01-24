@@ -11,7 +11,6 @@ public class GeneralMediaObject {
         this.mediaObj = mediaObj;
     }
 
-
     public GeneralMediaObject(PlaylistObj playlistObj){
         this.playlistObj = playlistObj;
     }
