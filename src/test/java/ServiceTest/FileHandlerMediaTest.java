@@ -1,4 +1,4 @@
-package FileHandler;
+package ServiceTest;
 
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import org.junit.jupiter.api.Test;

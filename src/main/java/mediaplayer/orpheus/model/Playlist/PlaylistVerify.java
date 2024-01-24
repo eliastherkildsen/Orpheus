@@ -46,10 +46,9 @@ public class PlaylistVerify {
      */
     private static String verificationQuery(String playlistName){
 
-        return new StringBuilder()
-                .append("SELECT fldPlaylistName FROM tblPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("'").toString();
+        return "SELECT fldPlaylistName FROM tblPlaylist WHERE fldPlaylistName = '" +
+                playlistName +
+                "'";
 
     }
 }

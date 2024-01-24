@@ -21,6 +21,17 @@ public class ImportMedia {
         this.trackLength = trackLength;
     }
 
+    public ImportMedia(String filePath, String fileType, int trackLength) {
+        this.filePath = filePath;
+        this.mediaTitle = null;
+        this.fileType = fileType;
+        this.album = null;
+        this.artist = null;
+        this.mediaYear = null;
+        this.mediaTrack = null;
+        this.trackLength = trackLength;
+    }
+
     public String getFilePath() {
         return filePath;
     }

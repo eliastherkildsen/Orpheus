@@ -9,9 +9,9 @@ public class MediaSkip {
     /**
      * Method for skipping media 15 seconds forward
      *
-     * @param currentTrackTime
-     * @param mediaLength
-     * @return
+     * @param currentTrackTime of the media
+     * @param mediaLength the length of the media.
+     * @return media time after skip forward.
      */
     public static int mediaSkipForward(double currentTrackTime, double mediaLength){
 
@@ -26,8 +26,8 @@ public class MediaSkip {
     /**
      * Method for skipping media 15 seconds backward
      *
-     * @param currentTrackTime
-     * @return
+     * @param currentTrackTime of the media.
+     * @return track time after skip back.
      */
     public static int mediaSkipBackward(double currentTrackTime){
 

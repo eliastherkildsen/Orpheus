@@ -11,7 +11,6 @@ import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +28,8 @@ public class PlaylistViewController implements Initializable {
     @FXML
     private ListView<String> LWPlaylistDisplay;
 
-    private SceneController sceneController = new SceneController();
-    private static ArrayList<String> playlistNameArr = new ArrayList<>();
+    private final SceneController sceneController = new SceneController();
+    private static final ArrayList<String> playlistNameArr = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -43,7 +42,7 @@ public class PlaylistViewController implements Initializable {
         clearListViewDisplay();
         String query = DatabaseRead.getAllPlaylistNames();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)){
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)){
 
             while (resultSet.next()){
                 playlistNameArr.add(resultSet.getString("fldPlaylistName"));
@@ -61,35 +60,6 @@ public class PlaylistViewController implements Initializable {
 
     private void addItemToListView(ListView listView, String item){listView.getItems().add(item);}
 
-    public void switchToPlaylistView() {
-        try {
-            sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onActionbtnImportClick(){
-
-        FileChooser.fileChooser();
-    }
-
     @FXML
     private void onActionbtnCreateClick(){
 
@@ -101,11 +71,7 @@ public class PlaylistViewController implements Initializable {
 
     @FXML
     private void onActionbtnCancelClick(){
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToHomeScene();
     }
 
     @FXML
@@ -144,8 +110,28 @@ public class PlaylistViewController implements Initializable {
         if(!HomeViewController.mediaObjQue.isEmpty()){
             switchToHomeView();
         }
-
-
     }
+
+    @FXML
+    public void switchToPlaylistView() {
+        sceneController.switchToPlaylistScene();
+    }
+    @FXML
+
+    public void switchToSearchView() {
+        sceneController.switchToSearchScene();
+    }
+    @FXML
+
+    public void switchToHomeView() {
+        sceneController.switchToHomeScene();
+    }
+    @FXML
+
+    public void onActionbtnImportClick(){
+        FileChooser.fileChooser();
+    }
+
+
 
 }

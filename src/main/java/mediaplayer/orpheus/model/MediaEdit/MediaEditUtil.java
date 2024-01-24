@@ -9,16 +9,18 @@ import java.util.ArrayList;
 
 public class MediaEditUtil {
 
-    private static ArrayList<String> genre;
-    private static ArrayList<String> artist;
 
+    /**
+     * Method for getting all genres in the database
+     * @return an arraylist of all genres in the database.
+     */
     public static ArrayList<String> getAllGenre(){
 
-        String quary = DatabaseRead.getAllGenres();
+        String query = DatabaseRead.getAllGenres();
 
-        genre = new ArrayList<>();
+        ArrayList<String> genre = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             while (resultSet.next()) {
                 genre.add(resultSet.getString("fldGenre"));
             }
@@ -29,13 +31,18 @@ public class MediaEditUtil {
         return genre;
 
     }
+
+    /**
+     * Method for getting all artists in the database
+     * @return an arraylist of all artists in the database.
+     */
     public static ArrayList<String> getAllArtist(){
 
-        String quary = DatabaseRead.getAllArtists();
+        String query = DatabaseRead.getAllArtists();
 
-        artist = new ArrayList<>();
+        ArrayList<String> artist = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(quary)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             while (resultSet.next()) {
                 artist.add(resultSet.getString("fldArtistName"));
             }

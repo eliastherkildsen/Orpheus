@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -18,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -40,7 +39,7 @@ import java.util.TimerTask;
 public class HomeViewController implements Initializable {
     @FXML
     public AnchorPane anchor;
-    private SceneController viewControler = new SceneController();
+    private final SceneController viewControler = new SceneController();
 
     @FXML
     public Label mediaViewTitle;
@@ -58,13 +57,13 @@ public class HomeViewController implements Initializable {
     private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, bntShuffleIcon;
 
 
-    private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
-    private String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
-    private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
-    private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
-    private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
-    private String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
-    private String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
+    private final String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+    private final String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
+    private final String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
+    private final String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
+    private final String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+    private final String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
+    private final String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
 
     private File file;
     private Media media;
@@ -79,7 +78,7 @@ public class HomeViewController implements Initializable {
     private boolean playSwitchStage = true;
     private boolean mute = true;
     private boolean shuffle = false;
-    private boolean isInitialized = false;
+    private final boolean isInitialized = false;
 
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
     private static ArrayList<MediaObj> shufflePlaylist = new ArrayList<>();
@@ -978,7 +977,7 @@ public class HomeViewController implements Initializable {
     private void changeImagelables(){
 
         labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
-        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
+        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtistStageName());
 
     }
 
@@ -988,39 +987,22 @@ public class HomeViewController implements Initializable {
 
 
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
-    public void switchToPlaylistView() {
-
-        pauseWithValidation();
-
-
-        try {
-            viewControler.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void switchToSearchView() {
-
         pauseWithValidation();
-
-        try {
-            viewControler.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        viewControler.switchToSearchScene();
     }
 
+    @FXML
     public void switchToHomeView() {
-
         pauseWithValidation();
-
-        try {
-            viewControler.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        viewControler.switchToHomeScene();
     }
+
+    @FXML
+    public void switchToPlaylistView() {
+        pauseWithValidation();
+        viewControler.switchToPlaylistScene();
+    }
+
 
 }

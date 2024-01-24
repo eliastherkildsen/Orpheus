@@ -1,23 +1,12 @@
 package mediaplayer.orpheus.model.Media;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
-import mediaplayer.orpheus.Controler.HomeViewController;
-
 public class MediaUtil {
 
     /**
      * Method for converting a duration time in seconds to the HH:MM:SS format
      *
-     * @param durationTime
-     * @return
+     * @param durationTime time in seconds.
+     * @return String
      */
     public static String secondsFormattedToTime(double durationTime) {
         int hours = (int) durationTime / 3600;

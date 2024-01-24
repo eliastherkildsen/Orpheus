@@ -1,4 +1,4 @@
-package jaudiotagger;
+package mediaplayer.orpheus.model.Metadata;
 
 import mediaplayer.orpheus.model.Metadata.MetaExtractorMp3;
 import mediaplayer.orpheus.model.Service.MetadataService;

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import mediaplayer.orpheus.util.AnsiColorCode;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
+import mediaplayer.orpheus.util.debugMessage;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -23,51 +24,50 @@ public class MetaExtractorMp3 {
     public MetaExtractorMp3(String filePath) {
         setFilePath(filePath);
 
-        //DEBUG LOGGING
-        System.out.printf("%s[METADATA MP3]%s Object Created.%s%n" + filePath + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+        debugMessage.debug(this,"Object Created:%n" + filePath);
     }
 
     private AudioFile readAudioFile() throws IOException {
         try {
             return AudioFileIO.read(new File(getFilePath()));
         } catch (CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException | IOException e) {
-            Logger.getLogger(MetaExtractorMp3.class.getName()).log(Level.SEVERE, "Error reading audio .mp3 file", e);
-            throw new IOException("Error reading audio .mp3 file", e);
+            Logger.getLogger(MetaExtractorMp3.class.getName()).log(Level.SEVERE, "Error reading audio .mp3 file.", e);
+            throw new IOException("Error reading audio .mp3 file.", e);
         }
     }
 
-    public String gatherMetaDataTitle() throws IOException {
+    public String gatherMetaDataTitle() {
+        debugMessage.debug(this,"Getting Title.");
+        AudioFile audioFile;
         try {
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Getting Title.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-            AudioFile audioFile = readAudioFile();
-            Tag tag = audioFile.getTag();
-            if (Objects.equals(tag.getFirst(FieldKey.TITLE), "")){
-                FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
-                //DEBUG LOGGING
-                System.out.printf("%s[METADATA MP3]%s No Title found, using file name instead.%s%n" + newTitle.getFileNameWithoutExtension() + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-                return newTitle.getFileNameWithoutExtension();
-            }
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Title found.%s%n" + tag.getFirst(FieldKey.TITLE) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-            return tag.getFirst(FieldKey.TITLE);
-        } catch (IOException e) {
-            throw e;
+            audioFile = AudioFileIO.read(new File(getFilePath()));
+
+        } catch (CannotReadException | InvalidAudioFrameException | ReadOnlyFileException | TagException | IOException e) {
+            throw new RuntimeException(e);
         }
+        Tag tag = audioFile.getTag();
+        if (tag == null || Objects.equals(tag.getFirst(FieldKey.TITLE), "")) {
+            FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
+
+            debugMessage.debug(this,"No Title found, using file name instead." + newTitle.getFileNameWithoutExtension());
+            return newTitle.getFileNameWithoutExtension();
+        }
+
+        debugMessage.debug(this, "Title found: " + tag.getFirst(FieldKey.TITLE));
+        return tag.getFirst(FieldKey.TITLE);
+
     }
     public String gatherMetaDataArtist() throws IOException {
         try {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Getting Artist.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-            if (Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
-                //DEBUG LOGGING
-                System.out.printf("%s[METADATA MP3]%s No Artist found returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+
+            debugMessage.debug(this,"Getting Artist.");
+            if (tag == null || Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
+                debugMessage.debug(this,"No Artist found returning: " + null);
                 return null;
             }
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Artist found.%s%n" + tag.getFirst(FieldKey.COMPOSER) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"Artist found: " + tag.getFirst(FieldKey.COMPOSER));
             return tag.getFirst(FieldKey.COMPOSER);
         } catch (IOException e) {
             throw e;
@@ -77,11 +77,10 @@ public class MetaExtractorMp3 {
     public Integer gatherMetaDataLength() throws IOException {
         try {
             AudioFile audioFile = readAudioFile();
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Getting TrackLength in seconds.%s%n"
-                    + audioFile.getAudioHeader().getTrackLength()
-                    + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-            return audioFile.getAudioHeader().getTrackLength();
+            int length = audioFile.getAudioHeader().getTrackLength();
+
+            debugMessage.debug(this,"Getting TrackLength in seconds: " + length);
+            return length;
         } catch (IOException e) {
             throw e;
         }
@@ -91,14 +90,14 @@ public class MetaExtractorMp3 {
         try {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
-            //DEBUG LOGGING
-            System.out.printf("%s[METADATA MP3]%s Getting Album name.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
-            if (Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
-                System.out.printf("%s[METADATA MP3]%s No Album fund returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+
+            debugMessage.debug(this,"Getting Album name.");
+            if (tag == null || Objects.equals(tag.getFirst(FieldKey.ALBUM), "")){
+                debugMessage.debug(this,"No Album found returning: " + null);
                 return null;
             } else {
                 //DEBUG LOGGING
-                System.out.printf("%s[METADATA MP3]%s Getting Album name.%s%n" + tag.getFirst(FieldKey.ALBUM) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"Getting Album name: " + tag.getFirst(FieldKey.ALBUM));
                 return tag.getFirst(FieldKey.ALBUM);
             }
         } catch (IOException e) {
@@ -108,15 +107,15 @@ public class MetaExtractorMp3 {
 
     public Integer gatherMetaDataYear() throws IOException {
         try {
-            System.out.printf("%s[METADATA MP3]%s Getting release year.%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"Getting release year.");
+
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
-            if (Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
-                System.out.printf("%s[METADATA MP3]%s No release year fund returning%s%nNULL%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_RED,AnsiColorCode.ANSI_RESET);
+            if (tag == null || Objects.equals(tag.getFirst(FieldKey.YEAR), "")){
+                debugMessage.debug(this,"No release year found, returning: " + null);
                 return null;
             } else {
-                //DEBUG LOGGING
-                System.out.printf("%s[METADATA MP3]%s Release year found.%s%n" + tag.getFirst(FieldKey.YEAR) + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"Release year found: " + tag.getFirst(FieldKey.YEAR));
                 return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
             }
         } catch (IOException e) {
@@ -126,12 +125,16 @@ public class MetaExtractorMp3 {
 
     public Integer gatherMetaDataTrack() throws IOException {
         try {
+            debugMessage.debug(this,"Getting Track number.");
+
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
 
-            if (Objects.equals(tag.getFirst(FieldKey.TRACK), "")){
+            if (tag == null || Objects.equals(tag.getFirst(FieldKey.TRACK), "")){
+                debugMessage.debug(this,"Track number not found returning: " + null);
                 return null;
             } else {
+                debugMessage.debug(this, "Track number found: " + tag.getFirst(FieldKey.TRACK));
                 return Integer.parseInt(tag.getFirst(FieldKey.TRACK));
             }
         } catch (IOException e) {

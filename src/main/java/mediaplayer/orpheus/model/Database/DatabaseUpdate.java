@@ -2,13 +2,11 @@ package mediaplayer.orpheus.model.Database;
 
 public class DatabaseUpdate {
     public static String setMediaTitle(String newTitle, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldMediaTitle = '")
-                .append(newTitle)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldMediaTitle = '" +
+                newTitle +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
     /**
      * Note, this method does not check if the mediaType is valid for the DB. It assumes you know what you are doing.
@@ -17,67 +15,53 @@ public class DatabaseUpdate {
      * @return String query
      */
     public static String setMediaType(String fileType, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldFileType = '")
-                .append(fileType)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldFileType = '" +
+                fileType +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
     public static String setMediaAlbum(String albumName, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldAlbum = '")
-                .append(albumName)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldAlbum = '" +
+                albumName +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
     public static String setMediaYear(String year, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldMediaYear = ")
-                .append(year)
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldMediaYear = " +
+                year +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String setMediaTrack(int trackNumber, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldMediaTrack = ")
-                .append(trackNumber)
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldMediaTrack = " +
+                trackNumber +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String setMediaLength(int LengthInSeconds, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldTrackLength = ")
-                .append(LengthInSeconds)
-                .append(" WHERE fldMediaId = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldTrackLength = " +
+                LengthInSeconds +
+                " WHERE fldMediaId = " +
+                mediaId;
     }
     public static String setMediaImagePath(String imagePath, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMedia")
-                .append(" SET fldImagePath = '")
-                .append(imagePath)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMedia" +
+                " SET fldImagePath = '" +
+                imagePath +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
     public static String setFilePath(String filepath, int mediaId){
-        return new StringBuilder()
-                .append("Update tblMedia")
-                .append(" SET fldFilePath = '")
-                .append(filepath)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "Update tblMedia" +
+                " SET fldFilePath = '" +
+                filepath +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
 
 
@@ -89,31 +73,25 @@ public class DatabaseUpdate {
      * @return String query
      */
     public static String setArtistName(String artistName,int personId){
-        return new StringBuilder()
-                .append("Update tblPerson")
-                .append(" SET fldArtistName = '")
-                .append(artistName)
-                .append("' WHERE fldPersonID = ")
-                .append(personId)
-                .toString();
+        return "Update tblPerson" +
+                " SET fldArtistName = '" +
+                artistName +
+                "' WHERE fldPersonID = " +
+                personId;
     }
     public static String setPersonFirstName(String firstName, int personId){
-        return new StringBuilder()
-                .append("Update tblPerson")
-                .append(" SET fldFirstName = '")
-                .append(firstName)
-                .append("' WHERE fldPersonID = ")
-                .append(personId)
-                .toString();
+        return "Update tblPerson" +
+                " SET fldFirstName = '" +
+                firstName +
+                "' WHERE fldPersonID = " +
+                personId;
     }
     public static String setPersonLastName(String lastName, int personId){
-        return new StringBuilder()
-                .append("Update tblPerson")
-                .append(" SET fldLastName = '")
-                .append(lastName)
-                .append("' WHERE fldPersonID = ")
-                .append(personId)
-                .toString();
+        return "Update tblPerson" +
+                " SET fldLastName = '" +
+                lastName +
+                "' WHERE fldPersonID = " +
+                personId;
     }
     /**
      * Setting the PersonId in relation to the MediaObj
@@ -122,13 +100,11 @@ public class DatabaseUpdate {
      * @return String query
      */
     public static String setMediaArtist(String personId, int mediaId){
-        return new StringBuilder()
-                .append("Update tblMediaPerson")
-                .append(" SET fldPersonID = ")
-                .append(personId)
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "Update tblMediaPerson" +
+                " SET fldPersonID = " +
+                personId +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
         /**
      * Setting the genre in relation to the MediaObj
@@ -137,13 +113,11 @@ public class DatabaseUpdate {
      * @return String query
      */
     public static String setMediaGenre(String genre, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMediaGenre")
-                .append(" SET fldGenre = '")
-                .append(genre)
-                .append("' WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMediaGenre" +
+                " SET fldGenre = '" +
+                genre +
+                "' WHERE fldMediaID = " +
+                mediaId;
     }
 
 
@@ -156,13 +130,11 @@ public class DatabaseUpdate {
      * @return String query
      */
     public static String updateMediaGenre(String updatedGenre, int mediaId){
-        return new StringBuilder()
-                .append("UPDATE tblMediaGenre")
-                .append(" SET fldGenre = '")
-                .append(updatedGenre)
-                .append("' WHERE = ")
-                .append(mediaId)
-                .toString();
+        return "UPDATE tblMediaGenre" +
+                " SET fldGenre = '" +
+                updatedGenre +
+                "' WHERE = " +
+                mediaId;
     }
 
 

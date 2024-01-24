@@ -102,7 +102,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="fldArtistLastName1" prefHeight="40.0" prefWidth="300.0" promptText="Last Name">
+                  <TextField fx:id="fldArtistLastName" prefHeight="40.0" prefWidth="300.0" promptText="Last Name">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>

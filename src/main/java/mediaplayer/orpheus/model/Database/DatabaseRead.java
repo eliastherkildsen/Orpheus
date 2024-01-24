@@ -1,10 +1,16 @@
 package mediaplayer.orpheus.model.Database;
 
-import javafx.beans.property.MapProperty;
+import mediaplayer.orpheus.util.AnsiColorCode;
 
-import java.nio.MappedByteBuffer;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class DatabaseRead {
+
+    private static final Connection connection = JDBC.instance.getConnection();
+
     public static String getMediaIdFromTitle(String mediaTitle){
         return new StringBuilder()
                 .append("SELECT fldMediaID")
@@ -118,13 +124,24 @@ public class DatabaseRead {
 
     public static String getAllPlaylistNames() {return "SELECT fldPlaylistName FROM tblPlaylist";}
 
-    public static String getMaxTrackOrder(String playlistName){
-        return new StringBuilder()
-                .append("SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = ")
-                .append("(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("')")
-                .toString();
+    public static PreparedStatement getMaxTrackOrder(String playlistName){
+
+        try {
+            String query = "SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = " +
+                    "(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = ?)";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, playlistName);
+
+            return preparedStatement;
+
+        }catch (SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMaxTrackOrder] Get max track order failed%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
+
+
     }
     public static String getMediaArtistIDFromName(String mediaArtistName) {
 
@@ -135,13 +152,22 @@ public class DatabaseRead {
                 .toString();
 
     }
-    public static String getMediaIDFromPlaylistName(String playlistName){
+    public static PreparedStatement getMediaIDFromPlaylistName(String playlistName){
 
-        return new StringBuilder()
-                .append("SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("'")
-                .toString();
+        try {
+
+            String query = "SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, playlistName);
+
+            return preparedStatement;
+
+        }catch(SQLException e){
+
+            System.out.printf("%s[DatabaseRead][getMediaIDFromPlaylistName] Get mediaID from playlist name failed%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            return null;
+        }
 
     }
     public static String getMediaImagePathFromMediaID(int mediaID){
