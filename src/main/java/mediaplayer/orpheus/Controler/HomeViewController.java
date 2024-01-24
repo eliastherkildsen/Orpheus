@@ -717,6 +717,7 @@ public class HomeViewController implements Initializable {
         btnPlayPauseIcon.setImage(image);
     }
 
+
     /**
      * Method to toggle play/pause state
      */
@@ -726,12 +727,17 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for
+     * Method for skipping to the previous media in the playlist and stopping the current media if playing.
+     *
+     * This method handles stopping the current media, loads the previous media while setting the
+     * play switch stage to true, and then playing the media.
+     * If the current media is at the beginning of the playlist (index 0), this method results in playback of the current media.
      *
      * @throws FileNotFoundException if the previous media file is not found.
      */
     private void mediaPrevious() throws FileNotFoundException {
         if (!mediaObjQue.isEmpty()){
+
             // handles stopping the media
             stopWithValidation();
             cancelTimer();
@@ -759,7 +765,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for skipping the media forward by 15 seconds and updates the current time label
+     * Method for skipping the media forward by 15 seconds and updates the current time label.
      */
     private void mediaSkipForward() {
 
@@ -784,7 +790,8 @@ public class HomeViewController implements Initializable {
 
     /**
      * Method for updating the current time label with the formatted time based on the given time in seconds
-     * @param time
+     *
+     * @param time the new track time in seconds
      */
     private void updateCurrentTimeLabel(int time){
 
@@ -793,7 +800,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for skipping the media backward by 15 seconds and updates the current time label
+     * Method for skipping the media backward by 15 seconds and updates the current time label.
      */
     private void mediaSkipBackward() {
 
@@ -820,9 +827,9 @@ public class HomeViewController implements Initializable {
 
     /**
      * Method for mute/unmute the media
-     * The method mute or mutes the media based on the current state,
+     * The method mute or unmutes the media based on the current state,
      * and updates the mute button icon accordingly.
-     * Finally, toggles the mute stage for the next button click.
+     * Finally, it toggles the mute stage for the next button click.
      */
     private void mediaMute() {
 
@@ -865,8 +872,9 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method for updating the mute/unmute button image
-     * @param imageURL
+     * Method for updating the mute/unmute button image.
+     *
+     * @param imageURL button image
      */
     private void updateMuteButtonImage(String imageURL) {
         Image image = new Image(imageURL);
@@ -876,7 +884,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     *
+     * Method for pausing the media while dragging the button on the progress slider to the new media track time.
      */
     private void sliderProgresOnDrag() {
         if (!mediaObjQue.isEmpty()){
@@ -889,7 +897,10 @@ public class HomeViewController implements Initializable {
 
 
     /**
+     * Method for setting a new track time with mouse release at the progress slider.
      *
+     * The method cancels the timer, retrieves the updated user-selected media time at the release spot, updates the
+     * current time label, seeks to the selected time in the media, continues playing and restarts the timer.
      */
     private void sliderProgresMouseRelease() {
 
