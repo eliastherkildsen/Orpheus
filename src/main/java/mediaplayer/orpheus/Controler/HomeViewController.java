@@ -16,9 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.scene.media.Media;
@@ -45,8 +43,6 @@ public class HomeViewController implements Initializable {
     private SceneController viewControler = new SceneController();
 
     @FXML
-    public HBox hBoxButtons;
-    @FXML
     public Label mediaViewTitle;
     @FXML
     private BorderPane homePane;
@@ -70,21 +66,15 @@ public class HomeViewController implements Initializable {
     private String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
     private String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
 
-    private double heightOfScene;
-    private double widthOfScene;
-
     private File file;
     private Media media;
     private MediaPlayer mediaPlayer;
     private Timer timer;
     private TimerTask task;
-
-    //laves om til int
     private double currentTrackTime;
     private double currentSliderVol;
     public static int cntQue;
     private static int mediaArrIndex;
-    private static int shuffleIndex;
 
     private boolean playSwitchStage = true;
     private boolean mute = true;
@@ -92,18 +82,18 @@ public class HomeViewController implements Initializable {
     private boolean isInitialized = false;
 
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
-
     private static ArrayList<MediaObj> shufflePlaylist = new ArrayList<>();
 
-    private  static final double ASPECT_RATIO = 16.0 / 9.0;
+
 
 
 
     /**
      * Initialization method that loads and initializes data.
      * The method is called on startup to prepare and load necessary data.
-     * @param url
-     * @param resourceBundle
+     *
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resource bundle containing localized resources for this root object
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -140,6 +130,13 @@ public class HomeViewController implements Initializable {
 
     }
 
+
+    /**
+     * Listeners that changes the progress sliders location depending on the current track time.
+     *
+     * The first listener updates the maximum value of the progress slider based on the total duration of the media,
+     * and the second listener dynamically updates the slider position as the media plays.
+     */
     private void loadListenersMediaPlay() {
         mediaPlayer.totalDurationProperty().addListener(new ChangeListener<Duration>() {
             @Override
@@ -159,6 +156,8 @@ public class HomeViewController implements Initializable {
 
 
     }
+
+
     /**
      * Listeners that changes the size of the MediaView depending on the screensize OR the location of the default background image, Also depedant of screen size.
      */
@@ -170,7 +169,7 @@ public class HomeViewController implements Initializable {
                 mediaViewDisplay.setFitWidth(t1.doubleValue() - padding);
 
                 //Saving the width everytime its changed for later use.
-                widthOfScene = (double) number;
+                //widthOfScene = (double) number;
                 //System.out.println("Width " + widthOfScene);
 
                 //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
@@ -188,7 +187,7 @@ public class HomeViewController implements Initializable {
                 mediaViewDisplay.setFitHeight(t1.doubleValue() - padding);
 
                 //Saving the height every time its changed for later use.
-                heightOfScene = (double) number;
+                //heightOfScene = (double) number;
                 //System.out.println("Height " + heightOfScene);
 
                 //Checks if a image is null or throwing an error, if not it'll get the size of the screen, the size of the image, divide that by 2, minus padding (Fixing design fault) and poof the image is center of the view.
@@ -203,35 +202,44 @@ public class HomeViewController implements Initializable {
     }
 
 
+    /**
+     * Method for loading and initializing media content for playback.
+     *
+     * This method attempts to load media based on the selected media type: a single media or a playlist (shuffled or regular mode).
+     * It sets up a media player, handles end-of-media events, and displays thumbnail for MP3 or video for MP4.
+     * It also initiates timers and listeners for media playback control.
+     *
+     * @throws FileNotFoundException if the specified media file is not found.
+     */
     private void loadMedia() throws FileNotFoundException {
 
         System.out.printf("%s[HomeViewControl][loadMedia] Trying to load media%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
+        // if only one media is chosen to be played
         if (mediaObjQue.size() == 1){
             file = new File(mediaObjQue.get(0).getMediaPath());
         }
 
+        // if a playlist is chosen to be played
         else {
 
             // shuffle button activated
             if (shuffle){
 
-                System.out.println("shuffle chosen");
+                System.out.printf("%s[HomeViewControl][loadMedia] Shuffle mode chosen%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
-
-
+                // gets the index and the media path from the shuffled playlist for the next media to be played
                 mediaArrIndex = cntQue % shufflePlaylist.size();
                 file = new File(shufflePlaylist.get(mediaArrIndex).getMediaPath());
             }
 
-            // Regular playback of playlist
+            // regular playback of playlist
             else{
 
-                System.out.println("regular chosen");
+                System.out.printf("%s[HomeViewControl][loadMedia] Regular mode chosen%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
-
+                // gets the index and the media path from the regular playlist for the next media to be played
                 mediaArrIndex = cntQue % mediaObjQue.size();
-                // creates a file object based on the media path
                 file = new File(mediaObjQue.get(mediaArrIndex).getMediaPath());
             }
         }
@@ -243,7 +251,7 @@ public class HomeViewController implements Initializable {
             // creates a media player based on the media object
             mediaPlayer = new MediaPlayer(media);
 
-            //
+            // when the end of media is reached
             mediaPlayer.setOnEndOfMedia(() -> {
                 try {
                     cancelTimer();
@@ -273,11 +281,10 @@ public class HomeViewController implements Initializable {
 
             imageViewTN.setVisible(true);
 
-            // TODO - new Image(mediaImagePath);
             // gets the objects image path
-            // String mediaImagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
+            String mediaImagePath = "file:" + mediaObjQue.get(mediaArrIndex).getImagePath();
 
-            Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
+            Image image = new Image(mediaImagePath);
             imageViewTN.setImage(image);
 
             System.out.printf("%s[HomeViewController][load] selected media is a mp3, loading thumbnail.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
@@ -295,7 +302,6 @@ public class HomeViewController implements Initializable {
         loadListenersMediaPlay();
         loadListenersView();
 
-        //mediaNext();
     }
 
 
@@ -344,7 +350,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     *
+     * Method for cancelling the timer if it is active.
      */
     private void cancelTimer() {
         if (timer != null) {
@@ -381,7 +387,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method that handles the button click event for the play/pause button.
+     * Method that handles the button click event for the play/pause button, which includes updating the media view title.
      */
     @FXML
     private void onBtnPlayPauseClick(){
@@ -392,7 +398,9 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     * Method that handles the button click event for the next button.
+     * Method that handles the button click event for the next media button.
+     *
+     * @throws FileNotFoundException if the next media file is not found.
      */
     @FXML
     private void onBtnNextClick() throws FileNotFoundException {
@@ -401,8 +409,9 @@ public class HomeViewController implements Initializable {
 
 
     /**
+     * Method that handles the button click event for the previous media button.
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the previous media file is not found.
      */
     @FXML
     private void onBtnPreviousClick() throws FileNotFoundException {
@@ -461,73 +470,80 @@ public class HomeViewController implements Initializable {
     @FXML
     private void onSliderProgresMouseClick(){
         sliderProgresMouseRelease();
-        //pauseWithValidation();
     }
 
 
+    /**
+     * Method that handles the button click event for the shuffle button.
+     */
     @FXML
     private void onBtnShuffleClick() throws FileNotFoundException {
         mediaShuffle();
     }
 
+
+
+
+    // ASSOCIATED METHODS FOR BUTTON CLICK EVENTS
+
+
+    /**
+     * Method for shuffling or resetting the order of a chosen playlist.
+     *
+     * Depending on the current shuffle state, this method either shuffles the chosen playlist
+     * or sets it back to its original track order. It updates the shuffle button icon, resets
+     * the counter "cntQue," toggles the shuffle state for the next button click, and loads
+     * the media while setting the play switch stage ready for playing the media.
+     *
+     * @throws FileNotFoundException If the media file is not found.
+     */
     private void mediaShuffle() throws FileNotFoundException {
 
         if (!mediaObjQue.isEmpty()) {
+            // local variable used to set correct shuffle button image depending on the shuffle mode
+            String shuffleImage;
+
             if (!shuffle) {
-
-                System.out.println("shuffle activated");
-
-                // handles stopping the media
-                cancelTimer();
-                stopWithValidation();
-
-                shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
-
-                // resets cntQue and loads shuffled playlist
-                cntQue = 0;
-                updateShuffleButtonImage(shuffleActImageURL);
-                toggleShuffleState();
-
-                loadMedia();
-
-                playSwitchStage = false;
-                mediaPlayPause();
-                //pauseWithValidation();
 
                 System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function activated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
+                // shuffle the chosen playlist
+                shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
+
+                // set button image - shuffle activated
+                shuffleImage = shuffleActImageURL;
+
             } else {
 
-                System.out.println("shuffle deactivated");
-
-                // handles stopping the media
-                cancelTimer();
-                stopWithValidation();
-                //pauseWithValidation();
-
-                // resets cntQue and loads shuffled playlist
-                cntQue = 0;
-                updateShuffleButtonImage(shuffleDeactImageURL);
-                toggleShuffleState();
-
-
-
-                loadMedia();
-
-                playSwitchStage = false;
-                mediaPlayPause();
-                //pauseWithValidation();
-
                 System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function deactivated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+
+                // set button image - shuffle deactivated
+                shuffleImage = shuffleDeactImageURL;
             }
+
+            // handles stopping the media
+            cancelTimer();
+            stopWithValidation();
+
+            // resets cntQue
+            cntQue = 0;
+
+            updateShuffleButtonImage(shuffleImage);
+            toggleShuffleState();
+
+            loadMedia();
+
+            playSwitchStage = false;
+            mediaPlayPause();
         }
 
     }
 
 
     /**
-     * Method for updating the shuffle/not shuffle button image
-     * @param imageURL
+     * Method for updating the shuffle button image based on the shuffle mode (activated or deactivated)
+     *
+     * @param imageURL button image
      */
     private void updateShuffleButtonImage(String imageURL) {
         Image image = new Image(imageURL);
@@ -536,13 +552,20 @@ public class HomeViewController implements Initializable {
     }
 
 
+    /**
+     * Method to toggle shuffle state
+     */
     private void toggleShuffleState(){
         shuffle = !shuffle;
     }
 
 
-    // Associated methods for button click events
-
+    /**
+     * Method for changing the volume of the media player.
+     *
+     * The method adjusts the volume of the media player based on the current value of the volume slider.
+     * If not muted, it sets the volume to the corresponding percentage of the slider value and updates the button image.
+     */
     private void mediaChangeVol() {
 
         if (!mediaObjQue.isEmpty()){
@@ -566,7 +589,8 @@ public class HomeViewController implements Initializable {
 
     /**
      * Method that updates the mute button image based on the volume slider's value (in percentage - from 0 to 100 %)
-     * @param volumeValue
+     *
+     * @param volumeValue the volume level as a percentage (ranging from 0 to 100%).
      */
     private void volumeMedia(double volumeValue) {
 
@@ -580,11 +604,13 @@ public class HomeViewController implements Initializable {
         }
     }
 
+
     /**
-     * Method for playing/pausing media
+     * Method for playing/pausing media.
+     *
      * The method starts a timer, plays or pauses the media based on the current state,
      * and updates the play button icon accordingly.
-     * Finally, toggles the playSwitchStage for the next button click.
+     * Finally, it toggles the playSwitchStage for the next button click.
      */
     private void mediaPlayPause() {
 
@@ -609,7 +635,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     *
+     * Method that stops the media player with validation.
      */
     private void stopWithValidation(){
         try{
@@ -621,7 +647,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     *
+     * Method that pauses the media player with validation.
      */
     private void pauseWithValidation(){
         try{
@@ -637,7 +663,7 @@ public class HomeViewController implements Initializable {
 
 
     /**
-     *
+     * Method that plays the media player with validation.
      */
     private void playWithValidation(){
         try{
@@ -653,8 +679,12 @@ public class HomeViewController implements Initializable {
 
 
     /**
+     * Method for skipping to the next media in the playlist and stopping the current media if playing.
      *
-     * @throws FileNotFoundException
+     * This method handles stopping the current media, loads the next media while setting the
+     * play switch stage to true, and then playing the media.
+     *
+     * @throws FileNotFoundException if the next media file is not found.
      */
     private void mediaNext() throws FileNotFoundException {
         if (!mediaObjQue.isEmpty()){
@@ -697,8 +727,9 @@ public class HomeViewController implements Initializable {
 
 
     /**
+     * Method for
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the previous media file is not found.
      */
     private void mediaPrevious() throws FileNotFoundException {
         if (!mediaObjQue.isEmpty()){
@@ -953,7 +984,9 @@ public class HomeViewController implements Initializable {
 
 
 
-    //to handle stage-switch
+    // TO HANDLE STAGE SWITCH
+
+
     @FXML
     private Button btnSearch, btnPlaylist, btnDelete;
     public void switchToPlaylistView() {
