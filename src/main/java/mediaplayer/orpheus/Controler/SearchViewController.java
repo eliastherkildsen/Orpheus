@@ -65,21 +65,36 @@ public class SearchViewController implements Initializable {
         switchToHomeViewWithMediaChild();
     }
 
+    /**
+     * Method for adding media to a playlist
+     */
     @FXML
-    private void onActionbtnAddToPlaylistClick() throws IndexOutOfBoundsException {
-        addMediaToPlaylist();
-
-    }
-
-    private void addMediaToPlaylist() {
+    private void onActionbtnAddToPlaylistClick() {
+        // gets the chosen item in the choicebox
         String cbItem = getSelectedChoiceBoxItem();
-        if(cbItem != null){
-            int selectedMedia = dataSet.get(getSelectedItemIndex()).getMediaObj().getMediaID();
-            PlaylistHandler.addMediaToPlaylist(selectedMedia, cbItem);
-        }else{
-            AlertPopup alertPopupNoItemSelected = new AlertPopup("Failed"
-                    ,"No playlist was selected.");
-            alertPopupNoItemSelected.showError();
+        // gets the chosen item in the listview
+        int selected = getSelectedItemIndex();
+        int selectedMedia;
+        // checks if the selected item in the listview is out of bounds and if a media object is selected
+        if(selected != -1 && dataSet.get(getSelectedItemIndex()).getMediaObj() != null){
+            // get the media ID for the selected item
+            selectedMedia = dataSet.get(selected).getMediaObj().getMediaID();
+            // checks if any playlist has been selected
+            if(cbItem != null){
+                // adds the selected media to the selected playlist
+                PlaylistHandler.addMediaToPlaylist(selectedMedia, cbItem);
+
+            }else{
+                // popup alert for if no playlist is selected
+                AlertPopup alertPopupNoItemSelected = new AlertPopup("Failed"
+                        ,"No playlist was selected.");
+                alertPopupNoItemSelected.showError();
+            }
+        }else {
+            // popup alert for if no valid media is selected
+            AlertPopup alertPopupNoMediaSelected = new AlertPopup("Media not selected"
+                    , "No valid media was selected.");
+            alertPopupNoMediaSelected.showError();
         }
     }
 
@@ -223,7 +238,9 @@ public class SearchViewController implements Initializable {
      * @return int selected items index.
      */
     private int getSelectedItemIndex() {
+
         return LWSearchResult.getSelectionModel().getSelectedIndex();
+
     }
 
     /**

@@ -56,7 +56,6 @@ public class PlaylistHandler {
 
         }
 
-
     }
 
     /**
@@ -87,7 +86,7 @@ public class PlaylistHandler {
         // Tries to add the media to the playlist
 
         AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
-                , "MediaObj has been added to " + choiceBoxIndex + ".");
+                    , "MediaObj has been added to " + choiceBoxIndex + ".");
 
         try {
 
@@ -112,12 +111,9 @@ public class PlaylistHandler {
             alertPopupPlaylistAdded.showInformation();
             System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Media has been added to the playlist%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
-
         }catch (SQLException e){
             System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Could not add media to the playlist%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-
         }
-
 
 
     }
