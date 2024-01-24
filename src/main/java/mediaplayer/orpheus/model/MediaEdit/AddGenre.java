@@ -3,6 +3,7 @@ package mediaplayer.orpheus.model.MediaEdit;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseCreate;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 public class AddGenre {
 
@@ -14,9 +15,7 @@ public class AddGenre {
 
         String query = DatabaseCreate.insertGenre(genre);
         JDBC.instance.executeUpdate(query);
-        System.out.printf("%s[AddGenre][createGenre] A new media genre has been added to the database: %s%s",
-                AnsiColorCode.ANSI_YELLOW, genre, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.debug(AddGenre.class,"CreateGenre: A new media genre has been added to the DB.");
     }
 
 }

@@ -3,6 +3,7 @@ package mediaplayer.orpheus.model.MediaEdit;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseDelete;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.io.File;
 import java.sql.PreparedStatement;
@@ -24,9 +25,7 @@ public class DeleteMedia {
             preparedStatement = JDBC.instance.getConnection().prepareCall(quarry);
             preparedStatement.executeUpdate();
 
-            System.out.printf("%s[DeleteMedia][deleteMediaFromDatabase] media with %s as media id was deleted%s%n",
-                    AnsiColorCode.ANSI_YELLOW, mediaId, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(DeleteMedia.class,"DeleteFromDB: Media with " + mediaId + " ID was DELETED.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -42,12 +41,9 @@ public class DeleteMedia {
         File file = new File(filePath);
 
         if (file.delete()) {
-            System.out.printf("%s[DeleteMedia][deleteMediaFileFromDir] Deleted the file: %s%s",
-                    AnsiColorCode.ANSI_YELLOW, file.getName(), AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(DeleteMedia.class,"DeleteMediaFileFromDir: Deleted the file: " + file.getName());
         } else {
-            System.out.printf("%s[DeleteMedia][deleteMediaFileFromDir] Failed to find the file: %s%s",
-                    AnsiColorCode.ANSI_RED, file.getName(), AnsiColorCode.ANSI_RESET);
+            debugMessage.error(DeleteMedia.class,"DeletedMediaFileFromDir: Failed to find the file. " + file.getName());
         }
 
     }

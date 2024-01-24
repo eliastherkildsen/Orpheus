@@ -3,6 +3,7 @@ package mediaplayer.orpheus.model.MediaEdit;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseCreate;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 public class AddArtist {
 
@@ -19,10 +20,7 @@ public class AddArtist {
 
         JDBC.instance.executeUpdate(query);
 
-        System.out.printf("%s[AddArtist][createArtist] A new media Artist has been added to the database: %s%s",
-                AnsiColorCode.ANSI_YELLOW, artistName, AnsiColorCode.ANSI_RESET);
-
-
+        debugMessage.debug(AddArtist.class,"CreateArtist: A new Media Artist has been added to the DB.");
     }
 
 }

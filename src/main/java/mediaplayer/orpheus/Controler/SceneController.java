@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.io.IOException;
 
@@ -34,8 +35,7 @@ public class SceneController {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/PlaylistView.fxml"));
         } catch (IOException e) {
 
-            System.out.printf("%s[SceneController][switchToPlaylistScene] An error occurred while switching " +
-                    "to the playlistView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToPlayList: An Error occurred while switching.");
 
             throw new RuntimeException(e);
         }
@@ -55,8 +55,7 @@ public class SceneController {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/SearchView.fxml"));
         } catch (IOException e) {
 
-            System.out.printf("%s[SceneController][switchToSearchScene] An error occurred while switching " +
-                    "to the searchView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToSearch: An Error occurred while switching.");
 
             throw new RuntimeException(e);
         }
@@ -75,8 +74,8 @@ public class SceneController {
         try {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/HomeView.fxml"));
         } catch (IOException e) {
-            System.out.printf("%s[SceneController][switchToHomeScene] An error occurred while switching " +
-                    "to the HomeView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToHome: An Error occurred while switching.");
+
 
             throw new RuntimeException(e);
         }
@@ -97,8 +96,8 @@ public class SceneController {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/EditMediaView.fxml"));
         } catch (IOException e) {
 
-            System.out.printf("%s[SceneController][switchToEditScene] An error occurred while switching " +
-                    "to the addEditView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToEdit: An Error occurred while switching.");
+
 
             throw new RuntimeException(e);
 
@@ -115,8 +114,8 @@ public class SceneController {
         try {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/AddArtistView.fxml"));
         } catch (IOException e) {
-            System.out.printf("%s[SceneController][switchToAddArtistView] An error occurred while switching " +
-                    "to the addArtistView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToArtist: An Error occurred while switching.");
+
 
             throw new RuntimeException(e);
 
@@ -134,8 +133,8 @@ public class SceneController {
             root = FXMLLoader.load(getClass().getResource("/mediaplayer/orpheus/AddGenreView.fxml"));
         } catch (IOException e) {
 
-            System.out.printf("%s[SceneController][switchToAddGenreView] An error occurred while switching " +
-                    "to the addGenreView %s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SwitchToGenre: An Error occurred while switching.");
+
 
             throw new RuntimeException(e);
 

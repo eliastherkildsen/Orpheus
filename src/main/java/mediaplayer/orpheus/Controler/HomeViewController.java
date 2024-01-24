@@ -30,6 +30,8 @@ import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -116,8 +118,7 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(this,"INIT: Class has been initialized.");
         }
         else if (!mediaObjQue.isEmpty()) {
 
@@ -127,11 +128,10 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            System.out.printf("%s[HomeViewController][Initialized] Class has been init.", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(this,"INIT: Class has been initialized.");
         }
         else {
-            System.out.printf("%s[HomeViewController][Initialized] Class has not been init.%s", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"INIT: Class HASN'T been initialized.");
             loadListenersView();
 
         }
@@ -204,8 +204,7 @@ public class HomeViewController implements Initializable {
 
     private void loadMedia() throws FileNotFoundException {
 
-        System.out.printf("%s[HomeViewControl][loadMedia] Trying to load media%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.debug(this,"LoadMedia: Trying to load Media");
         if (mediaObjQue.size() == 1){
             file = new File(mediaObjQue.get(0).getMediaPath());
         }
@@ -253,17 +252,16 @@ public class HomeViewController implements Initializable {
             });
 
             // prints a message if the file is found
-            System.out.printf("%s[HomeViewControl][loadMedia] The file is found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"LoadMedia: The file is found at the specific path.");
         }
 
         else {
             // prints an error message if the file wasn't found
-            System.out.printf("%s[HomeViewControl][loadMedia] The file was not found at the specified path%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"The file wasn't found at the specific path.");
         }
 
 
-
-        System.out.printf("%s[HomeViewControl][loadMedia] Setting display...%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        debugMessage.debug(this,"LoadMedia: Setting display..");
 
         FileHandlerMedia fileType = new FileHandlerMedia(mediaObjQue.get(mediaArrIndex).getMediaPath());
         String type = fileType.mp3OrMp4();
@@ -278,15 +276,13 @@ public class HomeViewController implements Initializable {
 
             Image image = new Image("file:src/main/resources/css/images/audio-lines.png");
             imageViewTN.setImage(image);
-
-            System.out.printf("%s[HomeViewController][load] selected media is a mp3, loading thumbnail.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(this,"LoadMedia: Selected Media is a " + type + " Loading ThumbNail...");
         }
         else {
             imageViewTN.setVisible(false);
             mediaViewDisplay.setMediaPlayer(mediaPlayer);
 
-            System.out.printf("%s[HomeViewController][load] selected media is a mp4, loading video.... %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this, "LoadMedia: Selected Media is a " + type + " Loading Video...");
         }
 
         changeThumbnailAndImageLabels();
@@ -493,7 +489,7 @@ public class HomeViewController implements Initializable {
                 mediaPlayPause();
                 //pauseWithValidation();
 
-                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function activated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaShuffle: Shuffle Function Activated.");
 
             } else {
 
@@ -517,7 +513,7 @@ public class HomeViewController implements Initializable {
                 mediaPlayPause();
                 //pauseWithValidation();
 
-                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function deactivated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaShuffle: Shuffle Function deactivated.");
             }
         }
 
@@ -558,7 +554,7 @@ public class HomeViewController implements Initializable {
             }
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaChangeVol] No media to change volume on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaChangeVol No Media to change volumn on.");
         }
     }
 
@@ -602,7 +598,7 @@ public class HomeViewController implements Initializable {
             togglePlayState();
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaPlayPause] No media to play or pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaPlayPause: NO Media to play or pause.");
         }
     }
 
@@ -613,8 +609,9 @@ public class HomeViewController implements Initializable {
     private void stopWithValidation(){
         try{
             mediaPlayer.stop();
+            debugMessage.debug(this,"Media is stopped.");
         }catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][stopWithValidation] No media to stop%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"StopWithValidation: NO Media to stop.");
         }
     }
 
@@ -627,10 +624,11 @@ public class HomeViewController implements Initializable {
             mediaPlayer.pause();
             updatePlayButtonImage(playImageURL);
 
+            debugMessage.debug(this,"PauseWithValidation: Media is paused.");
             System.out.printf("%s[HomeViewControl][pauseWithValidation] Media is paused%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
          } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][pauseWithValidation] No media to pause%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"PauseWithValidation: NO Media to pause.");
         }
     }
 
@@ -643,10 +641,10 @@ public class HomeViewController implements Initializable {
             mediaPlayer.play();
             updatePlayButtonImage(pauseImageURL);
 
-            System.out.printf("%s[HomeViewControl][playWithValidation] Media plays%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"PlayWithValidation: Media Plays");
 
         } catch (NullPointerException e){
-            System.out.printf("%s[HomeViewController][playWithValidation] No media to play%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"PlayWithValidation: No Media to Play");
         }
     }
 
@@ -669,9 +667,10 @@ public class HomeViewController implements Initializable {
             // plays the next media
             playSwitchStage = true;
             onBtnPlayPauseClick();
+            debugMessage.debug(this,"MediaNext: Media skipped.");
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaNext] No media to skip%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaNext: No Media to skip.");
         }
     }
 
@@ -719,10 +718,11 @@ public class HomeViewController implements Initializable {
             // plays the next media
             playSwitchStage = true;
             onBtnPlayPauseClick();
+            debugMessage.debug(this,"MediaPrevious: Skip to previous media.");
 
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaPrevious] No media to skip backwards%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaPrevious: No Media to Skip to.");
         }
     }
 
@@ -744,9 +744,10 @@ public class HomeViewController implements Initializable {
             // sets the media player to the new track time and continues playing
             mediaPlayer.seek(Duration.seconds(newTrackTime));
             mediaPlayer.play();
+            debugMessage.debug(this,"MediaSkipForward: Media skipped forward. " + newTrackTime);
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaSkipForward] No media to skip 15 seconds forward%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaSkipForward: No media to skip forward.");
         }
     }
 
@@ -771,8 +772,6 @@ public class HomeViewController implements Initializable {
             //double mediaLength = media.getDuration().toSeconds();
 
             int newTrackTime = MediaSkip.mediaSkipBackward(currentTrackTime);
-            System.out.println("current tracktime: " + currentTrackTime);
-            System.out.println("new tracktime: " + newTrackTime);
 
             // updates the current time label with the new track time
             updateCurrentTimeLabel(newTrackTime);
@@ -780,12 +779,12 @@ public class HomeViewController implements Initializable {
             // sets the media player to the new track time and continues playing
             mediaPlayer.seek(Duration.seconds(newTrackTime));
             mediaPlayer.play();
+            debugMessage.debug(this, "MediaSkipBackwards: Media skipped backward. " + newTrackTime);
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaSkipBackward] No media to skip 15 seconds backward%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaSkipBackwards: No media to skip 15 seconds backwards.");
         }
     }
-
 
     /**
      * Method for mute/unmute the media
@@ -806,7 +805,7 @@ public class HomeViewController implements Initializable {
 
                 updateMuteButtonImage(muteImageURL);
 
-                System.out.printf("%s[HomeViewControl][mediaMute] The media is muted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaMute: The Media is muted.");
             }
             else {
                 mediaPlayer.setMute(false);
@@ -821,13 +820,13 @@ public class HomeViewController implements Initializable {
                     updateMuteButtonImage(soundStepTwoImageURL);
                 }
 
-            System.out.printf("%s[HomeViewControl][mediaMute] The media is unmuted%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaMute: Media is unmuted.");
             }
 
             toggleMuteState();
         }
         else {
-            System.out.printf("%s[HomeViewController][mediaMute] No media to mute or unmute%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"MediaMute: No Media to unmute.");
         }
 
     }
@@ -852,7 +851,7 @@ public class HomeViewController implements Initializable {
             pauseWithValidation();
         }
         else {
-            System.out.printf("%s[HomeViewController][sliderProgresOnDrag] No media to change playtime on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SliderProgressOnDrag: No Media to change playtime on.");
         }
     }
 
@@ -874,10 +873,11 @@ public class HomeViewController implements Initializable {
             playWithValidation();
 
             beginTimer();
+            debugMessage.debug(this,"SliderProgressMouseRelease: " + selectedMediaTime);
         }
 
         else {
-            System.out.printf("%s[HomeViewController][sliderProgresMouseRelease] No media to change playtime on%s\n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"SliderProgressMouseRelease: No Media to change playtime on.");
         }
     }
 

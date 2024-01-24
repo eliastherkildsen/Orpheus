@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
+import mediaplayer.orpheus.util.debugMessage;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,7 +25,7 @@ public class EditMediaViewController implements Initializable {
     public static MediaObj selectedMediaObj;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("init");
+        debugMessage.debug(this,"Initialized.");
         load();
     }
 
@@ -100,7 +102,7 @@ public class EditMediaViewController implements Initializable {
 
         setMediaYear();
 
-        System.out.println("SELECTED MEDIA ID " + selectedMediaObj.getMEDIA_ID());
+        debugMessage.debug(this,"SELECTED MEDIA ID: " + selectedMediaObj.getMEDIA_ID());
 
     }
     public void setMediaYear(){

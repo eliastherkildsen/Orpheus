@@ -12,6 +12,8 @@ import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -206,12 +208,10 @@ public class SearchViewController implements Initializable {
             }
 
             refreshSearchResults();
-            System.out.printf("%s[SearchViewController][DeleteMedia] the selected media has been deleted%s%n",
-                    AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"DeleteMedia: The selected Media has been deleted.");
         }
         else {
-            System.out.printf("%s[SearchViewController][DeleteMedia] No media has been selected%s%n",
-                    AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"DeleteMedia: No Media has been selected.");
 
             new AlertPopup("No media selected.",
                     "No media to delete has been selected, please select a media to delete.").showInformation();
@@ -272,7 +272,7 @@ public class SearchViewController implements Initializable {
         }
 
         else {
-            System.out.printf("%s[SearchViewController][editMedia] no media has been picked.%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"EditMedia: No Media has been picked.");
             new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
         }
 
