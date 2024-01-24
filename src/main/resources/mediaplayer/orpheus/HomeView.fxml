@@ -7,7 +7,7 @@
 <?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="680.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
+<BorderPane fx:id="homePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="680.0" styleClass="gradient_colour" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.orpheus.Controler.HomeViewController">
     <left>
         <VBox prefHeight="400.0" prefWidth="85.0" BorderPane.alignment="CENTER">
             <children>
@@ -131,7 +131,7 @@
    <center>
       <AnchorPane fx:id="anchor" prefHeight="370.0" prefWidth="520.0" BorderPane.alignment="CENTER">
          <children>
-              <MediaView fx:id="mediaViewDisplay" fitHeight="370.0" fitWidth="540.0" preserveRatio="false" />
+              <MediaView fx:id="mediaViewDisplay" fitHeight="370.0" fitWidth="540.0" />
             <ImageView fx:id="imageViewTN" fitHeight="100.0" fitWidth="160.0" layoutX="190.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="mediaViewTitle" layoutX="18.0" layoutY="12.0" prefHeight="20.0" prefWidth="500.0">
                <font>
