@@ -125,11 +125,10 @@ public class JDBC {
         return properties;
     }
 
-    public ResultSet executeQuery(String quarry){
+    public ResultSet executeQuary(PreparedStatement query){
 
         try {
-            preparedStatement = connection.prepareCall(quarry);
-            resultSet = preparedStatement.executeQuery();
+            resultSet = query.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -138,11 +137,10 @@ public class JDBC {
 
     }
 
-    public void executeUpdate(String quarry){
+    public void executeUpdate(PreparedStatement query){
 
         try {
-            preparedStatement = connection.prepareCall(quarry);
-            preparedStatement.executeUpdate();
+            query.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

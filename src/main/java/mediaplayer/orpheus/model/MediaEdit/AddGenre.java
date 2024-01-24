@@ -12,8 +12,7 @@ public class AddGenre {
      */
     public static void createGenre(String genre){
 
-        String query = DatabaseCreate.insertGenre(genre);
-        JDBC.instance.executeUpdate(query);
+        JDBC.instance.executeUpdate(DatabaseCreate.insertGenre(genre));
         System.out.printf("%s[AddGenre][createGenre] A new media genre has been added to the database: %s%s",
                 AnsiColorCode.ANSI_YELLOW, genre, AnsiColorCode.ANSI_RESET);
 
