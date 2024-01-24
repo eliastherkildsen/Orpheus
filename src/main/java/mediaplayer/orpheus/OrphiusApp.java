@@ -17,7 +17,8 @@ public class OrphiusApp extends Application {
     public void start(Stage stage) throws IOException {
 
         // creates a new instens of the databaae connection;.
-        new JDBC();
+        JDBC.get();
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
         Scene scene = new Scene(root);
         SceneController.setStage(stage);

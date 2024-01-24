@@ -33,9 +33,8 @@ public class JDBC {
     /**
      * Constructs a JDBC instance and initializes a database connection.
      */
+
     public JDBC() {
-        // skal jeg kalde metoden, og så bruge en getter i createConecctions? eller skal setProps() bare return props, og så kan jeg kalde
-        // createConnection(setProps()); ?
          setProps();
          createConnection(getProperties());
          instance = this;
@@ -153,7 +152,13 @@ public class JDBC {
 
     }
 
+    public static JDBC get() {
+        if (JDBC.instance == null) {
+            JDBC.instance = new JDBC();
+        }
 
+        return JDBC.instance;
+    }
 
 
 }
