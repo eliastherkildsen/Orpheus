@@ -501,7 +501,7 @@ public class HomeViewController implements Initializable {
 
             if (!shuffle) {
 
-                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function activated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaShuffle: Shuffle Function Activated.");
 
                 // shuffle the chosen playlist
                 shufflePlaylist = MediaShuffle.shufflePlaylist(mediaObjQue);
@@ -510,8 +510,7 @@ public class HomeViewController implements Initializable {
                 shuffleImage = shuffleActImageURL;
 
             } else {
-
-                System.out.printf("%s[HomeViewControl][mediaShuffle] Shuffle function deactivated%s\n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+                debugMessage.debug(this,"MediaShuffle: Shuffle Function Deactivated.");
 
                 // set button image - shuffle deactivated
                 shuffleImage = shuffleDeactImageURL;
