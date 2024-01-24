@@ -9,7 +9,7 @@ class MediaUtilTest {
     @Test
     void secondsFormattedToTime() {
         // Arrange
-        double durationTime = 3678.0; // 1 hour, 1 minute, and 5 seconds
+        double durationTime = 3678.0; // 1 hour, 1 minute, and 18 seconds
 
         // Act
         String formattedTime = MediaUtil.secondsFormattedToTime(durationTime);
