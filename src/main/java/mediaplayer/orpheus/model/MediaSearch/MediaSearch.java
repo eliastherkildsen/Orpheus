@@ -10,7 +10,7 @@ import mediaplayer.orpheus.util.AnsiColorCode;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MediaSearch {
+public class    MediaSearch {
 
     // creating a JDBC connection
     private static final Connection connection = JDBC.instance.getConnection();
