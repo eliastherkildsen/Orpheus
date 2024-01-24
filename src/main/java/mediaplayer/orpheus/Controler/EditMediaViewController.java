@@ -163,48 +163,27 @@ public class EditMediaViewController implements Initializable {
 
     @FXML
     public void switchToPlaylistView() {
-        try {
             sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     @FXML
     public void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToSearchScene();
     }
     @FXML
     public void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToHomeScene();
     }
 
     @FXML
     public void switchToAddArtistView() {
-        try {
-            sceneController.switchToAddArtistView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToAddArtistView();
     }
     @FXML
     public void switchToAddGenreView() {
-        try {
-            sceneController.switchToAddGenreView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToAddGenreView();
     }
     @FXML
     public void onActionbtnImportClick(){
-
         FileChooser.fileChooser();
     }
 

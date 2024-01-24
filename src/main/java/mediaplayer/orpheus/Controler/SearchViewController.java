@@ -1,4 +1,5 @@
 package mediaplayer.orpheus.Controler;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import mediaplayer.orpheus.model.Media.GeneralMediaObject;
@@ -264,36 +265,21 @@ public class SearchViewController implements Initializable {
         }
 
     }
-
+    @FXML
+    public void switchToEditView() {
+        sceneController.switchToEditScene();
+    }
+    @FXML
+    public void switchToHomeView() {
+        sceneController.switchToHomeScene();
+    }
     @FXML
     public void onActionbtnImportClick(){
 
         FileChooser.fileChooser();
-        refreshSearchResults();
     }
     @FXML
-    private void switchToPlaylistView() {
-        try {
-            sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void switchToPlaylistView() {
+        sceneController.switchToPlaylistScene();
     }
-    @FXML
-    private void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void switchToEditView() {
-        try {
-            sceneController.switchToEditScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

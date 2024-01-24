@@ -61,35 +61,6 @@ public class PlaylistViewController implements Initializable {
 
     private void addItemToListView(ListView listView, String item){listView.getItems().add(item);}
 
-    public void switchToPlaylistView() {
-        try {
-            sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onActionbtnImportClick(){
-
-        FileChooser.fileChooser();
-    }
-
     @FXML
     private void onActionbtnCreateClick(){
 
@@ -101,11 +72,7 @@ public class PlaylistViewController implements Initializable {
 
     @FXML
     private void onActionbtnCancelClick(){
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToHomeScene();
     }
 
     @FXML
@@ -144,8 +111,28 @@ public class PlaylistViewController implements Initializable {
         if(!HomeViewController.mediaObjQue.isEmpty()){
             switchToHomeView();
         }
-
-
     }
+
+    @FXML
+    public void switchToPlaylistView() {
+        sceneController.switchToPlaylistScene();
+    }
+    @FXML
+
+    public void switchToSearchView() {
+        sceneController.switchToSearchScene();
+    }
+    @FXML
+
+    public void switchToHomeView() {
+        sceneController.switchToHomeScene();
+    }
+    @FXML
+
+    public void onActionbtnImportClick(){
+        FileChooser.fileChooser();
+    }
+
+
 
 }

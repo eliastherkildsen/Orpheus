@@ -955,39 +955,22 @@ public class HomeViewController implements Initializable {
 
     //to handle stage-switch
     @FXML
-    private Button btnSearch, btnPlaylist, btnDelete;
-    public void switchToPlaylistView() {
-
-        pauseWithValidation();
-
-
-        try {
-            viewControler.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void switchToSearchView() {
-
         pauseWithValidation();
-
-        try {
-            viewControler.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        viewControler.switchToSearchScene();
     }
 
+    @FXML
     public void switchToHomeView() {
-
         pauseWithValidation();
-
-        try {
-            viewControler.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        viewControler.switchToHomeScene();
     }
+
+    @FXML
+    public void switchToPlaylistView() {
+        pauseWithValidation();
+        viewControler.switchToPlaylistScene();
+    }
+
 
 }
