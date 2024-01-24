@@ -5,11 +5,12 @@ import mediaplayer.orpheus.model.Database.DatabaseUtil;
 import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Playlist.PlaylistObj;
+import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MediaSearch {
+public class    MediaSearch {
 
     // creating a JDBC connection
     private static final Connection connection = JDBC.instance.getConnection();
@@ -29,11 +30,21 @@ public class MediaSearch {
         String query = appendQuerySearchForMedia(searchCriteria);
 
         try {
+
             preparedStatement = connection.prepareCall(query);
             resultSet = preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException err) {
+
+            System.out.printf("%s[MediaSearch][searchMediaForMedia] An error occurred: " +
+                    "%s %s%n", AnsiColorCode.ANSI_RED, err, AnsiColorCode.ANSI_RESET);
+
+            return null;
+
         }
+
+        System.out.printf("%s[MediaSearch][searchMediaForMedia] Quarrying for media related to the search: " +
+                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
 
         return resultSet;
     }
@@ -53,6 +64,9 @@ public class MediaSearch {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("%s[MediaSearch][searchMediaForPlaylist] Quarrying for playlists related to the search: " +
+                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
+
 
         return resultSet;
     }
@@ -64,9 +78,12 @@ public class MediaSearch {
      * @return ArrayList<String[]> a list of String arrays
      *         containing the resultSets data parsed to a formatted String
      */
-    public ArrayList<GeneralMediaObject> processResultSet(ResultSet resultSet) {
+    public ArrayList<GeneralMediaObject> processResultSetMedia(ResultSet resultSet) {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
+
+        System.out.printf("%s[MediaSearch][processResultSetMedia] processing result... " +
+                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         // loops through the result set.
         while (true) {
@@ -96,7 +113,8 @@ public class MediaSearch {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
-        System.out.println("Prospering res, playlist");
+        System.out.printf("%s[MediaSearch][processResultSetPlaylist] processing result... " +
+                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         // loops through the result set.
 
@@ -110,8 +128,6 @@ public class MediaSearch {
 
             String playlistName = DatabaseUtil.validateResultNotNull("fldPlaylistName", resultSet);
             dataSet.add(new GeneralMediaObject(new PlaylistObj(playlistName)));
-
-            System.out.println("Created new playlist OBJ ");
 
         }
 
@@ -130,43 +146,30 @@ public class MediaSearch {
 
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
-        return new StringBuilder()
-                .append("SELECT tblMedia.fldMediaID ")
-                .append("FROM tblMedia ")
-
-                .append("LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID ")
-                .append("LEFT JOIN tblPerson ON tblMediaPerson.fldPersonID = tblPerson.fldPersonID ")
-                .append("LEFT JOIN tblMediaGenre ON tblMedia.fldMediaID = tblMediaGenre.fldMediaID ")
-
-                .append("WHERE ")
-
-                .append("tblPerson.fldFirstName LIKE '%")
-                .append(searchCriteria)
-                .append("%' OR ")
-
-                .append("tblPerson.fldArtistName LIKE '%")
-                .append(searchCriteria)
-                .append("%' OR ")
-
-                .append("tblPerson.fldLastName LIKE '%")
-                .append(searchCriteria)
-                .append("' OR ")
-
-                .append("tblMedia.fldMediaTitle LIKE '%")
-                .append(searchCriteria)
-                .append("%' OR ")
-
-                .append("tblMedia.fldFileType LIKE '%")
-                .append(searchCriteria)
-                .append("%' OR ")
-
-                .append("tblMediaGenre.fldGenre LIKE '%")
-                .append(searchCriteria)
-                .append("%'")
-
-
-
-                .toString();
+        return "SELECT tblMedia.fldMediaID " +
+                "FROM tblMedia " +
+                "LEFT JOIN tblMediaPerson ON tblMedia.fldMediaID = tblMediaPerson.fldMediaID " +
+                "LEFT JOIN tblPerson ON tblMediaPerson.fldPersonID = tblPerson.fldPersonID " +
+                "LEFT JOIN tblMediaGenre ON tblMedia.fldMediaID = tblMediaGenre.fldMediaID " +
+                "WHERE " +
+                "tblPerson.fldFirstName LIKE '%" +
+                searchCriteria +
+                "%' OR " +
+                "tblPerson.fldArtistName LIKE '%" +
+                searchCriteria +
+                "%' OR " +
+                "tblPerson.fldLastName LIKE '%" +
+                searchCriteria +
+                "' OR " +
+                "tblMedia.fldMediaTitle LIKE '%" +
+                searchCriteria +
+                "%' OR " +
+                "tblMedia.fldFileType LIKE '%" +
+                searchCriteria +
+                "%' OR " +
+                "tblMediaGenre.fldGenre LIKE '%" +
+                searchCriteria +
+                "%'";
 
     }
 
@@ -181,11 +184,9 @@ public class MediaSearch {
 
         // Generic quarry for searching the database media ether by artistName, ArtistFirstName, ArtistLastName or MediaTitle.
         // with use of string builder to avoid String concatenation.
-        return new StringBuilder()
-                .append("SELECT fldPlaylistName FROM tblPlaylist WHERE fldPlaylistName like '")
-                .append(searchCriteria)
-                .append("%'")
-                .toString();
+        return "SELECT fldPlaylistName FROM tblPlaylist WHERE fldPlaylistName like '" +
+                searchCriteria +
+                "%'";
 
     }
 

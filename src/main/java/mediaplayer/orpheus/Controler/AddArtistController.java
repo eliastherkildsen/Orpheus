@@ -6,45 +6,28 @@ import mediaplayer.orpheus.model.MediaEdit.AddArtist;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
 
-import java.io.IOException;
-
 public class AddArtistController {
 
-    private SceneController sceneController = new SceneController();
+    private final SceneController sceneController = new SceneController();
     @FXML
     private TextField fldArtistFirstName, fldArtistLastName, fldArtistName;
 
     @FXML
     public void switchToPlaylistView() {
-        try {
-            sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToPlaylistScene();
     }
+
     @FXML
     public void switchToEditView() {
-        try {
-            sceneController.switchToEditScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToEditScene();
     }
     @FXML
     public void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToSearchScene();
     }
     @FXML
     public void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToHomeScene();
     }
     @FXML
     public void onActionbtnImportClick(){

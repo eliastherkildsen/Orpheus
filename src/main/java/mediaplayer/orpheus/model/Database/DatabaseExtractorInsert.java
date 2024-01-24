@@ -1,7 +1,5 @@
 package mediaplayer.orpheus.model.Database;
 
-import mediaplayer.orpheus.model.Database.JDBC;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,7 +75,7 @@ public class DatabaseExtractorInsert {
         }
         String mediaID = " ";
         try {
-            ResultSet ress = JDBC.instance.executeQuary(DatabaseRead.getMediaIdFromTitle(this.mediaTitle));
+            ResultSet ress = JDBC.instance.executeQuery(DatabaseRead.getMediaIdFromTitle(this.mediaTitle));
             while (ress.next()){
                 mediaID =  ress.getString("fldMediaID");
             }

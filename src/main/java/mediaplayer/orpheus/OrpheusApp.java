@@ -11,13 +11,14 @@ import mediaplayer.orpheus.model.Database.JDBC;
 import java.io.IOException;
 import java.util.Objects;
 
-public class OrphiusApp extends Application {
+public class OrpheusApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        // creates a new instens of the databaae connection;.
-        new JDBC();
+        // creates a new database obj.
+        JDBC.get();
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeView.fxml")));
         Scene scene = new Scene(root);
         SceneController.setStage(stage);

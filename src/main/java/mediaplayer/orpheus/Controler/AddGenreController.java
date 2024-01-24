@@ -11,45 +11,28 @@ import java.io.IOException;
 
 public class AddGenreController {
 
-    private SceneController sceneController = new SceneController();
+    private final SceneController sceneController = new SceneController();
     @FXML
     private TextField fldGenre;
 
     @FXML
     public void switchToPlaylistView() {
-        try {
-            sceneController.switchToPlaylistScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToPlaylistScene();
     }
     @FXML
     public void switchToEditView() {
-        try {
-            sceneController.switchToEditScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToEditScene();
     }
     @FXML
     public void switchToSearchView() {
-        try {
-            sceneController.switchToSearchScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToSearchScene();
     }
     @FXML
     public void switchToHomeView() {
-        try {
-            sceneController.switchToHomeScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sceneController.switchToHomeScene();
     }
     @FXML
     public void onActionbtnImportClick(){
-
         FileChooser.fileChooser();
     }
 
