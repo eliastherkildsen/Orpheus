@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.Service;
 
-import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -31,17 +31,17 @@ public class FileHandlerMedia {
             return fileName.substring(fileName.lastIndexOf('.') + 1);
         }
         return "";
-    };
+    }
 
     /**
      * A method to determine what extension the class has, then returns that in a desired format.
-     * Includes the ability to call a error when the extension isnt supported.
+     * Includes the ability to call a error when the extension isn't supported.
      * TODO: Correct error Handling
      * @return String mp3 or mp4
      */
     public String mp3OrMp4(){
         String extension = this.returnFileExtension();
-        System.out.printf("%s[FILE HANDLER MEDIA]%s Extension found as: %s%s%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW,AnsiColorCode.ANSI_RESET, extension);
+        debugMessage.debug(this,"Extension found as: " + extension);
         return switch (extension) {
             case "mp3" -> "mp3";
             case "mp4" -> "mp4";
