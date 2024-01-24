@@ -2,8 +2,8 @@ package mediaplayer.orpheus.model.Metadata;
 
 
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
-import mediaplayer.orpheus.util.AnsiColorCode;
 
+import mediaplayer.orpheus.util.debugMessage;
 import org.mp4parser.IsoFile;
 import org.mp4parser.boxes.iso14496.part12.MovieHeaderBox;
 
@@ -17,9 +17,9 @@ public class MetaExtractorMp4 {
     public MetaExtractorMp4(String filePath) {
         setFilePath(filePath);
     }
-    public String gatherMetaDataTitle() throws IOException {
+    public String gatherMetaDataTitle() {
         FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
-        System.out.printf("%s[METADATA MP4]%s Using file name as title.%s%n" + newTitle.getFileNameWithoutExtension() + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+        debugMessage.debug(this,"Using file name as title. " + newTitle.getFileNameWithoutExtension());
         return newTitle.getFileNameWithoutExtension();
     }
 
@@ -27,8 +27,7 @@ public class MetaExtractorMp4 {
             IsoFile isoFile = new IsoFile(new FileInputStream(filePath).getChannel());
             MovieHeaderBox movieHeaderBox = isoFile.getMovieBox().getMovieHeaderBox();
             long durationInSeconds = movieHeaderBox.getDuration() / movieHeaderBox.getTimescale();
-            System.out.printf("%s[METADATA MP4]%s Getting length of MP4.%s%n" + Math.toIntExact(durationInSeconds)
-                    + "%n", AnsiColorCode.ANSI_BLUE, AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(this,"Getting length of MP4. " + Math.toIntExact(durationInSeconds));
             return Math.toIntExact(durationInSeconds);
 
     }
