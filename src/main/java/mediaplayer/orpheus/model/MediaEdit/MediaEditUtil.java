@@ -16,11 +16,9 @@ public class MediaEditUtil {
      */
     public static ArrayList<String> getAllGenre(){
 
-        String query = DatabaseRead.getAllGenres();
-
         ArrayList<String> genre = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllGenres())) {
             while (resultSet.next()) {
                 genre.add(resultSet.getString("fldGenre"));
             }
@@ -38,11 +36,9 @@ public class MediaEditUtil {
      */
     public static ArrayList<String> getAllArtist(){
 
-        String query = DatabaseRead.getAllArtists();
-
         ArrayList<String> artist = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllArtists())) {
             while (resultSet.next()) {
                 artist.add(resultSet.getString("fldArtistName"));
             }

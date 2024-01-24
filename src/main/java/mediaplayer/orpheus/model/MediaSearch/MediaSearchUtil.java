@@ -10,10 +10,9 @@ public class MediaSearchUtil {
 
     public static ArrayList<String> getAllPlaylist(){
     ArrayList<String> playListNamesArr = new ArrayList<>();
-    String query = DatabaseRead.getAllPlaylistNames();
 
         try(
-    ResultSet resultSet = JDBC.instance.executeQuery(query))
+    ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllPlaylistNames()))
 
     {
 
