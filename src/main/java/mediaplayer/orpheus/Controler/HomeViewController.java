@@ -108,6 +108,8 @@ public class HomeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        shuffle = false;
+
         if (!isInitialized && !mediaObjQue.isEmpty()) {
 
             try {
@@ -957,6 +959,7 @@ public class HomeViewController implements Initializable {
     public void switchToPlaylistView() {
 
         pauseWithValidation();
+
 
         try {
             viewControler.switchToPlaylistScene();

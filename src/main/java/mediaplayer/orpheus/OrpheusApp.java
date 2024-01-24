@@ -11,7 +11,7 @@ import mediaplayer.orpheus.model.Database.JDBC;
 import java.io.IOException;
 import java.util.Objects;
 
-public class OrphiusApp extends Application {
+public class OrpheusApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
