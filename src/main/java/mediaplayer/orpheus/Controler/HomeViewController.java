@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -20,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -947,7 +946,7 @@ public class HomeViewController implements Initializable {
     private void changeImagelables(){
 
         labMediaName.setText(mediaObjQue.get(mediaArrIndex).getMediaTitle());
-        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtist());
+        labArtistName.setText(mediaObjQue.get(mediaArrIndex).getMediaArtistStageName());
 
     }
 

@@ -1,7 +1,5 @@
 package mediaplayer.orpheus.model.Media;
 
-import mediaplayer.orpheus.Controler.HomeViewController;
-
 import java.util.ArrayList;
 import java.util.Collections;
 

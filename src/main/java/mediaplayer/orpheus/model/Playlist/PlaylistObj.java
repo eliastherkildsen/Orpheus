@@ -2,21 +2,21 @@ package mediaplayer.orpheus.model.Playlist;
 
 public class PlaylistObj {
 
-    private String playlistName;
-    private String prestenedPlaylist;
+    private final String PLAYLIST_NAME;
+    private final String PRESENTED_PLAYLIST_NAME;
 
     public PlaylistObj(String playlistName){
 
-        this.playlistName = playlistName;
-        this.prestenedPlaylist = "[Playlist] - " + this.playlistName;
+        this.PLAYLIST_NAME = playlistName;
+        this.PRESENTED_PLAYLIST_NAME = "[Playlist] - " + this.PLAYLIST_NAME;
 
     }
 
-    public String getPlaylistName() {
-        return playlistName;
+    public String getPLAYLIST_NAME() {
+        return PLAYLIST_NAME;
     }
 
-    public String getPrestenedPlaylist() {
-        return prestenedPlaylist;
+    public String getPRESENTED_PLAYLIST_NAME() {
+        return PRESENTED_PLAYLIST_NAME;
     }
 }

@@ -70,7 +70,7 @@
     <bottom>
         <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-alignment: center;" styleClass="footer_colour" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnUpdate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdataClick" prefHeight="37.0" prefWidth="60.0" text="Update" textFill="WHITE" />
+                <Button fx:id="btnUpdate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBtnUpdateClick" prefHeight="37.0" prefWidth="60.0" text="Update" textFill="WHITE" />
                 <Button fx:id="btnCancel" alignment="BASELINE_LEFT" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="37.0" prefWidth="60.0" text="Cancel" textFill="WHITE" />
             </children>
         </HBox>

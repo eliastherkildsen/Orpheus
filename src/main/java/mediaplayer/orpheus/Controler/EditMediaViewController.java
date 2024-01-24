@@ -1,25 +1,19 @@
 package mediaplayer.orpheus.Controler;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mediaplayer.orpheus.model.MediaEdit.MediaEditUtil;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
-import java.io.IOException;
-import java.io.StringReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EditMediaViewController implements Initializable {
 
-    @FXML
-    private Button btnSearch, btnPlaylist, btnImport, btnDelete, btnUpdate, btnCancel;
-    private SceneController sceneController = new SceneController();
+    private final SceneController SCENE_CONTROLLER = new SceneController();
     @FXML
     private TextField fldMediaTitle, fldYear;
     @FXML
@@ -35,7 +29,7 @@ public class EditMediaViewController implements Initializable {
 
 
     @FXML
-    private void onBtnUpdataClick(){
+    private void onBtnUpdateClick(){
         updataMediaData();
         switchToSearchView();
     }
@@ -48,7 +42,7 @@ public class EditMediaViewController implements Initializable {
     /**
      * method for adding a String to a choice box
      *
-     * @param choiceBox
+     * @param choiceBox the choiceBox to interact with.
      * @param item String to be added to the choice box.
      */
     private void addItemToChoiceBox(ChoiceBox choiceBox, String item){
@@ -106,7 +100,7 @@ public class EditMediaViewController implements Initializable {
 
         setMediaYear();
 
-        System.out.println("SELECTED MEDIA ID " + selectedMediaObj.getMediaID());
+        System.out.println("SELECTED MEDIA ID " + selectedMediaObj.getMEDIA_ID());
 
     }
     public void setMediaYear(){
@@ -114,7 +108,7 @@ public class EditMediaViewController implements Initializable {
     }
 
     private void setMediaArtist() {
-        presentItem(cbArtist, selectedMediaObj.getMediaArtist());
+        presentItem(cbArtist, selectedMediaObj.getMediaArtistStageName());
     }
 
     private void setMediaTitleOnScene(){
@@ -163,24 +157,24 @@ public class EditMediaViewController implements Initializable {
 
     @FXML
     public void switchToPlaylistView() {
-            sceneController.switchToPlaylistScene();
+            SCENE_CONTROLLER.switchToPlaylistScene();
     }
     @FXML
     public void switchToSearchView() {
-        sceneController.switchToSearchScene();
+        SCENE_CONTROLLER.switchToSearchScene();
     }
     @FXML
     public void switchToHomeView() {
-        sceneController.switchToHomeScene();
+        SCENE_CONTROLLER.switchToHomeScene();
     }
 
     @FXML
     public void switchToAddArtistView() {
-        sceneController.switchToAddArtistView();
+        SCENE_CONTROLLER.switchToAddArtistView();
     }
     @FXML
     public void switchToAddGenreView() {
-        sceneController.switchToAddGenreView();
+        SCENE_CONTROLLER.switchToAddGenreView();
     }
     @FXML
     public void onActionbtnImportClick(){
