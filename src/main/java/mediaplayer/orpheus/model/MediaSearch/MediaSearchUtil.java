@@ -12,7 +12,7 @@ public class MediaSearchUtil {
     ArrayList<String> playListNamesArr = new ArrayList<>();
 
         try(
-    ResultSet resultSet = JDBC.instance.executeQuary(DatabaseRead.getAllPlaylistNames()))
+    ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllPlaylistNames()))
 
     {
 

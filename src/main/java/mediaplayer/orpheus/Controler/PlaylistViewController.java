@@ -41,7 +41,7 @@ public class PlaylistViewController implements Initializable {
     private void loadListView() {
         clearListViewDisplay();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(DatabaseRead.getAllPlaylistNames())){
+        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllPlaylistNames())){
 
             while (resultSet.next()){
                 playlistNameArr.add(resultSet.getString("fldPlaylistName"));

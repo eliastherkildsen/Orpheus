@@ -125,7 +125,7 @@ public class JDBC {
         return properties;
     }
 
-    public ResultSet executeQuary(PreparedStatement query){
+    public ResultSet executeQuery(PreparedStatement query){
 
         try {
             resultSet = query.executeQuery();
