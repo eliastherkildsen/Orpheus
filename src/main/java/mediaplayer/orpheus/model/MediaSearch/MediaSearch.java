@@ -5,6 +5,7 @@ import mediaplayer.orpheus.model.Database.DatabaseUtil;
 import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Playlist.PlaylistObj;
+import mediaplayer.orpheus.util.AnsiColorCode;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,11 +30,21 @@ public class MediaSearch {
         String query = appendQuerySearchForMedia(searchCriteria);
 
         try {
+
             preparedStatement = connection.prepareCall(query);
             resultSet = preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException err) {
+
+            System.out.printf("%s[MediaSearch][searchMediaForMedia] An error occurred: %s" +
+                    "%s %s%n", AnsiColorCode.ANSI_RED, err, AnsiColorCode.ANSI_RESET);
+
+            return null;
+
         }
+
+        System.out.printf("%s[MediaSearch][searchMediaForMedia] Quarrying for media related to the search: " +
+                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
 
         return resultSet;
     }
@@ -53,6 +64,9 @@ public class MediaSearch {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("%s[MediaSearch][searchMediaForPlaylist] Quarrying for playlists related to the search: " +
+                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
+
 
         return resultSet;
     }
@@ -64,9 +78,12 @@ public class MediaSearch {
      * @return ArrayList<String[]> a list of String arrays
      *         containing the resultSets data parsed to a formatted String
      */
-    public ArrayList<GeneralMediaObject> processResultSet(ResultSet resultSet) {
+    public ArrayList<GeneralMediaObject> processResultSetMedia(ResultSet resultSet) {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
+
+        System.out.printf("%s[MediaSearch][processResultSetMedia] processing resultset... " +
+                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         // loops through the result set.
         while (true) {
@@ -96,7 +113,8 @@ public class MediaSearch {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
-        System.out.println("Prospering res, playlist");
+        System.out.printf("%s[MediaSearch][processResultSetPlaylist] processing resultset... " +
+                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         // loops through the result set.
 
@@ -110,8 +128,6 @@ public class MediaSearch {
 
             String playlistName = DatabaseUtil.validateResultNotNull("fldPlaylistName", resultSet);
             dataSet.add(new GeneralMediaObject(new PlaylistObj(playlistName)));
-
-            System.out.println("Created new playlist OBJ ");
 
         }
 
