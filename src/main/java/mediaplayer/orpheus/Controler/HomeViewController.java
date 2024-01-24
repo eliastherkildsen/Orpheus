@@ -41,7 +41,7 @@ import java.util.TimerTask;
 public class HomeViewController implements Initializable {
     @FXML
     public AnchorPane anchor;
-    private SceneController viewControler = new SceneController();
+    private final SceneController viewControler = new SceneController();
 
     @FXML
     public HBox hBoxButtons;
@@ -61,13 +61,13 @@ public class HomeViewController implements Initializable {
     private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, bntShuffleIcon;
 
 
-    private String playImageURL = "file:src/main/resources/css/images/play-circle.png";
-    private String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
-    private String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
-    private String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
-    private String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
-    private String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
-    private String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
+    private final String playImageURL = "file:src/main/resources/css/images/play-circle.png";
+    private final String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
+    private final String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
+    private final String soundStepOneImageURL = "file:src/main/resources/css/images/volume-1.png";
+    private final String soundStepTwoImageURL = "file:src/main/resources/css/images/volume-2.png";
+    private final String shuffleActImageURL = "file:src/main/resources/css/images/shuffle.png";
+    private final String shuffleDeactImageURL = "file:src/main/resources/css/images/shufflegrey.png";
 
     private double heightOfScene;
     private double widthOfScene;
@@ -88,7 +88,7 @@ public class HomeViewController implements Initializable {
     private boolean playSwitchStage = true;
     private boolean mute = true;
     private boolean shuffle = false;
-    private boolean isInitialized = false;
+    private final boolean isInitialized = false;
 
     public static ArrayList<MediaObj> mediaObjQue = new ArrayList<>();
 

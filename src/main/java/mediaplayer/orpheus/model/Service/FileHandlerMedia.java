@@ -31,7 +31,7 @@ public class FileHandlerMedia {
             return fileName.substring(fileName.lastIndexOf('.') + 1);
         }
         return "";
-    };
+    }
 
     /**
      * A method to determine what extension the class has, then returns that in a desired format.

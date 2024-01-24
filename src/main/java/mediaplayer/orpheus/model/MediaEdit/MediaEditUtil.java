@@ -20,7 +20,7 @@ public class MediaEditUtil {
 
         ArrayList<String> genre = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             while (resultSet.next()) {
                 genre.add(resultSet.getString("fldGenre"));
             }
@@ -42,7 +42,7 @@ public class MediaEditUtil {
 
         ArrayList<String> artist = new ArrayList<>();
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             while (resultSet.next()) {
                 artist.add(resultSet.getString("fldArtistName"));
             }

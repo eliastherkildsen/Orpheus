@@ -6,96 +6,74 @@ import java.nio.MappedByteBuffer;
 
 public class DatabaseRead {
     public static String getMediaIdFromTitle(String mediaTitle){
-        return new StringBuilder()
-                .append("SELECT fldMediaID")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaTitle = '")
-                .append(mediaTitle)
-                .append("'")
-                .toString();
+        return "SELECT fldMediaID" +
+                " FROM tblMedia" +
+                " WHERE fldMediaTitle = '" +
+                mediaTitle +
+                "'";
     }
     public static String getMediaTitle(int mediaId) {
-        return new StringBuilder()
-                .append("SELECT fldMediaTitle")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldMediaTitle" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaType(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFileType")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldFileType" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaAlbum(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFilePath")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldFilePath" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaYear(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldMediaYear")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldMediaYear" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaTrack(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldMediaTrack")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldMediaTrack" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaLength(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldTrackLength")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldTrackLength" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaPath(int mediaId){
-        return new StringBuilder()
-                .append("SELECT fldFilePath")
-                .append(" FROM tblMedia")
-                .append(" WHERE fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT fldFilePath" +
+                " FROM tblMedia" +
+                " WHERE fldMediaID = " +
+                mediaId;
     }
     public static String getMediaArtistArtName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldArtistName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT DISTINCT p.fldArtistName" +
+                " FROM tblPerson p" +
+                " JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                " WHERE mp.fldMediaID = " +
+                mediaId;
     }
     public static String getMediaArtistFirstName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldFirstName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT DISTINCT p.fldFirstName" +
+                " FROM tblPerson p" +
+                " JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                " WHERE mp.fldMediaID = " +
+                mediaId;
     }
     public static String getMediaArtistLastName(int mediaId){
-        return new StringBuilder()
-                .append("SELECT DISTINCT p.fldLastName")
-                .append(" FROM tblPerson p")
-                .append(" JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID")
-                .append(" WHERE mp.fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT DISTINCT p.fldLastName" +
+                " FROM tblPerson p" +
+                " JOIN tblMediaPerson mp ON p.fldPersonID = mp.fldPersonID" +
+                " WHERE mp.fldMediaID = " +
+                mediaId;
     }
 
     public static String getAllArtists (){
@@ -103,13 +81,11 @@ public class DatabaseRead {
     }
     public static String getMediaGenre(int mediaId){
 
-        return new StringBuilder()
-                .append("SELECT DISTINCT mg.fldGenre")
-                .append(" FROM tblMedia m")
-                .append(" JOIN tblMediaGenre mg ON m.fldMediaID = mg.fldMediaID")
-                .append(" WHERE mg.fldMediaID = ")
-                .append(mediaId)
-                .toString();
+        return "SELECT DISTINCT mg.fldGenre" +
+                " FROM tblMedia m" +
+                " JOIN tblMediaGenre mg ON m.fldMediaID = mg.fldMediaID" +
+                " WHERE mg.fldMediaID = " +
+                mediaId;
 
     }
     public static String getAllGenres (){
@@ -119,48 +95,38 @@ public class DatabaseRead {
     public static String getAllPlaylistNames() {return "SELECT fldPlaylistName FROM tblPlaylist";}
 
     public static String getMaxTrackOrder(String playlistName){
-        return new StringBuilder()
-                .append("SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = ")
-                .append("(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("')")
-                .toString();
+        return "SELECT fldTrackOrder FROM tblMediaPlaylist WHERE fldTrackOrder = " +
+                "(SELECT MAX(fldTrackOrder) FROM tblMediaPlaylist WHERE fldPlaylistName = '" +
+                playlistName +
+                "')";
     }
     public static String getMediaArtistIDFromName(String mediaArtistName) {
 
-        return new StringBuilder()
-                .append("SELECT fldPersonID FROM tblPerson WHERE fldArtistName = '")
-                .append(mediaArtistName)
-                .append("'")
-                .toString();
+        return "SELECT fldPersonID FROM tblPerson WHERE fldArtistName = '" +
+                mediaArtistName +
+                "'";
 
     }
     public static String getMediaIDFromPlaylistName(String playlistName){
 
-        return new StringBuilder()
-                .append("SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("'")
-                .toString();
+        return "SELECT fldMediaID FROM tblMediaPlaylist WHERE fldPlaylistName = '" +
+                playlistName +
+                "'";
 
     }
     public static String getMediaImagePathFromMediaID(int mediaID){
 
-        return new StringBuilder()
-                .append("SELECT fldImagePath FROM tblMedia WHERE fldMediaID = '")
-                .append(mediaID)
-                .append("'")
-                .toString();
+        return "SELECT fldImagePath FROM tblMedia WHERE fldMediaID = '" +
+                mediaID +
+                "'";
 
     }
 
     public static String getMediaExstentionFromMediaID(int mediaID){
 
-        return new StringBuilder()
-                .append("SELECT fldFileType FROM tblMedia WHERE fldMediaID = '")
-                .append(mediaID)
-                .append("'")
-                .toString();
+        return "SELECT fldFileType FROM tblMedia WHERE fldMediaID = '" +
+                mediaID +
+                "'";
 
     }
 

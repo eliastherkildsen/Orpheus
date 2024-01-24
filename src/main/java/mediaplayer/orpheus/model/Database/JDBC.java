@@ -3,7 +3,7 @@
  * It reads database connection properties from a configuration file and creates a connection.
  *
  * @author Elias B. Therkildsen
- * @version 1.0
+ * @version 1.1
  * @since 22.12.2023
  */
 
@@ -17,14 +17,7 @@ import java.util.Properties;
 public class JDBC {
 
     public static JDBC instance;
-
-    // Path to the database properties file
-    private final String DATBASE_PROPS_PATH = "src/main/java/mediaplayer/orpheus/model/Database/db.properties";
-
-    // Database connection URL
     private String URL;
-
-    // Connection object to interact with the database
     private Connection connection;
     private Properties properties;
     private PreparedStatement preparedStatement;
@@ -49,6 +42,10 @@ public class JDBC {
         System.out.printf("%s[JDBC] Trying to setup props.%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
 
         Properties properties = new Properties();
+
+        // Path to the database properties file
+        String DATBASE_PROPS_PATH = "src/main/java/mediaplayer/orpheus/model/Database/db.properties";
+
         File file = new File(DATBASE_PROPS_PATH);
         InputStream input;
 
@@ -128,7 +125,7 @@ public class JDBC {
         return properties;
     }
 
-    public ResultSet executeQuary(String quarry){
+    public ResultSet executeQuery(String quarry){
 
         try {
             preparedStatement = connection.prepareCall(quarry);

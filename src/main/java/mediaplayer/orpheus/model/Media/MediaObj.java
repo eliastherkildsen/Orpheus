@@ -41,7 +41,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaImagePathFromMediaID(MEDIA_ID);
 
-        try(ResultSet rsMediaImagePath = JDBC.instance.executeQuary(query)){
+        try(ResultSet rsMediaImagePath = JDBC.instance.executeQuery(query)){
 
             if (rsMediaImagePath.next()){
                 return rsMediaImagePath.getString("fldImagePath");
@@ -62,7 +62,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaArtistArtName(MEDIA_ID);
 
-        try(ResultSet rsMediaArtist = JDBC.instance.executeQuary(query)){
+        try(ResultSet rsMediaArtist = JDBC.instance.executeQuery(query)){
             if (rsMediaArtist.next()){
                 return rsMediaArtist.getString("fldArtistName");
             }
@@ -82,7 +82,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaPath(MEDIA_ID);
 
-        try(ResultSet rsMediaPath = JDBC.instance.executeQuary(query)){
+        try(ResultSet rsMediaPath = JDBC.instance.executeQuery(query)){
             if (rsMediaPath.next()){
                 return rsMediaPath.getString("fldFilePath");
             }
@@ -101,7 +101,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaTitle(MEDIA_ID);
 
-        try(ResultSet rsMediaTitle = JDBC.instance.executeQuary(query)){
+        try(ResultSet rsMediaTitle = JDBC.instance.executeQuery(query)){
             if (rsMediaTitle.next()){
                 return rsMediaTitle.getString("fldMediaTitle");
             }
@@ -119,7 +119,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaGenre(MEDIA_ID);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             if (resultSet.next()){
                 return resultSet.getString("fldGenre");
             }
@@ -138,7 +138,7 @@ public class MediaObj {
 
         String query = DatabaseRead.getMediaYear(MEDIA_ID);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             if (resultSet.next()){
                 return resultSet.getString("fldMediaYear");
             }
@@ -203,7 +203,7 @@ public class MediaObj {
     private String getPersonIDFromPersonName(){
         String query = DatabaseRead.getMediaArtistIDFromName(this.mediaArtistStageName);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             if (resultSet.next()){
                 return resultSet.getString("fldPersonID");
             }
@@ -221,7 +221,7 @@ public class MediaObj {
     private String getMediaType(){
         String query = DatabaseRead.getMediaExstentionFromMediaID(this.MEDIA_ID);
 
-        try (ResultSet resultSet = JDBC.instance.executeQuary(query)) {
+        try (ResultSet resultSet = JDBC.instance.executeQuery(query)) {
             if (resultSet.next()){
                 return resultSet.getString("fldFileType");
             }

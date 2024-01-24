@@ -65,9 +65,9 @@ public class PlaylistHandler {
      */
     private static String insertQuery(String playlistName) {
 
-        return new StringBuilder().append("INSERT INTO tblPlaylist (fldPlaylistName) VALUES ('")
-                .append(playlistName)
-                .append("')").toString();
+        return "INSERT INTO tblPlaylist (fldPlaylistName) VALUES ('" +
+                playlistName +
+                "')";
 
 
     }
@@ -127,16 +127,14 @@ public class PlaylistHandler {
      */
     private static String insertMediaQuery(int mediaID, String playlistName, int trackOrder){
 
-        return new StringBuilder()
-                .append("INSERT INTO tblMediaPlaylist (fldPlaylistName, fldMediaID, fldTrackOrder) ")
-                .append("VALUES ('")
-                .append(playlistName)
-                .append("', ")
-                .append(mediaID)
-                .append(", ")
-                .append(trackOrder)
-                .append(")")
-                .toString();
+        return "INSERT INTO tblMediaPlaylist (fldPlaylistName, fldMediaID, fldTrackOrder) " +
+                "VALUES ('" +
+                playlistName +
+                "', " +
+                mediaID +
+                ", " +
+                trackOrder +
+                ")";
 
     }
 
@@ -176,11 +174,9 @@ public class PlaylistHandler {
      */
     private static String deleteFromPlaylistQuery(String playlistName){
 
-        return new StringBuilder()
-                .append("Delete FROM tblPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("'")
-                .toString();
+        return "Delete FROM tblPlaylist WHERE fldPlaylistName = '" +
+                playlistName +
+                "'";
 
     }
 
@@ -191,11 +187,9 @@ public class PlaylistHandler {
      */
     private static String deleteFromMediaPlaylistQuery(String playlistName){
 
-        return new StringBuilder()
-                .append("DELETE FROM tblMediaPlaylist WHERE fldPlaylistName = '")
-                .append(playlistName)
-                .append("'")
-                .toString();
+        return "DELETE FROM tblMediaPlaylist WHERE fldPlaylistName = '" +
+                playlistName +
+                "'";
 
     }
 

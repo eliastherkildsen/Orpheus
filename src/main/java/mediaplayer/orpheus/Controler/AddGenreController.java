@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AddGenreController {
 
-    private SceneController sceneController = new SceneController();
+    private final SceneController sceneController = new SceneController();
     @FXML
     private TextField fldGenre;
 
