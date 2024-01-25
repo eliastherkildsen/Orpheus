@@ -3,12 +3,14 @@ package mediaplayer.orpheus.Controler;
 import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class HomeViewControllerTest {
 
     private static MediaPlayer mediaPlayer;
 
-    /*@Test
+    @Test
     void mediaChangeVol() {
 
         // Arrange
@@ -19,11 +21,12 @@ class HomeViewControllerTest {
         // * multiplies the volume slider's value by 0.01 to scale it to the appropriate range for mediaPlayer
         // volume (0.0 to 1.0)
 
-        volumeMedia(volumeValue);
+        // Assert
+        assertEquals(0.5,newSkipTime);
 
 
         // Assert
 
-    }*/
+    }
 
 }
