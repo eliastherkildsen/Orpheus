@@ -36,12 +36,16 @@ public class PlaylistViewController implements Initializable {
     private final SceneController sceneController = new SceneController();
     private ArrayList<PlaylistObj> playlistObjs = new ArrayList<>();
     private ArrayList<MediaObj> mediaObjs = new ArrayList<>();
-    private PlaylistObj selectedPlaylist;
+    public static PlaylistObj selectedPlaylist = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
         loadlistViewPlaylist();
+
+        if (selectedPlaylist != null){
+            loadListViewMedia(selectedPlaylist);
+        }
 
     }
 

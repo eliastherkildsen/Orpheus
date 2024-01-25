@@ -265,6 +265,11 @@ public class SearchViewController implements Initializable {
             switchToEditView();
         }
 
+        if (getSelectedItemIndex() != -1 && dataSet.get(getSelectedItemIndex()).getPlaylistObj() != null ) {
+            PlaylistViewController.selectedPlaylist = dataSet.get(getSelectedItemIndex()).getPlaylistObj();
+            switchToPlaylistView();
+        }
+
         else {
             debugMessage.error(this,"EditMedia: No Media has been picked.");
             new AlertPopup("No media selected", "No media has been selected! pleas select a media to edit.").showInformation();
