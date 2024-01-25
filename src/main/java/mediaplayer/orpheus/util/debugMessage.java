@@ -24,7 +24,7 @@ public class debugMessage {
      * @param message String
      */
     public static void success (Object instance, String message){
-        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_GREEN, instance.getClass(), AnsiColorCode.ANSI_YELLOW, message, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_BLUE, instance.getClass(), AnsiColorCode.ANSI_GREEN, message, AnsiColorCode.ANSI_RESET);
     }
     /**
      * Shows a formated Debug message in the cmd.
@@ -52,6 +52,6 @@ public class debugMessage {
      * @param message String
      */
     public static void success (Class<?> clazz, String message){
-        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_GREEN, clazz.getSimpleName(), AnsiColorCode.ANSI_YELLOW, message, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_BLUE, clazz.getSimpleName(), AnsiColorCode.ANSI_GREEN, message, AnsiColorCode.ANSI_RESET);
     }
 }
