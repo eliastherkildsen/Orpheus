@@ -3,16 +3,20 @@
 
 ## About
 
-this is a simpel mediaplayer GUI, witch is able to play .mp3 & .mp4 files. 
-Furthermore the mediaplayer is able to display the video encoded in .mp4 files. 
+this is a simple mediaplayer GUI, witch is able to play .mp3 & .mp4 files. 
+Furthermore, the mediaplayer is able to display the video encoded in .mp4 files.
+
+functionality such as being able to import media 
+and the ability to create playlists are central to the application.
+
 ### Home View
 <img src="homeView.PNG"/>
 
 ### Search View
-<img src="SearchView.png"/>
+<img src="SearchView.png" alt=""/>
 
 ### Playlist view
-<img src="PlayListView.PNG">
+<img src="PlayListView.png">
 
 to run the project simply follow the instructions in the `Installing and Usage` hedder. 
 

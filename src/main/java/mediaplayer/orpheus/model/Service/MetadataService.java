@@ -40,7 +40,7 @@ public class MetadataService {
             System.out.println(getFilePath());
 
             audioFile = AudioFileIO.read(new File(getFilePath()));
-            debugMessage.debug(this,"Audio read successfully");
+            debugMessage.success(this,"Audio read successfully");
 
         } catch (CannotReadException | InvalidAudioFrameException | ReadOnlyFileException | TagException | IOException e) {
             throw new RuntimeException(e);
@@ -48,7 +48,7 @@ public class MetadataService {
         debugMessage.debug(this,"Trying to get TAGs");
         Tag tag = audioFile.getTag();
         //DEBUG
-        debugMessage.debug(this,"TAGs found");
+        debugMessage.success(this,"TAGs found");
         System.out.println(tag);
 
         if(tag == null){
@@ -111,7 +111,7 @@ public class MetadataService {
 
         newsong.insertIntoDBNewMp3();
         //DEBUG LOGGING
-        debugMessage.debug(this,"MP3 - Inserting into DB Complete");
+        debugMessage.success(this,"MP3 - Inserting into DB Complete");
     }
 
     /**
@@ -169,7 +169,7 @@ public class MetadataService {
 
         videoIntoDb.insertIntoDBNewMp3();
 
-        debugMessage.debug(this,"MP4 - Inserting into DB complete");
+        debugMessage.success(this,"MP4 - Inserting into DB complete");
     }
 
     public String getFilePath() {

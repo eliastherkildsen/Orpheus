@@ -58,8 +58,6 @@ public class HomeViewController implements Initializable {
     private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
     private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, bntShuffleIcon;
-
-
     private final String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private final String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private final String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
@@ -109,7 +107,7 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            debugMessage.debug(this,"INIT: Class has been initialized.");
+            debugMessage.success(this,"INIT: Class has been initialized.");
         }
         else if (!mediaObjQue.isEmpty()) {
 
@@ -119,7 +117,7 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            debugMessage.debug(this,"INIT: Class has been initialized.");
+            debugMessage.success(this,"INIT: Class has been initialized.");
         }
         else {
             debugMessage.error(this,"INIT: Class HASN'T been initialized.");
@@ -261,7 +259,7 @@ public class HomeViewController implements Initializable {
             });
 
             // prints a message if the file is found
-            debugMessage.debug(this,"LoadMedia: The file is found at the specific path.");
+            debugMessage.success(this,"LoadMedia: The file is found at the specific path.");
         }
 
         else {

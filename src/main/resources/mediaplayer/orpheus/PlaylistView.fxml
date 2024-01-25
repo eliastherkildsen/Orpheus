@@ -126,7 +126,7 @@
                <children>
                   <Label text="PlayLists" />
                   <Pane prefHeight="40.0" prefWidth="200.0" />
-                  <Label text="Songs" />
+                  <Label text="Media" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="230.0" prefWidth="509.0" spacing="10.0">

@@ -20,7 +20,7 @@ public class DatabaseCreate {
             preparedStatement.setString(1, genre);
             preparedStatement.setString(2, mediaId);
 
-            debugMessage.debug(DatabaseCreate.class, "Insert media genre succeeded");
+            debugMessage.success(DatabaseCreate.class, "Insert media genre succeeded");
             return preparedStatement;
 
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class DatabaseCreate {
             preparedStatement.setInt(1, person);
             preparedStatement.setString(2, mediaId);
 
-            debugMessage.debug(DatabaseCreate.class, "Insert media person succeeded");
+            debugMessage.success(DatabaseCreate.class, "Insert media person succeeded");
             return preparedStatement;
 
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class DatabaseCreate {
             preparedStatement.setString(2, lastName);
             preparedStatement.setString(3, artistName);
 
-            debugMessage.debug(DatabaseCreate.class, "Insert person succeeded");
+            debugMessage.success(DatabaseCreate.class, "Insert person succeeded");
             return preparedStatement;
 
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class DatabaseCreate {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, genre);
 
-            debugMessage.debug(DatabaseCreate.class, "Insert genre succeeded");
+            debugMessage.success(DatabaseCreate.class, "Insert genre succeeded");
             return preparedStatement;
 
         } catch (SQLException e) {

@@ -192,7 +192,7 @@ public class SearchViewController implements Initializable {
             if (dataSet.get(itemIndex).getMediaObj() != null){
 
                 DeleteMedia.deleteMediaFromDatabase(dataSet.get(itemIndex).getMediaObj().getMEDIA_ID());
-                DeleteMedia.deleteMediaFileFromDir(dataSet.get(itemIndex).getMediaObj().getMediaPath());
+                //DeleteMedia.deleteMediaFileFromDir(dataSet.get(itemIndex).getMediaObj().getMediaPath());
             }
 
             // else checks if a playlist was selected.

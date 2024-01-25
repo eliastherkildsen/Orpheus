@@ -6,6 +6,7 @@ import mediaplayer.orpheus.model.Media.GeneralMediaObject;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.Playlist.PlaylistObj;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,16 +33,11 @@ public class    MediaSearch {
 
         } catch (SQLException err) {
 
-            System.out.printf("%s[MediaSearch][searchMediaForMedia] An error occurred: " +
-                    "%s %s%n", AnsiColorCode.ANSI_RED, err, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.error(this,"SearchForMedia: An Error has occurred during the search.");
             return null;
 
         }
-
-        System.out.printf("%s[MediaSearch][searchMediaForMedia] Quarrying for media related to the search: " +
-                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.debug(this,"SearchForMedia: Quarrying for Media related to the search. " + searchCriteria);
         return resultSet;
     }
 
@@ -57,10 +53,8 @@ public class    MediaSearch {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("%s[MediaSearch][searchMediaForPlaylist] Quarrying for playlists related to the search: " +
-                "%s %s%n", AnsiColorCode.ANSI_YELLOW, searchCriteria, AnsiColorCode.ANSI_RESET);
 
-
+        debugMessage.debug(this,"Quarrying to Playlist Related to the search: " + searchCriteria);
         return resultSet;
     }
 
@@ -75,9 +69,7 @@ public class    MediaSearch {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
-        System.out.printf("%s[MediaSearch][processResultSetMedia] processing result... " +
-                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.debug(this,"ResultSetMedia: Processing Result...");
         // loops through the result set.
         while (true) {
             try {
@@ -106,9 +98,7 @@ public class    MediaSearch {
 
         ArrayList<GeneralMediaObject> dataSet = new ArrayList<>();
 
-        System.out.printf("%s[MediaSearch][processResultSetPlaylist] processing result... " +
-                " %s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.debug(this,"Processing Result...");
         // loops through the result set.
 
         while (true) {
@@ -166,8 +156,7 @@ public class    MediaSearch {
 
         }catch (SQLException e){
 
-            System.out.printf("%s[MediaSearch][appendQuerySearchForMedia] Append query search for media failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"Append Query search for Media FAILED.");
             return null;
         }
 
@@ -176,6 +165,7 @@ public class    MediaSearch {
 
 
     /**
+     * Method for appending the sql query needed to search in the database.
      * Method for appending the sql query needed to search in the database.
      * @param searchCriteria What is being searched for
      * @return SQL query as string
@@ -195,8 +185,7 @@ public class    MediaSearch {
 
         }catch (SQLException e){
 
-            System.out.printf("%s[MediaSearch][appendQuerySearchForPlaylist] Append query for search for playlist failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(this,"Append Query for search for PlayList FAILED");
             return null;
         }
 
