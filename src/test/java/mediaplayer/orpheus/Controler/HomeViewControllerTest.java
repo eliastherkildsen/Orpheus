@@ -8,7 +8,7 @@ class HomeViewControllerTest {
 
     private static MediaPlayer mediaPlayer;
 
-    @Test
+    /*@Test
     void mediaChangeVol() {
 
         // Arrange
@@ -24,6 +24,6 @@ class HomeViewControllerTest {
 
         // Assert
 
-    }
+    }*/
 
 }

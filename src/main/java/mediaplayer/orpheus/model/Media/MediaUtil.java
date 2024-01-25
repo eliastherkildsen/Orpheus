@@ -9,6 +9,12 @@ public class MediaUtil {
      * @return String
      */
     public static String secondsFormattedToTime(double durationTime) {
+
+        // if negative duration
+        if (durationTime < 0) {
+            durationTime = 0;
+        }
+
         int hours = (int) durationTime / 3600;
         int secondsLeft = (int) durationTime % 3600;
         int minutes = secondsLeft / 60;
