@@ -15,9 +15,9 @@ public class DatabaseDelete {
 
         try {
 
-            String query = "DELETE FROM tblMediaGenre WHERE fldMediaID= ?;" +
-                    "DELETE FROM tblMediaPerson WHERE fldMediaID= ?;" +
-                    "DELETE FROM tblMediaPlaylist WHERE fldMediaID= ?;" +
+            String query = "DELETE FROM tblMediaGenre WHERE fldMediaID= ?" +
+                    "DELETE FROM tblMediaPerson WHERE fldMediaID= ?" +
+                    "DELETE FROM tblMediaPlaylist WHERE fldMediaID= ?" +
                     "DELETE FROM tblMedia WHERE fldMediaID= ?;";
 
             PreparedStatement preparedStatement = connection.prepareCall(query);
@@ -26,7 +26,7 @@ public class DatabaseDelete {
             preparedStatement.setInt(3, mediaID);
             preparedStatement.setInt(4, mediaID);
 
-            debugMessage.debug(DatabaseDelete.class, "Delete Media succeeded");
+            debugMessage.success(DatabaseDelete.class, "Deleted Media succeeded");
             return preparedStatement;
 
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class DatabaseDelete {
             preparedStatement.setString(1, playlistName);
             preparedStatement.setInt(2, mediaID);
 
-            debugMessage.debug(DatabaseDelete.class, "Delete Media From Playlist");
+            debugMessage.success(DatabaseDelete.class, "Deleted Media From Playlist");
 
             return preparedStatement;
 

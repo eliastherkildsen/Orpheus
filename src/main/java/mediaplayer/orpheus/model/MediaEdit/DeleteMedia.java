@@ -19,7 +19,7 @@ public class DeleteMedia {
 
             DatabaseDelete.deleteMediaQuarry(mediaId).executeUpdate();
 
-            debugMessage.debug(DeleteMedia.class,"DeleteFromDB: Media with " + mediaId + " ID was DELETED.");
+            debugMessage.success(DeleteMedia.class,"DeleteFromDB: Media with " + mediaId + " ID was DELETED.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +35,7 @@ public class DeleteMedia {
         File file = new File(filePath);
 
         if (file.delete()) {
-            debugMessage.debug(DeleteMedia.class,"DeleteMediaFileFromDir: Deleted the file: " + file.getName());
+            debugMessage.success(DeleteMedia.class,"DeleteMediaFileFromDir: Deleted the file: " + file.getName());
         } else {
             debugMessage.error(DeleteMedia.class,"DeletedMediaFileFromDir: Failed to find the file. " + file.getName());
         }
