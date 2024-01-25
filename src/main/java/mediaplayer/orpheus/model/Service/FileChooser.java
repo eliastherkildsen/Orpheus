@@ -2,6 +2,7 @@ package mediaplayer.orpheus.model.Service;
 
 import javafx.stage.Stage;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class FileChooser {
             processSelectedFile(file);
         }else {
             // Debug line
-            System.out.printf("%s[File Chooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(FileChooser.class,"File path not found.");
         }
 
     }
@@ -41,8 +42,7 @@ public class FileChooser {
     private static void processSelectedFile(File file){
         String mediaPath = file.getAbsolutePath();
         // Debug line
-        System.out.printf("%s[File Chooser][processSelectedFile] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+        debugMessage.success(FileChooser.class,"File path found.");
         MetadataService metadataHandler = new MetadataService(mediaPath);
 
 
@@ -74,11 +74,11 @@ public class FileChooser {
         // Checks if a valid file has been chosen
         try{
             // Debug line
-            System.out.printf("%s[File Chooser][imageChooser] File path found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.success(FileChooser.class,"Image File path found.");
             return file.toString();
         }catch (NullPointerException e){
             // Debug line
-            System.out.printf("%s[File Chooser][imageChooser] File path not found%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(FileChooser.class,"Image file path not found.");
         }
         return null;
     }
