@@ -19,6 +19,13 @@ public class MediaSkip {
      */
     public static int mediaSkipForward(double currentTrackTime, double mediaLength){
 
+        // if negative currentTrackTime || negative mediaLength
+        if (currentTrackTime < 0 || mediaLength < 0) {
+            currentTrackTime = 0;
+            mediaLength = 0;
+        }
+
+
         if (currentTrackTime < mediaLength - SKIP_BY_SECONDS) {
             return (int) currentTrackTime + SKIP_BY_SECONDS;
         }
@@ -38,6 +45,11 @@ public class MediaSkip {
      * @return track time after skip back
      */
     public static int mediaSkipBackward(double currentTrackTime){
+
+        // if negative currentTrackTime || negative mediaLength
+        if (currentTrackTime < 0) {
+            currentTrackTime = 0;
+        }
 
         if (currentTrackTime < SKIP_BY_SECONDS) {
             return (int) Duration.ZERO.toSeconds();
