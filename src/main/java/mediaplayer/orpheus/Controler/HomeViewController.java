@@ -58,8 +58,6 @@ public class HomeViewController implements Initializable {
     private Label labCurrentTime, labMediaLength, labMediaName, labArtistName;
     @FXML
     private ImageView btnPlayPauseIcon, btnMuteIcon, imgThumbnail, bntShuffleIcon;
-
-
     private final String playImageURL = "file:src/main/resources/css/images/play-circle.png";
     private final String pauseImageURL = "file:src/main/resources/css/images/pause-circle.png";
     private final String muteImageURL = "file:src/main/resources/css/images/volume-x.png";
