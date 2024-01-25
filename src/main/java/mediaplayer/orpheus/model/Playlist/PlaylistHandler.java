@@ -173,7 +173,7 @@ public class PlaylistHandler {
     /**
      * Method for making the prepared statement to delete media playlist
      */
-    private static PreparedStatement deleteFromMediaPlaylistQuery(String playlistName) {
+    public static PreparedStatement deleteFromMediaPlaylistQuery(String playlistName) {
 
         try{
 

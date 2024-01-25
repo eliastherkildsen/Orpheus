@@ -35,4 +35,27 @@ public class DatabaseDelete {
             return null;
         }
     }
+
+    public static PreparedStatement deleteChosenMediaFromPlaylist(String playlistName, int mediaID){
+
+        try {
+
+            String query = "DELETE FROM tblMediaPlaylist WHERE fldPlaylistName = ? AND fldMediaID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareCall(query);
+            preparedStatement.setString(1, playlistName);
+            preparedStatement.setInt(2, mediaID);
+
+            debugMessage.debug(DatabaseDelete.class, "Delete Media From Playlist");
+
+            return preparedStatement;
+
+        }catch (SQLException e)
+        {
+
+            debugMessage.error(DatabaseDelete.class, "Delete Media From Playlist failed");
+            return null;
+        }
+
+    }
 }

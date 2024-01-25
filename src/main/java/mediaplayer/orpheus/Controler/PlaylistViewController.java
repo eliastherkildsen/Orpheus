@@ -2,12 +2,15 @@ package mediaplayer.orpheus.Controler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mediaplayer.orpheus.model.Database.DatabaseDelete;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearchUtil;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
 import mediaplayer.orpheus.model.Playlist.PlaylistObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
@@ -33,6 +36,7 @@ public class PlaylistViewController implements Initializable {
     private final SceneController sceneController = new SceneController();
     private ArrayList<PlaylistObj> playlistObjs = new ArrayList<>();
     private ArrayList<MediaObj> mediaObjs = new ArrayList<>();
+    private PlaylistObj selectedPlaylist;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -42,6 +46,9 @@ public class PlaylistViewController implements Initializable {
     }
 
     private void loadListViewMedia(PlaylistObj playlistObj){
+
+        mediaObjs.clear();
+        LWPlaylistMedia.getItems().clear();
 
         try (ResultSet resultSet = DatabaseRead.getMediaIDFromPlaylistName(playlistObj.getPLAYLIST_NAME()).executeQuery()){
 
@@ -101,10 +108,22 @@ public class PlaylistViewController implements Initializable {
         if(confirmDelete.showConfirmation("Yes", "No")){
 
             try{
+                if (LWPlaylistDisplay.getSelectionModel().getSelectedIndex() != -1) {
+                    PlaylistHandler.deletePlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+                }
 
-                PlaylistHandler.deletePlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+                if (LWPlaylistMedia.getSelectionModel().getSelectedIndex() != -1){
+                    try {
+                        DatabaseDelete.deleteChosenMediaFromPlaylist(selectedPlaylist.getPLAYLIST_NAME(),
+                                mediaObjs.get(LWPlaylistMedia.getSelectionModel().getSelectedIndex()).getMEDIA_ID()).executeUpdate();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
 
                 load();
+                loadListViewMedia(selectedPlaylist);
 
             }catch (IndexOutOfBoundsException e){
                 throw new IndexOutOfBoundsException();
@@ -116,6 +135,8 @@ public class PlaylistViewController implements Initializable {
 
     @FXML
     private void onBtnEditClick(){
+        LWPlaylistMedia.getItems().clear();
+        selectedPlaylist = playlistObjs.get(LWPlaylistDisplay.getSelectionModel().getSelectedIndex());
         loadListViewMedia(playlistObjs.get(LWPlaylistDisplay.getSelectionModel().getSelectedIndex()));
     }
 
@@ -153,6 +174,7 @@ public class PlaylistViewController implements Initializable {
 
         playlistObjs.clear();
         LWPlaylistDisplay.getItems().clear();
+
 
         loadlistViewPlaylist();
     }
