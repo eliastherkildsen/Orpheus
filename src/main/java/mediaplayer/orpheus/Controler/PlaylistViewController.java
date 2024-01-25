@@ -5,9 +5,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
+import mediaplayer.orpheus.model.Media.MediaObj;
+import mediaplayer.orpheus.model.MediaSearch.MediaSearch;
 import mediaplayer.orpheus.model.Playlist.PlaylistHandler;
+import mediaplayer.orpheus.model.Playlist.PlaylistObj;
 import mediaplayer.orpheus.model.Service.FileChooser;
 import mediaplayer.orpheus.util.AlertPopup;
 
@@ -26,33 +28,51 @@ public class PlaylistViewController implements Initializable {
     private TextField playlistCreateBar;
 
     @FXML
-    private ListView<String> LWPlaylistDisplay;
+    private ListView<String> LWPlaylistDisplay, LWPlaylistMedia;
 
     private final SceneController sceneController = new SceneController();
-    private static final ArrayList<String> playlistNameArr = new ArrayList<>();
+    private ArrayList<PlaylistObj> playlistObjs = new ArrayList<>();
+    private ArrayList<MediaObj> mediaObjs = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        loadListView();
+        loadlistViewPlaylist();
 
     }
 
-    private void loadListView() {
-        clearListViewDisplay();
+    private void loadListViewMedia(PlaylistObj playlistObj){
 
-        try (ResultSet resultSet = JDBC.instance.executeQuery(DatabaseRead.getAllPlaylistNames())){
+        try (ResultSet resultSet = DatabaseRead.getMediaIDFromPlaylistName(playlistObj.getPLAYLIST_NAME()).executeQuery()){
 
             while (resultSet.next()){
-                playlistNameArr.add(resultSet.getString("fldPlaylistName"));
+                mediaObjs.add(new MediaObj(resultSet.getInt("fldMediaID")));
             }
 
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
 
-        for (String playlistName : playlistNameArr) {
-            addItemToListView(LWPlaylistDisplay, playlistName);
+        for (MediaObj mediaObj : mediaObjs) {
+            addItemToListView(LWPlaylistMedia, mediaObj.getPRESENTED_MEDIA_TITLE());
+        }
+
+    }
+
+    private void loadlistViewPlaylist() {
+
+        try (ResultSet resultSet = new MediaSearch().searchMediaForPlaylist(""); ){
+
+            while (resultSet.next()){
+                playlistObjs.add(new PlaylistObj(resultSet.getString("fldPlaylistName")));
+            }
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        for (PlaylistObj playlistObj : playlistObjs) {
+            addItemToListView(LWPlaylistDisplay, playlistObj.getPRESENTED_PLAYLIST_NAME());
         }
 
     }
@@ -63,8 +83,7 @@ public class PlaylistViewController implements Initializable {
     private void onActionbtnCreateClick(){
 
         PlaylistHandler.createPlaylist(playlistCreateBar.getText());
-        clearListViewDisplay();
-        loadListView();
+        load();
 
     }
 
@@ -85,8 +104,7 @@ public class PlaylistViewController implements Initializable {
 
                 PlaylistHandler.deletePlaylist(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
 
-                clearListViewDisplay();
-                loadListView();
+                load();
 
             }catch (IndexOutOfBoundsException e){
                 throw new IndexOutOfBoundsException();
@@ -96,16 +114,16 @@ public class PlaylistViewController implements Initializable {
 
     }
 
-    private void clearListViewDisplay() {
-
-        playlistNameArr.clear();
-        LWPlaylistDisplay.getItems().clear();
-
+    @FXML
+    private void onBtnEditClick(){
+        loadListViewMedia(playlistObjs.get(LWPlaylistDisplay.getSelectionModel().getSelectedIndex()));
     }
+
+
 
     public void onActionbtnPlayPlaylistClick(){
 
-        PlaylistHandler.createMediaArray(LWPlaylistDisplay.getSelectionModel().getSelectedItem());
+        PlaylistHandler.createMediaArray(playlistObjs.get(LWPlaylistDisplay.getSelectionModel().getSelectedIndex()).getPLAYLIST_NAME());
         if(!HomeViewController.mediaObjQue.isEmpty()){
             switchToHomeView();
         }
@@ -129,6 +147,14 @@ public class PlaylistViewController implements Initializable {
 
     public void onActionbtnImportClick(){
         FileChooser.fileChooser();
+    }
+
+    private void load(){
+
+        playlistObjs.clear();
+        LWPlaylistDisplay.getItems().clear();
+
+        loadlistViewPlaylist();
     }
 
 
