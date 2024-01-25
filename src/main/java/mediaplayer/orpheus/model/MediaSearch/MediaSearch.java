@@ -166,6 +166,7 @@ public class    MediaSearch {
 
     /**
      * Method for appending the sql query needed to search in the database.
+     * Method for appending the sql query needed to search in the database.
      * @param searchCriteria What is being searched for
      * @return SQL query as string
      */
