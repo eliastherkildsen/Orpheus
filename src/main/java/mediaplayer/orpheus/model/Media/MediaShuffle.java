@@ -19,8 +19,10 @@ public class MediaShuffle {
         // shuffles the playlist
         Collections.shuffle(playlist);
 
+
+        /*
         // prints the shuffled playlist
-        /*for (MediaObj obj : playlist){
+        for (MediaObj obj : playlist){
         System.out.println("\nShuffled List : \n" + obj.getMediaTitle());
         }*/
 
