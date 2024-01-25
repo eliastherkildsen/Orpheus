@@ -15,8 +15,7 @@ import java.sql.Types;
  *     ├── service
  *     │   └── MetadataService.java
  *     └── Main.java
- *
- *     Metadata represents the data structure for metadata.
+  *     Metadata represents the data structure for metadata.
  *     DatabaseHandler handles database interactions.
  *     MetadataExtractor uses JAudioTagger to extract metadata.
  *     MetadataService coordinates metadata extraction and database interaction.
