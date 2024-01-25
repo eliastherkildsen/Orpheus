@@ -3,6 +3,7 @@ package mediaplayer.orpheus.model.Media;
 import mediaplayer.orpheus.model.Database.JDBC;
 import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Database.DatabaseUpdate;
+import mediaplayer.orpheus.model.Playlist.PlaylistObj;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -319,6 +320,7 @@ public class MediaObj {
     public String getPRESENTED_MEDIA_TITLE() {
         return PRESENTED_MEDIA_TITLE;
     }
+
 
 
     // endregion

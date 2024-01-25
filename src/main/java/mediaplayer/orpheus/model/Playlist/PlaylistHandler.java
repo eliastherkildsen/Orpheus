@@ -6,6 +6,7 @@ import mediaplayer.orpheus.model.Database.DatabaseRead;
 import mediaplayer.orpheus.model.Media.MediaObj;
 import mediaplayer.orpheus.util.AlertPopup;
 import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.sql.*;
 
@@ -35,13 +36,11 @@ public class PlaylistHandler {
                 AlertPopup alertPopupPlaylistAdded = new AlertPopup("Success"
                         , "Playlist has been created.");
                 alertPopupPlaylistAdded.showInformation();
-                System.out.printf("%s[PlaylistHandler][createPlaylist] Playlist has been created%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+                debugMessage.debug(PlaylistHandler.class,"Playlist has been created.");
 
             } catch (SQLException e){
 
-                System.out.printf("%s[PlaylistHandler][createPlaylist] Could not add the playlist%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+                debugMessage.error(PlaylistHandler.class, "Could not add the Playlist.");
             }
 
         }else {
@@ -97,10 +96,9 @@ public class PlaylistHandler {
             insertMediaQuery(mediaID, choiceBoxIndex, nextTackOrder).executeUpdate();
             // Information popup to tell the user that the media has been added
             alertPopupPlaylistAdded.showInformation();
-            System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Media has been added to the playlist%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(PlaylistHandler.class,"Media has been added to the Playlist.");
         }catch (SQLException e){
-            System.out.printf("%s[PlaylistHandler][addMediaToPlaylist] Could not add media to the playlist%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(PlaylistHandler.class,"Could not add media to the PlayList");
         }
 
 
@@ -121,8 +119,7 @@ public class PlaylistHandler {
             return preparedStatement;
 
         }catch (SQLException e){
-
-            System.out.printf("%s[PlaylistHandler][insertMediaQuery] Insert media query failed%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(PlaylistHandler.class,"Insert Media Query Failed.");
             return null;
         }
 
@@ -138,12 +135,10 @@ public class PlaylistHandler {
             // Executes the queries
             deleteFromMediaPlaylistQuery(playlistName).executeUpdate();
             deleteFromPlaylistQuery(playlistName).executeUpdate();
-            System.out.printf("%s[PlaylistHandler][deletePlaylist] Playlist has been deleted%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.debug(PlaylistHandler.class,"PlayList has been deleted.");
 
         }catch (SQLException e) {
-            System.out.printf("%s[PlaylistHandler][deletePlaylist] Could not delete the playlist%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-
+            debugMessage.error(PlaylistHandler.class,"Could not delete the PlayList.");
         }
 
     }
@@ -164,8 +159,7 @@ public class PlaylistHandler {
             return preparedStatement;
 
         }catch(SQLException e){
-
-            System.out.printf("%s[PlaylistHandler][deleteFromPlaylistQuery] Delete from playlist query failed%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(PlaylistHandler.class,"Delete from the PlayList Query failed.");
             return null;
         }
     }
@@ -173,7 +167,7 @@ public class PlaylistHandler {
     /**
      * Method for making the prepared statement to delete media playlist
      */
-    private static PreparedStatement deleteFromMediaPlaylistQuery(String playlistName) {
+    public static PreparedStatement deleteFromMediaPlaylistQuery(String playlistName) {
 
         try{
 
@@ -186,7 +180,7 @@ public class PlaylistHandler {
 
         }catch (SQLException e){
 
-            System.out.printf("%s[PlaylistHandler][deleteFromMediaPlaylistQuery] Delete from media playlist query failed%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(PlaylistHandler.class,"Delete from Media PlayList Query Failed.");
             return null;
         }
     }
@@ -220,16 +214,14 @@ public class PlaylistHandler {
                         , "The selected playlist is empty.\nAdd media to be able to listen to the playlist.");
 
                 emptyPlaylist.showWarning();
-
-                System.out.printf("%s[PlaylistHandler][createMediaArray] Media Queue is empty%s%n", AnsiColorCode.ANSI_RED, AnsiColorCode.ANSI_RESET);
-
+                debugMessage.error(PlaylistHandler.class,"CreateMediaArray: Media Queue is Empty.");
                 return;
 
             }
-            System.out.printf("%s[PlaylistHandler][createMediaArray] Media Queue has been created%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.debug(PlaylistHandler.class,"Media Queue has been created.");
 
         }catch (SQLException e){
-            System.out.printf("%s[PlaylistHandler][createMediaArray] Media Queue has not been created%s%n", AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(PlaylistHandler.class,"Media Queue has not been created.");
         }
 
 
