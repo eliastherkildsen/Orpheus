@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mediaplayer.orpheus.util.AnsiColorCode;
 import mediaplayer.orpheus.model.Service.FileHandlerMedia;
 
 import mediaplayer.orpheus.util.debugMessage;

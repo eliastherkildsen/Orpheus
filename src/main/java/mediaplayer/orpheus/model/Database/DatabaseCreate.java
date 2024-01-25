@@ -1,6 +1,6 @@
 package mediaplayer.orpheus.model.Database;
 
-import mediaplayer.orpheus.util.AnsiColorCode;
+import mediaplayer.orpheus.util.debugMessage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,7 @@ public class DatabaseCreate {
 
     private static final Connection connection = JDBC.instance.getConnection();
 
-    //INSERT INTO tblMediaGenre (fldGenre, fldMediaID) VALUES ('Pop', 29)
-    public static PreparedStatement insertMediaGenre(String genre, String mediaId){
+    public static PreparedStatement insertMediaGenre(String genre, String mediaId) {
 
         try {
 
@@ -21,17 +20,17 @@ public class DatabaseCreate {
             preparedStatement.setString(1, genre);
             preparedStatement.setString(2, mediaId);
 
+            debugMessage.debug(DatabaseCreate.class, "Insert media genre succeeded");
             return preparedStatement;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
-            System.out.printf("%s[DatabaseCreate][insertMediaGenre] Insert media genre failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(DatabaseCreate.class, "Insert media genre failed");
             return null;
         }
     }
-    //INSERT INTO tblMediaPerson(fldMediaID, fldPersonID) VALUES (29, 16)
-    public static PreparedStatement insertMediaPerson(int person, String mediaId){
+
+    public static PreparedStatement insertMediaPerson(int person, String mediaId) {
 
         try {
 
@@ -41,18 +40,18 @@ public class DatabaseCreate {
             preparedStatement.setInt(1, person);
             preparedStatement.setString(2, mediaId);
 
+            debugMessage.debug(DatabaseCreate.class, "Insert media person succeeded");
             return preparedStatement;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
-            System.out.printf("%s[DatabaseCreate][insertMediaPerson] Insert media person failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(DatabaseCreate.class, "Insert media person failed");
             return null;
         }
 
     }
-    //INSERT INTO tblPerson (fldFirstName, fldLastName, fldArtistName) VALUES ()
-    public static PreparedStatement insertPerson(String firstName, String lastName, String artistName){
+
+    public static PreparedStatement insertPerson(String firstName, String lastName, String artistName) {
 
         try {
 
@@ -63,17 +62,16 @@ public class DatabaseCreate {
             preparedStatement.setString(2, lastName);
             preparedStatement.setString(3, artistName);
 
+            debugMessage.debug(DatabaseCreate.class, "Insert person succeeded");
             return preparedStatement;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
-            System.out.printf("%s[DatabaseCreate][insertPerson] Insert person failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(DatabaseCreate.class, "Insert person failed");
             return null;
         }
 
     }
-
 
     public static PreparedStatement insertGenre(String genre) {
 
@@ -84,12 +82,12 @@ public class DatabaseCreate {
             PreparedStatement preparedStatement = connection.prepareCall(query);
             preparedStatement.setString(1, genre);
 
+            debugMessage.debug(DatabaseCreate.class, "Insert genre succeeded");
             return preparedStatement;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
-            System.out.printf("%s[DatabaseCreate][insertGenre] Insert genre failed%s%n"
-                    , AnsiColorCode.ANSI_YELLOW, AnsiColorCode.ANSI_RESET);
+            debugMessage.error(DatabaseCreate.class, "Insert genre failed");
             return null;
         }
     }
