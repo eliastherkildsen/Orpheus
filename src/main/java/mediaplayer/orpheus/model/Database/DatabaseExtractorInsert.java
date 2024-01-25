@@ -41,7 +41,8 @@ public class DatabaseExtractorInsert {
     }
 
     /**
-     *
+     *A rough job at inserting Media into DB
+     * TODO: REFACTOR ME IF TIME ALLOWS
      * @throws SQLException
      */
     public void insertIntoDBNewMp3() throws SQLException {

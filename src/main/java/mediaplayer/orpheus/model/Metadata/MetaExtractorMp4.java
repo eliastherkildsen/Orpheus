@@ -17,12 +17,22 @@ public class MetaExtractorMp4 {
     public MetaExtractorMp4(String filePath) {
         setFilePath(filePath);
     }
+
+    /**
+     * Gets title from Mp4, made from the file name without extension.
+     * @return String
+     */
     public String gatherMetaDataTitle() {
         FileHandlerMedia newTitle = new FileHandlerMedia(getFilePath());
         debugMessage.debug(this,"Using file name as title. " + newTitle.getFileNameWithoutExtension());
         return newTitle.getFileNameWithoutExtension();
     }
 
+    /**
+     * Gets Mp4 length from the MovieHeader.
+     * @return Integer
+     * @throws IOException
+     */
     public Integer gatherMetaDataLength() throws IOException {
             IsoFile isoFile = new IsoFile(new FileInputStream(filePath).getChannel());
             MovieHeaderBox movieHeaderBox = isoFile.getMovieBox().getMovieHeaderBox();

@@ -26,6 +26,11 @@ public class MetaExtractorMp3 {
         debugMessage.debug(this,"Object Created:%n" + filePath);
     }
 
+    /**
+     * A inbetween method that tries to handle Exceptions, not gracefully, needs to be done better? Research required?
+     * @return
+     * @throws IOException
+     */
     private AudioFile readAudioFile() throws IOException {
         try {
             return AudioFileIO.read(new File(getFilePath()));
@@ -35,6 +40,11 @@ public class MetaExtractorMp3 {
         }
     }
 
+    /**
+     * Gets Title from the Mp3's tag.
+     * If no Tag found returns the name of the file instead without extension.
+     * @return String
+     */
     public String gatherMetaDataTitle() {
         debugMessage.debug(this,"Getting Title.");
         AudioFile audioFile;
@@ -56,6 +66,13 @@ public class MetaExtractorMp3 {
         return tag.getFirst(FieldKey.TITLE);
 
     }
+
+    /**
+     * Gets the Artist/Composer from a Mp3 file's tag.
+     * Returns NULL if no Composer is found.
+     * @return String
+     * @throws IOException
+     */
     public String gatherMetaDataArtist() throws IOException {
         try {
             AudioFile audioFile = readAudioFile();
@@ -73,6 +90,11 @@ public class MetaExtractorMp3 {
         }
     }
 
+    /**
+     * Gets Track Length from Mp3 files audioheader.
+     * @return Integer
+     * @throws IOException
+     */
     public Integer gatherMetaDataLength() throws IOException {
         try {
             AudioFile audioFile = readAudioFile();
@@ -85,6 +107,12 @@ public class MetaExtractorMp3 {
         }
     }
 
+    /**
+     * Gets AlbumName from Mp3 files tag
+     * returns Null if nothing found.
+     * @return String
+     * @throws IOException
+     */
     public String gatherMetaDataAlbumName() throws IOException {
         try {
             AudioFile audioFile = readAudioFile();
@@ -104,6 +132,12 @@ public class MetaExtractorMp3 {
         }
     }
 
+    /**
+     * Gets year from Mp3 files tag
+     * returns NULL if nothing found.
+     * @return Integer
+     * @throws IOException
+     */
     public Integer gatherMetaDataYear() throws IOException {
         try {
             debugMessage.debug(this,"Getting release year.");
@@ -122,6 +156,12 @@ public class MetaExtractorMp3 {
         }
     }
 
+    /**
+     * Gets metadata Track from Mp3 files tag
+     * Returns NULL if nothing found.
+     * @return
+     * @throws IOException
+     */
     public Integer gatherMetaDataTrack() throws IOException {
         try {
             debugMessage.debug(this,"Getting Track number.");
