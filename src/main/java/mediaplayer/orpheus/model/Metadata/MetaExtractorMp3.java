@@ -62,7 +62,7 @@ public class MetaExtractorMp3 {
             return newTitle.getFileNameWithoutExtension();
         }
 
-        debugMessage.debug(this, "Title found: " + tag.getFirst(FieldKey.TITLE));
+        debugMessage.success(this, "Title found: " + tag.getFirst(FieldKey.TITLE));
         return tag.getFirst(FieldKey.TITLE);
 
     }
@@ -83,7 +83,7 @@ public class MetaExtractorMp3 {
                 debugMessage.debug(this,"No Artist found returning: " + null);
                 return null;
             }
-            debugMessage.debug(this,"Artist found: " + tag.getFirst(FieldKey.COMPOSER));
+            debugMessage.success(this,"Artist found: " + tag.getFirst(FieldKey.COMPOSER));
             return tag.getFirst(FieldKey.COMPOSER);
         } catch (IOException e) {
             throw e;
@@ -100,7 +100,7 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             int length = audioFile.getAudioHeader().getTrackLength();
 
-            debugMessage.debug(this,"Getting TrackLength in seconds: " + length);
+            debugMessage.success(this,"Getting TrackLength in seconds: " + length);
             return length;
         } catch (IOException e) {
             throw e;
@@ -124,7 +124,7 @@ public class MetaExtractorMp3 {
                 return null;
             } else {
                 //DEBUG LOGGING
-                debugMessage.debug(this,"Getting Album name: " + tag.getFirst(FieldKey.ALBUM));
+                debugMessage.success(this,"Getting Album name: " + tag.getFirst(FieldKey.ALBUM));
                 return tag.getFirst(FieldKey.ALBUM);
             }
         } catch (IOException e) {
@@ -148,7 +148,7 @@ public class MetaExtractorMp3 {
                 debugMessage.debug(this,"No release year found, returning: " + null);
                 return null;
             } else {
-                debugMessage.debug(this,"Release year found: " + tag.getFirst(FieldKey.YEAR));
+                debugMessage.success(this,"Release year found: " + tag.getFirst(FieldKey.YEAR));
                 return Integer.parseInt(tag.getFirst(FieldKey.YEAR));
             }
         } catch (IOException e) {
@@ -173,7 +173,7 @@ public class MetaExtractorMp3 {
                 debugMessage.debug(this,"Track number not found returning: " + null);
                 return null;
             } else {
-                debugMessage.debug(this, "Track number found: " + tag.getFirst(FieldKey.TRACK));
+                debugMessage.success(this, "Track number found: " + tag.getFirst(FieldKey.TRACK));
                 return Integer.parseInt(tag.getFirst(FieldKey.TRACK));
             }
         } catch (IOException e) {

@@ -13,7 +13,7 @@ public class AddGenre {
     public static void createGenre(String genre){
 
         JDBC.instance.executeUpdate(DatabaseCreate.insertGenre(genre));
-        debugMessage.debug(AddGenre.class,"CreateGenre: A new media genre has been added to the DB.");
+        debugMessage.success(AddGenre.class,"CreateGenre: A new media genre has been added to the DB.");
     }
 
 }

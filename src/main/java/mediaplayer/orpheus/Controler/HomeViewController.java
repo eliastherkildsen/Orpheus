@@ -109,7 +109,7 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            debugMessage.debug(this,"INIT: Class has been initialized.");
+            debugMessage.success(this,"INIT: Class has been initialized.");
         }
         else if (!mediaObjQue.isEmpty()) {
 
@@ -119,7 +119,7 @@ public class HomeViewController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            debugMessage.debug(this,"INIT: Class has been initialized.");
+            debugMessage.success(this,"INIT: Class has been initialized.");
         }
         else {
             debugMessage.error(this,"INIT: Class HASN'T been initialized.");
@@ -261,7 +261,7 @@ public class HomeViewController implements Initializable {
             });
 
             // prints a message if the file is found
-            debugMessage.debug(this,"LoadMedia: The file is found at the specific path.");
+            debugMessage.success(this,"LoadMedia: The file is found at the specific path.");
         }
 
         else {
