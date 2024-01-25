@@ -24,7 +24,7 @@ public class debugMessage {
      * @param message String
      */
     public static void success (Object instance, String message){
-        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_BLUE, instance.getClass(), AnsiColorCode.ANSI_GREEN, message, AnsiColorCode.ANSI_RESET);
+        System.out.printf("%s[%s]%s %s%s%n", AnsiColorCode.ANSI_BLUE, instance.getClass().getSimpleName(), AnsiColorCode.ANSI_GREEN, message, AnsiColorCode.ANSI_RESET);
     }
     /**
      * Shows a formated Debug message in the cmd.

@@ -78,7 +78,7 @@ public class MetaExtractorMp3 {
             AudioFile audioFile = readAudioFile();
             Tag tag = audioFile.getTag();
 
-            debugMessage.debug(this,"Getting Artist.");
+            debugMessage.success(this,"Getting Artist.");
             if (tag == null || Objects.equals(tag.getFirst(FieldKey.COMPOSER), "")){
                 debugMessage.debug(this,"No Artist found returning: " + null);
                 return null;
