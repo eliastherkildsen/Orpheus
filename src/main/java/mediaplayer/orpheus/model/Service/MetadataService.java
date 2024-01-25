@@ -27,6 +27,12 @@ public class MetadataService {
         setFilepath (filepath);
     }
 
+    /**
+     * AudioTagger returns NULL if a tag is invalid,
+     * If the tag is invalid the file must have an issue of sorts.
+     * So we return false for later use.
+     * @return boolean
+     */
     private boolean checkValidTagsMp3(){
         AudioFile audioFile;
         try {
@@ -53,6 +59,11 @@ public class MetadataService {
         }
     }
 
+    /**
+     * We check if the file is a Mp3 or Mp4 then we do something with that information.
+     * @throws SQLException
+     * @throws IOException
+     */
     public void mp3OrMp4() throws SQLException, IOException {
         debugMessage.debug(this,"Deciding if Mp3 or Mp4");
 
@@ -62,8 +73,10 @@ public class MetadataService {
         switch (getFiletype()) {
             case "mp3":
                 if (checkValidTagsMp3()){
+                    //If its a valid mp3 file we'll move on.
                     insertAndGatherMediaMp3();
                 } else{
+                    //If we are getting invalid tags, then we'll stop here and let the user know the file is unusable.
                     AlertPopup error = new AlertPopup("Corrupt MP3","The MP3 file you're trying to import is corrupt.");
                     error.showError();
                     return;
@@ -76,6 +89,11 @@ public class MetadataService {
         }
     }
 
+    /**
+     * Lets insert a mp3 file into the DB
+     * @throws IOException
+     * @throws SQLException
+     */
     private void insertAndGatherMediaMp3() throws IOException, SQLException {
         debugMessage.debug(this,"MP3 - Attempting to Insert into DB.");
 
@@ -96,6 +114,11 @@ public class MetadataService {
         debugMessage.debug(this,"MP3 - Inserting into DB Complete");
     }
 
+    /**
+     * Lets make a media object with information.
+     * @return
+     * @throws IOException
+     */
     private ImportMedia getImportMediaMp3() throws IOException {
         MetaExtractorMp3 song = new MetaExtractorMp3(getFilePath());
 
@@ -112,6 +135,11 @@ public class MetadataService {
             );
     }
 
+    /**
+     * Gather data for Mp4 file and insert it into a DB.
+     * @throws SQLException
+     * @throws IOException
+     */
     private void insertAndGatherMediaMp4() throws SQLException, IOException {
         debugMessage.debug(this,"MP4 - Attempting to Insert into DB");
 
